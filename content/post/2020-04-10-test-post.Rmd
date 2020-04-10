@@ -9,7 +9,7 @@ tags: []
 
 Let's see what happens when I try code --- I'm copying and pasting code from [here](https://www.r-graph-gallery.com/294-basic-ridgeline-plot.html#color)
 
-```{r}
+```{r message=FALSE,warning=FALSE,echo=FALSE}
 # library
 library(ggridges)
 library(ggplot2)
@@ -31,7 +31,7 @@ ggplot(lincoln_weather, aes(x = `Mean Temperature [F]`, y = `Month`, fill = ..x.
 Ok, so what about tables? Grabbing code from [here](https://gt.rstudio.com/)
 
 
-```{r}
+```{r message=FALSE,warning=FALSE,echo=FALSE}
 library(gt)
 library(tidyverse)
 library(glue)
