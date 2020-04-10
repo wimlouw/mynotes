@@ -319,3 +319,9 @@ code {
     box-shadow: none;
   }
 }
+
+//adding image size rules
+
+img {
+  width: 100%;
+}
