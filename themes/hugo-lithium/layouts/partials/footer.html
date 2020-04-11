@@ -1,14 +1,17 @@
-      <footer class="footer">
-        <ul class="footer-links">
-          <li>
+<footer class="footer">
+    <ul class="footer-links">
+        <li>
             <a href="https://gohugo.io/" class="footer-links-kudos">Made with <img src="{{ "images/hugo-logo.png" | relURL }}" alt="Img link to Hugo website" width="22" height="22"></a>
-          </li>
-        </ul>
-      </footer>
+        </li>
+        <li>
+            <a href="https://bookdown.org/yihui/blogdown/" class="footer-links-kudos">Thanks to <img src="{{ "images/blogdown-logo.png" | relURL }}" alt="Img link to blogdown: Creating Websites with R Markdown
+by Yihui Xie, Amber Thomas, Alison Presmanes Hill" width="15" height="22"></a>
+        </li>
+    </ul>
+</footer>
 
-    </div>
-    {{ partial "footer_highlightjs" . }}
-    {{ partial "footer_mathjax" . }}
-    {{ template "_internal/google_analytics.html" . }}
-  </body>
+</div>
+{{ partial "footer_highlightjs" . }} {{ partial "footer_mathjax" . }} {{ template "_internal/google_analytics.html" . }}
+</body>
+
 </html>
