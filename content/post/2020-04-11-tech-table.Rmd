@@ -1,0 +1,120 @@
+---
+title: Tech table
+author: Wim Louw
+date: '2020-04-11'
+categories:
+  - resources
+  - work
+  - tables
+tags:
+  - work
+  - productivity
+slug: tech-table
+---
+
+## Suggested tools
+
+Testing out a table layout for common office tools. A variation on the resources page.
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+library(tidyverse)
+library(DT)
+library(kableExtra)
+library(janitor)
+
+
+all <- data.frame(
+  stringsAsFactors = FALSE,
+  Tool = c(
+    "LastPass",
+    "Zoom",
+    "Zoom add-on",
+    "Dropbox Paper",
+    "Zapier",
+    "Trello",
+    "Trello Google Mail add-in",
+    "Asana",
+    "Toggl",
+    "Airtable",
+    "Slack",
+    "Veracrypt",
+    "Boxcryptor",
+    "Lucidchart"
+  ),
+  URL = c(
+    "https://lastpass.com/?&ac=1",
+    "https://zoom.us/",
+    "https://support.zoom.us/hc/en-us/articles/360000355223-Gmail-Add-On",
+    "https://www.dropbox.com/paper",
+    "https://zapier.com/",
+    "https://trello.com/",
+    "https://gsuite.google.com/marketplace/app/trello_for_gmail/710372432947",
+    "https://asana.com/",
+    "https://toggl.com/",
+    "https://airtable.com/",
+    "https://slack.com/",
+    "https://www.veracrypt.fr/en/Home.html",
+    "https://www.boxcryptor.com/en/",
+    "https://www.lucidchart.com/pages/"
+  ),
+  Usecase = c(
+    "Password management and secure sharing",
+    "Internal team calls",
+    "Scheduling calendar events from Google Calendar",
+    "Agendas. Uses Markdown syntax. For project docs or collaborative writing, we find Google Docs a better option",
+    "A tool for linking different types of services — one use case is: adding starred emails to your Trello board",
+    "One suggestion for organising your to-dos",
+    "For sending tasks to your Trello board from G-mail",
+    "An alternative task management platform",
+    "Time tracking",
+    "This can be used in so many different ways. Can also be used as a task or project organisation system, or CRM. We use it to manage job application (linking Jotform and Airtable through Zapier)",
+    "The JHB Office Slack group has a number of topic and project specific channels",
+    "For creating encrypted partitions on your computer",
+    "For cloud encryption (pii data being shared or stored on Dropbox)",
+    "Flowcharting"
+  ),
+  Notes = c(
+    NA,
+    NA,
+    NA,
+    NA,
+    NA,
+    NA,
+    NA,
+    NA,
+    "See also: https://en.wikipedia.org/wiki/Pomodoro_Technique",
+    NA,
+    NA,
+    "See also: https://www.povertyactionlab.org/page/working-data",
+    "See also: https://www.povertyactionlab.org/page/working-data",
+    NA
+  ),
+  Type = c(
+    "data security",
+    "comms",
+    "comms",
+    "productivity",
+    "productivity",
+    "productivity",
+    "productivity",
+    "productivity",
+    "productivity",
+    "productivity",
+    "comms",
+    "data security",
+    "data security",
+    "productivity"
+  )
+)
+
+all <- all %>%
+  mutate(
+    tool = paste0('<a href="', URL, '">', Tool, "</a>")
+  ) %>%
+  select(tool, Usecase, Type) %>% janitor::clean_names()
+
+DT::datatable(all, escape = FALSE, rownames = FALSE, options = list(dom = 'ft'))
+
+
+```
+
