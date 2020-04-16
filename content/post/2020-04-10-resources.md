@@ -18,7 +18,7 @@ slug: resources
 - [RMarkdown Driven Development | Emily Riederer](https://emilyriederer.netlify.com/post/rmarkdown-driven-development/)
 - [The Plain Person’s Guide to Plain Text Social Science | Kieran Healy](http://plain-text.co/)[^1]
 - [Online Diagram Software & Visual Solution | Lucidchart](https://www.lucidchart.com/pages/)
-- This book draft [Shape Up](https://basecamp.com/shapeup), written by basecamp product developers "[...] is for product development teams who struggle to shape, build, and ship. Written by the innovators behind Basecamp—one of the biggest and longest-running software as a service apps—the book gives teams language and specific techniques to address the risks and unknowns at each stage of the product development process"
+- [Shape Up](https://basecamp.com/shapeup)
 
 ---
 
@@ -48,8 +48,8 @@ slug: resources
 ---
 
 ## spreadsheets
-- [Data organization in spreadsheets](https://peerj.com/preprints/3183/) by Karl W Broman, Kara H. Woo[^2] 
-- [Best Practices for Using Google Sheets in Your Data Project](https://matthewlincoln.net/2018/03/26/best-practices-for-using-google-sheets-in-your-data-project.html) by Matthew Lincoln
+- [Data organization in spreadsheets | Karl W Broman, Kara H. Woo](https://peerj.com/preprints/3183/)[^2] 
+- [Best Practices for Using Google Sheets in Your Data Project | Matthew Lincoln](https://matthewlincoln.net/2018/03/26/best-practices-for-using-google-sheets-in-your-data-project.html)
 
 ---
 
@@ -58,7 +58,7 @@ slug: resources
 - [reactable](https://github.com/glin/reactable) or [here](https://glin.github.io/reactable/index.html)
 - [How to make beautiful tables in R](https://rfortherestofus.com/2019/11/how-to-make-beautiful-tables-in-r/)
 - [Create Awesome HTML Table with knitr::kable and kableExtra](https://cran.r-project.org/web/packages/kableExtra/vignettes/awesome_table_in_html.html)
--  [Add a Generated Table of Contents Anywhere in R Markdown](https://www.garrickadenbuie.com/blog/2018/02/28/add-a-generated-table-of-contents-anywhere-in-rmarkdown/) by Garrick Aden-Buie
+-  [Add a Generated Table of Contents Anywhere in R Markdown | Garrick Aden-Buie](https://www.garrickadenbuie.com/blog/2018/02/28/add-a-generated-table-of-contents-anywhere-in-rmarkdown/)
 
 ---
 
@@ -72,12 +72,12 @@ Introduction to LATEX 2ε | Tobias Oetiker, Hubert Partl, Irene Hyna and Elisabe
 ---
 
 ## troubleshooting
- - [How to ask good questions](https://jvns.ca/blog/good-questions/) by Julia Evans
- - [Do you have time for a quick chat?](https://medium.com/@treycausey/do-you-have-time-for-a-quick-chat-c3f7e46de89d) by Trey Causey
- - Trouble-shooting: Join/search [Stackoverflow](https://stackoverflow.com/) 
+ - [How to ask good questions | Julia Evans](https://jvns.ca/blog/good-questions/)
+ - [Do you have time for a quick chat? | Trey Causey](https://medium.com/@treycausey/do-you-have-time-for-a-quick-chat-c3f7e46de89d)
+ - [Stackoverflow](https://stackoverflow.com/) 
  - [The R Studio Community Page](https://community.rstudio.com/)
- - Reproducible examples ("reprex"): ["So you’ve been asked to make a reprex"](https://www.jessemaegan.com/post/so-you-ve-been-asked-to-make-a-reprex/) by Jesse Mostipak
- - [How Do I?](https://smach.github.io/R4JournalismBook/HowDoI.html) by Sharon Machlish
+ - [So you’ve been asked to make a reprex | Jesse Mostipak](https://www.jessemaegan.com/post/so-you-ve-been-asked-to-make-a-reprex/)
+ - [How Do I? | Sharon Machlish](https://smach.github.io/R4JournalismBook/HowDoI.html)
 
 ---
 
@@ -92,9 +92,9 @@ Introduction to LATEX 2ε | Tobias Oetiker, Hubert Partl, Irene Hyna and Elisabe
 ## Notes
 - [Dropbox Paper](https://www.dropbox.com/paper)
 - [Bear - Notes for iPhone, iPad and Mac](https://bear.app/)
-- [Notion – The all-in-one workspace for your notes, tasks, wikis, and databases.](https://www.notion.so/work)
+- [Notion – The all-in-one workspace for your notes, tasks, wikis, and databases](https://www.notion.so/work)
 - [StackEdit](https://stackedit.io/)
-- [Roam Research – A note taking tool for networked thought.](https://roamresearch.com/)
+- [Roam Research – A note taking tool for networked thought](https://roamresearch.com/)
 - [Getting started with TiddlyWiki: a beginner’s tutorial - Ness Labs](https://nesslabs.com/tiddlywiki-beginner-tutorial)
 
 ---
@@ -122,27 +122,25 @@ Introduction to LATEX 2ε | Tobias Oetiker, Hubert Partl, Irene Hyna and Elisabe
 ## R
 - [Install base R](https://www.r-project.org/); then
 - [Install RStudio UI](https://www.rstudio.com/products/rstudio/download/) (highly recommended)[^7]
-- [R for data science](http://r4ds.had.co.nz/) by Garrett Grolemund and Hadley Wickham 
+- [R for data science | Garrett Grolemund and Hadley Wickham](http://r4ds.had.co.nz/) 
 - Learn R in R with [Swirl](http://swirlstats.com/) 
 - See the [RStudio Cheat Sheet, and others](https://www.rstudio.com/resources/cheatsheets/#ide)
-- [The tidyverse style guide](http://style.tidyverse.org/) by Hadley Wickham
-- [Tidy Data](https://vita.had.co.nz/papers/tidy-data.pdf) by Hadley Wickham
+- [The tidyverse style guide](http://style.tidyverse.org/)
+- [Tidy Data](https://vita.had.co.nz/papers/tidy-data.pdf)
 - [An introduction to R](http://colinfay.me/intro-to-r/) (intro to base R)
-- [R Language Definition](https://cran.r-project.org/doc/manuals/r-release/R-lang.html#Introduction) by the R Core Team 
-- See [R Markdown: The Definitive Guide](https://bookdown.org/yihui/rmarkdown/) by Yihui Xie, J. J. Allaire, and Garrett Grolemund
+- [R Language Definition](https://cran.r-project.org/doc/manuals/r-release/R-lang.html#Introduction)
+- See [R Markdown: The Definitive Guide | Yihui Xie, J. J. Allaire, and Garrett Grolemund](https://bookdown.org/yihui/rmarkdown/)
 - [knitcitations](https://github.com/cboettig/knitcitations). Dynamic citations on R Markdown
 
 ---
 
 ## version control
-- [Excuse me, do you have a moment to talk about version control?](https://peerj.com/preprints/3159/) by Jennifer Bryan
-- [Happy with Git](http://happygitwithr.com/) by Jennifer Bryan
-- [Git in Practice](https://github.com/GitInPractice/GitInPractice#readme) by Mike McQuaid
-- [Git troubleshooting](http://justinhileman.info/article/git-pretty/?utm_content=buffer125f2&utm_medium) 
-- Git with a shared Dropbox folder, [see here](http://jetheis.com/blog/2013/02/17/using-dropbox-as-a-private-github/)
-- GitHub [Learning Lab](https://lab.github.com/courses)
+- [Excuse me, do you have a moment to talk about version control? | Jennifer Bryan](https://peerj.com/preprints/3159/)
+- [Happy with Git | Jennifer Bryan](http://happygitwithr.com/)
+- [Git in Practice | Mike McQuaid](https://github.com/GitInPractice/GitInPractice#readme)
+- [GitHub Learning Lab](https://lab.github.com/courses)
 - [GitLab](https://about.gitlab.com)
-- [Setup Git RStudio GitLab](https://gitlab.com/HeidiSeibold/setup-git-rstudio-gitlab) by Heidi Seibold
+- [Setup Git RStudio GitLab | Heidi Seibold](https://gitlab.com/HeidiSeibold/setup-git-rstudio-gitlab)
 - [How to use Google Drive's version control](https://sites.google.com/site/scriptsexamples/home/announcements/named-versions-new-version-history-google-docs)
 
 ---
@@ -156,7 +154,7 @@ Introduction to LATEX 2ε | Tobias Oetiker, Hubert Partl, Irene Hyna and Elisabe
 
 ## dataviz
 - [From data to viz](https://www.data-to-viz.com/)
-- [Fundamentals of Data Visualization](https://serialmentor.com/dataviz/) by Claus O. Wilke
+- [Fundamentals of Data Visualization | Claus O. Wilke](https://serialmentor.com/dataviz/)
 - [Data Stories](https://datastori.es/), "a podcast on data visualization" with Enrico Bertini and Moritz Stefaner
 - [RawGraphs](https://rawgraphs.io/) 
 - [Tableau (public)](https://public.tableau.com/en-us/s/) 
@@ -185,7 +183,7 @@ Introduction to LATEX 2ε | Tobias Oetiker, Hubert Partl, Irene Hyna and Elisabe
 
 ---
 
-## python
+## Python
 - [The PySD Cookbook](https://pysd-cookbook.readthedocs.io/en/latest/index.html) "Simple recipes for powerful analysis of system dynamics models"
 - [R Interface to Python](https://rstudio.github.io/reticulate/index.html)
 - [Statistics in Python](https://people.duke.edu/~ccc14/sta-663/IntroductionToPythonSolutions.html) 
@@ -201,7 +199,7 @@ Introduction to LATEX 2ε | Tobias Oetiker, Hubert Partl, Irene Hyna and Elisabe
 - [Chromebook Data Science - a free online data science program for anyone with a web browser](https://simplystatistics.org/2018/10/01/chromebook-data-science-an-online-data-science-program-for-anyone-with-a-web-browser/)
 - [CS50's Introduction to Computer Science](https://www.edx.org/course/cs50s-introduction-computer-science-harvardx-cs50x)
 - [Learning Statistics on Youtube](https://www.r-bloggers.com/learning-statistics-on-youtube/) — various courses 
-- [Machine learning](https://www.coursera.org/learn/machine-learning) — taught by *Andrew Ng*
+- [Machine learning](https://www.coursera.org/learn/machine-learning) — taught by Andrew Ng
 - [Beginning Bayes in R](https://www.datacamp.com/courses/beginning-bayes-in-r?tap_a=5644-dce66f&tap_s=10907-287229)
 - [Coursera data science specialization](https://www.coursera.org/specializations/jhu-data-science)
 
@@ -209,16 +207,16 @@ Introduction to LATEX 2ε | Tobias Oetiker, Hubert Partl, Irene Hyna and Elisabe
 ---
 
 ## productivity rabbit hole
--  [Getting Things Done - Wikipedia](https://en.wikipedia.org/wiki/Getting_Things_Done)
-- [Atomic Habits: Tiny Changes, Remarkable Results by James Clear](https://jamesclear.com/atomic-habits)
+- [Getting Things Done - Wikipedia](https://en.wikipedia.org/wiki/Getting_Things_Done)
+- [Atomic Habits: Tiny Changes, Remarkable Results | James Clear](https://jamesclear.com/atomic-habits)
 - [Dan Charnas: Using Lessons From Great Chefs To Help Us ‘Work Clean’](https://www.forbes.com/sites/shawnsetaro/2016/04/27/work-clean/#3c41e9e4fb20)
 - [Evergreen note-writing as fundamental unit of knowledge work](https://notes.andymatuschak.org/Evergreen_note-writing_as_fundamental_unit_of_knowledge_work)
-- [Amazon.com: How to Take Smart Notes: One Simple Technique to Boost Writing,  Learning and Thinking ](https://www.amazon.com/How-Take-Smart-Notes-Nonfiction-ebook/dp/B06WVYW33Y)
+- [Amazon.com: How to Take Smart Notes: One Simple Technique to Boost Writing, Learning and Thinking ](https://www.amazon.com/How-Take-Smart-Notes-Nonfiction-ebook/dp/B06WVYW33Y)
 
 ---
 
 ## writing
-- [Several Short Sentences About Writing](https://www.amazon.com/Several-Short-Sentences-About-Writing/dp/0307279413) by Verlyn Klinkenborg. I love this little book!
+- [Several Short Sentences About Writing | Verlyn Klinkenborg](https://www.amazon.com/Several-Short-Sentences-About-Writing/dp/0307279413)
 
 ---
 
@@ -253,7 +251,7 @@ Applications |  Judea Pearl, Madelyn Glymour, Nicholas P. Jewell](http://web.cs.
 - [diffobj - Diffs for R Objects](https://github.com/brodieG/diffobj) --- "Generate a colorized diff of two R objects for an intuitive visualization of their differences."
 - [Declaring and diagnosing research designs](https://blogs.worldbank.org/impactevaluations/declaring-and-diagnosing-research-designs). See the [website](https://declaredesign.org/) "DeclareDesign is an R package full of tools to help researchers “declare” and “diagnose” designs before implementing them."
 - [Packaging data analytical work reproducibly using R (and friends)"](https://peerj.com/preprints/3192/) in PeerJ Preprints
-- [Prime Hints For Running A Data Project In R](https://kkulma.github.io/2018-03-18-Prime-Hints-for-Running-a-data-project-in-R/) by Kasia Kulma
+- [Prime Hints For Running A Data Project In R | Kasia Kulma](https://kkulma.github.io/2018-03-18-Prime-Hints-for-Running-a-data-project-in-R/)
 
 
 ---
