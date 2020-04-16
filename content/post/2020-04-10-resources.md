@@ -14,9 +14,9 @@ slug: resources
 
 
 ## workflow
-- [Good enough practices in scientific computing](http://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1005510) by Greg Wilson, Jennifer Bryan, and others
-- [RMarkdown Driven Development](https://emilyriederer.netlify.com/post/rmarkdown-driven-development/) by Emily Riederer
-- [The Plain Person’s Guide to Plain Text Social Science](http://plain-text.co/) by Kieran Healy[^1]
+- [Good enough practices in scientific computing | Greg Wilson, Jennifer Bryan, and others](http://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1005510)
+- [RMarkdown Driven Development | Emily Riederer](https://emilyriederer.netlify.com/post/rmarkdown-driven-development/)
+- [The Plain Person’s Guide to Plain Text Social Science | Kieran Healy](http://plain-text.co/)[^1]
 - [Online Diagram Software & Visual Solution | Lucidchart](https://www.lucidchart.com/pages/)
 - This book draft [Shape Up](https://basecamp.com/shapeup), written by basecamp product developers "[...] is for product development teams who struggle to shape, build, and ship. Written by the innovators behind Basecamp—one of the biggest and longest-running software as a service apps—the book gives teams language and specific techniques to address the risks and unknowns at each stage of the product development process"
 
@@ -35,6 +35,7 @@ slug: resources
 - [Best practices for conducting phone surveys](https://www.povertyactionlab.org/blog/3-20-20/best-practices-conducting-phone-surveys)
 - [Surveying Young Workseekers in South Africa](https://www.saldru.uct.ac.za/2019/09/27/surveying-young-workseekers-in-south-africa/)
 - SurveyCTO  [Computer-assisted telephone interviewing (CATI) starter kit](https://support.surveycto.com/hc/en-us/articles/360044958494-Computer-assisted-telephone-interviewing-CATI-starter-kit)
+
 ---
 
 ## diagrams, charts, images
@@ -45,6 +46,7 @@ slug: resources
 - [Patchwork](https://github.com/thomasp85/patchwork) (R ggplot2)
 
 ---
+
 ## spreadsheets
 - [Data organization in spreadsheets](https://peerj.com/preprints/3183/) by Karl W Broman, Kara H. Woo[^2] 
 - [Best Practices for Using Google Sheets in Your Data Project](https://matthewlincoln.net/2018/03/26/best-practices-for-using-google-sheets-in-your-data-project.html) by Matthew Lincoln
@@ -116,6 +118,7 @@ Introduction to LATEX 2ε | Tobias Oetiker, Hubert Partl, Irene Hyna and Elisabe
   - [fastpages | An easy to use blogging platform with support for Jupyter Notebooks.](https://fastpages.fast.ai/)
 
 ---
+
 ## R
 - [Install base R](https://www.r-project.org/); then
 - [Install RStudio UI](https://www.rstudio.com/products/rstudio/download/) (highly recommended)[^7]
@@ -141,6 +144,7 @@ Introduction to LATEX 2ε | Tobias Oetiker, Hubert Partl, Irene Hyna and Elisabe
 - [GitLab](https://about.gitlab.com)
 - [Setup Git RStudio GitLab](https://gitlab.com/HeidiSeibold/setup-git-rstudio-gitlab) by Heidi Seibold
 - [How to use Google Drive's version control](https://sites.google.com/site/scriptsexamples/home/announcements/named-versions-new-version-history-google-docs)
+
 ---
 
 ## data
