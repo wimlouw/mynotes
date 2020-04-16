@@ -24,7 +24,7 @@ slug: resources
 
 ## RA resources
 - [J-PAL Research Resources](https://www.povertyactionlab.org/research-resources)
-- [IPA "Research Resources"](https://www.poverty-action.org/researchers/research-resources)
+- [IPA Research Resources](https://www.poverty-action.org/researchers/research-resources)
 - [Setting up a data science “stack" full instructions + resources](https://ubc-mds.github.io/resources_pages/installation_instructions/) from the University of British Columbia’s Master of Data Science program. Great set-up guide! (git, pandoc, LaTeX, Make, Docker, R, &c., &c.)
 - [SurveyCTO](https://www.surveycto.com/)[^6] 
 - ["Print SurveyCTO"](http://ppp.pma2020.org)
