@@ -37,6 +37,8 @@ link-citations: yes
 
 > Blah blah [ @vanderbergResourceShiftsSouth2001; @edwardb.fiskeElusiveEquityEducation2004]
 
+OK.
+
 
 # References
 
