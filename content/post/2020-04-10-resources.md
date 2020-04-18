@@ -64,7 +64,7 @@ slug: resources
 
 ## LaTeX
  - [The Not So Short
-Introduction to LATEX 2ε | Tobias Oetiker, Hubert Partl, Irene Hyna and Elisabeth Schlegl](https://tobi.oetiker.ch/lshort/lshort.pdf))
+Introduction to LATEX 2ε | Tobias Oetiker, Hubert Partl, Irene Hyna and Elisabeth Schlegl](https://tobi.oetiker.ch/lshort/lshort.pdf)
 - [Overleaf](https://www.overleaf.com/blog/654-overleaf-v2-launch-announcement#.W6ku-GgzbIU) 
 - [Mathpix](https://mathpix.com) "Convert images to LaTeX"
 - [Tables Generator](https://www.tablesgenerator.com) for creating simple Markdown and LaTeX tables interactively
