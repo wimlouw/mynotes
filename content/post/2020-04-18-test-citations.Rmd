@@ -37,6 +37,11 @@ link-citations: yes
 
 > Blah blah [ @vanderbergResourceShiftsSouth2001; @edwardb.fiskeElusiveEquityEducation2004]
 
+> Van der Berg says blah [-@vanderbergResourceShiftsSouth2001].
+
+> @vanderbergResourceShiftsSouth2001 says blah.
+
+
 OK.
 
 
