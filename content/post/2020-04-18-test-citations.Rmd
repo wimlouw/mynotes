@@ -21,8 +21,9 @@ link-citations: yes
 - [Adding citations to posts - A minimal example website using blogdown](https://blogdown-demo.rbind.io/2017/08/28/adding-citations-to-posts/)
 - [Bibliographies and Citations in R Markdown](https://rmarkdown.rstudio.com/authoring_bibliographies_and_citations.html#citations)
 - [GitHub - crsh/citr: RStudio Addin to Insert Markdown Citations](https://github.com/crsh/citr)
-- I installed Zotero, and [Better BibTeX for Zotero :: Better BibTeX for Zotero](http://retorque.re/zotero-better-bibtex/)
+- I installed Zotero, and [Better BibTeX for Zotero](http://retorque.re/zotero-better-bibtex/)
 - [Primer — An Introduction to CSL — Citation Style Language 1.0.1-dev documentation](http://docs.citationstyles.org/en/1.0.1/primer.html)
+- [knitcitations](https://github.com/cboettig/knitcitations). Dynamic citations on R Markdown
 
 # Test
 
