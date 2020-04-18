@@ -260,7 +260,7 @@ Applications |  Judea Pearl, Madelyn Glymour, Nicholas P. Jewell](http://web.cs.
 [^2]: See https://peerj.com/collections/50-practicaldatascistats/
 [^3]: See also ["Find Work-Life Focus: A Trello Insider's Guide To Personal Productivity"](https://blog.trello.com/work-life-focus-trello-insider-guide-personal-productivity?hs_amp=true) and ["How To Become A Project Management Master With Trello"](https://blog.trello.com/project-management-power-ups). The [Gmail add-on](https://help.trello.com/article/1120-trello-for-gmail-add-on) is also useful]
 [^4]: See also the [Gmail add-on](https://asana.com/guide/help/api/gmail-add-on)
-[^5]: Useful for coordinating discussions and todos around themes/topics on a project with a large-ish team. I think Slack can be very distracting/scattered though
+[^5]: Useful for coordinating discussions and todos around themes/topics on a project with a large-ish team.
 [^6]: See also coding advice on SCTO see the World Bank's Development Impact Evaluation (DIME) unit's set of resources [here](https://dimewiki.worldbank.org/wiki/SurveyCTO_Coding_Practices)
 [^7]: I <3 the [styler](https://github.com/r-lib/styler) and [datapasta](https://github.com/MilesMcBain/datapasta) and [littleboxes](https://github.com/ThinkR-open/littleboxes) RStudio add-ins! Here's a post I saw on some others: ["RStudio addins, or how to make your coding life easier"](https://www.statsandr.com/blog/rstudio-addins-or-how-to-make-your-coding-life-easier/)
 
