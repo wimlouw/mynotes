@@ -29,9 +29,12 @@ all <- read_csv("tech-table.csv") %>%
   ) %>%
   select(tool, notes, type)
 
-datatable(all, escape = FALSE, options = list(
-  pageLength = 16
-))
+datatable(
+  all,
+  escape = FALSE,
+  rownames = FALSE,
+  options = list(pageLength = 16, dom = "ft")
+)
 
 
 ```
