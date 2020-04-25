@@ -1,0 +1,17 @@
+tool,url,notes,type
+Slack,https://slack.com/,"Team chat, workspaces, channles, many intergrations available",comms
+Zoom,https://zoom.us/,"Team calls, webinars",comms
+Zoom add-on,https://support.zoom.us/hc/en-us/articles/360000355223-Gmail-Add-On,Scheduling calendar events from Google Calendar,comms
+Boxcryptor,https://www.boxcryptor.com/en/,"For cloud encryption. ""Boxcryptor encrypts your sensitive files and folders in Dropbox, Google Drive, OneDrive and many other cloud storages.""",data security
+LastPass,https://lastpass.com/?&ac=1,Password manager and secure sharing,data security
+Veracrypt,https://www.veracrypt.fr/en/Home.html,For creating encrypted partitions,data security
+Airtable,https://airtable.com/,"""Part spreadsheet, part database, and entirely flexible, teams use Airtable to organize their work, their way."" This can be used in many different ways. It can also be used as a task or project organisation system, or CRM",productivity
+Asana,https://asana.com/,An alternative task management platform,productivity
+Dropbox Paper,https://www.dropbox.com/paper,"Great for agendas and notes. Markdown syntax, embed various types of media, Dropbox files, &c. Create quick slides. I prefer Google Docs for project ""hubs"" or collaborative writing",productivity
+Toggl,https://toggl.com/,"Time tracking tool. Start, stop, capture. See how you spend your time",productivity
+Trello,https://trello.com/,"One suggestion for organising taks and projects. Boards, lists, cards",productivity
+Trello Google Mail add-in,https://gsuite.google.com/marketplace/app/trello_for_gmail/710372432947,For sending tasks to your Trello board from G-mail,productivity
+Zapier,https://zapier.com/,"""Connect your apps and automate workflows. Easy automation for busy people. Zapier moves info between your web apps automatically, so you can focus on your most important work."" Example: When I star an email in Gmail, add the email as a card on my ""inbox"" list in Trello""",productivity
+Bear,https://bear.app/,"A lovely note taking application  (iPhone, iPad, and Mac)",writing
+Roam,https://roamresearch.com/,"""A note-taking tool for networked thought. As easy to use as a document. As powerful as a graph database. Roam helps you organize your research for the long haul."" Non-linear note-taking",writing
+TiddlyWiki,https://nesslabs.com/tiddlywiki-beginner-tutorial,"Open-source ""non-linear"" note-taking",writing
