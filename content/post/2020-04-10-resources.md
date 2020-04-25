@@ -26,7 +26,7 @@ slug: resources
 - [Bear - Notes for iPhone, iPad and Mac](https://bear.app/) --- I use this for  drafting, and personal notes
 - [Evernote](https://evernote.com/)
 - [Roam Research](https://roamresearch.com/) --- "A note taking tool for networked thought." I use this for accumulating ideas, and material for “evergreen” notes[^1]
-- [Notion](https://www.notion.so/work) --- "The all-in-one workspace for your notes, tasks, wikis, and databases"
+- [Notion](https://www.notion.so/work) --- "The all-in-one workspace for your notes, tasks, wikis, and databases."
 - [StackEdit](https://stackedit.io/)
 - [Getting started with TiddlyWiki: a beginner’s tutorial - Ness Labs](https://nesslabs.com/tiddlywiki-beginner-tutorial) --- opensource "non-linear" note-taking option
 
