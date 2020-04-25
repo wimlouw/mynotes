@@ -1,5 +1,5 @@
 tool,url,notes,type
-Slack,https://slack.com/,"Team chat, workspaces, channles, many intergrations available",comms
+Slack,https://slack.com/,"Team chat, workspaces, channels, many integrations available",comms
 Zoom,https://zoom.us/,"Team calls, webinars",comms
 Zoom add-on,https://support.zoom.us/hc/en-us/articles/360000355223-Gmail-Add-On,Scheduling calendar events from Google Calendar,comms
 Boxcryptor,https://www.boxcryptor.com/en/,"For cloud encryption. ""Boxcryptor encrypts your sensitive files and folders in Dropbox, Google Drive, OneDrive and many other cloud storages.""",data security
