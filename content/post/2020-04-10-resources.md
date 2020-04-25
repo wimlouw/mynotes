@@ -189,7 +189,7 @@ Introduction to LATEX 2ε | Tobias Oetiker, Hubert Partl, Irene Hyna and Elisabe
 
 ---
 
-## courses
+## courses (needs an update)
 - [Data Analysis for Social Scientists](https://www.edx.org/course/data-analysis-social-scientists-mitx-14-310x-2)
 - [DSCI 521: Computing Platforms for Data Science](https://github.com/UBC-MDS/public/tree/master/courses/521_platforms)
 - [Chromebook Data Science - a free online data science program for anyone with a web browser](https://simplystatistics.org/2018/10/01/chromebook-data-science-an-online-data-science-program-for-anyone-with-a-web-browser/)
@@ -229,6 +229,7 @@ Introduction to LATEX 2ε | Tobias Oetiker, Hubert Partl, Irene Hyna and Elisabe
 ---
 
 ## causal inference
+- [Mostly Harmless Econometrics |](https://www.mostlyharmlesseconometrics.com/)
 - [Introduction to Econometrics with R](https://www.econometrics-with-r.org/index.html)
 - [Mixtape | Scott Cunningham](https://www.scunning.com/mixtape.html)
 - [Real Stats: Using Econometrics for Political Science and Public Policy | Bailey, Michael A](https://www.amazon.com/Real-Stats-Econometrics-Political-Science/dp/0199981949)
