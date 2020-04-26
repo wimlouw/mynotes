@@ -14,28 +14,32 @@ slug: resources
 
 
 ## workflow
-- [RMarkdown Driven Development | Emily Riederer](https://emilyriederer.netlify.com/post/rmarkdown-driven-development/)
 - [Good enough practices in scientific computing | Greg Wilson, Jennifer Bryan, and others](http://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1005510)
+  > "This paper presents a set of good computing practices that every researcher can adopt. [...] These practices, which encompass data management, programming, collaborating with colleagues, organizing projects, tracking work, and writing manuscripts, are drawn from a wide variety of published sources from our daily lives and from our work with volunteer organizations that have delivered workshops to over 11,000 people since 2010."
+- [RMarkdown Driven Development | Emily Riederer](https://emilyriederer.netlify.com/post/rmarkdown-driven-development/)
+  > "In this post, I describe RMarkdown Driven Development (RmdDD?): a progression of stages between a single ad-hoc RMarkdown script and more advanced and reusable data products like R projects and packages. This approach has numerous benefits."
 - [The Plain Person’s Guide to Plain Text Social Science | Kieran Healy](http://plain-text.co/)
-- [Shape Up](https://basecamp.com/shapeup)
+  > "As a beginning graduate student in the social sciences, what sort of software should you use to do your work? More importantly, what principles should guide your choices? I offer some general considerations and specific answers. The short version is: you should use tools that give you more control over the process of data analysis and writing. I recommend you write prose and code using a good text editor; analyze quantitative data with R and RStudio, or use Stata; minimize error by storing your work in a simple format (plain text is best), and make a habit of documenting what you’ve done."
+- [Shape Up | Basecamp](https://basecamp.com/shapeup)
+  > “Written by the innovators behind Basecamp—one of the biggest and longest-running software as a service apps—the book gives teams language and specific techniques to address the risks and unknowns at each stage of the product development process.”
 
 ---
 
 ## notes
 - [Dropbox Paper](https://www.dropbox.com/paper) --- I use this for call agendas and collaborative notes
-- [Bear - Notes for iPhone, iPad and Mac](https://bear.app/) --- I use this for  drafting, and personal notes
+- [Bear - Notes for iPhone, iPad and Mac](https://bear.app/) --- I use this for drafting, capturing articles I want to read, and personal notes
 - [Evernote](https://evernote.com/)
-- [Roam Research](https://roamresearch.com/) --- "A note taking tool for networked thought." I use this for accumulating ideas, and material for “evergreen” notes[^1]
+- [Roam Research](https://roamresearch.com/) --- "A note-taking tool for networked thought. As easy to use as a document. As powerful as a graph database." Non-linear note-taking. I use this for daily writing and specifically for accumulating ideas[^1]
 - [Notion](https://www.notion.so/work) --- "The all-in-one workspace for your notes, tasks, wikis, and databases."
-- [StackEdit](https://stackedit.io/)
-- [Getting started with TiddlyWiki: a beginner’s tutorial - Ness Labs](https://nesslabs.com/tiddlywiki-beginner-tutorial) --- opensource "non-linear" note-taking option
+- [StackEdit](https://stackedit.io/) --- "In-browser Markdown editor."
+- [Getting started with TiddlyWiki: a beginner’s tutorial - Ness Labs](https://nesslabs.com/tiddlywiki-beginner-tutorial) --- An open-source "non-linear" note-taking option
 
 ---
 
-## task tracking
-- [Trello](https://trello.com/)  --- I use this almost like a “ticket” system, for capturing/channeling work todos [^2]
+## task management
+- [Trello](https://trello.com/)  --- I use this like a “ticket” system, for capturing/channeling work todos [^2]
 - [Asana](https://asana.com/)
-- [Airtable](https://airtable.com/)
+- [Airtable](https://airtable.com/) --- "Part spreadsheet, part database, and entirely flexible, teams use Airtable to organize their work, their way."
 - [Slack](https://slack.com/)
 - [Zapier](https://zapier.com/)  --- I use this with Trello, and for automating repetitive tasks
 
