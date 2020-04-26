@@ -53,17 +53,19 @@ slug: resources
 ---
 
 ## RA resources
-- [J-PAL Research Resources](https://www.povertyactionlab.org/research-resources)
-- [IPA Research Resources](https://www.poverty-action.org/researchers/research-resources)
--  See also coding advice on SCTO see the World Bank's Development Impact Evaluation (DIME) unit's set of resources [here](https://dimewiki.worldbank.org/wiki/SurveyCTO_Coding_Practices)
+- [J-PAL Research Resources](https://www.povertyactionlab.org/research-resources) --- "J-PAL library of practical resources is available for researchers undertaking randomized evaluations and those teaching the technique to others."
+- [Innovations for Poverty Action Research Resources](https://www.poverty-action.org/researchers/research-resources) --- "Throughout the survey process, the IPA Research and Knowledge Management (RKM) Department is available as a key resource for project staff in the field."
+- [RECOVR Research Hub | Innovations for Poverty Action](https://www.poverty-action.org/recovr/research-hub) --- "The RECOVR Research Hub centralizes surveys, evaluations, and datasets documenting the impacts of the COVID-19 pandemic in low- and middle-income countries."
+- [Best practices for conducting phone surveys | J-PAL](https://www.povertyactionlab.org/blog/3-20-20/best-practices-conducting-phone-surveys) --- "This is a living document that aggregates crowd-sourced tips and factors to consider when conducting remote surveys (in particular phone surveys) while practicing social distancing."
+- [Surveying Young Workseekers in South Africa](https://www.saldru.uct.ac.za/2019/09/27/surveying-young-workseekers-in-south-africa/) --- Tips from J-PAL Africa’s Research Team
 - [Setting up a data science “stack" full instructions + resources](https://ubc-mds.github.io/resources_pages/installation_instructions/) from the University of British Columbia’s Master of Data Science program. Great set-up guide! (git, pandoc, LaTeX, Make, Docker, R, &c., &c.)
-- [SurveyCTO](https://www.surveycto.com/)
-- ["Print SurveyCTO"](http://ppp.pma2020.org)
-- [formr](https://formr.org)
-- [Ona](https://ona.io/home/)  
-- [Best practices for conducting phone surveys](https://www.povertyactionlab.org/blog/3-20-20/best-practices-conducting-phone-surveys)
-- [Surveying Young Workseekers in South Africa](https://www.saldru.uct.ac.za/2019/09/27/surveying-young-workseekers-in-south-africa/)
+- [SurveyCTO](https://www.surveycto.com/) --- "SurveyCTO is the most reliable, secure, and scalable mobile data collection platform for researchers and professionals working in offline settings." <3
 - SurveyCTO  [Computer-assisted telephone interviewing (CATI) starter kit](https://support.surveycto.com/hc/en-us/articles/360044958494-Computer-assisted-telephone-interviewing-CATI-starter-kit)
+- [SurveyCTO coding tips](https://dimewiki.worldbank.org/wiki/SurveyCTO_Coding_Practices) --- from the World Bank's Development Impact Evaluation unit
+- ["The Pretty PDF Printer for ODK forms"](http://ppp.pma2020.org)
+- [formr](https://formr.org) --- "chain simple surveys into long runs, use the power of R to generate pretty feedback and complex designs"
+- [Ona](https://ona.io/home/) --- "Collect. Share. Visualize data."  
+
 
 ---
 
