@@ -16,19 +16,19 @@ slug: resources
 ## workflow
 - [Good enough practices in scientific computing | Greg Wilson, Jennifer Bryan, and others](http://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1005510)
 
->"This paper presents a set of good computing practices that every researcher can adopt. [...] These practices, which encompass data management, programming, collaborating with colleagues, organizing projects, tracking work, and writing manuscripts, are drawn from a wide variety of published sources from our daily lives and from our work with volunteer organizations that have delivered workshops to over 11,000 people since 2010."
+  >*"This paper presents a set of good computing practices that every researcher can adopt. [...] These practices, which encompass data management, programming, collaborating with colleagues, organizing projects, tracking work, and writing manuscripts, are drawn from a wide variety of published sources from our daily lives and from our work with volunteer organizations that have delivered workshops to over 11,000 people since 2010."*
 
 - [RMarkdown Driven Development | Emily Riederer](https://emilyriederer.netlify.com/post/rmarkdown-driven-development/)
 
->"In this post, I describe RMarkdown Driven Development (RmdDD?): a progression of stages between a single ad-hoc RMarkdown script and more advanced and reusable data products like R projects and packages. This approach has numerous benefits."
+  >*"In this post, I describe RMarkdown Driven Development (RmdDD?): a progression of stages between a single ad-hoc RMarkdown script and more advanced and reusable data products like R projects and packages. This approach has numerous benefits."*
 
 - [The Plain Person’s Guide to Plain Text Social Science | Kieran Healy](http://plain-text.co/)
 
->"As a beginning graduate student in the social sciences, what sort of software should you use to do your work? More importantly, what principles should guide your choices? I offer some general considerations and specific answers. The short version is: you should use tools that give you more control over the process of data analysis and writing. I recommend you write prose and code using a good text editor; analyze quantitative data with R and RStudio, or use Stata; minimize error by storing your work in a simple format (plain text is best), and make a habit of documenting what you’ve done."
+  >*"As a beginning graduate student in the social sciences, what sort of software should you use to do your work? More importantly, what principles should guide your choices? I offer some general considerations and specific answers. The short version is: you should use tools that give you more control over the process of data analysis and writing. I recommend you write prose and code using a good text editor; analyze quantitative data with R and RStudio, or use Stata; minimize error by storing your work in a simple format (plain text is best), and make a habit of documenting what you’ve done."*
 
 - [Shape Up | Basecamp](https://basecamp.com/shapeup)
 
->“Written by the innovators behind Basecamp—one of the biggest and longest-running software as a service apps—the book gives teams language and specific techniques to address the risks and unknowns at each stage of the product development process.”
+  >*“Written by the innovators behind Basecamp—one of the biggest and longest-running software as a service apps—the book gives teams language and specific techniques to address the risks and unknowns at each stage of the product development process.”*
 
 ---
 
