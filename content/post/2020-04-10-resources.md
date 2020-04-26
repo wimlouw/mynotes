@@ -78,7 +78,7 @@ slug: resources
 ---
 
 ## spreadsheets & tables
-- [Data organization in spreadsheets | Karl W Broman, Kara H. Woo](https://peerj.com/preprints/3183/)
+- [Data organization in spreadsheets | Karl W Broman, Kara H. Woo](https://peerj.com/preprints/3183/) --- "Focusing on the data entry and storage aspects, this paper offers practical recommendations for organizing spreadsheet data to reduce errors and ease later analyses."
 - [Best Practices for Using Google Sheets in Your Data Project | Matthew Lincoln](https://matthewlincoln.net/2018/03/26/best-practices-for-using-google-sheets-in-your-data-project.html)
 - [Easily Create Presentation-Ready Display Tables • gt](https://gt.rstudio.com/) 
 - [reactable](https://github.com/glin/reactable) or [here](https://glin.github.io/reactable/index.html)
@@ -109,7 +109,7 @@ Introduction to LATEX 2ε | Tobias Oetiker, Hubert Partl, Irene Hyna and Elisabe
 ---
 
 ## dataviz
-- [From data to viz](https://www.data-to-viz.com/)
+- [From data to viz](https://www.data-to-viz.com/) --- "leads you to the most appropriate graph for your data. It links to the code to build it and lists common caveats you should avoid."
 - [Fundamentals of Data Visualization | Claus O. Wilke](https://serialmentor.com/dataviz/)
 - [Data Stories](https://datastori.es/), "a podcast on data visualization" with Enrico Bertini and Moritz Stefaner
 - [RawGraphs](https://rawgraphs.io/) 
