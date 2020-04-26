@@ -32,7 +32,7 @@ slug: resources
 
 ---
 
-## notes
+## taking notes
 - [Dropbox Paper](https://www.dropbox.com/paper) --- I use this for call agendas and collaborative notes
 - [Bear - Notes for iPhone, iPad and Mac](https://bear.app/) --- I use this for drafting, capturing articles I want to read, and personal notes
 - [Evernote](https://evernote.com/)
@@ -230,7 +230,7 @@ Introduction to LATEX 2ε | Tobias Oetiker, Hubert Partl, Irene Hyna and Elisabe
 ---
 
 ## podcasts
-- [Not so standard deviations](http://nssdeviations.com/) 
+- [Not so standard deviations](http://nssdeviations.com/) --- "Not So Standard Deviations: The Data Science Podcast Roger Peng and Hilary Parker talk about the latest in data science and data analysis in academia and industry." <3
 - [Data Stories](http://datastori.es)
 - [Becoming a data-scientist podcast](https://www.becomingadatascientist.com/category/podcast/) 
 - [Credibly Curious](https://soundcloud.com/crediblycurious)
@@ -273,7 +273,7 @@ Applications |  Judea Pearl, Madelyn Glymour, Nicholas P. Jewell](http://web.cs.
 
 ---
 
-[^1]: See Andy Matuschak's "[About these notes | Evergreen note-writing as fundamental unit of knowledge work | Evergreen notes](https://notes.andymatuschak.org/About_these_notes?stackedNotes=z3SjnvsB5aR2ddsycyXofbYR7fCxo7RmKW2be&stackedNotes=z4SDCZQeRo4xFEQ8H4qrSqd68ucpgE6LU155C)""
+[^1]: See Andy Matuschak's "[About these notes | Evergreen note-writing as fundamental unit of knowledge work | Evergreen notes](https://notes.andymatuschak.org/About_these_notes?stackedNotes=z3SjnvsB5aR2ddsycyXofbYR7fCxo7RmKW2be&stackedNotes=z4SDCZQeRo4xFEQ8H4qrSqd68ucpgE6LU155C)"
 [^2]: See [“Find Work-Life Focus: A Trello Insider’s Guide To Personal Productivity”](https://blog.trello.com/work-life-focus-trello-insider-guide-personal-productivity?hs_amp=true) and [“How To Become A Project Management Master With Trello”](https://blog.trello.com/project-management-power-ups). The [Gmail add-on](https://help.trello.com/article/1120-trello-for-gmail-add-on) is also useful
 [^3]: I <3 the [styler](https://github.com/r-lib/styler) and [datapasta](https://github.com/MilesMcBain/datapasta) and [littleboxes](https://github.com/ThinkR-open/littleboxes) RStudio add-ins! Here's a post I saw on some others: ["RStudio addins, or how to make your coding life easier"](https://www.statsandr.com/blog/rstudio-addins-or-how-to-make-your-coding-life-easier/)
 
