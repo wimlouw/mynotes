@@ -80,11 +80,10 @@ slug: resources
 ## spreadsheets & tables
 - [Data organization in spreadsheets | Karl W Broman, Kara H. Woo](https://peerj.com/preprints/3183/) --- "Focusing on the data entry and storage aspects, this paper offers practical recommendations for organizing spreadsheet data to reduce errors and ease later analyses."
 - [Best Practices for Using Google Sheets in Your Data Project | Matthew Lincoln](https://matthewlincoln.net/2018/03/26/best-practices-for-using-google-sheets-in-your-data-project.html)
-- [Easily Create Presentation-Ready Display Tables • gt](https://gt.rstudio.com/) 
+- [Easily Create Presentation-Ready Display Tables • gt](https://gt.rstudio.com/) --- "With the gt package, anyone can make wonderful-looking tables using the R programming language."
 - [reactable](https://github.com/glin/reactable) or [here](https://glin.github.io/reactable/index.html)
-- [How to make beautiful tables in R](https://rfortherestofus.com/2019/11/how-to-make-beautiful-tables-in-r/)
+- [How to make beautiful tables in R](https://rfortherestofus.com/2019/11/how-to-make-beautiful-tables-in-r/) <3
 - [Create Awesome HTML Table with knitr::kable and kableExtra](https://cran.r-project.org/web/packages/kableExtra/vignettes/awesome_table_in_html.html)
--  [Add a Generated Table of Contents Anywhere in R Markdown | Garrick Aden-Buie](https://www.garrickadenbuie.com/blog/2018/02/28/add-a-generated-table-of-contents-anywhere-in-rmarkdown/)
 - [Tables Generator](https://www.tablesgenerator.com) for creating simple Markdown and LaTeX tables interactively
 
 ---
