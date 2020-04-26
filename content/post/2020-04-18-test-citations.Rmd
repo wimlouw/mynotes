@@ -1,5 +1,5 @@
 ---
-title: Including citations (test)
+title: Including citations in a post
 author: Wim Louw
 date: '2020-04-18'
 categories:
@@ -30,21 +30,23 @@ link-citations: yes
 * Ok this is a test --- using some random sources I think I used for a paper a few years ago
 * I'm using the citr package, Zotero, and the Better BibTeX Zotero add-in
 
-> Blah, blah 
+  >*Blah, blah* 
+  
+  >*Blah blah [see @edwardb.fiskeElusiveEquityEducation2004, pp. 10-15; also @vanderbergResourceShiftsSouth2001 , ch. 3].*
+  
+  >*Blah blah [@edwardb.fiskeElusiveEquityEducation2004, pp. 5-9, 20-22 and passim].*
+  
+  >*Blah blah [ @vanderbergResourceShiftsSouth2001; @edwardb.fiskeElusiveEquityEducation2004]*
+  
+  >*Van der Berg says blah [-@vanderbergResourceShiftsSouth2001].*
+  
+  >*@vanderbergResourceShiftsSouth2001 says blah.*
+  
 
-> Blah blah [see @edwardb.fiskeElusiveEquityEducation2004, pp. xx-xx; also @vanderbergResourceShiftsSouth2001 , ch. x].
-
-> Blah blah [@edwardb.fiskeElusiveEquityEducation2004, pp. xx-xx, xx-xx and *passim*].
-
-> Blah blah [ @vanderbergResourceShiftsSouth2001; @edwardb.fiskeElusiveEquityEducation2004]
-
-> Van der Berg says blah [-@vanderbergResourceShiftsSouth2001].
-
-> @vanderbergResourceShiftsSouth2001 says blah.
-
-
-OK.
+OK, works!
 
 
 # References
+
+Ok, also works!
 
