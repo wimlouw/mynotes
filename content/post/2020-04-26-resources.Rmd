@@ -251,7 +251,7 @@ Introduction to LATEX 2ε | Tobias Oetiker, Hubert Partl, Irene Hyna and Elisabe
 - [Real Stats: Using Econometrics for Political Science and Public Policy | Bailey, Michael A](https://www.amazon.com/Real-Stats-Econometrics-Political-Science/dp/0199981949)
 - [Introductory Econometrics: A Modern Approach | Jeffrey M. Wooldridge](https://www.amazon.com/Introductory-Econometrics-Modern-Approach-MindTap/dp/1337558869/ref=sr_1_1?crid=H88STMT6330F&dchild=1&keywords=wooldridge+introductory+econometrics&qid=1586939151&s=books&sprefix=wooldrid%2Cstripbooks-intl-ship%2C415&sr=1-1)
 - [Introduction to Econometrics | James H., Watson, Mark W](https://www.amazon.com/Introduction-Econometrics-Pearson-Economics-James-ebook/dp/B07R5CFGD2/ref=sr_1_1?crid=3KLDPNSK1JJH&dchild=1&keywords=stock+and+watson+introduction+to+econometrics&qid=1586939223&s=books&sprefix=stock+and+wat%2Cstripbooks-intl-ship%2C424&sr=1-1)
-- [PRIMER”, Chapter 4: Counterfactuals and Their
+- ["PRIMER”, Chapter 4: Counterfactuals and Their
 Applications |  Judea Pearl, Madelyn Glymour, Nicholas P. Jewell](http://web.cs.ucla.edu/~kaoru/primer-ch4.pdf)
 - [Causal Inference | Hernán MA, Robins JM](https://www.hsph.harvard.edu/miguel-hernan/causal-inference-book/) 
 - [ModernDive: Statistical Inference via Data Science](https://moderndive.com/index.html)
