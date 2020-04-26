@@ -1,15 +1,17 @@
 ---
 title: Resources
 author: Wim Louw
-date: '2020-04-16'
+date: '2020-04-26'
 categories:
   - resources
 tags:
-  - tools
   - productivity
+  - tools
   - work
-  - links
-slug: resources
+slug: resources-2-test
+output:
+  blogdown::html_page:
+    toc: yes
 ---
 
 
