@@ -245,7 +245,7 @@ Introduction to LATEX 2ε | Tobias Oetiker, Hubert Partl, Irene Hyna and Elisabe
 ---
 
 ## causal inference
-- [Mostly Harmless Econometrics |](https://www.mostlyharmlesseconometrics.com/)
+- [Mostly Harmless Econometrics | Joshua D. Angrist & Jörn-Steffen Pischke](https://www.mostlyharmlesseconometrics.com/)
 - [Introduction to Econometrics with R](https://www.econometrics-with-r.org/index.html)
 - [Mixtape | Scott Cunningham](https://www.scunning.com/mixtape.html)
 - [Real Stats: Using Econometrics for Political Science and Public Policy | Bailey, Michael A](https://www.amazon.com/Real-Stats-Econometrics-Political-Science/dp/0199981949)
