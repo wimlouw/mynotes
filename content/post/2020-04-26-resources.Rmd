@@ -255,7 +255,8 @@ Introduction to LATEX 2ε | Tobias Oetiker, Hubert Partl, Irene Hyna and Elisabe
 Applications |  Judea Pearl, Madelyn Glymour, Nicholas P. Jewell](http://web.cs.ucla.edu/~kaoru/primer-ch4.pdf)
 - [Causal Inference | Hernán MA, Robins JM](https://www.hsph.harvard.edu/miguel-hernan/causal-inference-book/) 
 - [ModernDive: Statistical Inference via Data Science](https://moderndive.com/index.html)
--  [Data science for economists | Grant McDermott](https://www.google.com/url?q=https%3A%2F%2Fgithub.com%2Fuo-ec607%2Flectures&sa=D&sntz=1&usg=AFQjCNHFFTznBoeUT4oCXc_ILvRmBa1gnQ)
+-  [Data science for economists | Grant - McDermott](https://www.google.com/url?q=https%3A%2F%2Fgithub.com%2Fuo-ec607%2Flectures&sa=D&sntz=1&usg=AFQjCNHFFTznBoeUT4oCXc_ILvRmBa1gnQ)
+
 ---
 
 ## misc
