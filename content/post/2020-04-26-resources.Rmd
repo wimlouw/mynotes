@@ -57,7 +57,7 @@ output:
 ## RA resources
 - [J-PAL Research Resources](https://www.povertyactionlab.org/research-resources) --- "J-PAL library of practical resources is available for researchers undertaking randomized evaluations and those teaching the technique to others."
 - [Innovations for Poverty Action Research Resources](https://www.poverty-action.org/researchers/research-resources) --- "Throughout the survey process, the IPA Research and Knowledge Management (RKM) Department is available as a key resource for project staff in the field."
-- [RECOVR Research Hub | Innovations for Poverty Action](https://www.poverty-action.org/recovr/research-hub) --- "The RECOVR Research Hub centralizes surveys, evaluations, and datasets documenting the impacts of the COVID-19 pandemic in low- and middle-income countries."
+- [RECOVR Research Hub | Innovations for Poverty Action](https://www.poverty-action.org/recovr/research-hub) --- "...centralizes surveys, evaluations, and datasets documenting the impacts of the COVID-19 pandemic in low- and middle-income countries."
 - [Best practices for conducting phone surveys | J-PAL](https://www.povertyactionlab.org/blog/3-20-20/best-practices-conducting-phone-surveys) --- "This is a living document that aggregates crowd-sourced tips and factors to consider when conducting remote surveys (in particular phone surveys) while practicing social distancing."
 - [Surveying Young Workseekers in South Africa](https://www.saldru.uct.ac.za/2019/09/27/surveying-young-workseekers-in-south-africa/) --- Tips from J-PAL Africa’s Research Team
 - [Setting up a data science “stack" full instructions + resources](https://ubc-mds.github.io/resources_pages/installation_instructions/) from the University of British Columbia’s Master of Data Science program. Great set-up guide! (git, pandoc, LaTeX, Make, Docker, R, &c.)
@@ -83,8 +83,8 @@ output:
 - [Data organization in spreadsheets | Karl W Broman, Kara H. Woo](https://peerj.com/preprints/3183/) --- "Focusing on the data entry and storage aspects, this paper offers practical recommendations for organizing spreadsheet data to reduce errors and ease later analyses."
 - [Best Practices for Using Google Sheets in Your Data Project | Matthew Lincoln](https://matthewlincoln.net/2018/03/26/best-practices-for-using-google-sheets-in-your-data-project.html)
 - [Easily Create Presentation-Ready Display Tables • gt](https://gt.rstudio.com/) --- "With the gt package, anyone can make wonderful-looking tables using the R programming language."
-- [reactable](https://github.com/glin/reactable) or [here](https://glin.github.io/reactable/index.html)
 - [How to make beautiful tables in R](https://rfortherestofus.com/2019/11/how-to-make-beautiful-tables-in-r/) <3
+- [reactable](https://github.com/glin/reactable) --- "Interactive data tables for R, based on the React Table library and made with reactR."
 - [Create Awesome HTML Table with knitr::kable and kableExtra](https://cran.r-project.org/web/packages/kableExtra/vignettes/awesome_table_in_html.html)
 - [Tables Generator](https://www.tablesgenerator.com) for creating simple Markdown and LaTeX tables interactively
 
