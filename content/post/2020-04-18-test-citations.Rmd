@@ -22,8 +22,9 @@ link-citations: yes
 - [Bibliographies and Citations in R Markdown](https://rmarkdown.rstudio.com/authoring_bibliographies_and_citations.html#citations)
 - [GitHub - crsh/citr: RStudio Addin to Insert Markdown Citations](https://github.com/crsh/citr)
 - I installed Zotero, and [Better BibTeX for Zotero](http://retorque.re/zotero-better-bibtex/)
-- [Primer — An Introduction to CSL — Citation Style Language 1.0.1-dev documentation](http://docs.citationstyles.org/en/1.0.1/primer.html)
-- [knitcitations](https://github.com/cboettig/knitcitations)
+- See also:
+  - [Primer — An Introduction to CSL — Citation Style Language 1.0.1-dev documentation](http://docs.citationstyles.org/en/1.0.1/primer.html)
+  - [knitcitations](https://github.com/cboettig/knitcitations)
 
 # Test
 
