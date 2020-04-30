@@ -31,6 +31,17 @@ output:
 - [Shape Up | Basecamp](https://basecamp.com/shapeup)
 
   >*“Written by the innovators behind Basecamp—one of the biggest and longest-running software as a service apps—the book gives teams language and specific techniques to address the risks and unknowns at each stage of the product development process.”*
+  
+  
+---
+
+## task management
+- [Trello](https://trello.com/)  --- I use this like a “ticket” system, for capturing/channeling work todos [^1]
+- [Asana](https://asana.com/)
+- [Airtable](https://airtable.com/) --- "Part spreadsheet, part database, and entirely flexible, teams use Airtable to organize their work, their way."
+- [Slack](https://slack.com/)
+- [Zapier](https://zapier.com/)  --- I use this with Trello, and for automating repetitive tasks
+
 
 ---
 
@@ -38,24 +49,27 @@ output:
 - [Dropbox Paper](https://www.dropbox.com/paper) --- I use this for call agendas and collaborative notes
 - [Bear - Notes for iPhone, iPad and Mac](https://bear.app/) --- I use this for drafting, capturing articles I want to read, and personal notes
 - [Evernote](https://evernote.com/)
-- [Roam Research](https://roamresearch.com/) --- "A note-taking tool for networked thought. As easy to use as a document. As powerful as a graph database." Non-linear note-taking. I use this for daily writing and specifically for accumulating ideas[^1]
+- [Roam Research](https://roamresearch.com/) --- "A note-taking tool for networked thought. As easy to use as a document. As powerful as a graph database." Non-linear note-taking. I use this for daily writing and specifically for accumulating ideas[^2]
 - [Notion](https://www.notion.so/work) --- "The all-in-one workspace for your notes, tasks, wikis, and databases."
 - [StackEdit](https://stackedit.io/) --- "In-browser Markdown editor."
 - [Getting started with TiddlyWiki: a beginner’s tutorial - Ness Labs](https://nesslabs.com/tiddlywiki-beginner-tutorial) --- An open-source "non-linear" note-taking option
 
 ---
 
-## task management
-- [Trello](https://trello.com/)  --- I use this like a “ticket” system, for capturing/channeling work todos [^2]
-- [Asana](https://asana.com/)
-- [Airtable](https://airtable.com/) --- "Part spreadsheet, part database, and entirely flexible, teams use Airtable to organize their work, their way."
-- [Slack](https://slack.com/)
-- [Zapier](https://zapier.com/)  --- I use this with Trello, and for automating repetitive tasks
+## productivity rabbit hole
+- [Getting Things Done - Wikipedia](https://en.wikipedia.org/wiki/Getting_Things_Done)
+- [Evergreen note-writing as fundamental unit of knowledge work | Andy Matuschak](https://notes.andymatuschak.org/About_these_notes?stackedNotes=z3SjnvsB5aR2ddsycyXofbYR7fCxo7RmKW2bes)
+- [Atomic Habits: Tiny Changes, Remarkable Results | James Clear](https://jamesclear.com/atomic-habits)
+- [Dan Charnas: Using Lessons From Great Chefs To Help Us ‘Work Clean’](https://www.forbes.com/sites/shawnsetaro/2016/04/27/work-clean/#3c41e9e4fb20)
+- [How to Take Smart Notes: One Simple Technique to Boost Writing, Learning and Thinking | Sönke Ahrens ](https://www.amazon.com/How-Take-Smart-Notes-Nonfiction-ebook/dp/B06WVYW33Y)
+- [“Why Google Sheets Should Be Your To-Do List” | Zapier Blog](https://zapier.com/blog/google-sheets-to-do-list/?utm_source=Iterable&utm_medium=email&utm_campaign=itbl-gbl-eng-email-blog_keep_track_of_anything_automatically_1150346)
+-  [One-Touch to Inbox Zero: How I Spend 17 Minutes Per Day on Email - Forte Labs](https://fortelabs.co/blog/one-touch-to-inbox-zero/)
 
 ---
 
 ## RA resources
 - [J-PAL Research Resources](https://www.povertyactionlab.org/research-resources) --- "J-PAL library of practical resources is available for researchers undertaking randomized evaluations and those teaching the technique to others."
+-  [Managing files, data, and documentation for randomized evaluations | The Abdul Latif Jameel Poverty Action Lab](https://www.povertyactionlab.org/resource/managing-files-data-and-documentation-randomized-evaluations) 
 - [Innovations for Poverty Action Research Resources](https://www.poverty-action.org/researchers/research-resources) --- "Throughout the survey process, the IPA Research and Knowledge Management (RKM) Department is available as a key resource for project staff in the field."
 - [RECOVR Research Hub | Innovations for Poverty Action](https://www.poverty-action.org/recovr/research-hub) --- "...centralizes surveys, evaluations, and datasets documenting the impacts of the COVID-19 pandemic in low- and middle-income countries."
 - [Best practices for conducting phone surveys | J-PAL](https://www.povertyactionlab.org/blog/3-20-20/best-practices-conducting-phone-surveys) --- "This is a living document that aggregates crowd-sourced tips and factors to consider when conducting remote surveys (in particular phone surveys) while practicing social distancing."
@@ -212,15 +226,6 @@ Introduction to LATEX 2ε | Tobias Oetiker, Hubert Partl, Irene Hyna and Elisabe
 - [Machine learning](https://www.coursera.org/learn/machine-learning) — taught by Andrew Ng
 - [Beginning Bayes in R](https://www.datacamp.com/courses/beginning-bayes-in-r?tap_a=5644-dce66f&tap_s=10907-287229)
 
----
-
-## productivity rabbit hole
-- [Getting Things Done - Wikipedia](https://en.wikipedia.org/wiki/Getting_Things_Done)
-- [Atomic Habits: Tiny Changes, Remarkable Results | James Clear](https://jamesclear.com/atomic-habits)
-- [Dan Charnas: Using Lessons From Great Chefs To Help Us ‘Work Clean’](https://www.forbes.com/sites/shawnsetaro/2016/04/27/work-clean/#3c41e9e4fb20)
-- [How to Take Smart Notes: One Simple Technique to Boost Writing, Learning and Thinking | Sönke Ahrens ](https://www.amazon.com/How-Take-Smart-Notes-Nonfiction-ebook/dp/B06WVYW33Y)
-- [“Why Google Sheets Should Be Your To-Do List” | Zapier Blog](https://zapier.com/blog/google-sheets-to-do-list/?utm_source=Iterable&utm_medium=email&utm_campaign=itbl-gbl-eng-email-blog_keep_track_of_anything_automatically_1150346)
--  [One-Touch to Inbox Zero: How I Spend 17 Minutes Per Day on Email - Forte Labs](https://fortelabs.co/blog/one-touch-to-inbox-zero/)
 
 ---
 
@@ -273,9 +278,8 @@ Applications |  Judea Pearl, Madelyn Glymour, Nicholas P. Jewell](http://web.cs.
 - [Readings | Real Analysis | Mathematics | MIT OpenCourseWare](https://ocw.mit.edu/courses/mathematics/18-100c-real-analysis-fall-2012/readings/)
 
 ---
-
-[^1]: See Andy Matuschak's "[About these notes | Evergreen note-writing as fundamental unit of knowledge work | Evergreen notes](https://notes.andymatuschak.org/About_these_notes?stackedNotes=z3SjnvsB5aR2ddsycyXofbYR7fCxo7RmKW2be&stackedNotes=z4SDCZQeRo4xFEQ8H4qrSqd68ucpgE6LU155C)"
-[^2]: See [“Find Work-Life Focus: A Trello Insider’s Guide To Personal Productivity”](https://blog.trello.com/work-life-focus-trello-insider-guide-personal-productivity?hs_amp=true) and [“How To Become A Project Management Master With Trello”](https://blog.trello.com/project-management-power-ups). The [Gmail add-on](https://help.trello.com/article/1120-trello-for-gmail-add-on) is also useful
+[^1]: See [“Find Work-Life Focus: A Trello Insider’s Guide To Personal Productivity”](https://blog.trello.com/work-life-focus-trello-insider-guide-personal-productivity?hs_amp=true) and [“How To Become A Project Management Master With Trello”](https://blog.trello.com/project-management-power-ups). The [Gmail add-on](https://help.trello.com/article/1120-trello-for-gmail-add-on) is also useful
+[^2]: See Andy Matuschak's "[About these notes | Evergreen note-writing as fundamental unit of knowledge work | Evergreen notes](https://notes.andymatuschak.org/About_these_notes?stackedNotes=z3SjnvsB5aR2ddsycyXofbYR7fCxo7RmKW2be&stackedNotes=z4SDCZQeRo4xFEQ8H4qrSqd68ucpgE6LU155C)"
 [^3]: I <3 the [styler](https://github.com/r-lib/styler) and [datapasta](https://github.com/MilesMcBain/datapasta) and [littleboxes](https://github.com/ThinkR-open/littleboxes) RStudio add-ins! Here's a post I saw on some others: ["RStudio addins, or how to make your coding life easier"](https://www.statsandr.com/blog/rstudio-addins-or-how-to-make-your-coding-life-easier/)
 
 
