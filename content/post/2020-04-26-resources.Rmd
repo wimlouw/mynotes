@@ -63,7 +63,7 @@ output:
 - [Dan Charnas: Using Lessons From Great Chefs To Help Us ‘Work Clean’](https://www.forbes.com/sites/shawnsetaro/2016/04/27/work-clean/#3c41e9e4fb20)
 - [How to Take Smart Notes: One Simple Technique to Boost Writing, Learning and Thinking | Sönke Ahrens ](https://www.amazon.com/How-Take-Smart-Notes-Nonfiction-ebook/dp/B06WVYW33Y)
 - [“Why Google Sheets Should Be Your To-Do List” | Zapier Blog](https://zapier.com/blog/google-sheets-to-do-list/?utm_source=Iterable&utm_medium=email&utm_campaign=itbl-gbl-eng-email-blog_keep_track_of_anything_automatically_1150346)
--  [One-Touch to Inbox Zero: How I Spend 17 Minutes Per Day on Email - Forte Labs](https://fortelabs.co/blog/one-touch-to-inbox-zero/)
+-  [One-Touch to Inbox Zero: How I Spend 17 Minutes Per Day on Email - Forte Labs](https://fortelabs.co/blog/one-touch-to-inbox-zero/)[^3]
 
 ---
 
@@ -163,7 +163,7 @@ Introduction to LATEX 2ε | Tobias Oetiker, Hubert Partl, Irene Hyna and Elisabe
 
 ## R :)
 - [Install base R](https://www.r-project.org/); then
-- [Install RStudio UI](https://www.rstudio.com/products/rstudio/download/) (highly recommended)[^3]
+- [Install RStudio UI](https://www.rstudio.com/products/rstudio/download/) (highly recommended)[^4]
 - [R for data science | Garrett Grolemund and Hadley Wickham](http://r4ds.had.co.nz/) 
 - Learn R in R with [Swirl](http://swirlstats.com/) 
 - See the [RStudio Cheat Sheet, and others](https://www.rstudio.com/resources/cheatsheets/#ide)
@@ -256,7 +256,7 @@ Introduction to LATEX 2ε | Tobias Oetiker, Hubert Partl, Irene Hyna and Elisabe
 Applications |  Judea Pearl, Madelyn Glymour, Nicholas P. Jewell](http://web.cs.ucla.edu/~kaoru/primer-ch4.pdf)
 - [Causal Inference | Hernán MA, Robins JM](https://www.hsph.harvard.edu/miguel-hernan/causal-inference-book/) 
 - [ModernDive: Statistical Inference via Data Science](https://moderndive.com/index.html)
--  [Data science for economists | Grant - McDermott](https://www.google.com/url?q=https%3A%2F%2Fgithub.com%2Fuo-ec607%2Flectures&sa=D&sntz=1&usg=AFQjCNHFFTznBoeUT4oCXc_ILvRmBa1gnQ)
+-  [Data science for economists | Grant McDermott](https://www.google.com/url?q=https%3A%2F%2Fgithub.com%2Fuo-ec607%2Flectures&sa=D&sntz=1&usg=AFQjCNHFFTznBoeUT4oCXc_ILvRmBa1gnQ)
 
 ---
 
@@ -280,7 +280,9 @@ Applications |  Judea Pearl, Madelyn Glymour, Nicholas P. Jewell](http://web.cs.
 ---
 [^1]: See [“Find Work-Life Focus: A Trello Insider’s Guide To Personal Productivity”](https://blog.trello.com/work-life-focus-trello-insider-guide-personal-productivity?hs_amp=true) and [“How To Become A Project Management Master With Trello”](https://blog.trello.com/project-management-power-ups). The [Gmail add-on](https://help.trello.com/article/1120-trello-for-gmail-add-on) is also useful
 [^2]: See Andy Matuschak's "[About these notes | Evergreen note-writing as fundamental unit of knowledge work | Evergreen notes](https://notes.andymatuschak.org/About_these_notes?stackedNotes=z3SjnvsB5aR2ddsycyXofbYR7fCxo7RmKW2be&stackedNotes=z4SDCZQeRo4xFEQ8H4qrSqd68ucpgE6LU155C)"
-[^3]: I <3 the [styler](https://github.com/r-lib/styler) and [datapasta](https://github.com/MilesMcBain/datapasta) and [littleboxes](https://github.com/ThinkR-open/littleboxes) RStudio add-ins! Here's a post I saw on some others: ["RStudio addins, or how to make your coding life easier"](https://www.statsandr.com/blog/rstudio-addins-or-how-to-make-your-coding-life-easier/)
+ easier"](https://www.statsandr.com/blog/rstudio-addins-or-how-to-make-your-coding-life-easier/)
+[^3]: See [Triage strategies for maintaining inboxes (e.g. Inbox Zero) are often too brittle | Andy Matuschak](https://notes.andymatuschak.org/z8aZybuJJopS5fL7TnPou2JcmCsBUJeqirbBh)
+[^4]: I <3 the [styler](https://github.com/r-lib/styler) and [datapasta](https://github.com/MilesMcBain/datapasta) and [littleboxes](https://github.com/ThinkR-open/littleboxes) RStudio add-ins! Here's a post I saw on some others: ["RStudio addins, or how to make your coding life
 
 
 
