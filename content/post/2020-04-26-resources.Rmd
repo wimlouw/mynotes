@@ -245,7 +245,9 @@ Introduction to LATEX 2ε | Tobias Oetiker, Hubert Partl, Irene Hyna and Elisabe
 
 ---
 
-## causal inference
+## causal inference, 'metrics, stats
+- [Seeing Theory](https://seeing-theory.brown.edu/) — “Seeing Theory was created by Daniel Kunin while an undergraduate at Brown University. The goal of this website is to make statistics more accessible through interactive visualizations (designed using Mike Bostock’s JavaScript library [D3.js](https://d3js.org/)).”
+- [A visual introduction to machine learning](http://www.r2d3.us/visual-intro-to-machine-learning-part-1/)
 - [Mostly Harmless Econometrics | Joshua D. Angrist & Jörn-Steffen Pischke](https://www.mostlyharmlesseconometrics.com/)
 - [Introduction to Econometrics with R](https://www.econometrics-with-r.org/index.html)
 - [Mixtape | Scott Cunningham](https://www.scunning.com/mixtape.html)
@@ -277,11 +279,9 @@ Applications |  Judea Pearl, Madelyn Glymour, Nicholas P. Jewell](http://web.cs.
 - Using Google Forms and R with the [googlesheets and googleformr packages](https://github.com/jennybc/googlesheets#what-the-hell-do-i-do-with-this)
 - [Readings | Real Analysis | Mathematics | MIT OpenCourseWare](https://ocw.mit.edu/courses/mathematics/18-100c-real-analysis-fall-2012/readings/)
 
----
 [^1]: See [“Find Work-Life Focus: A Trello Insider’s Guide To Personal Productivity”](https://blog.trello.com/work-life-focus-trello-insider-guide-personal-productivity?hs_amp=true) and [“How To Become A Project Management Master With Trello”](https://blog.trello.com/project-management-power-ups). The [Gmail add-on](https://help.trello.com/article/1120-trello-for-gmail-add-on) is also useful
 [^2]: See Andy Matuschak's "[About these notes | Evergreen note-writing as fundamental unit of knowledge work | Evergreen notes](https://notes.andymatuschak.org/About_these_notes?stackedNotes=z3SjnvsB5aR2ddsycyXofbYR7fCxo7RmKW2be&stackedNotes=z4SDCZQeRo4xFEQ8H4qrSqd68ucpgE6LU155C)"
  
 [^3]: See [Triage strategies for maintaining inboxes (e.g. Inbox Zero) are often too brittle | Andy Matuschak](https://notes.andymatuschak.org/z8aZybuJJopS5fL7TnPou2JcmCsBUJeqirbBh)
 [^4]: I <3 the [styler](https://github.com/r-lib/styler) and [datapasta](https://github.com/MilesMcBain/datapasta) and [littleboxes](https://github.com/ThinkR-open/littleboxes) RStudio add-ins! Here's a post I saw on some others: ["RStudio addins, or how to make your coding life easier"](https://www.statsandr.com/blog/rstudio-addins-or-how-to-make-your-coding-life-easier/)
-
 
