@@ -14,6 +14,8 @@ output:
     toc: yes
 ---
 
+_My personal "running list" of resources, tools, and random articles_ 
+
 
 ## workflow
 - [Good enough practices in scientific computing | Greg Wilson, Jennifer Bryan, and others](http://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1005510)
@@ -57,13 +59,22 @@ output:
 ---
 
 ## productivity rabbit hole
-- [Getting Things Done - Wikipedia](https://en.wikipedia.org/wiki/Getting_Things_Done)
-- [Evergreen note-writing as fundamental unit of knowledge work | Andy Matuschak](https://notes.andymatuschak.org/About_these_notes?stackedNotes=z3SjnvsB5aR2ddsycyXofbYR7fCxo7RmKW2be)
+
+> ```¯\_(ツ)_/¯``` _a list on various "systems", "frameworks", "techniques"; metacognition, ["mindful productivity"](https://nesslabs.com/mindful-productivity), and the like (enter at own risk)_
+
+- [Getting Things Done | Wikipedia](https://en.wikipedia.org/wiki/Getting_Things_Done) or "GTD". For a Trello implementation see "[The GTD Approach To Maximizing Productivity With Trello](https://blog.trello.com/gtd-getting-things-done-maximizing-productivity-trello)"
+- [Dan Charnas: Using Lessons From Great Chefs To Help Us ‘Work Clean’](https://www.forbes.com/sites/shawnsetaro/2016/04/27/work-clean/#3c41e9e4fb20) --- _mise-en-place_ 
 - [Atomic Habits: Tiny Changes, Remarkable Results | James Clear](https://jamesclear.com/atomic-habits)
-- [Dan Charnas: Using Lessons From Great Chefs To Help Us ‘Work Clean’](https://www.forbes.com/sites/shawnsetaro/2016/04/27/work-clean/#3c41e9e4fb20)
-- [How to Take Smart Notes: One Simple Technique to Boost Writing, Learning and Thinking | Sönke Ahrens ](https://www.amazon.com/How-Take-Smart-Notes-Nonfiction-ebook/dp/B06WVYW33Y)
+- [How to Take Smart Notes: One Simple Technique to Boost Writing, Learning and Thinking | Sönke Ahrens ](https://www.amazon.com/How-Take-Smart-Notes-Nonfiction-ebook/dp/B06WVYW33Y) --- draws on Niklas Luhmann and their "slip-box" or _zettelkasten_ system
+- [Evergreen note-writing as fundamental unit of knowledge work | Andy Matuschak](https://notes.andymatuschak.org/About_these_notes?stackedNotes=z3SjnvsB5aR2ddsycyXofbYR7fCxo7RmKW2be) --- Intrigued by this idea. Andy Matuschak is super interesting
+- [“Responsibility assignment matrix" or "RACI" chart | Wikipedia](https://en.wikipedia.org/wiki/Responsibility_assignment_matrix)
 - [“Why Google Sheets Should Be Your To-Do List” | Zapier Blog](https://zapier.com/blog/google-sheets-to-do-list/?utm_source=Iterable&utm_medium=email&utm_campaign=itbl-gbl-eng-email-blog_keep_track_of_anything_automatically_1150346)
--  [One-Touch to Inbox Zero: How I Spend 17 Minutes Per Day on Email - Forte Labs](https://fortelabs.co/blog/one-touch-to-inbox-zero/)[^3]
+-  [One-Touch to Inbox Zero: How I Spend 17 Minutes Per Day on Email - Forte Labs](https://fortelabs.co/blog/one-touch-to-inbox-zero/) --- this feels a bit fast to me, tbh.[^3]
+- [How to Do Nothing: Resisting the Attention Economy | Jenny  Odell](https://www.amazon.com/How-Do-Nothing-Resisting-Attention/dp/1612197493)
+- [Work Effectively with the "Eisenhower Matrix" | Evernote Blog](https://evernote.com/blog/work-effectively-with-the-eisenhower-matrix/)
+- [Pomodoro Technique | Wikipedia](https://en.wikipedia.org/wiki/Pomodoro_Technique) 🍅
+- [Toggl - Free Time Tracking Software](https://toggl.com/)
+- [The ten minute rule of productivity - Ness Labs](https://nesslabs.com/ten-minute-rule) --- beat procrastination (maybe!)
 
 ---
 
@@ -231,6 +242,7 @@ Introduction to LATEX 2ε | Tobias Oetiker, Hubert Partl, Irene Hyna and Elisabe
 
 ## writing
 - [Several Short Sentences About Writing | Verlyn Klinkenborg](https://www.amazon.com/Several-Short-Sentences-About-Writing/dp/0307279413) <3
+- [Sister Bernadette’s Barking Dog: The Quirky History and Lost Art of Diagramming Sentences | Kitty Burns Florey](https://www.amazon.com/Sister-Bernadettes-Barking-Dog-Diagramming/dp/0156034433)
 
 ---
 
