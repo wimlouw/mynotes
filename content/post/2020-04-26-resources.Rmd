@@ -260,7 +260,7 @@ Introduction to LATEX 2ε | Tobias Oetiker, Hubert Partl, Irene Hyna and Elisabe
 ---
 
 ## causal inference, 'metrics, stats
-- [Seeing Theory](https://seeing-theory.brown.edu/) — “Seeing Theory was created by Daniel Kunin while an undergraduate at Brown University. The goal of this website is to make statistics more accessible through interactive visualizations (designed using Mike Bostock’s JavaScript library [D3.js](https://d3js.org/)).”
+- [Seeing Theory](https://seeing-theory.brown.edu/) — “...interactive visualizations (designed using Mike Bostock’s JavaScript library [D3.js](https://d3js.org/)).”
 - [A visual introduction to machine learning](http://www.r2d3.us/visual-intro-to-machine-learning-part-1/)
 - [Mostly Harmless Econometrics | Joshua D. Angrist & Jörn-Steffen Pischke](https://www.mostlyharmlesseconometrics.com/)
 - [Introduction to Econometrics with R](https://www.econometrics-with-r.org/index.html)
