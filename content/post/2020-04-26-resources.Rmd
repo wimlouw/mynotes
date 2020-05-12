@@ -66,7 +66,7 @@ _My personal "running list" of resources, tools, and random articles_
 
 ## productivity rabbit hole
 
-> ```¯\_(ツ)_/¯``` _a list on various "systems", "frameworks", "techniques"; metacognition, ["mindful productivity"](https://nesslabs.com/mindful-productivity), and the like (enter at own risk)_
+> ```¯\_(ツ)_/¯``` _a list of various "systems", "frameworks", "techniques"; metacognition, ["mindful productivity"](https://nesslabs.com/mindful-productivity), and the like (enter at own risk)_
 
 - [How to Do Nothing: Resisting the Attention Economy | Jenny  Odell](https://www.amazon.com/How-Do-Nothing-Resisting-Attention/dp/1612197493) <3
 - [Getting Things Done | Wikipedia](https://en.wikipedia.org/wiki/Getting_Things_Done) or "GTD" 
@@ -141,9 +141,9 @@ Introduction to LATEX 2ε | Tobias Oetiker, Hubert Partl, Irene Hyna and Elisabe
 ---
 
 ## dataviz
-- [From data to viz](https://www.data-to-viz.com/) --- "leads you to the most appropriate graph for your data. It links to the code to build it and lists common caveats you should avoid."
+- [From data to viz](https://www.data-to-viz.com/) --- "...leads you to the most appropriate graph for your data. It links to the code to build it and lists common caveats you should avoid."
 - [Fundamentals of Data Visualization | Claus O. Wilke](https://serialmentor.com/dataviz/)
-- [Data Stories](https://datastori.es/), "a podcast on data visualization" with Enrico Bertini and Moritz Stefaner
+- [Data Stories](https://datastori.es/), "...a podcast on data visualization" with Enrico Bertini and Moritz Stefaner
 - [RawGraphs](https://rawgraphs.io/) 
 - [Tableau (public)](https://public.tableau.com/en-us/s/) 
 - [Datawrapper](https://www.datawrapper.de/)
@@ -153,7 +153,7 @@ Introduction to LATEX 2ε | Tobias Oetiker, Hubert Partl, Irene Hyna and Elisabe
 - [Data Visualization for Social Science: A practical introduction with R and ggplot2](http://socviz.co/index.html) 
 - [R Graphics Cookbook](http://www.cookbook-r.com/Graphs/)
 - [BBC Visual and Data Journalism cookbook](https://bbc.github.io/rcookbook/)
--  Cool articles on visualising uncertainty by Jessica Hullman and Matt Kay: [part 1](https://medium.com/multiple-views-visualization-research-explained/uncertainty-visualization-explained-67e7a73f031b) and [part 2](https://medium.com/multiple-views-visualization-research-explained/uncertainty-visualization-explained-part-2-continuous-encodings-967a7f7c38d0). And here they are on the [Data Stories podcast](http://datastori.es/134-visualizing-uncertainty-with-jessica-hullman-and-matthew-kay/)]
+-  Cool articles on visualising uncertainty by Jessica Hullman and Matt Kay: [part 1](https://medium.com/multiple-views-visualization-research-explained/uncertainty-visualization-explained-67e7a73f031b) and [part 2](https://medium.com/multiple-views-visualization-research-explained/uncertainty-visualization-explained-part-2-continuous-encodings-967a7f7c38d0). And here they are on the [Data Stories podcast](http://datastori.es/134-visualizing-uncertainty-with-jessica-hullman-and-matthew-kay/)
 
 ---
 
