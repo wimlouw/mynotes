@@ -55,12 +55,13 @@ _My personal "running list" of resources, tools, and random articles_
 - [StackEdit](https://stackedit.io/) --- "In-browser Markdown editor."
 - "Non-linear" note-taking
   - [Note-taking | Wikipedia](https://en.wikipedia.org/wiki/Note-taking#Non-linear_note-taking)
-  - ["Note-writing systems"](https://notes.andymatuschak.org/%C2%A7Note-writing_systems) — [Andy Matuschak](https://andymatuschak.org/) took me down this path....
-   - [Roam Research](https://roamresearch.com/) --- "A note-taking tool for networked thought. As easy to use as a document. As powerful as a graph database." Non-linear note-taking. I'm trying this out for daily writing/accumulating ideas[^2]
-    - ["TiddlyWiki"](https://tiddlywiki.com/) --- "...a unique non-linear notebook for capturing, organising and sharing complex information."
-      - [Stroll](https://giffmex.org/experiments/stroll.experiment.html) --- open-source "Roam-like" experience. I'm currently using Stroll. Roam is really interesting, but I have mixed feelings about it
-    - [RemNote](https://www.remnote.io/homepage) --- "RemNote is the first spaced-repetition powered note-taking tool that lets you structure knowledge exactly in the way you think about it."
-    - [Org mode for Emacs – Your Life in Plain Text](https://orgmode.org/) --- this is a whole world in itself. See - ["The Plain Person’s Guide to Plain Text Social Science"](http://plain-text.co/) by Kieran Healy
+  - ["Note-writing systems"](https://notes.andymatuschak.org/%C2%A7Note-writing_systems) --- Andy Matuschak
+  - [Obsidian](https://obsidian.md/) --- I'm trying this out for daily writing/accumulating ideas[^2]. It's beautifully designed
+  - [Roam Research](https://roamresearch.com/) --- "A note-taking tool for networked thought. As easy to use as a document. As powerful as a graph database." 
+  - ["TiddlyWiki"](https://tiddlywiki.com/) --- "...a unique non-linear notebook for capturing, organising and sharing complex information."
+    - [Stroll](https://giffmex.org/experiments/stroll.experiment.html) --- open-source "Roam-like" experience made with TiddlyWiki
+  - [RemNote](https://www.remnote.io/homepage) --- "RemNote is the first spaced-repetition powered note-taking tool that lets you structure knowledge exactly in the way you think about it."
+  - [Org mode for Emacs – Your Life in Plain Text](https://orgmode.org/) --- this is a whole world in itself. See - ["The Plain Person’s Guide to Plain Text Social Science"](http://plain-text.co/) by Kieran Healy
  
 ---
 
@@ -70,7 +71,7 @@ _My personal "running list" of resources, tools, and random articles_
 
 - [How to Do Nothing: Resisting the Attention Economy | Jenny  Odell](https://www.amazon.com/How-Do-Nothing-Resisting-Attention/dp/1612197493) <3
 - [Getting Things Done | Wikipedia](https://en.wikipedia.org/wiki/Getting_Things_Done) or "GTD" 
-- For a Trello implementation see "[The GTD Approach To Maximizing Productivity With Trello](https://blog.trello.com/gtd-getting-things-done-maximizing-productivity-trello)"
+  - For a Trello implementation see "[The GTD Approach To Maximizing Productivity With Trello](https://blog.trello.com/gtd-getting-things-done-maximizing-productivity-trello)"
 - [Dan Charnas: Using Lessons From Great Chefs To Help Us ‘Work Clean’](https://www.forbes.com/sites/shawnsetaro/2016/04/27/work-clean/#3c41e9e4fb20) --- _mise-en-place_ 
 - [Atomic Habits: Tiny Changes, Remarkable Results | James Clear](https://jamesclear.com/atomic-habits)
 - [How to Take Smart Notes: One Simple Technique to Boost Writing, Learning and Thinking | Sönke Ahrens ](https://www.amazon.com/How-Take-Smart-Notes-Nonfiction-ebook/dp/B06WVYW33Y) --- Niklas Luhmann, the "slip-box" or _zettelkasten_, &c.
@@ -118,6 +119,7 @@ _My personal "running list" of resources, tools, and random articles_
 - [reactable](https://github.com/glin/reactable) --- "Interactive data tables for R, based on the React Table library and made with reactR."
 - [Create Awesome HTML Table with knitr::kable and kableExtra](https://cran.r-project.org/web/packages/kableExtra/vignettes/awesome_table_in_html.html)
 - [Tables Generator](https://www.tablesgenerator.com) for creating simple Markdown and LaTeX tables interactively
+- [Replicating a New York Times Table of Swedish COVID-19 deaths with gt | Malcolm Barrett](https://malco.io/2020/05/16/replicating-an-nyt-table-of-swedish-covid-deaths-with-gt/)
 
 ---
 
@@ -189,6 +191,7 @@ Introduction to LATEX 2ε | Tobias Oetiker, Hubert Partl, Irene Hyna and Elisabe
 - [An introduction to R](http://colinfay.me/intro-to-r/) (intro to base R)
 - [R Language Definition](https://cran.r-project.org/doc/manuals/r-release/R-lang.html#Introduction)
 - See [R Markdown: The Definitive Guide | Yihui Xie, J. J. Allaire, and Garrett Grolemund](https://bookdown.org/yihui/rmarkdown/)
+- [R Markdown Cookbook | Yihui Xie and Christophe Dervieux](https://bookdown.org/yihui/rmarkdown-cookbook/)
 - [knitcitations](https://github.com/cboettig/knitcitations). Dynamic citations on R Markdown
 
 ---
@@ -296,6 +299,7 @@ Applications |  Judea Pearl, Madelyn Glymour, Nicholas P. Jewell](http://web.cs.
 - [Patchwork](https://github.com/thomasp85/patchwork) (R ggplot2)
 - Using Google Forms and R with the [googlesheets and googleformr packages](https://github.com/jennybc/googlesheets#what-the-hell-do-i-do-with-this)
 - [Readings | Real Analysis | Mathematics | MIT OpenCourseWare](https://ocw.mit.edu/courses/mathematics/18-100c-real-analysis-fall-2012/readings/)
+
 
 [^1]: See [“Find Work-Life Focus: A Trello Insider’s Guide To Personal Productivity”](https://blog.trello.com/work-life-focus-trello-insider-guide-personal-productivity?hs_amp=true) and [“How To Become A Project Management Master With Trello”](https://blog.trello.com/project-management-power-ups). The [Gmail add-on](https://help.trello.com/article/1120-trello-for-gmail-add-on) is also useful
 [^2]: See Andy Matuschak's "[About these notes | Evergreen note-writing as fundamental unit of knowledge work | Evergreen notes](https://notes.andymatuschak.org/About_these_notes?stackedNotes=z3SjnvsB5aR2ddsycyXofbYR7fCxo7RmKW2be&stackedNotes=z4SDCZQeRo4xFEQ8H4qrSqd68ucpgE6LU155C)"
