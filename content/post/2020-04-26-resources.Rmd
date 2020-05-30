@@ -318,6 +318,7 @@ Applications | Judea Pearl, Madelyn Glymour, Nicholas P. Jewell](http://web.cs.u
 - [Patchwork](https://github.com/thomasp85/patchwork) (R ggplot2)
 - Using Google Forms and R with the [googlesheets and googleformr packages](https://github.com/jennybc/googlesheets#what-the-hell-do-i-do-with-this)
 - [Readings | Real Analysis | Mathematics | MIT OpenCourseWare](https://ocw.mit.edu/courses/mathematics/18-100c-real-analysis-fall-2012/readings/)
+- [Getting Started · The Julia Language](https://docs.julialang.org/en/v1/manual/getting-started/)
 
 
 [^1]: See [“Find Work-Life Focus: A Trello Insider’s Guide To Personal Productivity”](https://blog.trello.com/work-life-focus-trello-insider-guide-personal-productivity?hs_amp=true) and [“How To Become A Project Management Master With Trello”](https://blog.trello.com/project-management-power-ups). The [Gmail add-on](https://help.trello.com/article/1120-trello-for-gmail-add-on) is also useful
