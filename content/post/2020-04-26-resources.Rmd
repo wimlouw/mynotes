@@ -16,7 +16,7 @@ output:
 
 _My personal "running list" of resources, tools, and random articles_ 
 
-# work
+# work >>> 
 
 ## workflow
 - [Good enough practices in scientific computing | Greg Wilson, Jennifer Bryan, and others](http://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1005510)
@@ -204,7 +204,7 @@ Introduction to LATEX 2ε | Tobias Oetiker, Hubert Partl, Irene Hyna and Elisabe
 
 ---
 
-# personal
+# personal >>> 
 
 ## courses
 - [Big Data to Solve Economic and Social Problems | Opportunity Insights](https://opportunityinsights.org/course/) — “This page provides lecture materials and videos for a course entitled Using Big Data Solve Economic and Social Problems, taught by Raj Chetty and Greg Bruich at Harvard University.”
@@ -300,7 +300,7 @@ Applications | Judea Pearl, Madelyn Glymour, Nicholas P. Jewell](http://web.cs.u
 
 ---
 
-# misc
+# misc >>> 
 
 ## random links
 - [webshot](https://github.com/wch/webshot) ---  “makes it easy to take screenshots of web pages from R"
