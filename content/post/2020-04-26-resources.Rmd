@@ -48,40 +48,52 @@ _My personal "running list" of resources, tools, and random articles_
 ---
 
 ## taking notes
-- [Dropbox Paper](https://www.dropbox.com/paper) --- I use this for call agendas and collaborative notes
-- [Bear - Notes for iPhone, iPad and Mac](https://bear.app/) --- I use this for drafting, capturing articles I want to read, and personal notes
+- [Dropbox Paper](https://www.dropbox.com/paper) --- great for call agendas and collaborative notes
+- [Bear Notes](https://bear.app/) --- for iPhone, iPad and Mac
 - [Evernote](https://evernote.com/)
 - [Notion](https://www.notion.so/work) --- "The all-in-one workspace for your notes, tasks, wikis, and databases"
-- [StackEdit](https://stackedit.io/) --- "In-browser Markdown editor."
-- "Non-linear" note-taking
-  - [Note-taking | Wikipedia](https://en.wikipedia.org/wiki/Note-taking#Non-linear_note-taking)
-  - ["Note-writing systems"](https://notes.andymatuschak.org/%C2%A7Note-writing_systems) --- Andy Matuschak
-  - [Obsidian](https://obsidian.md/) --- I'm trying this out for daily writing/accumulating ideas[^2]. It's beautifully designed
+- [Note-writing systems | Andy Matuschak](https://notes.andymatuschak.org/%C2%A7Note-writing_systems)
+- "Non-linear" note-taking --- backlinks, transclusion, &c.
+  - [Obsidian](https://obsidian.md/) --- "...an IDE for your notes." I'm trying this out for daily writing/accumulating ideas.[^2] 
   - [Roam Research](https://roamresearch.com/) --- "A note-taking tool for networked thought. As easy to use as a document. As powerful as a graph database." 
-  - ["TiddlyWiki"](https://tiddlywiki.com/) --- "...a unique non-linear notebook for capturing, organising and sharing complex information."
+  - ["TiddlyWiki"](https://tiddlywiki.com/) --- "...a unique non-linear notebook for capturing, organising and sharing complex information." [opensource]
     - [Stroll](https://giffmex.org/experiments/stroll.experiment.html) --- open-source "Roam-like" experience made with TiddlyWiki
-  - [RemNote](https://www.remnote.io/homepage) --- "RemNote is the first spaced-repetition powered note-taking tool that lets you structure knowledge exactly in the way you think about it."
-  - [Org mode for Emacs – Your Life in Plain Text](https://orgmode.org/) --- this is a whole world in itself. See - ["The Plain Person’s Guide to Plain Text Social Science"](http://plain-text.co/) by Kieran Healy
+  - [RemNote](https://www.remnote.io/homepage) --- "RemNote is the first spaced-repetition powered note-taking tool..."
+  - [Org mode for Emacs – Your Life in Plain Text](https://orgmode.org/) --- this is a whole world in itself. 
+    - Read with ["The Plain Person’s Guide to Plain Text Social Science"](http://plain-text.co/) by Kieran Healy
  
 ---
 
 ## productivity rabbit hole
 
-> ```¯\_(ツ)_/¯``` _a list of various "systems", "frameworks", "techniques"; metacognition, ["mindful productivity"](https://nesslabs.com/mindful-productivity), and the like (enter at own risk)_
+> ```¯\_(ツ)_/¯```
 
-- [How to Do Nothing: Resisting the Attention Economy | Jenny  Odell](https://www.amazon.com/How-Do-Nothing-Resisting-Attention/dp/1612197493) <3
-- [Getting Things Done | Wikipedia](https://en.wikipedia.org/wiki/Getting_Things_Done) or "GTD" 
-  - For a Trello implementation see "[The GTD Approach To Maximizing Productivity With Trello](https://blog.trello.com/gtd-getting-things-done-maximizing-productivity-trello)"
-- [Dan Charnas: Using Lessons From Great Chefs To Help Us ‘Work Clean’](https://www.forbes.com/sites/shawnsetaro/2016/04/27/work-clean/#3c41e9e4fb20) --- _mise-en-place_ 
-- [Atomic Habits: Tiny Changes, Remarkable Results | James Clear](https://jamesclear.com/atomic-habits)
-- [How to Take Smart Notes: One Simple Technique to Boost Writing, Learning and Thinking | Sönke Ahrens ](https://www.amazon.com/How-Take-Smart-Notes-Nonfiction-ebook/dp/B06WVYW33Y) --- Niklas Luhmann, the "slip-box" or _zettelkasten_, &c.
-- [“Responsibility assignment matrix" | Wikipedia](https://en.wikipedia.org/wiki/Responsibility_assignment_matrix) --- "RACI" charts
-- [Work Effectively with the "Eisenhower Matrix" | Evernote Blog](https://evernote.com/blog/work-effectively-with-the-eisenhower-matrix/) --- high priority, high urgency; high priority low urgency, &c.
-- [Pomodoro Technique | Wikipedia](https://en.wikipedia.org/wiki/Pomodoro_Technique) 🍅
-- [The ten minute rule of productivity - Ness Labs](https://nesslabs.com/ten-minute-rule) --- beat procrastination (maybe!)
-- [Toggl - Free Time Tracking Software](https://toggl.com/)
-- See various in HBR's ["Time management"](https://hbr.org/topic/time-management) section
-
+- Articles
+  - [Why Remote Work Is So Hard—and How It Can Be Fixed | The New Yorker | Cal Newport](https://www.newyorker.com/culture/annals-of-inquiry/can-remote-work-be-fixed)
+  - [Jenny Odell on why we need to learn to do nothing](https://www.theguardian.com/lifeandstyle/2019/sep/27/jenny-odell-on-why-we-need-to-learn-to-do-nothing-its-a-reminder-that-youre-alive)
+  - [Mindful productivity: a sustainable way to work and think - Ness Labs](https://nesslabs.com/mindful-productivity-2)
+  - See various in HBR's ["Time management"](https://hbr.org/topic/time-management) section
+- Books 
+  - [How to Do Nothing: Resisting the Attention Economy | Jenny  Odell](https://www.amazon.com/How-Do-Nothing-Resisting-Attention/dp/1612197493) <3
+  - [Getting Things Done: The Art of Stress-Free Productivity | David Allen](https://www.amazon.com/Getting-Things-Done-Stress-Free-Productivity/dp/0142000280)
+  - [Checklist Manifesto | Atul Gawande](https://www.amazon.com/Checklist-Manifesto-How-Things-Right/dp/0312430000)
+  - [Getting Things Done | Wikipedia](https://en.wikipedia.org/wiki/Getting_Things_Done) or "GTD"
+  - [Deep Work: Rules for Focused Success in a Distracted World | Cal Newport](https://www.amazon.com/Deep-Work-Focused-Success-Distracted/dp/1455586692)
+  - [Dan Charnas: Using Lessons From Great Chefs To Help Us ‘Work Clean’](https://www.forbes.com/sites/shawnsetaro/2016/04/27/work-clean/#3c41e9e4fb20) --- _mise-en-place_ 
+  - [Atomic Habits: Tiny Changes, Remarkable Results | James Clear](https://jamesclear.com/atomic-habits)
+  - [How to Take Smart Notes: One Simple Technique to Boost Writing, Learning and Thinking | Sönke Ahrens ](https://www.amazon.com/How-Take-Smart-Notes-Nonfiction-ebook/dp/B06WVYW33Y) --- Niklas Luhmann, the _zettelkasten_, &c.
+- Tools
+  - [“Responsibility assignment matrix" | Wikipedia](https://en.wikipedia.org/wiki/Responsibility_assignment_matrix) --- "RACI" charts
+  - [Work Effectively with the "Eisenhower Matrix" | Evernote Blog](https://evernote.com/blog/work-effectively-with-the-eisenhower-matrix/) --- high priority, high urgency; high priority low urgency, &c.
+  - [Pomodoro Technique | Wikipedia](https://en.wikipedia.org/wiki/Pomodoro_Technique) 🍅
+  - [The ten minute rule of productivity - Ness Labs](https://nesslabs.com/ten-minute-rule) --- beat procrastination (maybe!)
+  - [Toggl - Free Time Tracking Software](https://toggl.com/)
+  - [Interstitial journaling: combining notes, to-do & time tracking - Ness Labs](https://nesslabs.com/interstitial-journaling)
+  - [Bullet Journal](https://bulletjournal.com/)
+  - [Evergreen note-writing as fundamental unit of knowledge work | Andy Matuschak](https://notes.andymatuschak.org/Evergreen_note-writing_as_fundamental_unit_of_knowledge_work)
+- Other
+  - [Meditation and Sleep Made Simple - Headspace](https://www.headspace.com/)
+  - [Aro - Learn Buddhist meditation](http://aromeditation.org/)
 
 ---
 
@@ -99,7 +111,6 @@ _My personal "running list" of resources, tools, and random articles_
 - ["The Pretty PDF Printer for ODK forms"](http://ppp.pma2020.org)
 - [formr](https://formr.org) --- "chain simple surveys into long runs, use the power of R to generate pretty feedback and complex designs"
 - [Ona](https://ona.io/home/) --- "Collect. Share. Visualize data."  
-
 
 ---
 
