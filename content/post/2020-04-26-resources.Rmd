@@ -56,12 +56,15 @@ _My personal "running list" of resources, tools, and random articles_
 - [Best practices for conducting phone surveys | J-PAL](https://www.povertyactionlab.org/blog/3-20-20/best-practices-conducting-phone-surveys) --- "This is a living document that aggregates crowd-sourced tips and factors to consider when conducting remote surveys (in particular phone surveys) while practicing social distancing."
 - [Surveying Young Workseekers in South Africa](https://www.saldru.uct.ac.za/2019/09/27/surveying-young-workseekers-in-south-africa/) --- Tips from J-PAL Africa’s Research Team
 - [Setting up a data science “stack" full instructions + resources](https://ubc-mds.github.io/resources_pages/installation_instructions/) from the University of British Columbia’s Master of Data Science program. Great set-up guide! (git, pandoc, LaTeX, Make, Docker, R, &c.)
-- [SurveyCTO](https://www.surveycto.com/) --- "SurveyCTO is the most reliable, secure, and scalable mobile data collection platform for researchers and professionals working in offline settings." <3
-- SurveyCTO  [Computer-assisted telephone interviewing (CATI) starter kit](https://support.surveycto.com/hc/en-us/articles/360044958494-Computer-assisted-telephone-interviewing-CATI-starter-kit)
-- [SurveyCTO coding tips](https://dimewiki.worldbank.org/wiki/SurveyCTO_Coding_Practices) --- from the World Bank's Development Impact Evaluation unit
 - ["The Pretty PDF Printer for ODK forms"](http://ppp.pma2020.org)
 - [formr](https://formr.org) --- "chain simple surveys into long runs, use the power of R to generate pretty feedback and complex designs"
-- [Ona](https://ona.io/home/) --- "Collect. Share. Visualize data."  
+- [Ona](https://ona.io/home/) --- "Collect. Share. Visualize data."
+- [SurveyCTO](https://www.surveycto.com/)  — “SurveyCTO is the most reliable, secure, and scalable mobile data collection platform for researchers and professionals working in offline settings.”
+  - [Conducting remote and decentralized data collection with SurveyCTO | SurveyCTO](https://www.surveycto.com/blog/decentralized-data-collection/?utm_source=twitter&utm_medium=social%20media&utm_content=decentralization-blog&utm_campaign=growth-comms)
+  - [Discover how J-PAL and IPA use SurveyCTO plug-ins for phone surveys and more | SurveyCTO](https://www.surveycto.com/videos/plugins-webinar/) 
+  - SurveyCTO  [Computer-assisted telephone interviewing (CATI) starter kit](https://support.surveycto.com/hc/en-us/articles/360044958494-Computer-assisted-telephone-interviewing-CATI-starter-kit) 
+  - Our J-PAL South Asia office are doing super interesting things with  [SurveyCTO custom-plugin feature](https://www.surveycto.com/blog/field-plugins/) 
+- [SurveyCTO coding tips](https://dimewiki.worldbank.org/wiki/SurveyCTO_Coding_Practices) --- from the World Bank's Development Impact Evaluation unit
 
 ---
 
