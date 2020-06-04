@@ -229,7 +229,7 @@ Introduction to LATEX 2ε | Tobias Oetiker, Hubert Partl, Irene Hyna and Elisabe
   - [Obsidian](https://obsidian.md/) --- "...an IDE for your notes." I'm trying this out for daily writing/accumulating ideas.[^2] 
   - [Roam Research](https://roamresearch.com/) --- "A note-taking tool for networked thought. As easy to use as a document. As powerful as a graph database." 
   - ["TiddlyWiki"](https://tiddlywiki.com/) --- "...a unique non-linear notebook for capturing, organising and sharing complex information."
-    - [Stroll](https://giffmex.org/experiments/stroll.experiment.html) --- open-source "Roam-like" experience made with TiddlyWiki
+    - [Stroll](https://giffmex.org/stroll/stroll.html) --- open-source "Roam-like" experience made with TiddlyWiki
   - [RemNote](https://www.remnote.io/homepage) --- "RemNote is the first spaced-repetition powered note-taking tool..."
   - [Org mode for Emacs – Your Life in Plain Text](https://orgmode.org/) --- this is a whole world in itself. 
     - Read with ["The Plain Person’s Guide to Plain Text Social Science"](http://plain-text.co/) by Kieran Healy
