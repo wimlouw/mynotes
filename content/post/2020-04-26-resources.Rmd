@@ -109,7 +109,8 @@ Introduction to LATEX 2ε | Tobias Oetiker, Hubert Partl, Irene Hyna and Elisabe
 - [Data Visualization for Social Science: A practical introduction with R and ggplot2](http://socviz.co/index.html) 
 - [R Graphics Cookbook](http://www.cookbook-r.com/Graphs/)
 - [BBC Visual and Data Journalism cookbook](https://bbc.github.io/rcookbook/)
--  Cool articles on visualising uncertainty by Jessica Hullman and Matt Kay: [part 1](https://medium.com/multiple-views-visualization-research-explained/uncertainty-visualization-explained-67e7a73f031b) and [part 2](https://medium.com/multiple-views-visualization-research-explained/uncertainty-visualization-explained-part-2-continuous-encodings-967a7f7c38d0). And here they are on the [Data Stories podcast](http://datastori.es/134-visualizing-uncertainty-with-jessica-hullman-and-matthew-kay/)
+- [Learning data viz with D3 - Diana MacDonald | Medium](https://medium.com/@didoesdigital/learning-data-viz-with-d3-8b54afcef74)
+- Cool articles on visualising uncertainty by Jessica Hullman and Matt Kay: [part 1](https://medium.com/multiple-views-visualization-research-explained/uncertainty-visualization-explained-67e7a73f031b) and [part 2](https://medium.com/multiple-views-visualization-research-explained/uncertainty-visualization-explained-part-2-continuous-encodings-967a7f7c38d0). And here they are on the [Data Stories podcast](http://datastori.es/134-visualizing-uncertainty-with-jessica-hullman-and-matthew-kay/)
 
 
 ---
