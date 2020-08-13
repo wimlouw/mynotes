@@ -50,6 +50,7 @@ _My personal "running list" of resources, tools, and random articles_
 
 ## research resources
 - [J-PAL Research Resources](https://www.povertyactionlab.org/research-resources) --- "J-PAL library of practical resources is available for researchers undertaking randomized evaluations and those teaching the technique to others."
+- [Phone Survey Methods | Innovations for Poverty Action](https://www.poverty-action.org/recovr/phone-survey-methods)
 -  [Managing files, data, and documentation for randomized evaluations | The Abdul Latif Jameel Poverty Action Lab](https://www.povertyactionlab.org/resource/managing-files-data-and-documentation-randomized-evaluations) 
 - [Innovations for Poverty Action Research Resources](https://www.poverty-action.org/researchers/research-resources) --- "Throughout the survey process, the IPA Research and Knowledge Management (RKM) Department is available as a key resource for project staff in the field."
 - [RECOVR Research Hub | Innovations for Poverty Action](https://www.poverty-action.org/recovr/research-hub) --- "...centralizes surveys, evaluations, and datasets documenting the impacts of the COVID-19 pandemic in low- and middle-income countries."
@@ -73,6 +74,7 @@ _My personal "running list" of resources, tools, and random articles_
 - [Graphviz and DiagrammeR](https://rich-iannone.github.io/DiagrammeR/index.html)
 - [DAGitty - drawing and analyzing causal diagrams (DAGs)](http://www.dagitty.net/)
 - [Online Diagram Software & Visual Solution | Lucidchart](https://www.lucidchart.com/pages/) 
+- [Argdown](https://argdown.org/) — A simple syntax for complex argumentation
 
 ---
 
@@ -157,10 +159,15 @@ Introduction to LATEX 2ε | Tobias Oetiker, Hubert Partl, Irene Hyna and Elisabe
 - [Python graph gallery](https://python-graph-gallery.com/) 
 - [Data analysis in Python](http://www.data-analysis-in-python.org/index.html)  
 
+---
+
+## julia
+- [The Julia Programming Language](https://julialang.org/)
 
 ---
 
 ## version control
+- [Learn git concepts, not commands - DEV](https://dev.to/unseenwizzard/learn-git-concepts-not-commands-4gjc)
 - [Excuse me, do you have a moment to talk about version control? | Jennifer Bryan](https://peerj.com/preprints/3159/)
 - [Happy with Git | Jennifer Bryan](http://happygitwithr.com/) <3
 - [Git in Practice | Mike McQuaid](https://github.com/GitInPractice/GitInPractice#readme)
@@ -225,9 +232,11 @@ Introduction to LATEX 2ε | Tobias Oetiker, Hubert Partl, Irene Hyna and Elisabe
 - [Bear Notes](https://bear.app/) --- for iPhone, iPad and Mac
 - [Evernote](https://evernote.com/)
 - [Notion](https://www.notion.so/work) --- "The all-in-one workspace for your notes, tasks, wikis, and databases"
+- [Scrivener | Literature & Latte](https://www.literatureandlatte.com/scrivener/overview) --- "For writing. And writing. And writing."
+- [LiquidText](https://www.liquidtext.net/) —  reading, taking notes on articles, linking ideas
 - [Note-writing systems | Andy Matuschak](https://notes.andymatuschak.org/%C2%A7Note-writing_systems)
 - "Non-linear" note-taking --- backlinks, transclusion, &c.
-  - [Obsidian](https://obsidian.md/) --- "...an IDE for your notes." I'm trying this out for daily writing/accumulating ideas.[^2] 
+  - [Obsidian](https://obsidian.md/) --- "...an IDE for your notes."[^2] 
   - [Roam Research](https://roamresearch.com/) --- "A note-taking tool for networked thought. As easy to use as a document. As powerful as a graph database." 
   - ["TiddlyWiki"](https://tiddlywiki.com/) --- "...a unique non-linear notebook for capturing, organising and sharing complex information."
     - [Stroll](https://giffmex.org/stroll/stroll.html) --- open-source "Roam-like" experience made with TiddlyWiki
