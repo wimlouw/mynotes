@@ -129,6 +129,7 @@ Introduction to LATEX 2ε | Tobias Oetiker, Hubert Partl, Irene Hyna and Elisabe
 - [R Language Definition](https://cran.r-project.org/doc/manuals/r-release/R-lang.html#Introduction)
 - See [R Markdown: The Definitive Guide | Yihui Xie, J. J. Allaire, and Garrett Grolemund](https://bookdown.org/yihui/rmarkdown/)
 - [R Markdown Cookbook | Yihui Xie and Christophe Dervieux](https://bookdown.org/yihui/rmarkdown-cookbook/)
+- [The Mockup Blog: Meta RMarkdown - Taxonomy and Use cases](https://themockup.blog/posts/2020-07-25-meta-rmarkdown/)
 - [knitcitations](https://github.com/cboettig/knitcitations) --- dynamic citations on R Markdown
 
 ---
