@@ -105,7 +105,7 @@ Introduction to LATEX 2ε | Tobias Oetiker, Hubert Partl, Irene Hyna and Elisabe
 - [RawGraphs](https://rawgraphs.io/) 
 - [Tableau (public)](https://public.tableau.com/en-us/s/) 
 - [Datawrapper](https://www.datawrapper.de/)
-- [Flourish](https://www.datawrapper.de/)
+- [Flourish](https://flourish.studio/)
 - [Data Visualization Society](https://www.datavisualizationsociety.com/connect)
 - [Google's "Data studio"](https://datastudio.google.com/overview)
 - [Data Visualization for Social Science: A practical introduction with R and ggplot2](http://socviz.co/index.html) 
