@@ -287,6 +287,7 @@ Introduction to LATEX 2ε | Tobias Oetiker, Hubert Partl, Irene Hyna and Elisabe
 - [Several Short Sentences About Writing | Verlyn Klinkenborg](https://www.amazon.com/Several-Short-Sentences-About-Writing/dp/0307279413) <3
 - [Sister Bernadette’s Barking Dog: The Quirky History and Lost Art of Diagramming Sentences | Kitty Burns Florey](https://www.amazon.com/Sister-Bernadettes-Barking-Dog-Diagramming/dp/0156034433)
 - [Dreyer’s English: An Utterly Correct Guide to Clarity and Style | Benjamin Dreyer](https://www.amazon.co.uk/dp/B07NRVFBB1/ref=dp-kindle-redirect?_encoding=UTF8&btkr=1), see also [The Hedonic Appeal of “Dreyer’s English” | The New Yorker](https://www.newyorker.com/books/page-turner/the-hedonic-appeal-of-dreyers-english)
+- [Simple rules for concise scientific writing | Limnology and Oceanography Letters - Wiley Online Library](https://aslopubs.onlinelibrary.wiley.com/doi/full/10.1002/lol2.10165) by Scott Hotaling
 
 
 ---
