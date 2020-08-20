@@ -268,11 +268,12 @@ Introduction to LATEX 2ε | Tobias Oetiker, Hubert Partl, Irene Hyna and Elisabe
   - [Atomic Habits: Tiny Changes, Remarkable Results | James Clear](https://jamesclear.com/atomic-habits)
   - [How to Take Smart Notes: One Simple Technique to Boost Writing, Learning and Thinking | Sönke Ahrens ](https://www.amazon.com/How-Take-Smart-Notes-Nonfiction-ebook/dp/B06WVYW33Y) --- Niklas Luhmann, the _zettelkasten_, &c.
 - Tools
+  - [TextExpander](https://textexpander.com/) --- "Easily insert text snippets in any application from a library of content created by you and your team."
+  - [Toggl - Free Time Tracking Software](https://toggl.com/)
   - [“Responsibility assignment matrix" | Wikipedia](https://en.wikipedia.org/wiki/Responsibility_assignment_matrix) --- "RACI" charts
   - [Work Effectively with the "Eisenhower Matrix" | Evernote Blog](https://evernote.com/blog/work-effectively-with-the-eisenhower-matrix/) --- high priority, high urgency; high priority low urgency, &c.
   - [Pomodoro Technique | Wikipedia](https://en.wikipedia.org/wiki/Pomodoro_Technique) 🍅
   - [The ten minute rule of productivity - Ness Labs](https://nesslabs.com/ten-minute-rule) --- beat procrastination (maybe!)
-  - [Toggl - Free Time Tracking Software](https://toggl.com/)
   - [Interstitial journaling: combining notes, to-do & time tracking - Ness Labs](https://nesslabs.com/interstitial-journaling)
   - [Bullet Journal](https://bulletjournal.com/)
   - [Evergreen note-writing as fundamental unit of knowledge work | Andy Matuschak](https://notes.andymatuschak.org/Evergreen_note-writing_as_fundamental_unit_of_knowledge_work)
