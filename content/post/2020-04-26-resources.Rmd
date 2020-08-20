@@ -323,6 +323,7 @@ Applications | Judea Pearl, Madelyn Glymour, Nicholas P. Jewell](http://web.cs.u
 # misc >>> 
 
 ## random links
+- [The death of the literature review and the rise of the dynamic knowledge map | Impact of Social Sciences](https://blogs.lse.ac.uk/impactofsocialsciences/2019/05/14/the-death-of-the-literature-review-and-the-rise-of-the-dynamic-knowledge-map/) ---- hmmm
 - [webshot](https://github.com/wch/webshot) ---  “makes it easy to take screenshots of web pages from R"
 - Add a [progess bar](https://github.com/r-lib/progress/blob/master/README.md) to a script
 - [diffobj - Diffs for R Objects](https://github.com/brodieG/diffobj) — “Generate a colorized diff of two R objects for an intuitive visualization of their differences."
