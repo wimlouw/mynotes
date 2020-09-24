@@ -1,7 +1,7 @@
 ---
 title: Including citations in a post
 author: Wim Louw
-date: '2020-04-18'
+date: '2020-09-24'
 categories:
   - learning
   - resources
