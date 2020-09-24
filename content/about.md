@@ -1,5 +1,5 @@
 ---
-date: "2020-04-10"
+date: "2020-09-24"
 title: About
 ---
 
@@ -11,7 +11,4 @@ This was wonderfully easy.
 
 For now I'm just updating a "resources" list that includes tools and articles I find interesting. 
 
-Other things that were useful:
-- I made some tweaks to the ["lithium"](https://themes.gohugo.io/hugo-lithium-theme/) theme in the layouts folder including:
-  - Getting external links to open in a new tab (see [this post](https://yihui.org/en/2018/09/target-blank/)) in the "footer.html" file
-  - Google Tag Manager in the "head_custom.html" file
+Other things that were useful: I made some tweaks to the ["lithium"](https://themes.gohugo.io/hugo-lithium-theme/) theme in the layouts folder including: getting external links to open in a new tab (see [this post](https://yihui.org/en/2018/09/target-blank/)) in the "footer.html" file, and added Google Tag Manager in the "head_custom.html" file.
