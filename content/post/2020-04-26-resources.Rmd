@@ -237,9 +237,7 @@ Introduction to LATEX 2ε | Tobias Oetiker, Hubert Partl, Irene Hyna and Elisabe
 - [Dropbox Paper](https://www.dropbox.com/paper) --- great for call agendas and collaborative notes
 - [Bear Notes](https://bear.app/) --- for iPhone, iPad and Mac
 - [Evernote](https://evernote.com/)
-- [Notion](https://www.notion.so/work) --- "The all-in-one workspace for your notes, tasks, wikis, and databases"
-- [Scrivener | Literature & Latte](https://www.literatureandlatte.com/scrivener/overview) --- "For writing. And writing. And writing."
-- [LiquidText](https://www.liquidtext.net/) —  reading, taking notes on articles, linking ideas
+- [Notion](https://www.notion.so/work) --- "The all-in-one workspace for your notes, tasks, wikis, and databases." See also [here](https://twitter.com/NotionHQ/status/1306677709263630336), Notion now has backlinks <3
 - [Note-writing systems | Andy Matuschak](https://notes.andymatuschak.org/%C2%A7Note-writing_systems)
 - "Non-linear" note-taking --- backlinks, transclusion, &c.
   - [Obsidian](https://obsidian.md/) --- "...an IDE for your notes."[^2] 
@@ -249,6 +247,8 @@ Introduction to LATEX 2ε | Tobias Oetiker, Hubert Partl, Irene Hyna and Elisabe
   - [RemNote](https://www.remnote.io/homepage) --- "RemNote is the first spaced-repetition powered note-taking tool..."
   - [Org mode for Emacs – Your Life in Plain Text](https://orgmode.org/) --- this is a whole world in itself. 
     - Read with ["The Plain Person’s Guide to Plain Text Social Science"](http://plain-text.co/) by Kieran Healy
+- [Scrivener | Literature & Latte](https://www.literatureandlatte.com/scrivener/overview) --- "For writing. And writing. And writing."
+- [LiquidText](https://www.liquidtext.net/) —  reading, taking notes on articles, linking ideas
  
 ---
 
