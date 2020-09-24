@@ -1,0 +1,103 @@
+---
+title: 'Notes on webscraping'
+author: Wim Louw
+date: '2020-09-24'
+slug: webscraping
+categories: []
+tags: []
+---
+
+
+
+<div id="intro" class="section level2">
+<h2>Intro</h2>
+<ul>
+<li>Here I’d like to — high-level — combine my own experience in doing this with some key take-aways from some of the following sources:
+<ul>
+<li>Mine Dogucu &amp; Mine Çetinkaya-Rundel (2020): “Web Scraping in the Statistics and Data Science Curriculum: Challenges and Opportunities”, Journal of Statistics Education — see <a href="https://github.com/mdogucu/web-scrape">here</a></li>
+<li><a href="https://www.nature.com/articles/d41586-020-02558-0">How we learnt to stop worrying and love web scraping | Nature Career Column</a> by Nicholas J. DeVito, Georgia C. Richards &amp; Peter Inglesby</li>
+<li><a href="https://automatetheboringstuff.com/2e/chapter12/">Chapter 12: “Web scraping”</a> in “Automate the Boring Stuff with Python” by Al Sweigart</li>
+</ul></li>
+</ul>
+</div>
+<div id="applications" class="section level2">
+<h2>Applications</h2>
+<ul>
+<li>Here I want to describe some use cases
+<ul>
+<li>Aggregating job ads — an example I elaborate below</li>
+<li>Bulk downloading and storing webpages</li>
+<li>Pulling tables from sites</li>
+<li>Downloading papers</li>
+<li>Filling out forms</li>
+</ul></li>
+</ul>
+</div>
+<div id="a-specific-problem" class="section level2">
+<h2>A specific problem</h2>
+<ul>
+<li>Here I want to walk through a specific example
+<ul>
+<li>Aggregating job ads from a jobs posting site</li>
+<li>Think through:
+<ul>
+<li>Look at website, figure out structure
+<ul>
+<li>typical job posting site: list of links to full ads across x number of pages</li>
+</ul></li>
+<li>Find job links
+<ul>
+<li>figure out how many pages deep to go</li>
+<li>pull links from each page</li>
+<li>clean up links/ prep them for iteration / strip junk</li>
+<li>list of links</li>
+</ul></li>
+<li>Iterate over links
+<ul>
+<li>open link</li>
+<li>from ad: pull specific css selectors, i.e. job title, job description, date posted</li>
+<li>generate meta info: timestamp, source</li>
+<li>store in dataset or database</li>
+</ul></li>
+</ul></li>
+<li>Run regularly</li>
+</ul></li>
+</ul>
+<div id="considerations" class="section level3">
+<h3>Considerations</h3>
+<ul>
+<li>Stuff to think about here</li>
+</ul>
+</div>
+<div id="implementation" class="section level3">
+<h3>Implementation</h3>
+<ul>
+<li>Code snippets here</li>
+</ul>
+<div id="in-r" class="section level4">
+<h4>In R</h4>
+<ul>
+<li>[…]</li>
+</ul>
+</div>
+<div id="in-python-3" class="section level4">
+<h4>In Python 3</h4>
+<ul>
+<li>[…]</li>
+</ul>
+</div>
+</div>
+<div id="lessons-learned" class="section level3">
+<h3>Lessons learned</h3>
+<ul>
+<li>[…]</li>
+</ul>
+</div>
+</div>
+<div id="more-resources" class="section level2">
+<h2>More resources</h2>
+<ul>
+<li>[…]</li>
+<li>[…]</li>
+</ul>
+</div>

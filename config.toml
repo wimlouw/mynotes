@@ -2,9 +2,9 @@ baseurl = "/"
 languageCode = "en-uk"
 title = "Notes"
 theme = "hugo-lithium"
-googleAnalytics = ""
+googleAnalytics = "UA-178880539-1"
 disqusShortname = ""
-ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_files$", "_cache$"]
+ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_files$", "_cache$", "\\.bib$", "\\.csv$"]
 
 [permalinks]
     post = "/:year/:month/:day/:slug/"
