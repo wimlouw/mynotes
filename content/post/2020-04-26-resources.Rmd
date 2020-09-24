@@ -102,6 +102,8 @@ Introduction to LATEX 2ε | Tobias Oetiker, Hubert Partl, Irene Hyna and Elisabe
 - [From data to viz](https://www.data-to-viz.com/) --- "...leads you to the most appropriate graph for your data. It links to the code to build it and lists common caveats you should avoid."
 - [Fundamentals of Data Visualization | Claus O. Wilke](https://serialmentor.com/dataviz/)
 - [Data Stories](https://datastori.es/), "...a podcast on data visualization" with Enrico Bertini and Moritz Stefaner
+- [Visualizing with Text - 1st Edition - Richard  Brath - Routledge Book](https://www.routledge.com/Visualizing-with-Text/Brath/p/book/9780367259266)
+  - See also: [Visualizing with Text | Richard Brath's blog](https://richardbrath.wordpress.com/books-and-chapters-by-richard-brath/visualizing-with-text-book-companion-web-site/) for interactive demos and code 
 - [RawGraphs](https://rawgraphs.io/) 
 - [Tableau (public)](https://public.tableau.com/en-us/s/) 
 - [Datawrapper](https://www.datawrapper.de/)
