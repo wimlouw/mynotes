@@ -15,3 +15,16 @@ by Yihui Xie, Amber Thomas, Alison Presmanes Hill" width="15" height="22"></a>
 </body>
 
 </html>
+
+<script>
+
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+
+</script>
