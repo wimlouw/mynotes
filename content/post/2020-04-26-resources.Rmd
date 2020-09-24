@@ -14,7 +14,7 @@ output:
     toc: yes
 ---
 
-_My personal "running list" of resources, tools, and random articles_ 
+_My personal "running list" of resources, tools, and random articles. Thinking about: Link highlighting (a bit busy) and organisation (some sections can be combined)_
 
 # work >>> 
 
