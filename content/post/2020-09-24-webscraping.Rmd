@@ -1,5 +1,5 @@
 ---
-title: 'Notes on webscraping'
+title: 'Notes on webscraping: Outline (incomplete)'
 author: Wim Louw
 date: '2020-09-24'
 slug: webscraping
