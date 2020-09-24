@@ -31,17 +31,16 @@ link-citations: yes
 * Ok this is a test --- using some random sources I think I used for a paper a few years ago
 * I'm using the citr package, Zotero, and the Better BibTeX Zotero add-in
 
-  >*Blah, blah* 
+ 
+  >*Blah blah [see @carranzaJobSearchHiring2020, pp. 3-8; also @dufloFieldExperimentsPractice2020]*
   
-  >*Blah blah [see @edwardb.fiskeElusiveEquityEducation2004, pp. 10-15; also @vanderbergResourceShiftsSouth2001 , ch. 3].*
+  >*Blah blah [@dufloFieldExperimentsPractice2020, pp. 5-9].*
   
-  >*Blah blah [@edwardb.fiskeElusiveEquityEducation2004, pp. 5-9, 20-22 and passim].*
+  >*Blah blah [@carranzaJobSearchHiring2020; @dufloFieldExperimentsPractice2020]*
   
-  >*Blah blah [ @vanderbergResourceShiftsSouth2001; @edwardb.fiskeElusiveEquityEducation2004]*
+  >*Carranza et al. say [-@carranzaJobSearchHiring2020]*
   
-  >*Van der Berg says blah [-@vanderbergResourceShiftsSouth2001].*
-  
-  >*@vanderbergResourceShiftsSouth2001 says blah.*
+  >*@carranzaJobSearchHiring2020 says blah.* 
   
 
 OK, works!
