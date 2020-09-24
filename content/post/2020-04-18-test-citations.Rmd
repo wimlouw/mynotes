@@ -28,7 +28,7 @@ link-citations: yes
 
 # Test
 
-* Ok this is a test --- using some random sources I think I used for a paper a few years ago
+* Ok this is a test
 * I'm using the citr package, Zotero, and the Better BibTeX Zotero add-in
 
  
