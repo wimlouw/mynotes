@@ -39,11 +39,14 @@ _My personal "running list" of resources, tools, and random articles. Thinking a
 ---
 
 ## task management
-- [Trello](https://trello.com/) --- I use this like a “ticket” system, for capturing/channeling work todos [^1]
+- [Trello](https://trello.com/) --- I use this like a “ticket” system, for capturing/channeling work todos.
+  - See also [“Find Work-Life Focus: A Trello Insider’s Guide To Personal Productivity”](https://blog.trello.com/work-life-focus-trello-insider-guide-personal-productivity?hs_amp=true) and [“How To Become A Project Management Master With Trello”](https://blog.trello.com/project-management-power-ups). Btw, the [Gmail add-on](https://help.trello.com/article/1120-trello-for-gmail-add-on) is also v. useful
 - [Asana](https://asana.com/)
 - [Airtable](https://airtable.com/) --- "Part spreadsheet, part database, and entirely flexible, teams use Airtable to organize their work, their way."
 - [Slack](https://slack.com/)
 - [Zapier](https://zapier.com/) --- I use this with Trello, and for automating repetitive tasks
+- See also the section on [note-taking](https://wimlouw.netlify.app/2020/09/24/resources/#taking-notes) below
+  - See also [here](https://wimlouw.netlify.app/2020/09/24/citations/)
 
 
 ---
@@ -122,7 +125,7 @@ Introduction to LATEX 2ε | Tobias Oetiker, Hubert Partl, Irene Hyna and Elisabe
 
 ## R
 - [Install base R](https://www.r-project.org/); then
-- [Install RStudio UI](https://www.rstudio.com/products/rstudio/download/) (highly recommended)[^3]
+- [Install RStudio UI](https://www.rstudio.com/products/rstudio/download/) (highly recommended)[^1]
 - [R for data science | Garrett Grolemund and Hadley Wickham](http://r4ds.had.co.nz/) 
 - Learn R in R with [Swirl](http://swirlstats.com/) 
 - See the [RStudio Cheat Sheet, and others](https://www.rstudio.com/resources/cheatsheets/#ide)
@@ -130,9 +133,11 @@ Introduction to LATEX 2ε | Tobias Oetiker, Hubert Partl, Irene Hyna and Elisabe
 - [Tidy Data](https://vita.had.co.nz/papers/tidy-data.pdf)
 - [An introduction to R](http://colinfay.me/intro-to-r/) (intro to base R)
 - [R Language Definition](https://cran.r-project.org/doc/manuals/r-release/R-lang.html#Introduction)
-- See [R Markdown: The Definitive Guide | Yihui Xie, J. J. Allaire, and Garrett Grolemund](https://bookdown.org/yihui/rmarkdown/)
-- [R Markdown Cookbook | Yihui Xie and Christophe Dervieux](https://bookdown.org/yihui/rmarkdown-cookbook/)
-- [The Mockup Blog: Meta RMarkdown - Taxonomy and Use cases](https://themockup.blog/posts/2020-07-25-meta-rmarkdown/)
+- R Markdown
+  - See [R Markdown: The Definitive Guide | Yihui Xie, J. J. Allaire, and Garrett Grolemund](https://bookdown.org/yihui/rmarkdown/)
+  - [R Markdown Cookbook | Yihui Xie and Christophe Dervieux](https://bookdown.org/yihui/rmarkdown-cookbook/)
+  - [The Mockup Blog: Meta RMarkdown - Taxonomy and Use cases](https://themockup.blog/posts/2020-07-25-meta-rmarkdown/)
+  - [RMarkdown Driven Development | Emily Riederer](https://emilyriederer.netlify.com/post/rmarkdown-driven-development/)
 - [knitcitations](https://github.com/cboettig/knitcitations) --- dynamic citations on R Markdown
 
 ---
@@ -240,7 +245,7 @@ Introduction to LATEX 2ε | Tobias Oetiker, Hubert Partl, Irene Hyna and Elisabe
 - [Notion](https://www.notion.so/work) --- "The all-in-one workspace for your notes, tasks, wikis, and databases." See also [here](https://twitter.com/NotionHQ/status/1306677709263630336), Notion now has backlinks <3
 - [Note-writing systems | Andy Matuschak](https://notes.andymatuschak.org/%C2%A7Note-writing_systems)
 - "Non-linear" note-taking --- backlinks, transclusion, &c.
-  - [Obsidian](https://obsidian.md/) --- "...an IDE for your notes."[^2] 
+  - [Obsidian](https://obsidian.md/) --- "...an IDE for your notes."
   - [Roam Research](https://roamresearch.com/) --- "A note-taking tool for networked thought. As easy to use as a document. As powerful as a graph database." 
   - ["TiddlyWiki"](https://tiddlywiki.com/) --- "...a unique non-linear notebook for capturing, organising and sharing complex information."
     - [Stroll](https://giffmex.org/stroll/stroll.html) --- open-source "Roam-like" experience made with TiddlyWiki
@@ -306,9 +311,10 @@ Introduction to LATEX 2ε | Tobias Oetiker, Hubert Partl, Irene Hyna and Elisabe
 
 ---
 
-## causal inference, &c.
+## stats, &c.
 - [Seeing Theory](https://seeing-theory.brown.edu/) — “...interactive visualizations (designed using Mike Bostock’s JavaScript library [D3.js](https://d3js.org/)).”
 - [A visual introduction to machine learning](http://www.r2d3.us/visual-intro-to-machine-learning-part-1/)
+- [Common statistical tests are linear models (or: how to teach stats)](https://lindeloev.github.io/tests-as-linear/)
 - [Mostly Harmless Econometrics | Joshua D. Angrist & Jörn-Steffen Pischke](https://www.mostlyharmlesseconometrics.com/)
 - [Introduction to Econometrics with R](https://www.econometrics-with-r.org/index.html)
 - [Mixtape | Scott Cunningham](https://www.scunning.com/mixtape.html)
@@ -344,7 +350,4 @@ Applications | Judea Pearl, Madelyn Glymour, Nicholas P. Jewell](http://web.cs.u
 - [Readings | Real Analysis | Mathematics | MIT OpenCourseWare](https://ocw.mit.edu/courses/mathematics/18-100c-real-analysis-fall-2012/readings/)
 
 
-[^1]: See [“Find Work-Life Focus: A Trello Insider’s Guide To Personal Productivity”](https://blog.trello.com/work-life-focus-trello-insider-guide-personal-productivity?hs_amp=true) and [“How To Become A Project Management Master With Trello”](https://blog.trello.com/project-management-power-ups). The [Gmail add-on](https://help.trello.com/article/1120-trello-for-gmail-add-on) is also useful
-[^2]: See Andy Matuschak's "[About these notes | Evergreen note-writing as fundamental unit of knowledge work | Evergreen notes](https://notes.andymatuschak.org/About_these_notes?stackedNotes=z3SjnvsB5aR2ddsycyXofbYR7fCxo7RmKW2be&stackedNotes=z4SDCZQeRo4xFEQ8H4qrSqd68ucpgE6LU155C)"
-[^3]: I <3 the [styler](https://github.com/r-lib/styler) and [datapasta](https://github.com/MilesMcBain/datapasta) and [littleboxes](https://github.com/ThinkR-open/littleboxes) RStudio add-ins! Here's a post I saw on some others: ["RStudio addins, or how to make your coding life easier"](https://www.statsandr.com/blog/rstudio-addins-or-how-to-make-your-coding-life-easier/)
-
+[^1]: I <3 the [styler](https://github.com/r-lib/styler) and [datapasta](https://github.com/MilesMcBain/datapasta) and [littleboxes](https://github.com/ThinkR-open/littleboxes) RStudio add-ins! Here's a post I saw on some others: ["RStudio addins, or how to make your coding life easier"](https://www.statsandr.com/blog/rstudio-addins-or-how-to-make-your-coding-life-easier/)
