@@ -35,7 +35,7 @@ _My personal "running list" of resources, tools, and random articles. Thinking a
 
   >*“Written by the innovators behind Basecamp—one of the biggest and longest-running software as a service apps—the book gives teams language and specific techniques to address the risks and unknowns at each stage of the product development process.”*
   
-- See also: [The Hidden Curriculum • A podcast on Anchor](https://anchor.fm/hidden-curriculum) --- “[...] a podcast on all the topics you wanted to learn in (econ) graduate school. There are lots of things about the profession that you only hear if you have a great mentor or during networking opportunities. This podcast aims to help decrease that knowledge gap by bringing that information into your headphones.”
+- See also: [The Hidden Curriculum](https://anchor.fm/hidden-curriculum) --- “[...] a podcast on all the topics you wanted to learn in (econ) graduate school. There are lots of things about the profession that you only hear if you have a great mentor or during networking opportunities. This podcast aims to help decrease that knowledge gap by bringing that information into your headphones.”
   
   
   
@@ -49,8 +49,6 @@ _My personal "running list" of resources, tools, and random articles. Thinking a
 - [Slack](https://slack.com/)
 - [Zapier](https://zapier.com/) --- I use this with Trello, and for automating repetitive tasks
 - See also the section on [note-taking](https://wimlouw.netlify.app/2020/09/24/resources/#taking-notes) below
-  - See also [here](https://wimlouw.netlify.app/2020/09/24/citations/)
-
 
 ---
 
@@ -142,6 +140,7 @@ Introduction to LATEX 2ε | Tobias Oetiker, Hubert Partl, Irene Hyna and Elisabe
   - [The Mockup Blog: Meta RMarkdown - Taxonomy and Use cases](https://themockup.blog/posts/2020-07-25-meta-rmarkdown/)
   - [RMarkdown Driven Development | Emily Riederer](https://emilyriederer.netlify.com/post/rmarkdown-driven-development/)
 - [knitcitations](https://github.com/cboettig/knitcitations) --- dynamic citations on R Markdown
+  - See also [here](https://wimlouw.netlify.app/2020/09/24/citations/)
 
 ---
 
