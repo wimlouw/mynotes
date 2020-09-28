@@ -1,5 +1,5 @@
 ---
-title: 'Notes on webscraping: Outline (incomplete)'
+title: 'Notes on webscraping (incomplete)'
 author: Wim Louw
 date: '2020-09-24'
 slug: webscraping
@@ -15,49 +15,4 @@ tags: []
   - [Chapter 12: "Web scraping"](https://automatetheboringstuff.com/2e/chapter12/) in "Automate the Boring Stuff with Python" by Al Sweigart
 
 
-## Applications
-- Here I want to describe some use cases
-  - Aggregating job ads --- an example I elaborate below
-  - Bulk downloading and storing webpages
-  - Pulling tables from sites
-  - Downloading papers
-  - Filling out forms
-
-
-## A specific problem
-- Here I want to walk through a specific example
-  - Aggregating job ads from a jobs posting site
-  - Think through:
-    - Look at website, figure out structure
-      - typical job posting site: list of links to full ads across x number of pages
-    - Find job links
-      - figure out how many pages deep to go
-      - pull links from each page
-      - clean up links/ prep them for iteration / strip junk
-      - list of links
-    - Iterate over links
-      - open link
-      - from ad: pull specific css selectors, i.e. job title, job description, date posted
-      - generate meta info: timestamp, source
-      - store in dataset or database
-  - Run regularly
-
-### Considerations
-- Stuff to think about here
-
-### Implementation
-- Code snippets here
-
-#### In R
-- [...]
-
-
-#### In Python 3
-- [...]
-
-### Lessons learned
-- [...]
-
-## More resources
-- [...]
-- [...]
+[...]
