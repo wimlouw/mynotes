@@ -43,9 +43,7 @@ output:
 
 ## task management
 
--   [Trello](https://trello.com/) --- I use this like a "ticket" system, for capturing/channeling work todos.
-
-    -   See also ["Find Work-Life Focus: A Trello Insider's Guide To Personal Productivity"](https://blog.trello.com/work-life-focus-trello-insider-guide-personal-productivity?hs_amp=true) and ["How To Become A Project Management Master With Trello"](https://blog.trello.com/project-management-power-ups). Btw, the [Gmail add-on](https://help.trello.com/article/1120-trello-for-gmail-add-on) is also v. useful
+-   [Trello](https://trello.com/) --- I use this like a "ticket" system, for capturing/channeling work todos[^1]
 
 -   [Asana](https://asana.com/)
 
@@ -56,6 +54,8 @@ output:
 -   [Zapier](https://zapier.com/) --- I use this with Trello, and for automating repetitive tasks
 
 -   See also the section on [note-taking](https://wimlouw.netlify.app/2020/09/24/resources/#taking-notes) below
+
+[^1]: See also ["Find Work-Life Focus: A Trello Insider's Guide To Personal Productivity"](https://blog.trello.com/work-life-focus-trello-insider-guide-personal-productivity?hs_amp=true) and ["How To Become A Project Management Master With Trello"](https://blog.trello.com/project-management-power-ups). Btw, the [Gmail add-on](https://help.trello.com/article/1120-trello-for-gmail-add-on) is also v. useful
 
 ------------------------------------------------------------------------
 
@@ -167,7 +167,7 @@ output:
 
 -   [Install base R](https://www.r-project.org/); then
 
--   [Install RStudio UI](https://www.rstudio.com/products/rstudio/download/) (highly recommended)[^1]
+-   [Install RStudio UI](https://www.rstudio.com/products/rstudio/download/) (highly recommended)[^2]
 
 -   [R for data science \| Garrett Grolemund and Hadley Wickham](http://r4ds.had.co.nz/)
 
@@ -194,7 +194,7 @@ output:
 
     -   See also [here](https://wimlouw.netlify.app/2020/09/24/citations/)
 
-[^1]: I \<3 the [styler](https://github.com/r-lib/styler) and [datapasta](https://github.com/MilesMcBain/datapasta) and [littleboxes](https://github.com/ThinkR-open/littleboxes) RStudio add-ins! Here's a post I saw on some others: ["RStudio addins, or how to make your coding life easier"](https://www.statsandr.com/blog/rstudio-addins-or-how-to-make-your-coding-life-easier/)
+[^2]: I \<3 the [styler](https://github.com/r-lib/styler) and [datapasta](https://github.com/MilesMcBain/datapasta) and [littleboxes](https://github.com/ThinkR-open/littleboxes) RStudio add-ins! Here's a post I saw on some others: ["RStudio addins, or how to make your coding life easier"](https://www.statsandr.com/blog/rstudio-addins-or-how-to-make-your-coding-life-easier/)
 
 ------------------------------------------------------------------------
 
@@ -414,7 +414,7 @@ output:
 
 ------------------------------------------------------------------------
 
-# misc \>\>\>
+# 🎲 misc
 
 ## random links
 
