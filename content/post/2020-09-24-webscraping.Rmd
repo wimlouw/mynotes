@@ -7,12 +7,9 @@ categories: []
 tags: []
 ---
 
-
 ## Intro
+
 - Here I'd like to --- high-level --- combine my own experience in doing this with some key take-aways from some of the following sources:
   - Mine Dogucu & Mine Çetinkaya-Rundel (2020): "Web Scraping in the Statistics and Data Science Curriculum: Challenges and Opportunities", Journal of Statistics Education --- see [here](https://github.com/mdogucu/web-scrape)
-  - [How we learnt to stop worrying and love web scraping | Nature Career Column](https://www.nature.com/articles/d41586-020-02558-0) by Nicholas J. DeVito, Georgia C. Richards & Peter Inglesby
+  - [How we learnt to stop worrying and love web scraping \| Nature Career Column](https://www.nature.com/articles/d41586-020-02558-0) by Nicholas J. DeVito, Georgia C. Richards & Peter Inglesby 
   - [Chapter 12: "Web scraping"](https://automatetheboringstuff.com/2e/chapter12/) in "Automate the Boring Stuff with Python" by Al Sweigart
-
-
-[...]
