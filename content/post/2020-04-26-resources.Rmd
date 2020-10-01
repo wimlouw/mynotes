@@ -9,347 +9,428 @@ tags:
   - tools
   - work
 slug: resources
+canonical: true
 output:
   blogdown::html_page:
     toc: yes
 ---
 
-_My personal "running list" of resources, tools, and random articles. Thinking about: Link highlighting (a bit busy) and organisation (some sections can be combined)_
+*My personal "running list" of resources, tools, and random articles. Thinking about: Link highlighting (a bit busy) and organisation (some sections can be combined)*
 
-# work >>> 
+# 💼 work 
 
 ## workflow
-- [Good enough practices in scientific computing | Greg Wilson, Jennifer Bryan, and others](http://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1005510)
 
-  >*"This paper presents a set of good computing practices that every researcher can adopt. [...] These practices, which encompass data management, programming, collaborating with colleagues, organizing projects, tracking work, and writing manuscripts, are drawn from a wide variety of published sources from our daily lives and from our work with volunteer organizations that have delivered workshops to over 11,000 people since 2010."*
+-   [Good enough practices in scientific computing \| Greg Wilson, Jennifer Bryan, and others](http://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1005510)
 
-- [RMarkdown Driven Development | Emily Riederer](https://emilyriederer.netlify.com/post/rmarkdown-driven-development/)
+    > *"This paper presents a set of good computing practices that every researcher can adopt. [...] These practices, which encompass data management, programming, collaborating with colleagues, organizing projects, tracking work, and writing manuscripts, are drawn from a wide variety of published sources from our daily lives and from our work with volunteer organizations that have delivered workshops to over 11,000 people since 2010."*
 
-  >*"In this post, I describe RMarkdown Driven Development (RmdDD?): a progression of stages between a single ad-hoc RMarkdown script and more advanced and reusable data products like R projects and packages. This approach has numerous benefits."*
+-   [RMarkdown Driven Development \| Emily Riederer](https://emilyriederer.netlify.com/post/rmarkdown-driven-development/)
 
-- [The Plain Person’s Guide to Plain Text Social Science | Kieran Healy](http://plain-text.co/)
+    > *"In this post, I describe RMarkdown Driven Development (RmdDD?): a progression of stages between a single ad-hoc RMarkdown script and more advanced and reusable data products like R projects and packages. This approach has numerous benefits."*
 
-  >*"As a beginning graduate student in the social sciences, what sort of software should you use to do your work? More importantly, what principles should guide your choices? I offer some general considerations and specific answers. The short version is: you should use tools that give you more control over the process of data analysis and writing. I recommend you write prose and code using a good text editor; analyze quantitative data with R and RStudio, or use Stata; minimize error by storing your work in a simple format (plain text is best), and make a habit of documenting what you’ve done."*
+-   [The Plain Person's Guide to Plain Text Social Science \| Kieran Healy](http://plain-text.co/)
 
-- [Shape Up | Basecamp](https://basecamp.com/shapeup)
+    > *"As a beginning graduate student in the social sciences, what sort of software should you use to do your work? More importantly, what principles should guide your choices? I offer some general considerations and specific answers. The short version is: you should use tools that give you more control over the process of data analysis and writing. I recommend you write prose and code using a good text editor; analyze quantitative data with R and RStudio, or use Stata; minimize error by storing your work in a simple format (plain text is best), and make a habit of documenting what you've done."*
 
-  >*“Written by the innovators behind Basecamp—one of the biggest and longest-running software as a service apps—the book gives teams language and specific techniques to address the risks and unknowns at each stage of the product development process.”*
-  
-- See also: [The Hidden Curriculum](https://anchor.fm/hidden-curriculum) --- “[...] a podcast on all the topics you wanted to learn in (econ) graduate school. There are lots of things about the profession that you only hear if you have a great mentor or during networking opportunities. This podcast aims to help decrease that knowledge gap by bringing that information into your headphones.”
-  
-  
-  
----
+-   [Shape Up \| Basecamp](https://basecamp.com/shapeup)
+
+    > *"Written by the innovators behind Basecamp---one of the biggest and longest-running software as a service apps---the book gives teams language and specific techniques to address the risks and unknowns at each stage of the product development process."*
+
+-   See also: [The Hidden Curriculum](https://anchor.fm/hidden-curriculum) --- "[...] a podcast on all the topics you wanted to learn in (econ) graduate school. There are lots of things about the profession that you only hear if you have a great mentor or during networking opportunities. This podcast aims to help decrease that knowledge gap by bringing that information into your headphones."
+
+------------------------------------------------------------------------
 
 ## task management
-- [Trello](https://trello.com/) --- I use this like a “ticket” system, for capturing/channeling work todos.
-  - See also [“Find Work-Life Focus: A Trello Insider’s Guide To Personal Productivity”](https://blog.trello.com/work-life-focus-trello-insider-guide-personal-productivity?hs_amp=true) and [“How To Become A Project Management Master With Trello”](https://blog.trello.com/project-management-power-ups). Btw, the [Gmail add-on](https://help.trello.com/article/1120-trello-for-gmail-add-on) is also v. useful
-- [Asana](https://asana.com/)
-- [Airtable](https://airtable.com/) --- "Part spreadsheet, part database, and entirely flexible, teams use Airtable to organize their work, their way."
-- [Slack](https://slack.com/)
-- [Zapier](https://zapier.com/) --- I use this with Trello, and for automating repetitive tasks
-- See also the section on [note-taking](https://wimlouw.netlify.app/2020/09/24/resources/#taking-notes) below
 
----
+-   [Trello](https://trello.com/) --- I use this like a "ticket" system, for capturing/channeling work todos.
+
+    -   See also ["Find Work-Life Focus: A Trello Insider's Guide To Personal Productivity"](https://blog.trello.com/work-life-focus-trello-insider-guide-personal-productivity?hs_amp=true) and ["How To Become A Project Management Master With Trello"](https://blog.trello.com/project-management-power-ups). Btw, the [Gmail add-on](https://help.trello.com/article/1120-trello-for-gmail-add-on) is also v. useful
+
+-   [Asana](https://asana.com/)
+
+-   [Airtable](https://airtable.com/) --- "Part spreadsheet, part database, and entirely flexible, teams use Airtable to organize their work, their way."
+
+-   [Slack](https://slack.com/)
+
+-   [Zapier](https://zapier.com/) --- I use this with Trello, and for automating repetitive tasks
+
+-   See also the section on [note-taking](https://wimlouw.netlify.app/2020/09/24/resources/#taking-notes) below
+
+------------------------------------------------------------------------
 
 ## research resources
-- [J-PAL Research Resources](https://www.povertyactionlab.org/research-resources) --- "J-PAL library of practical resources is available for researchers undertaking randomized evaluations and those teaching the technique to others."
-- [Phone Survey Methods | Innovations for Poverty Action](https://www.poverty-action.org/recovr/phone-survey-methods)
--  [Managing files, data, and documentation for randomized evaluations | The Abdul Latif Jameel Poverty Action Lab](https://www.povertyactionlab.org/resource/managing-files-data-and-documentation-randomized-evaluations) 
-- [Innovations for Poverty Action Research Resources](https://www.poverty-action.org/researchers/research-resources) --- "Throughout the survey process, the IPA Research and Knowledge Management (RKM) Department is available as a key resource for project staff in the field."
-- [RECOVR Research Hub | Innovations for Poverty Action](https://www.poverty-action.org/recovr/research-hub) --- "...centralizes surveys, evaluations, and datasets documenting the impacts of the COVID-19 pandemic in low- and middle-income countries."
-- [Best practices for conducting phone surveys | J-PAL](https://www.povertyactionlab.org/blog/3-20-20/best-practices-conducting-phone-surveys) --- "This is a living document that aggregates crowd-sourced tips and factors to consider when conducting remote surveys (in particular phone surveys) while practicing social distancing."
-- [Surveying Young Workseekers in South Africa](https://www.saldru.uct.ac.za/2019/09/27/surveying-young-workseekers-in-south-africa/) --- Tips from J-PAL Africa’s Research Team
-- [Setting up a data science “stack" full instructions + resources](https://ubc-mds.github.io/resources_pages/installation_instructions/) from the University of British Columbia’s Master of Data Science program. Great set-up guide! (git, pandoc, LaTeX, Make, Docker, R, &c.)
-- ["The Pretty PDF Printer for ODK forms"](http://ppp.pma2020.org)
-- [formr](https://formr.org) --- "chain simple surveys into long runs, use the power of R to generate pretty feedback and complex designs"
-- [Ona](https://ona.io/home/) --- "Collect. Share. Visualize data."
-- [SurveyCTO](https://www.surveycto.com/)  — “SurveyCTO is the most reliable, secure, and scalable mobile data collection platform for researchers and professionals working in offline settings.”
-  - [Conducting remote and decentralized data collection with SurveyCTO | SurveyCTO](https://www.surveycto.com/blog/decentralized-data-collection/?utm_source=twitter&utm_medium=social%20media&utm_content=decentralization-blog&utm_campaign=growth-comms)
-  - [Discover how J-PAL and IPA use SurveyCTO plug-ins for phone surveys and more | SurveyCTO](https://www.surveycto.com/videos/plugins-webinar/) 
-  - SurveyCTO  [Computer-assisted telephone interviewing (CATI) starter kit](https://support.surveycto.com/hc/en-us/articles/360044958494-Computer-assisted-telephone-interviewing-CATI-starter-kit) 
-  - Our J-PAL South Asia office are doing super interesting things with  [SurveyCTO custom-plugin feature](https://www.surveycto.com/blog/field-plugins/) 
-- [SurveyCTO coding tips](https://dimewiki.worldbank.org/wiki/SurveyCTO_Coding_Practices) --- from the World Bank's Development Impact Evaluation unit
 
----
+-   [J-PAL Research Resources](https://www.povertyactionlab.org/research-resources) --- "J-PAL library of practical resources is available for researchers undertaking randomized evaluations and those teaching the technique to others."
+
+-   [Phone Survey Methods \| Innovations for Poverty Action](https://www.poverty-action.org/recovr/phone-survey-methods)
+
+-   [Managing files, data, and documentation for randomized evaluations \| The Abdul Latif Jameel Poverty Action Lab](https://www.povertyactionlab.org/resource/managing-files-data-and-documentation-randomized-evaluations)
+
+-   [Innovations for Poverty Action Research Resources](https://www.poverty-action.org/researchers/research-resources) --- "Throughout the survey process, the IPA Research and Knowledge Management (RKM) Department is available as a key resource for project staff in the field."
+
+-   [RECOVR Research Hub \| Innovations for Poverty Action](https://www.poverty-action.org/recovr/research-hub) --- "...centralizes surveys, evaluations, and datasets documenting the impacts of the COVID-19 pandemic in low- and middle-income countries."
+
+-   [Best practices for conducting phone surveys \| J-PAL](https://www.povertyactionlab.org/blog/3-20-20/best-practices-conducting-phone-surveys) --- "This is a living document that aggregates crowd-sourced tips and factors to consider when conducting remote surveys (in particular phone surveys) while practicing social distancing."
+
+-   [Surveying Young Workseekers in South Africa](https://www.saldru.uct.ac.za/2019/09/27/surveying-young-workseekers-in-south-africa/) --- Tips from J-PAL Africa's Research Team
+
+-   [Setting up a data science "stack" full instructions + resources](https://ubc-mds.github.io/resources_pages/installation_instructions/) from the University of British Columbia's Master of Data Science program. Great set-up guide! (git, pandoc, LaTeX, Make, Docker, R, &c.)
+
+-   ["The Pretty PDF Printer for ODK forms"](http://ppp.pma2020.org)
+
+-   [formr](https://formr.org) --- "chain simple surveys into long runs, use the power of R to generate pretty feedback and complex designs"
+
+-   [Ona](https://ona.io/home/) --- "Collect. Share. Visualize data."
+
+-   [SurveyCTO](https://www.surveycto.com/) --- "SurveyCTO is the most reliable, secure, and scalable mobile data collection platform for researchers and professionals working in offline settings."
+
+    -   [Conducting remote and decentralized data collection with SurveyCTO \| SurveyCTO](https://www.surveycto.com/blog/decentralized-data-collection/?utm_source=twitter&utm_medium=social%20media&utm_content=decentralization-blog&utm_campaign=growth-comms)
+    -   [Discover how J-PAL and IPA use SurveyCTO plug-ins for phone surveys and more \| SurveyCTO](https://www.surveycto.com/videos/plugins-webinar/)
+    -   SurveyCTO [Computer-assisted telephone interviewing (CATI) starter kit](https://support.surveycto.com/hc/en-us/articles/360044958494-Computer-assisted-telephone-interviewing-CATI-starter-kit)
+    -   Our J-PAL South Asia office are doing super interesting things with [SurveyCTO custom-plugin feature](https://www.surveycto.com/blog/field-plugins/)
+
+-   [SurveyCTO coding tips](https://dimewiki.worldbank.org/wiki/SurveyCTO_Coding_Practices) --- from the World Bank's Development Impact Evaluation unit
+
+------------------------------------------------------------------------
 
 ## diagrams & charts
-- [nomnoml](http://www.nomnoml.com), "...a tool for drawing UML diagrams" [in browser]
-- [Graphviz and DiagrammeR](https://rich-iannone.github.io/DiagrammeR/index.html)
-- [DAGitty - drawing and analyzing causal diagrams (DAGs)](http://www.dagitty.net/)
-- [Online Diagram Software & Visual Solution | Lucidchart](https://www.lucidchart.com/pages/) 
-- [Argdown](https://argdown.org/) — A simple syntax for complex argumentation
 
----
+-   [nomnoml](http://www.nomnoml.com), "...a tool for drawing UML diagrams" [in browser]
+-   [Graphviz and DiagrammeR](https://rich-iannone.github.io/DiagrammeR/index.html)
+-   [DAGitty - drawing and analyzing causal diagrams (DAGs)](http://www.dagitty.net/)
+-   [Online Diagram Software & Visual Solution \| Lucidchart](https://www.lucidchart.com/pages/)
+-   [Argdown](https://argdown.org/) --- A simple syntax for complex argumentation
+
+------------------------------------------------------------------------
 
 ## spreadsheets & tables
-- [Data organization in spreadsheets | Karl W Broman, Kara H. Woo](https://peerj.com/preprints/3183/) --- "Focusing on the data entry and storage aspects, this paper offers practical recommendations for organizing spreadsheet data to reduce errors and ease later analyses."
-- [Best Practices for Using Google Sheets in Your Data Project | Matthew Lincoln](https://matthewlincoln.net/2018/03/26/best-practices-for-using-google-sheets-in-your-data-project.html)
-- [Easily Create Presentation-Ready Display Tables • gt](https://gt.rstudio.com/) --- "With the gt package, anyone can make wonderful-looking tables using the R programming language."
-- [How to make beautiful tables in R](https://rfortherestofus.com/2019/11/how-to-make-beautiful-tables-in-r/) <3
-- [reactable](https://github.com/glin/reactable) --- "Interactive data tables for R, based on the React Table library and made with reactR."
-- [Create Awesome HTML Table with knitr::kable and kableExtra](https://cran.r-project.org/web/packages/kableExtra/vignettes/awesome_table_in_html.html)
-- [Tables Generator](https://www.tablesgenerator.com) for creating simple Markdown and LaTeX tables interactively
-- [Replicating a New York Times Table of Swedish COVID-19 deaths with gt | Malcolm Barrett](https://malco.io/2020/05/16/replicating-an-nyt-table-of-swedish-covid-deaths-with-gt/)
 
----
+-   [Data organization in spreadsheets \| Karl W Broman, Kara H. Woo](https://peerj.com/preprints/3183/) --- "Focusing on the data entry and storage aspects, this paper offers practical recommendations for organizing spreadsheet data to reduce errors and ease later analyses."
+-   [Best Practices for Using Google Sheets in Your Data Project \| Matthew Lincoln](https://matthewlincoln.net/2018/03/26/best-practices-for-using-google-sheets-in-your-data-project.html)
+-   [Easily Create Presentation-Ready Display Tables • gt](https://gt.rstudio.com/) --- "With the gt package, anyone can make wonderful-looking tables using the R programming language."
+-   [How to make beautiful tables in R](https://rfortherestofus.com/2019/11/how-to-make-beautiful-tables-in-r/) \<3
+-   [reactable](https://github.com/glin/reactable) --- "Interactive data tables for R, based on the React Table library and made with reactR."
+-   [Create Awesome HTML Table with knitr::kable and kableExtra](https://cran.r-project.org/web/packages/kableExtra/vignettes/awesome_table_in_html.html)
+-   [Tables Generator](https://www.tablesgenerator.com) for creating simple Markdown and LaTeX tables interactively
+-   [Replicating a New York Times Table of Swedish COVID-19 deaths with gt \| Malcolm Barrett](https://malco.io/2020/05/16/replicating-an-nyt-table-of-swedish-covid-deaths-with-gt/)
+
+------------------------------------------------------------------------
 
 ## LaTeX
- - [The Not So Short
-Introduction to LATEX 2ε | Tobias Oetiker, Hubert Partl, Irene Hyna and Elisabeth Schlegl](https://tobi.oetiker.ch/lshort/lshort.pdf)
-- [Overleaf](https://www.overleaf.com/blog/654-overleaf-v2-launch-announcement#.W6ku-GgzbIU) 
-- [Mathpix](https://mathpix.com) "Convert images to LaTeX"
 
----
+-   [The Not So Short Introduction to LATEX 2ε \| Tobias Oetiker, Hubert Partl, Irene Hyna and Elisabeth Schlegl](https://tobi.oetiker.ch/lshort/lshort.pdf)
+-   [Overleaf](https://www.overleaf.com/blog/654-overleaf-v2-launch-announcement#.W6ku-GgzbIU)
+-   [Mathpix](https://mathpix.com) "Convert images to LaTeX"
+
+------------------------------------------------------------------------
 
 ## dataviz
-- [From data to viz](https://www.data-to-viz.com/) --- "...leads you to the most appropriate graph for your data. It links to the code to build it and lists common caveats you should avoid."
-- [Fundamentals of Data Visualization | Claus O. Wilke](https://serialmentor.com/dataviz/)
-- [Data Stories](https://datastori.es/), "...a podcast on data visualization" with Enrico Bertini and Moritz Stefaner
-- [Visualizing with Text - 1st Edition - Richard  Brath - Routledge Book](https://www.routledge.com/Visualizing-with-Text/Brath/p/book/9780367259266)
-  - See also: [Visualizing with Text | Richard Brath's blog](https://richardbrath.wordpress.com/books-and-chapters-by-richard-brath/visualizing-with-text-book-companion-web-site/) for interactive demos and code 
-- [RawGraphs](https://rawgraphs.io/) 
-- [Tableau (public)](https://public.tableau.com/en-us/s/) 
-- [Datawrapper](https://www.datawrapper.de/)
-- [Flourish](https://flourish.studio/)
-- [Data Visualization Society](https://www.datavisualizationsociety.com/connect)
-- [Google's "Data studio"](https://datastudio.google.com/overview)
-- [Data Visualization for Social Science: A practical introduction with R and ggplot2](http://socviz.co/index.html) 
-- [R Graphics Cookbook](http://www.cookbook-r.com/Graphs/)
-- [BBC Visual and Data Journalism cookbook](https://bbc.github.io/rcookbook/)
-- [Learning data viz with D3 - Diana MacDonald | Medium](https://medium.com/@didoesdigital/learning-data-viz-with-d3-8b54afcef74)
-- Cool articles on visualising uncertainty by Jessica Hullman and Matt Kay: [part 1](https://medium.com/multiple-views-visualization-research-explained/uncertainty-visualization-explained-67e7a73f031b) and [part 2](https://medium.com/multiple-views-visualization-research-explained/uncertainty-visualization-explained-part-2-continuous-encodings-967a7f7c38d0). And here they are on the [Data Stories podcast](http://datastori.es/134-visualizing-uncertainty-with-jessica-hullman-and-matthew-kay/)
-- [Data visualization | The Abdul Latif Jameel Poverty Action Lab](https://www.povertyactionlab.org/resource/data-visualization)
 
+-   [From data to viz](https://www.data-to-viz.com/) --- "...leads you to the most appropriate graph for your data. It links to the code to build it and lists common caveats you should avoid."
 
----
+-   [Fundamentals of Data Visualization \| Claus O. Wilke](https://serialmentor.com/dataviz/)
+
+-   [Data Stories](https://datastori.es/), "...a podcast on data visualization" with Enrico Bertini and Moritz Stefaner
+
+-   [Visualizing with Text - 1st Edition - Richard Brath - Routledge Book](https://www.routledge.com/Visualizing-with-Text/Brath/p/book/9780367259266)
+
+    -   See also: [Visualizing with Text \| Richard Brath's blog](https://richardbrath.wordpress.com/books-and-chapters-by-richard-brath/visualizing-with-text-book-companion-web-site/) for interactive demos and code
+
+-   [RawGraphs](https://rawgraphs.io/)
+
+-   [Tableau (public)](https://public.tableau.com/en-us/s/)
+
+-   [Datawrapper](https://www.datawrapper.de/)
+
+-   [Flourish](https://flourish.studio/)
+
+-   [Data Visualization Society](https://www.datavisualizationsociety.com/connect)
+
+-   [Google's "Data studio"](https://datastudio.google.com/overview)
+
+-   [Data Visualization for Social Science: A practical introduction with R and ggplot2](http://socviz.co/index.html)
+
+-   [R Graphics Cookbook](http://www.cookbook-r.com/Graphs/)
+
+-   [BBC Visual and Data Journalism cookbook](https://bbc.github.io/rcookbook/)
+
+-   [Learning data viz with D3 - Diana MacDonald \| Medium](https://medium.com/@didoesdigital/learning-data-viz-with-d3-8b54afcef74)
+
+-   Cool articles on visualising uncertainty by Jessica Hullman and Matt Kay: [part 1](https://medium.com/multiple-views-visualization-research-explained/uncertainty-visualization-explained-67e7a73f031b) and [part 2](https://medium.com/multiple-views-visualization-research-explained/uncertainty-visualization-explained-part-2-continuous-encodings-967a7f7c38d0). And here they are on the [Data Stories podcast](http://datastori.es/134-visualizing-uncertainty-with-jessica-hullman-and-matthew-kay/)
+
+-   [Data visualization \| The Abdul Latif Jameel Poverty Action Lab](https://www.povertyactionlab.org/resource/data-visualization)
+
+------------------------------------------------------------------------
 
 ## R
-- [Install base R](https://www.r-project.org/); then
-- [Install RStudio UI](https://www.rstudio.com/products/rstudio/download/) (highly recommended)[^1]
-- [R for data science | Garrett Grolemund and Hadley Wickham](http://r4ds.had.co.nz/) 
-- Learn R in R with [Swirl](http://swirlstats.com/) 
-- See the [RStudio Cheat Sheet, and others](https://www.rstudio.com/resources/cheatsheets/#ide)
-- [The tidyverse style guide](http://style.tidyverse.org/)
-- [Tidy Data](https://vita.had.co.nz/papers/tidy-data.pdf)
-- [An introduction to R](http://colinfay.me/intro-to-r/) (intro to base R)
-- [R Language Definition](https://cran.r-project.org/doc/manuals/r-release/R-lang.html#Introduction)
-- R Markdown
-  - See [R Markdown: The Definitive Guide | Yihui Xie, J. J. Allaire, and Garrett Grolemund](https://bookdown.org/yihui/rmarkdown/)
-  - [R Markdown Cookbook | Yihui Xie and Christophe Dervieux](https://bookdown.org/yihui/rmarkdown-cookbook/)
-  - [The Mockup Blog: Meta RMarkdown - Taxonomy and Use cases](https://themockup.blog/posts/2020-07-25-meta-rmarkdown/)
-  - [RMarkdown Driven Development | Emily Riederer](https://emilyriederer.netlify.com/post/rmarkdown-driven-development/)
-- [knitcitations](https://github.com/cboettig/knitcitations) --- dynamic citations on R Markdown
-  - See also [here](https://wimlouw.netlify.app/2020/09/24/citations/)
 
----
+-   [Install base R](https://www.r-project.org/); then
+
+-   [Install RStudio UI](https://www.rstudio.com/products/rstudio/download/) (highly recommended)[^1]
+
+-   [R for data science \| Garrett Grolemund and Hadley Wickham](http://r4ds.had.co.nz/)
+
+-   Learn R in R with [Swirl](http://swirlstats.com/)
+
+-   See the [RStudio Cheat Sheet, and others](https://www.rstudio.com/resources/cheatsheets/#ide)
+
+-   [The tidyverse style guide](http://style.tidyverse.org/)
+
+-   [Tidy Data](https://vita.had.co.nz/papers/tidy-data.pdf)
+
+-   [An introduction to R](http://colinfay.me/intro-to-r/) (intro to base R)
+
+-   [R Language Definition](https://cran.r-project.org/doc/manuals/r-release/R-lang.html#Introduction)
+
+-   R Markdown
+
+    -   See [R Markdown: The Definitive Guide \| Yihui Xie, J. J. Allaire, and Garrett Grolemund](https://bookdown.org/yihui/rmarkdown/)
+    -   [R Markdown Cookbook \| Yihui Xie and Christophe Dervieux](https://bookdown.org/yihui/rmarkdown-cookbook/)
+    -   [The Mockup Blog: Meta RMarkdown - Taxonomy and Use cases](https://themockup.blog/posts/2020-07-25-meta-rmarkdown/)
+    -   [RMarkdown Driven Development \| Emily Riederer](https://emilyriederer.netlify.com/post/rmarkdown-driven-development/)
+
+-   [knitcitations](https://github.com/cboettig/knitcitations) --- dynamic citations on R Markdown
+
+    -   See also [here](https://wimlouw.netlify.app/2020/09/24/citations/)
+
+[^1]: I \<3 the [styler](https://github.com/r-lib/styler) and [datapasta](https://github.com/MilesMcBain/datapasta) and [littleboxes](https://github.com/ThinkR-open/littleboxes) RStudio add-ins! Here's a post I saw on some others: ["RStudio addins, or how to make your coding life easier"](https://www.statsandr.com/blog/rstudio-addins-or-how-to-make-your-coding-life-easier/)
+
+------------------------------------------------------------------------
 
 ## Stata
->needs an update
 
-- [World Bank's GitHub page](https://github.com/worldbank/stata/tree/master/docs)
-- [Ietoolkit](https://worldbank.github.io/ietoolkit/). Stata Commands for Impact Evaluations
-- [Stata-IE-Visual-Library](https://worldbank.github.io/Stata-IE-Visual-Library/)
-- [IPA's GitHub page](https://github.com/PovertyAction)
-- [Convert dynamic Markdown documents to HTML with dyndoc](https://www.stata.com/new-in-stata/markdown/)
-- [Stata FAQ](https://www.stata.com/support/faqs/resources/statalist-faq/)
-- [Stata Cheatsheets](https://geocenter.github.io/StataTraining/portfolio/01_resource/) 
-- [Dictionary: Stata to R](https://github.com/EconometricsBySimulation/RStata/wiki/Dictionary:-Stata-to-R)
-- [The Stata Lasso Page](https://statalasso.github.io/slides/)
-- [reghdfe](http://scorreia.com/software/reghdfe/). Linear Models With Many Levels of Fixed Effects
-
----
-
-## Python 3
 > needs an update
 
-- [Automate the Boring Stuff with Python | Al Sweigart](http://automatetheboringstuff.com)
-- [The PySD Cookbook](https://pysd-cookbook.readthedocs.io/en/latest/index.html) "Simple recipes for powerful analysis of system dynamics models"
-- [R Interface to Python](https://rstudio.github.io/reticulate/index.html)
-- [Statistics in Python](https://people.duke.edu/~ccc14/sta-663/IntroductionToPythonSolutions.html) 
-- [Python graph gallery](https://python-graph-gallery.com/) 
-- [Data analysis in Python](http://www.data-analysis-in-python.org/index.html)  
+-   [World Bank's GitHub page](https://github.com/worldbank/stata/tree/master/docs)
+-   [Ietoolkit](https://worldbank.github.io/ietoolkit/). Stata Commands for Impact Evaluations
+-   [Stata-IE-Visual-Library](https://worldbank.github.io/Stata-IE-Visual-Library/)
+-   [IPA's GitHub page](https://github.com/PovertyAction)
+-   [Convert dynamic Markdown documents to HTML with dyndoc](https://www.stata.com/new-in-stata/markdown/)
+-   [Stata FAQ](https://www.stata.com/support/faqs/resources/statalist-faq/)
+-   [Stata Cheatsheets](https://geocenter.github.io/StataTraining/portfolio/01_resource/)
+-   [Dictionary: Stata to R](https://github.com/EconometricsBySimulation/RStata/wiki/Dictionary:-Stata-to-R)
+-   [The Stata Lasso Page](https://statalasso.github.io/slides/)
+-   [reghdfe](http://scorreia.com/software/reghdfe/). Linear Models With Many Levels of Fixed Effects
 
----
+------------------------------------------------------------------------
+
+## Python 3
+
+> needs an update
+
+-   [Automate the Boring Stuff with Python \| Al Sweigart](http://automatetheboringstuff.com)
+-   [The PySD Cookbook](https://pysd-cookbook.readthedocs.io/en/latest/index.html) "Simple recipes for powerful analysis of system dynamics models"
+-   [R Interface to Python](https://rstudio.github.io/reticulate/index.html)
+-   [Statistics in Python](https://people.duke.edu/~ccc14/sta-663/IntroductionToPythonSolutions.html)
+-   [Python graph gallery](https://python-graph-gallery.com/)
+-   [Data analysis in Python](http://www.data-analysis-in-python.org/index.html)
+
+------------------------------------------------------------------------
 
 ## Julia
-- [The Julia Programming Language](https://julialang.org/)
-- [Getting Started · The Julia Language](https://docs.julialang.org/en/v1/manual/getting-started/)
 
+-   [The Julia Programming Language](https://julialang.org/)
+-   [Getting Started · The Julia Language](https://docs.julialang.org/en/v1/manual/getting-started/)
 
----
+------------------------------------------------------------------------
 
 ## version control
-- [Learn git concepts, not commands - DEV](https://dev.to/unseenwizzard/learn-git-concepts-not-commands-4gjc)
-- [Excuse me, do you have a moment to talk about version control? | Jennifer Bryan](https://peerj.com/preprints/3159/)
-- [Happy with Git | Jennifer Bryan](http://happygitwithr.com/) <3
-- [Git in Practice | Mike McQuaid](https://github.com/GitInPractice/GitInPractice#readme)
-- [GitHub Learning Lab](https://lab.github.com/courses)
-- [GitLab](https://about.gitlab.com)
-- [Setup Git RStudio GitLab | Heidi Seibold](https://gitlab.com/HeidiSeibold/setup-git-rstudio-gitlab)
-- [How to use Google Drive's version control](https://sites.google.com/site/scriptsexamples/home/announcements/named-versions-new-version-history-google-docs)
 
----
+-   [Learn git concepts, not commands - DEV](https://dev.to/unseenwizzard/learn-git-concepts-not-commands-4gjc)
+-   [Excuse me, do you have a moment to talk about version control? \| Jennifer Bryan](https://peerj.com/preprints/3159/)
+-   [Happy with Git \| Jennifer Bryan](http://happygitwithr.com/) \<3
+-   [Git in Practice \| Mike McQuaid](https://github.com/GitInPractice/GitInPractice#readme)
+-   [GitHub Learning Lab](https://lab.github.com/courses)
+-   [GitLab](https://about.gitlab.com)
+-   [Setup Git RStudio GitLab \| Heidi Seibold](https://gitlab.com/HeidiSeibold/setup-git-rstudio-gitlab)
+-   [How to use Google Drive's version control](https://sites.google.com/site/scriptsexamples/home/announcements/named-versions-new-version-history-google-docs)
+
+------------------------------------------------------------------------
 
 ## datasets
-- [Google Dataset Search](https://toolbox.google.com/datasetsearch)
-- [Kaggle](https://www.kaggle.com/datasets)
-- [J-PAL evaluation data](https://www.povertyactionlab.org/evaluations/data)
 
----
+-   [Google Dataset Search](https://toolbox.google.com/datasetsearch)
+-   [Kaggle](https://www.kaggle.com/datasets)
+-   [J-PAL evaluation data](https://www.povertyactionlab.org/evaluations/data)
 
-## sms & phone 
-- [EnageSpark](https://www.engagespark.com/) (flexible)
-- See also [SMSPortal](http://www.smsportal.co.za/#!home) (more rigid)
-- Bulk airtime purchases on [myairtime.co.za](https://myairtime.co.za/) (allows spread-sheet upload) [South Africa]
-- Recently seen on Random Help: [Telerivet](https://telerivet.com/), and [Echo Mobile](https://www.echomobile.org/public/main) 
-- [flickswitch](https://www.flickswitch.co.za) to manage airtime on multiple devices 
-- [turn.io](https://www.turn.io/about)
-- [twilio](https://www.twilio.com/)
-- [Exotel - Cloud Communication APIs for Calls, SMS, Authentication](https://exotel.com/)
+------------------------------------------------------------------------
 
----
+## sms & phone
 
-## websites 
-  - [Google Sites](https://sites.google.com/) "Google Sites is a free and easy way to create and share webpages"
-  - [Wix](https://www.wix.com) 
-  - [Weebly](https://www.weebly.com) 
-  - [blogdown: Creating Websites with R Markdown](https://bookdown.org/yihui/blogdown/) <3
-  - [fastpages | An easy to use blogging platform with support for Jupyter Notebooks.](https://fastpages.fast.ai/)
+-   [EnageSpark](https://www.engagespark.com/) (flexible)
+-   See also [SMSPortal](http://www.smsportal.co.za/#!home) (more rigid)
+-   Bulk airtime purchases on [myairtime.co.za](https://myairtime.co.za/) (allows spread-sheet upload) [South Africa]
+-   Recently seen on Random Help: [Telerivet](https://telerivet.com/), and [Echo Mobile](https://www.echomobile.org/public/main)
+-   [flickswitch](https://www.flickswitch.co.za) to manage airtime on multiple devices
+-   [turn.io](https://www.turn.io/about)
+-   [twilio](https://www.twilio.com/)
+-   [Exotel - Cloud Communication APIs for Calls, SMS, Authentication](https://exotel.com/)
 
+------------------------------------------------------------------------
+
+## websites
+
+-   [Google Sites](https://sites.google.com/) "Google Sites is a free and easy way to create and share webpages"
+-   [Wix](https://www.wix.com)
+-   [Weebly](https://www.weebly.com)
+-   [blogdown: Creating Websites with R Markdown](https://bookdown.org/yihui/blogdown/) \<3
+-   [fastpages \| An easy to use blogging platform with support for Jupyter Notebooks.](https://fastpages.fast.ai/)
 
 ## troubleshooting
- - [How to ask good questions | Julia Evans](https://jvns.ca/blog/good-questions/)
- - [Do you have time for a quick chat? | Trey Causey](https://medium.com/@treycausey/do-you-have-time-for-a-quick-chat-c3f7e46de89d)
- - [Stackoverflow](https://stackoverflow.com/) 
- - [The R Studio Community Page](https://community.rstudio.com/)
- - [So you’ve been asked to make a reprex | Jesse Mostipak](https://www.jessemaegan.com/post/so-you-ve-been-asked-to-make-a-reprex/)
- - [How Do I? | Sharon Machlish](https://smach.github.io/R4JournalismBook/HowDoI.html)
 
----
+-   [How to ask good questions \| Julia Evans](https://jvns.ca/blog/good-questions/)
+-   [Do you have time for a quick chat? \| Trey Causey](https://medium.com/@treycausey/do-you-have-time-for-a-quick-chat-c3f7e46de89d)
+-   [Stackoverflow](https://stackoverflow.com/)
+-   [The R Studio Community Page](https://community.rstudio.com/)
+-   [So you've been asked to make a reprex \| Jesse Mostipak](https://www.jessemaegan.com/post/so-you-ve-been-asked-to-make-a-reprex/)
+-   [How Do I? \| Sharon Machlish](https://smach.github.io/R4JournalismBook/HowDoI.html)
 
-# personal >>> 
+------------------------------------------------------------------------
+
+# 🎒 personal
 
 ## courses
-- [Big Data to Solve Economic and Social Problems | Opportunity Insights](https://opportunityinsights.org/course/) — “This page provides lecture materials and videos for a course entitled Using Big Data Solve Economic and Social Problems, taught by Raj Chetty and Greg Bruich at Harvard University.”
-- [Data Analysis for Social Scientists](https://www.edx.org/course/data-analysis-social-scientists-mitx-14-310x-2)
-- [CS50's Introduction to Computer Science](https://www.edx.org/course/cs50s-introduction-computer-science-harvardx-cs50x)
-- [Machine learning](https://www.coursera.org/learn/machine-learning) — taught by Andrew Ng
-- [Beginning Bayes in R](https://www.datacamp.com/courses/beginning-bayes-in-r?tap_a=5644-dce66f&tap_s=10907-287229)
 
+-   [Big Data to Solve Economic and Social Problems \| Opportunity Insights](https://opportunityinsights.org/course/) --- "This page provides lecture materials and videos for a course entitled Using Big Data Solve Economic and Social Problems, taught by Raj Chetty and Greg Bruich at Harvard University."
+-   [Data Analysis for Social Scientists](https://www.edx.org/course/data-analysis-social-scientists-mitx-14-310x-2)
+-   [CS50's Introduction to Computer Science](https://www.edx.org/course/cs50s-introduction-computer-science-harvardx-cs50x)
+-   [Machine learning](https://www.coursera.org/learn/machine-learning) --- taught by Andrew Ng
+-   [Beginning Bayes in R](https://www.datacamp.com/courses/beginning-bayes-in-r?tap_a=5644-dce66f&tap_s=10907-287229)
 
----
+------------------------------------------------------------------------
 
 ## taking notes
-- [Dropbox Paper](https://www.dropbox.com/paper) --- great for call agendas and collaborative notes
-- [Bear Notes](https://bear.app/) --- for iPhone, iPad and Mac
-- [Evernote](https://evernote.com/)
-- [Notion](https://www.notion.so/work) --- "The all-in-one workspace for your notes, tasks, wikis, and databases." See also [here](https://twitter.com/NotionHQ/status/1306677709263630336), Notion now has backlinks <3
-- [Note-writing systems | Andy Matuschak](https://notes.andymatuschak.org/%C2%A7Note-writing_systems)
-- "Non-linear" note-taking --- backlinks, transclusion, &c.
-  - [Obsidian](https://obsidian.md/) --- "...an IDE for your notes."
-  - [Roam Research](https://roamresearch.com/) --- "A note-taking tool for networked thought. As easy to use as a document. As powerful as a graph database." 
-  - ["TiddlyWiki"](https://tiddlywiki.com/) --- "...a unique non-linear notebook for capturing, organising and sharing complex information."
-    - [Stroll](https://giffmex.org/stroll/stroll.html) --- open-source "Roam-like" experience made with TiddlyWiki
-  - [RemNote](https://www.remnote.io/homepage) --- "RemNote is the first spaced-repetition powered note-taking tool..."
-  - [Org mode for Emacs – Your Life in Plain Text](https://orgmode.org/) --- this is a whole world in itself. 
-    - Read with ["The Plain Person’s Guide to Plain Text Social Science"](http://plain-text.co/) by Kieran Healy
-- [Scrivener | Literature & Latte](https://www.literatureandlatte.com/scrivener/overview) --- "For writing. And writing. And writing."
-- [LiquidText](https://www.liquidtext.net/) —  reading, taking notes on articles, linking ideas
- 
----
+
+-   [Dropbox Paper](https://www.dropbox.com/paper) --- great for call agendas and collaborative notes
+
+-   [Bear Notes](https://bear.app/) --- for iPhone, iPad and Mac
+
+-   [Evernote](https://evernote.com/)
+
+-   [Notion](https://www.notion.so/work) --- "The all-in-one workspace for your notes, tasks, wikis, and databases." See also [here](https://twitter.com/NotionHQ/status/1306677709263630336), Notion now has backlinks \<3
+
+-   [Note-writing systems \| Andy Matuschak](https://notes.andymatuschak.org/%C2%A7Note-writing_systems)
+
+-   "Non-linear" note-taking --- backlinks, transclusion, &c.
+
+    -   [Obsidian](https://obsidian.md/) --- "...an IDE for your notes."
+
+    -   [Roam Research](https://roamresearch.com/) --- "A note-taking tool for networked thought. As easy to use as a document. As powerful as a graph database."
+
+    -   ["TiddlyWiki"](https://tiddlywiki.com/) --- "...a unique non-linear notebook for capturing, organising and sharing complex information."
+
+        -   [Stroll](https://giffmex.org/stroll/stroll.html) --- open-source "Roam-like" experience made with TiddlyWiki
+
+    -   [RemNote](https://www.remnote.io/homepage) --- "RemNote is the first spaced-repetition powered note-taking tool..."
+
+    -   [Org mode for Emacs -- Your Life in Plain Text](https://orgmode.org/) --- this is a whole world in itself.
+
+        -   Read with ["The Plain Person's Guide to Plain Text Social Science"](http://plain-text.co/) by Kieran Healy
+
+-   [Scrivener \| Literature & Latte](https://www.literatureandlatte.com/scrivener/overview) --- "For writing. And writing. And writing."
+
+-   [LiquidText](https://www.liquidtext.net/) --- reading, taking notes on articles, linking ideas
+
+------------------------------------------------------------------------
 
 ## productivity rabbit hole
 
-> ```¯\_(ツ)_/¯```
+> `¯\_(ツ)_/¯`
 
-- Articles
-  - [Why Remote Work Is So Hard—and How It Can Be Fixed | The New Yorker | Cal Newport](https://www.newyorker.com/culture/annals-of-inquiry/can-remote-work-be-fixed)
-  - [Jenny Odell on why we need to learn to do nothing](https://www.theguardian.com/lifeandstyle/2019/sep/27/jenny-odell-on-why-we-need-to-learn-to-do-nothing-its-a-reminder-that-youre-alive)
-  - [Mindful productivity: a sustainable way to work and think - Ness Labs](https://nesslabs.com/mindful-productivity-2)
-  - See various in HBR's ["Time management"](https://hbr.org/topic/time-management) section
-- Books 
-  - [How to Do Nothing: Resisting the Attention Economy | Jenny  Odell](https://www.amazon.com/How-Do-Nothing-Resisting-Attention/dp/1612197493) <3
-  - [Getting Things Done: The Art of Stress-Free Productivity | David Allen](https://www.amazon.com/Getting-Things-Done-Stress-Free-Productivity/dp/0142000280)
-  - [Checklist Manifesto | Atul Gawande](https://www.amazon.com/Checklist-Manifesto-How-Things-Right/dp/0312430000)
-  - [Getting Things Done | Wikipedia](https://en.wikipedia.org/wiki/Getting_Things_Done) or "GTD"
-  - [Deep Work: Rules for Focused Success in a Distracted World | Cal Newport](https://www.amazon.com/Deep-Work-Focused-Success-Distracted/dp/1455586692)
-  - [Dan Charnas: Using Lessons From Great Chefs To Help Us ‘Work Clean’](https://www.forbes.com/sites/shawnsetaro/2016/04/27/work-clean/#3c41e9e4fb20) --- _mise-en-place_ 
-  - [Atomic Habits: Tiny Changes, Remarkable Results | James Clear](https://jamesclear.com/atomic-habits)
-  - [How to Take Smart Notes: One Simple Technique to Boost Writing, Learning and Thinking | Sönke Ahrens ](https://www.amazon.com/How-Take-Smart-Notes-Nonfiction-ebook/dp/B06WVYW33Y) --- Niklas Luhmann, the _zettelkasten_, &c.
-- Tools
-  - [TextExpander](https://textexpander.com/) --- "Easily insert text snippets in any application from a library of content created by you and your team."
-  - [Toggl - Free Time Tracking Software](https://toggl.com/)
-  - [“Responsibility assignment matrix" | Wikipedia](https://en.wikipedia.org/wiki/Responsibility_assignment_matrix) --- "RACI" charts
-  - [Work Effectively with the "Eisenhower Matrix" | Evernote Blog](https://evernote.com/blog/work-effectively-with-the-eisenhower-matrix/) --- high priority, high urgency; high priority low urgency, &c.
-  - [Pomodoro Technique | Wikipedia](https://en.wikipedia.org/wiki/Pomodoro_Technique) 🍅
-  - [The ten minute rule of productivity - Ness Labs](https://nesslabs.com/ten-minute-rule) --- beat procrastination (maybe!)
-  - [Interstitial journaling: combining notes, to-do & time tracking - Ness Labs](https://nesslabs.com/interstitial-journaling)
-  - [Bullet Journal](https://bulletjournal.com/)
-  - [Evergreen note-writing as fundamental unit of knowledge work | Andy Matuschak](https://notes.andymatuschak.org/Evergreen_note-writing_as_fundamental_unit_of_knowledge_work)
-- Other
-  - [Meditation and Sleep Made Simple - Headspace](https://www.headspace.com/)
-  - [Aro - Learn Buddhist meditation](http://aromeditation.org/)
+-   Articles
 
----
+    -   [Why Remote Work Is So Hard---and How It Can Be Fixed \| The New Yorker \| Cal Newport](https://www.newyorker.com/culture/annals-of-inquiry/can-remote-work-be-fixed)
+    -   [Jenny Odell on why we need to learn to do nothing](https://www.theguardian.com/lifeandstyle/2019/sep/27/jenny-odell-on-why-we-need-to-learn-to-do-nothing-its-a-reminder-that-youre-alive)
+    -   [Mindful productivity: a sustainable way to work and think - Ness Labs](https://nesslabs.com/mindful-productivity-2)
+    -   See various in HBR's ["Time management"](https://hbr.org/topic/time-management) section
+
+-   Books
+
+    -   [How to Do Nothing: Resisting the Attention Economy \| Jenny Odell](https://www.amazon.com/How-Do-Nothing-Resisting-Attention/dp/1612197493) \<3
+    -   [Getting Things Done: The Art of Stress-Free Productivity \| David Allen](https://www.amazon.com/Getting-Things-Done-Stress-Free-Productivity/dp/0142000280)
+    -   [Checklist Manifesto \| Atul Gawande](https://www.amazon.com/Checklist-Manifesto-How-Things-Right/dp/0312430000)
+    -   [Getting Things Done \| Wikipedia](https://en.wikipedia.org/wiki/Getting_Things_Done) or "GTD"
+    -   [Deep Work: Rules for Focused Success in a Distracted World \| Cal Newport](https://www.amazon.com/Deep-Work-Focused-Success-Distracted/dp/1455586692)
+    -   [Dan Charnas: Using Lessons From Great Chefs To Help Us 'Work Clean'](https://www.forbes.com/sites/shawnsetaro/2016/04/27/work-clean/#3c41e9e4fb20) --- *mise-en-place*
+    -   [Atomic Habits: Tiny Changes, Remarkable Results \| James Clear](https://jamesclear.com/atomic-habits)
+    -   [How to Take Smart Notes: One Simple Technique to Boost Writing, Learning and Thinking \| Sönke Ahrens](https://www.amazon.com/How-Take-Smart-Notes-Nonfiction-ebook/dp/B06WVYW33Y) --- Niklas Luhmann, the *zettelkasten*, &c.
+
+-   Tools
+
+    -   [TextExpander](https://textexpander.com/) --- "Easily insert text snippets in any application from a library of content created by you and your team."
+    -   [Toggl - Free Time Tracking Software](https://toggl.com/)
+    -   ["Responsibility assignment matrix" \| Wikipedia](https://en.wikipedia.org/wiki/Responsibility_assignment_matrix) --- "RACI" charts
+    -   [Work Effectively with the "Eisenhower Matrix" \| Evernote Blog](https://evernote.com/blog/work-effectively-with-the-eisenhower-matrix/) --- high priority, high urgency; high priority low urgency, &c.
+    -   [Pomodoro Technique \| Wikipedia](https://en.wikipedia.org/wiki/Pomodoro_Technique) 🍅
+    -   [The ten minute rule of productivity - Ness Labs](https://nesslabs.com/ten-minute-rule) --- beat procrastination (maybe!)
+    -   [Interstitial journaling: combining notes, to-do & time tracking - Ness Labs](https://nesslabs.com/interstitial-journaling)
+    -   [Bullet Journal](https://bulletjournal.com/)
+    -   [Evergreen note-writing as fundamental unit of knowledge work \| Andy Matuschak](https://notes.andymatuschak.org/Evergreen_note-writing_as_fundamental_unit_of_knowledge_work)
+
+-   Other
+
+    -   [Meditation and Sleep Made Simple - Headspace](https://www.headspace.com/)
+    -   [Aro - Learn Buddhist meditation](http://aromeditation.org/)
+
+------------------------------------------------------------------------
 
 ## writing
-- [Several Short Sentences About Writing | Verlyn Klinkenborg](https://www.amazon.com/Several-Short-Sentences-About-Writing/dp/0307279413) <3
-- [Sister Bernadette’s Barking Dog: The Quirky History and Lost Art of Diagramming Sentences | Kitty Burns Florey](https://www.amazon.com/Sister-Bernadettes-Barking-Dog-Diagramming/dp/0156034433)
-- [Dreyer’s English: An Utterly Correct Guide to Clarity and Style | Benjamin Dreyer](https://www.amazon.co.uk/dp/B07NRVFBB1/ref=dp-kindle-redirect?_encoding=UTF8&btkr=1), see also [The Hedonic Appeal of “Dreyer’s English” | The New Yorker](https://www.newyorker.com/books/page-turner/the-hedonic-appeal-of-dreyers-english)
-- [Simple rules for concise scientific writing | Limnology and Oceanography Letters - Wiley Online Library](https://aslopubs.onlinelibrary.wiley.com/doi/full/10.1002/lol2.10165) by Scott Hotaling
 
+-   [Several Short Sentences About Writing \| Verlyn Klinkenborg](https://www.amazon.com/Several-Short-Sentences-About-Writing/dp/0307279413) \<3
+-   [Sister Bernadette's Barking Dog: The Quirky History and Lost Art of Diagramming Sentences \| Kitty Burns Florey](https://www.amazon.com/Sister-Bernadettes-Barking-Dog-Diagramming/dp/0156034433)
+-   [Dreyer's English: An Utterly Correct Guide to Clarity and Style \| Benjamin Dreyer](https://www.amazon.co.uk/dp/B07NRVFBB1/ref=dp-kindle-redirect?_encoding=UTF8&btkr=1), see also [The Hedonic Appeal of "Dreyer's English" \| The New Yorker](https://www.newyorker.com/books/page-turner/the-hedonic-appeal-of-dreyers-english)
+-   [Simple rules for concise scientific writing \| Limnology and Oceanography Letters - Wiley Online Library](https://aslopubs.onlinelibrary.wiley.com/doi/full/10.1002/lol2.10165) by Scott Hotaling
 
----
+------------------------------------------------------------------------
 
 ## podcasts
-- [Not so standard deviations](http://nssdeviations.com/) --- "Not So Standard Deviations: The Data Science Podcast Roger Peng and Hilary Parker talk about the latest in data science and data analysis in academia and industry." <3
-- [Data Stories](http://datastori.es)
-- [Becoming a data-scientist podcast](https://www.becomingadatascientist.com/category/podcast/) 
-- [Credibly Curious](https://soundcloud.com/crediblycurious)
-- [Casual inference](http://casualinfer.libsyn.com/)
-- [The Broad Experience](http://www.thebroadexperience.com/)
-- [The Corresponding Author](https://www.listennotes.com/podcasts/the-corresponding-author-the-corresponding-oOaU-f8HpNw/)
 
----
+-   [Not so standard deviations](http://nssdeviations.com/) --- "Not So Standard Deviations: The Data Science Podcast Roger Peng and Hilary Parker talk about the latest in data science and data analysis in academia and industry." \<3
+-   [Data Stories](http://datastori.es)
+-   [Becoming a data-scientist podcast](https://www.becomingadatascientist.com/category/podcast/)
+-   [Credibly Curious](https://soundcloud.com/crediblycurious)
+-   [Casual inference](http://casualinfer.libsyn.com/)
+-   [The Broad Experience](http://www.thebroadexperience.com/)
+-   [The Corresponding Author](https://www.listennotes.com/podcasts/the-corresponding-author-the-corresponding-oOaU-f8HpNw/)
+
+------------------------------------------------------------------------
 
 ## stats, &c.
-- [Seeing Theory](https://seeing-theory.brown.edu/) — “...interactive visualizations (designed using Mike Bostock’s JavaScript library [D3.js](https://d3js.org/)).”
-- [A visual introduction to machine learning](http://www.r2d3.us/visual-intro-to-machine-learning-part-1/)
-- [Common statistical tests are linear models (or: how to teach stats)](https://lindeloev.github.io/tests-as-linear/)
-- [Mostly Harmless Econometrics | Joshua D. Angrist & Jörn-Steffen Pischke](https://www.mostlyharmlesseconometrics.com/)
-- [Introduction to Econometrics with R](https://www.econometrics-with-r.org/index.html)
-- [Mixtape | Scott Cunningham](https://www.scunning.com/mixtape.html)
-- [Real Stats: Using Econometrics for Political Science and Public Policy | Bailey, Michael A](https://www.amazon.com/Real-Stats-Econometrics-Political-Science/dp/0199981949)
-- [Introductory Econometrics: A Modern Approach | Jeffrey M. Wooldridge](https://www.amazon.com/Introductory-Econometrics-Modern-Approach-MindTap/dp/1337558869/ref=sr_1_1?crid=H88STMT6330F&dchild=1&keywords=wooldridge+introductory+econometrics&qid=1586939151&s=books&sprefix=wooldrid%2Cstripbooks-intl-ship%2C415&sr=1-1)
-- [Introduction to Econometrics | James H., Watson, Mark W](https://www.amazon.com/Introduction-Econometrics-Pearson-Economics-James-ebook/dp/B07R5CFGD2/ref=sr_1_1?crid=3KLDPNSK1JJH&dchild=1&keywords=stock+and+watson+introduction+to+econometrics&qid=1586939223&s=books&sprefix=stock+and+wat%2Cstripbooks-intl-ship%2C424&sr=1-1)
-- ["PRIMER”, Chapter 4: Counterfactuals and Their
-Applications | Judea Pearl, Madelyn Glymour, Nicholas P. Jewell](http://web.cs.ucla.edu/~kaoru/primer-ch4.pdf)
-- [Causal Inference | Hernán MA, Robins JM](https://www.hsph.harvard.edu/miguel-hernan/causal-inference-book/) 
-- [ModernDive: Statistical Inference via Data Science](https://moderndive.com/index.html)
--  [Data science for economists | Grant McDermott](https://www.google.com/url?q=https%3A%2F%2Fgithub.com%2Fuo-ec607%2Flectures&sa=D&sntz=1&usg=AFQjCNHFFTznBoeUT4oCXc_ILvRmBa1gnQ)
 
----
+-   [Seeing Theory](https://seeing-theory.brown.edu/) --- "...interactive visualizations (designed using Mike Bostock's JavaScript library [D3.js](https://d3js.org/))."
+-   [A visual introduction to machine learning](http://www.r2d3.us/visual-intro-to-machine-learning-part-1/)
+-   [Common statistical tests are linear models (or: how to teach stats)](https://lindeloev.github.io/tests-as-linear/)
+-   [Mostly Harmless Econometrics \| Joshua D. Angrist & Jörn-Steffen Pischke](https://www.mostlyharmlesseconometrics.com/)
+-   [Introduction to Econometrics with R](https://www.econometrics-with-r.org/index.html)
+-   [Mixtape \| Scott Cunningham](https://www.scunning.com/mixtape.html)
+-   [Real Stats: Using Econometrics for Political Science and Public Policy \| Bailey, Michael A](https://www.amazon.com/Real-Stats-Econometrics-Political-Science/dp/0199981949)
+-   [Introductory Econometrics: A Modern Approach \| Jeffrey M. Wooldridge](https://www.amazon.com/Introductory-Econometrics-Modern-Approach-MindTap/dp/1337558869/ref=sr_1_1?crid=H88STMT6330F&dchild=1&keywords=wooldridge+introductory+econometrics&qid=1586939151&s=books&sprefix=wooldrid%2Cstripbooks-intl-ship%2C415&sr=1-1)
+-   [Introduction to Econometrics \| James H., Watson, Mark W](https://www.amazon.com/Introduction-Econometrics-Pearson-Economics-James-ebook/dp/B07R5CFGD2/ref=sr_1_1?crid=3KLDPNSK1JJH&dchild=1&keywords=stock+and+watson+introduction+to+econometrics&qid=1586939223&s=books&sprefix=stock+and+wat%2Cstripbooks-intl-ship%2C424&sr=1-1)
+-   ["PRIMER", Chapter 4: Counterfactuals and Their Applications \| Judea Pearl, Madelyn Glymour, Nicholas P. Jewell](http://web.cs.ucla.edu/~kaoru/primer-ch4.pdf)
+-   [Causal Inference \| Hernán MA, Robins JM](https://www.hsph.harvard.edu/miguel-hernan/causal-inference-book/)
+-   [ModernDive: Statistical Inference via Data Science](https://moderndive.com/index.html)
+-   [Data science for economists \| Grant McDermott](https://www.google.com/url?q=https%3A%2F%2Fgithub.com%2Fuo-ec607%2Flectures&sa=D&sntz=1&usg=AFQjCNHFFTznBoeUT4oCXc_ILvRmBa1gnQ)
 
-# misc >>> 
+------------------------------------------------------------------------
+
+# misc \>\>\>
 
 ## random links
-- [The death of the literature review and the rise of the dynamic knowledge map | Impact of Social Sciences](https://blogs.lse.ac.uk/impactofsocialsciences/2019/05/14/the-death-of-the-literature-review-and-the-rise-of-the-dynamic-knowledge-map/) ---- hmmm
-- [webshot](https://github.com/wch/webshot) ---  “makes it easy to take screenshots of web pages from R"
-- Add a [progess bar](https://github.com/r-lib/progress/blob/master/README.md) to a script
-- [diffobj - Diffs for R Objects](https://github.com/brodieG/diffobj) — “Generate a colorized diff of two R objects for an intuitive visualization of their differences."
-- [Declaring and diagnosing research designs](https://blogs.worldbank.org/impactevaluations/declaring-and-diagnosing-research-designs). See the [website](https://declaredesign.org/) "DeclareDesign is an R package full of tools to help researchers “declare” and “diagnose” designs before implementing them."
-- [Packaging data analytical work reproducibly using R (and friends)"](https://peerj.com/preprints/3192/) in PeerJ Preprints
-- [Prime Hints For Running A Data Project In R | Kasia Kulma](https://kkulma.github.io/2018-03-18-Prime-Hints-for-Running-a-data-project-in-R/)
-- [Adding citations to posts - A minimal example website using blogdown](https://blogdown-demo.rbind.io/2017/08/28/adding-citations-to-posts/)
-- [Bibliographies and Citations in R Markdown](https://rmarkdown.rstudio.com/authoring_bibliographies_and_citations.html#citations)
-- [GitHub - crsh/citr: RStudio Addin to Insert Markdown Citations](https://github.com/crsh/citr)
-- [Better BibTeX for Zotero :: Better BibTeX for Zotero](http://retorque.re/zotero-better-bibtex/)
-- [Primer — An Introduction to CSL — Citation Style Language 1.0.1-dev documentation](http://docs.citationstyles.org/en/1.0.1/primer.html)
-- [GitHub - anthonynorth/rscodeio: An RStudio theme inspired by Visual Studio Code.](https://github.com/anthonynorth/rscodeio)
-- [Patchwork](https://github.com/thomasp85/patchwork) (R ggplot2)
-- Using Google Forms and R with the [googlesheets and googleformr packages](https://github.com/jennybc/googlesheets#what-the-hell-do-i-do-with-this)
-- [Readings | Real Analysis | Mathematics | MIT OpenCourseWare](https://ocw.mit.edu/courses/mathematics/18-100c-real-analysis-fall-2012/readings/)
 
-
-[^1]: I <3 the [styler](https://github.com/r-lib/styler) and [datapasta](https://github.com/MilesMcBain/datapasta) and [littleboxes](https://github.com/ThinkR-open/littleboxes) RStudio add-ins! Here's a post I saw on some others: ["RStudio addins, or how to make your coding life easier"](https://www.statsandr.com/blog/rstudio-addins-or-how-to-make-your-coding-life-easier/)
+-   [The death of the literature review and the rise of the dynamic knowledge map \| Impact of Social Sciences](https://blogs.lse.ac.uk/impactofsocialsciences/2019/05/14/the-death-of-the-literature-review-and-the-rise-of-the-dynamic-knowledge-map/) ---- hmmm
+-   [webshot](https://github.com/wch/webshot) --- "makes it easy to take screenshots of web pages from R"
+-   Add a [progess bar](https://github.com/r-lib/progress/blob/master/README.md) to a script
+-   [diffobj - Diffs for R Objects](https://github.com/brodieG/diffobj) --- "Generate a colorized diff of two R objects for an intuitive visualization of their differences."
+-   [Declaring and diagnosing research designs](https://blogs.worldbank.org/impactevaluations/declaring-and-diagnosing-research-designs). See the [website](https://declaredesign.org/) "DeclareDesign is an R package full of tools to help researchers "declare" and "diagnose" designs before implementing them."
+-   [Packaging data analytical work reproducibly using R (and friends)"](https://peerj.com/preprints/3192/) in PeerJ Preprints
+-   [Prime Hints For Running A Data Project In R \| Kasia Kulma](https://kkulma.github.io/2018-03-18-Prime-Hints-for-Running-a-data-project-in-R/)
+-   [Adding citations to posts - A minimal example website using blogdown](https://blogdown-demo.rbind.io/2017/08/28/adding-citations-to-posts/)
+-   [Bibliographies and Citations in R Markdown](https://rmarkdown.rstudio.com/authoring_bibliographies_and_citations.html#citations)
+-   [GitHub - crsh/citr: RStudio Addin to Insert Markdown Citations](https://github.com/crsh/citr)
+-   [Better BibTeX for Zotero :: Better BibTeX for Zotero](http://retorque.re/zotero-better-bibtex/)
+-   [Primer --- An Introduction to CSL --- Citation Style Language 1.0.1-dev documentation](http://docs.citationstyles.org/en/1.0.1/primer.html)
+-   [GitHub - anthonynorth/rscodeio: An RStudio theme inspired by Visual Studio Code.](https://github.com/anthonynorth/rscodeio)
+-   [Patchwork](https://github.com/thomasp85/patchwork) (R ggplot2)
+-   Using Google Forms and R with the [googlesheets and googleformr packages](https://github.com/jennybc/googlesheets#what-the-hell-do-i-do-with-this)
+-   [Readings \| Real Analysis \| Mathematics \| MIT OpenCourseWare](https://ocw.mit.edu/courses/mathematics/18-100c-real-analysis-fall-2012/readings/)
