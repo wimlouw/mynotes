@@ -64,7 +64,6 @@ output:
 -   [Best practices for conducting phone surveys \| J-PAL](https://www.povertyactionlab.org/blog/3-20-20/best-practices-conducting-phone-surveys) --- "This is a living document that aggregates crowd-sourced tips and factors to consider when conducting remote surveys (in particular phone surveys) while practicing social distancing."
 -   [Surveying Young Workseekers in South Africa](https://www.saldru.uct.ac.za/2019/09/27/surveying-young-workseekers-in-south-africa/) --- Tips from J-PAL Africa's Research Team
 -   [Setting up a data science "stack" full instructions + resources](https://ubc-mds.github.io/resources_pages/installation_instructions/) from the University of British Columbia's Master of Data Science program. Great set-up guide! (git, pandoc, LaTeX, Make, Docker, R, &c.)
--   ["The Pretty PDF Printer for ODK forms"](http://ppp.pma2020.org)
 -   [formr](https://formr.org) --- "chain simple surveys into long runs, use the power of R to generate pretty feedback and complex designs"
 -   [Ona](https://ona.io/home/) --- "Collect. Share. Visualize data."
 -   [SurveyCTO](https://www.surveycto.com/) --- "SurveyCTO is the most reliable, secure, and scalable mobile data collection platform for researchers and professionals working in offline settings."
@@ -72,7 +71,8 @@ output:
     -   [Discover how J-PAL and IPA use SurveyCTO plug-ins for phone surveys and more \| SurveyCTO](https://www.surveycto.com/videos/plugins-webinar/)
     -   SurveyCTO [Computer-assisted telephone interviewing (CATI) starter kit](https://support.surveycto.com/hc/en-us/articles/360044958494-Computer-assisted-telephone-interviewing-CATI-starter-kit)
     -   Our J-PAL South Asia office are doing super interesting things with [SurveyCTO custom-plugin feature](https://www.surveycto.com/blog/field-plugins/)
--   [SurveyCTO coding tips](https://dimewiki.worldbank.org/wiki/SurveyCTO_Coding_Practices) --- from the World Bank's Development Impact Evaluation unit
+    -   [SurveyCTO coding tips](https://dimewiki.worldbank.org/wiki/SurveyCTO_Coding_Practices) --- from the World Bank's Development Impact Evaluation unit
+-   ["The Pretty PDF Printer for ODK forms"](http://ppp.pma2020.org)
 
 ------------------------------------------------------------------------
 
@@ -289,14 +289,13 @@ output:
     -   [How to Do Nothing: Resisting the Attention Economy \| Jenny Odell](https://www.amazon.com/How-Do-Nothing-Resisting-Attention/dp/1612197493) \<3
     -   [Getting Things Done: The Art of Stress-Free Productivity \| David Allen](https://www.amazon.com/Getting-Things-Done-Stress-Free-Productivity/dp/0142000280)
     -   [Checklist Manifesto \| Atul Gawande](https://www.amazon.com/Checklist-Manifesto-How-Things-Right/dp/0312430000)
-    -   [Getting Things Done \| Wikipedia](https://en.wikipedia.org/wiki/Getting_Things_Done) or "GTD"
+      -   [Getting Things Done \| Wikipedia](https://en.wikipedia.org/wiki/Getting_Things_Done) or "GTD"
     -   [Deep Work: Rules for Focused Success in a Distracted World \| Cal Newport](https://www.amazon.com/Deep-Work-Focused-Success-Distracted/dp/1455586692)
     -   [Dan Charnas: Using Lessons From Great Chefs To Help Us 'Work Clean'](https://www.forbes.com/sites/shawnsetaro/2016/04/27/work-clean/#3c41e9e4fb20) --- *mise-en-place*
     -   [Atomic Habits: Tiny Changes, Remarkable Results \| James Clear](https://jamesclear.com/atomic-habits)
     -   [How to Take Smart Notes: One Simple Technique to Boost Writing, Learning and Thinking \| Sönke Ahrens](https://www.amazon.com/How-Take-Smart-Notes-Nonfiction-ebook/dp/B06WVYW33Y) --- Niklas Luhmann, the *zettelkasten*, &c.
 
 -   Tools
-    -   [TextExpander](https://textexpander.com/) --- "Easily insert text snippets in any application from a library of content created by you and your team."
     -   [Toggl - Free Time Tracking Software](https://toggl.com/)
     -   ["Responsibility assignment matrix" \| Wikipedia](https://en.wikipedia.org/wiki/Responsibility_assignment_matrix) --- "RACI" charts
     -   [Work Effectively with the "Eisenhower Matrix" \| Evernote Blog](https://evernote.com/blog/work-effectively-with-the-eisenhower-matrix/) --- high priority, high urgency; high priority low urgency, &c.
@@ -304,10 +303,11 @@ output:
     -   [The ten minute rule of productivity - Ness Labs](https://nesslabs.com/ten-minute-rule) --- beat procrastination (maybe!)
     -   [Interstitial journaling: combining notes, to-do & time tracking - Ness Labs](https://nesslabs.com/interstitial-journaling)
     -   [Bullet Journal](https://bulletjournal.com/)
-    -   [Evergreen note-writing as fundamental unit of knowledge work \| Andy Matuschak](https://notes.andymatuschak.org/Evergreen_note-writing_as_fundamental_unit_of_knowledge_work)
+    -   [Evergreen note-writing as fundamental unit of knowledge work \| Andy Matuschak](https://notes.andymatuschak.org/Evergreen_note-writing_as_fundamental_unit_of_knowledge_work) <3
 -   Other
-    -   [Meditation and Sleep Made Simple - Headspace](https://www.headspace.com/)
+    -   [TextExpander](https://textexpander.com/) --- "Easily insert text snippets in any application from a library of content created by you and your team."
     -   [Aro - Learn Buddhist meditation](http://aromeditation.org/)
+    -   [Meditation and Sleep Made Simple - Headspace](https://www.headspace.com/)
 
 ------------------------------------------------------------------------
 
