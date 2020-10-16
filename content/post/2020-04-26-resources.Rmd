@@ -83,6 +83,7 @@ output:
 -   [DAGitty - drawing and analyzing causal diagrams (DAGs)](http://www.dagitty.net/)
 -   [Online Diagram Software & Visual Solution \| Lucidchart](https://www.lucidchart.com/pages/)
 -   [Argdown](https://argdown.org/) --- A simple syntax for complex argumentation
+- [TikZiT](https://tikzit.github.io/) — “TikZiT is a super simple GUI editor for graphs and string diagrams”
 
 ------------------------------------------------------------------------
 
@@ -125,6 +126,7 @@ output:
 -   [Learning data viz with D3 - Diana MacDonald \| Medium](https://medium.com/@didoesdigital/learning-data-viz-with-d3-8b54afcef74)
 -   Cool articles on visualising uncertainty by Jessica Hullman and Matt Kay: [part 1](https://medium.com/multiple-views-visualization-research-explained/uncertainty-visualization-explained-67e7a73f031b) and [part 2](https://medium.com/multiple-views-visualization-research-explained/uncertainty-visualization-explained-part-2-continuous-encodings-967a7f7c38d0). And here they are on the [Data Stories podcast](http://datastori.es/134-visualizing-uncertainty-with-jessica-hullman-and-matthew-kay/)
 -   [Data visualization \| The Abdul Latif Jameel Poverty Action Lab](https://www.povertyactionlab.org/resource/data-visualization)
+- [New visual libraries for R and Stata users](https://blogs.worldbank.org/impactevaluations/new-visual-libraries-r-and-stata-users) — WB DIME
 
 [^2]: See also: [Visualizing with Text \| Richard Brath's blog](https://richardbrath.wordpress.com/books-and-chapters-by-richard-brath/visualizing-with-text-book-companion-web-site/) for interactive demos and code
 
