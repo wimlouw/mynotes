@@ -1,23 +1,421 @@
 ---
-title: 'Notes on webscraping (incomplete)'
+title: 'Notes on webscraping'
 author: Wim Louw
-date: '2020-09-24'
+date: '2020-11-14'
 slug: webscraping
 categories: []
 tags: []
 ---
 
 <script src="/rmarkdown-libs/header-attrs/header-attrs.js"></script>
+<script src="/rmarkdown-libs/kePrint/kePrint.js"></script>
+<link href="/rmarkdown-libs/lightable/lightable.css" rel="stylesheet" />
 
 
 <div id="intro" class="section level2">
 <h2>Intro</h2>
+<p>A couple of years ago, I had the opportunity to work as a Research Associate on a cool labour narket study. Part of this study involved looking for suitable job vacancies online and applying for jobs on behalf of jobseekers in the study. This involved aggregating as many job postings as possible, across a number of sites, selecting an appropriate subset of jobs (by location, experience, and other employer requirements), before, finally, screening and curating the jobs we intended to apply to. This happened across multiple rounds. This, as you can imagine, takes a bit of work! And it did, but, thankfully we managed to automate part of it using webscraping scripts to pull jobs from websites.<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a> In the process, I was able to learn a bit about how to programmatically extract information from websites using R, rvest, and <a href="https://docs.ropensci.org/RSelenium/">R Selenium</a>.<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a></p>
+<p>What is webscraping about? Well it’s mostly about getting the things you’re seeing on a web page (or across many pages) into a form you can work with on your computer, i.e. make it a dataset, a list, or whatever. This might be a single table or multiple tables across many pages, or it might be a combination of elements, like job ads with associated information (title, location, area, salary, date, &amp;c.)</p>
+<p>In essence, this is basically a data extraction and cleaning exercise! In the examples below, it’s about getting the content you want from the HTML (<strong>parsing</strong>).</p>
+<p>In more complicated cases, it involves automating interacting with the web page (using a web driver like Selenium), to reveal the content you want. Once you have the content, in a form you can work with, it’s standard data cleaning stuff (manipulating strings, dates, &amp;c.<a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a>).</p>
+<p>A lot of the work involves figuring out how the website works: where the information you want is, choosing the right <strong>css-selectors</strong>, working with URLs<a href="#fn4" class="footnote-ref" id="fnref4"><sup>4</sup></a>, figuring out how to <strong>iterate</strong> (i.e. “crawl”) across pages.</p>
+<p>Then, if you want to build something more sophisticated, it might involve working with a database, a scheduler, and other tools.<a href="#fn5" class="footnote-ref" id="fnref5"><sup>5</sup></a> E.g. you might want to build something that extracts information regularly, and stores it in a database.</p>
+<p>The examples below are all quite basic, but the aim is really to convey some key concepts, and to make you see what’s possible.</p>
+</div>
+<div id="considerations" class="section level2">
+<h2>Considerations</h2>
+<p>There are a few things to consider before investing time in writing a script to extract information from a web page (or pages):</p>
 <ul>
-<li>Here I’d like to — high-level — combine my own experience in doing this with some key take-aways from some of the following sources:
+<li><p><strong>Is this already available?</strong> Perhaps it can be downloaded from the site as a spreadsheet already (have a look around), or perhaps the site has an API<a href="#fn6" class="footnote-ref" id="fnref6"><sup>6</sup></a> you can access to download data</p></li>
+<li><p><strong>Is there a low effort way of doing this?</strong> For instance, maybe you can just copy-paste what you need into a spreadsheet or directly into R<a href="#fn7" class="footnote-ref" id="fnref7"><sup>7</sup></a>? Or maybe there’s a product or function you can use straight away<a href="#fn8" class="footnote-ref" id="fnref8"><sup>8</sup></a></p></li>
+<li><p><strong>How much copy-paste/ “low-effort” work are we talking here?</strong> I think writing a simple script can, in many cases, be the lowest effort of all, but one might hesitate because it feels too daunting. If you’ll need to copy-paste multiple things across multiple pages, rather write a script! Related: <strong>Is this a once-off thing, or do I plan on doing this regularly?</strong> Automate with a script!</p></li>
+<li><p><strong>Is it OK for me to do this?</strong> This is a trickier question. It depends. And sometimes it’s hard to tell! Things you can do: check if the site has a <code>robots.txt</code> file<a href="#fn9" class="footnote-ref" id="fnref9"><sup>9</sup></a> (which, if a site has one, includes do’s and don’t for scrapers/crawlers); ask yourself “would I feel OK about this information being pulled from my website?”. If you decide to scrape — be polite about it: don’t overwhelm the site. Don’t bother the site more than you need to, i.e. don’t send too many requests to a website per second. You can avoid this by trying to be efficient (don’t repeatedly query the website), and/or including some rests in your code, to slow things down, and to emulate regular browsing.</p></li>
+</ul>
+</div>
+<div id="some-minimal-conceptual-stuff" class="section level2">
+<h2>Some minimal conceptual stuff</h2>
+<div id="the-front-end-of-the-web10" class="section level3">
+<h3>The front-end of the web<a href="#fn10" class="footnote-ref" id="fnref10"><sup>10</sup></a></h3>
 <ul>
-<li>Mine Dogucu &amp; Mine Çetinkaya-Rundel (2020): “Web Scraping in the Statistics and Data Science Curriculum: Challenges and Opportunities”, Journal of Statistics Education — see <a href="https://github.com/mdogucu/web-scrape">here</a></li>
-<li><a href="https://www.nature.com/articles/d41586-020-02558-0">How we learnt to stop worrying and love web scraping | Nature Career Column</a> by Nicholas J. DeVito, Georgia C. Richards &amp; Peter Inglesby</li>
-<li><a href="https://automatetheboringstuff.com/2e/chapter12/">Chapter 12: “Web scraping”</a> in “Automate the Boring Stuff with Python” by Al Sweigart</li>
+<li><p><strong>HTML</strong> – basic content and layout semantics (adding structure to raw content)</p></li>
+<li><p><strong>CSS</strong> – adding styles (formatting, colours, sizes of things, sometimes where things are placed, &amp;c.)</p></li>
+<li><p><strong>JavaScript</strong> - making things interactive (behaviour of things on the page)</p></li>
+</ul>
+<p><a href="https://codepen.io/rcyou/pen/QEObEk/">Here</a> is an example on <a href="https://codepen.io/">CodePen</a> bringing these together. You can also see how these come together by using your browser’s inspect tool. On Chrome you can right click and select “inspect” or go to More Tools/ Developer Tools<a href="#fn11" class="footnote-ref" id="fnref11"><sup>11</sup></a>.</p>
+<p>Here’s what it looks like:</p>
+<p><a href="https://www.povertyactionlab.org/page/research-south-africa"><img src="/img/Screenshot%202020-11-12%20at%2010.38.08.png" title="Using your browser&#39;s inspection tool" id="inspection-example" alt="For illustration: The J-PAL Africa Research Page" /></a></p>
+</div>
+</div>
+<div id="tools" class="section level2">
+<h2>Tools</h2>
+<ul>
+<li><p><a href="https://github.com/tidyverse/rvest">rvest</a> — “rvest helps you scrape information from web pages”<a href="#fn12" class="footnote-ref" id="fnref12"><sup>12</sup></a></p></li>
+<li><p><a href="http://selectorgadget.com/">SelectorGadget</a> — “point and click CSS selectors”</p></li>
+<li><p><a href="https://www.tidyverse.org/">tidyverse tools</a> — for data manipulation</p></li>
+</ul>
+</div>
+<div id="examples" class="section level2">
+<h2>Examples</h2>
+<div id="set-up-due-diligence" class="section level3">
+<h3>Set up, due diligence</h3>
+<p>I’ll be using the following packages:</p>
+<pre class="r"><code>library(tidyverse) ## for data manipulation (various packages)
+library(rvest) ## for scraping
+library(textclean) ## some cleaning functions
+library(robotstxt) ## to get robotstxt protocols
+library(kableExtra) ## for printing out an html table in this post</code></pre>
+<p>I’m going to be scraping from wikipedia.org and gumtree.co.za. I want to check if it’s OK to do that. Wikipedia has a robots.txt, and it seems OK to scrape here if you’re going to be polite about it:</p>
+<pre class="r"><code>rtxt_wikipedia &lt;- robotstxt(domain=&quot;wikipedia.org&quot;)
+replace_html(str_trunc(rtxt_wikipedia$text, 500, &quot;right&quot;))</code></pre>
+<pre><code>#&gt; # robots.txt for http://www.wikipedia.org/ and friends
+#&gt; #
+#&gt; # Please note: There are a lot of pages on this site, and there are
+#&gt; # some misbehaved spiders out there that go _way_ too fast. If you&#39;re
+#&gt; # irresponsible, your access to the site may be blocked.
+#&gt; #
+#&gt; 
+#&gt; # Observed spamming large amounts of https://en.wikipedia.org/?curid=NNNNNN
+#&gt; # and ignoring 429 ratelimit responses, claims to respect robots:
+#&gt; # http://mj12bot.com/
+#&gt; User-agent: MJ12bot
+#&gt; Disallow: /
+#&gt; 
+#&gt; # advertising-related bots:
+#&gt; User-agent: Media...</code></pre>
+<p>As for gumtree.co.za, I’m finding it hard to interpret the exclusions criteria…I think I’ll just be very polite ¯\_(ツ)_/¯</p>
+</div>
+</div>
+<div id="examples-1" class="section level2">
+<h2>Examples</h2>
+<div id="tables" class="section level3">
+<h3>Tables</h3>
+<p>I want to get the website HTML</p>
+<pre class="r"><code>## get the website HTML
+website &lt;- read_html(&quot;https://en.wikipedia.org/wiki/Elections_in_South_Africa&quot;) </code></pre>
+<p>Now I want to identify the table I’m seeing so I can parse it from the HTML.</p>
+<p>Hmmm, OK, this is actually tricky on Wikipedia, I can’t find the specific css-selector on this page.</p>
+<p>But something you an do is to get all tables on the page, and then try to identify which one is the right one using string matching:</p>
+<pre class="r"><code>table &lt;- html_nodes(website, &quot;table&quot;) ## all tables
+length(table) ## how many tables?</code></pre>
+<pre><code>#&gt; [1] 19</code></pre>
+<pre class="r"><code>## I want the one that contains &quot;ANC&quot;
+data &lt;- html_table(table[grep(&quot;ANC&quot;, table)], fill = T)[[1]]
+
+## let&#39;s see
+glimpse(data)</code></pre>
+<pre><code>#&gt; Rows: 55
+#&gt; Columns: 8
+#&gt; $ Party &lt;chr&gt; &quot;list&quot;, &quot;list&quot;, &quot;list&quot;, &quot;list&quot;, &quot;list&quot;, &quot;list&quot;, &quot;list&quot;, &quot;list&quot;,…
+#&gt; $ Party &lt;chr&gt; &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;,…
+#&gt; $ Party &lt;chr&gt; &quot;ANC&quot;, &quot;Democratic Alliance&quot;, &quot;Economic Freedom Fighters&quot;, &quot;IFP…
+#&gt; $ Votes &lt;chr&gt; &quot;10,026,475&quot;, &quot;3,621,188&quot;, &quot;1,881,521&quot;, &quot;588,839&quot;, &quot;414,864&quot;, &quot;…
+#&gt; $ `%`   &lt;chr&gt; &quot;57.50&quot;, &quot;20.77&quot;, &quot;10.79&quot;, &quot;3.38&quot;, &quot;2.38&quot;, &quot;0.84&quot;, &quot;0.45&quot;, &quot;0.4…
+#&gt; $ `+/−` &lt;chr&gt; &quot;4.65&quot;, &quot;1.36&quot;, &quot;4.44&quot;, &quot;0.98&quot;, &quot;1.48&quot;, &quot;0.27&quot;, &quot;0.55&quot;, &quot;New&quot;, …
+#&gt; $ Seats &lt;chr&gt; &quot;230&quot;, &quot;84&quot;, &quot;44&quot;, &quot;14&quot;, &quot;10&quot;, &quot;4&quot;, &quot;2&quot;, &quot;2&quot;, &quot;2&quot;, &quot;2&quot;, &quot;2&quot;, &quot;2…
+#&gt; $ `+/−` &lt;chr&gt; &quot;19&quot;, &quot;5&quot;, &quot;19&quot;, &quot;4&quot;, &quot;6&quot;, &quot;1&quot;, &quot;2&quot;, &quot;New&quot;, &quot;New&quot;, &quot;4&quot;, &quot;1&quot;, &quot;1…</code></pre>
+<pre class="r"><code>head(data) ## great</code></pre>
+<pre><code>#&gt;   Party Party                     Party      Votes     %  +/− Seats +/−
+#&gt; 1  list                             ANC 10,026,475 57.50 4.65   230  19
+#&gt; 2  list             Democratic Alliance  3,621,188 20.77 1.36    84   5
+#&gt; 3  list       Economic Freedom Fighters  1,881,521 10.79 4.44    44  19
+#&gt; 4  list                             IFP    588,839  3.38 0.98    14   4
+#&gt; 5  list              Freedom Front Plus    414,864  2.38 1.48    10   6
+#&gt; 6  list                            ACDP    146,262  0.84 0.27     4   1</code></pre>
+</div>
+<div id="other-elements" class="section level3">
+<h3>Other elements</h3>
+<p>Let’s try something else. Getting job information on gumtree.co.za</p>
+<p>Things to note here: descriptions are truncated, and contact information is hidden (i.e. you need to click on these elements to reveal them). For the purposes of these examples, we’re not going to get into headless browsers, and how to get your script to interact with page elements (but this is possible!)</p>
+<p>Let’s try a single job:</p>
+<pre class="r"><code>jobs &lt;- read_html(&quot;https://www.gumtree.co.za/s-jobs/page-1/v1c8p2?q=entry+level&quot;)
+
+links &lt;-
+  jobs %&gt;%
+  html_nodes(&quot;.related-ad-title&quot;) %&gt;%
+  html_attr(&quot;href&quot;)
+
+head(links)</code></pre>
+<pre><code>#&gt; [1] &quot;/a-sales-representatives-jobs/other/sales-consultant-needed-+-travel/1008343366270910016930309&quot;          
+#&gt; [2] &quot;/a-it-technician-jobs/port-elizabeth/entry-level-technician-installer/1008341037700912098673809&quot;         
+#&gt; [3] &quot;/a-office-jobs/brackenfell/office-assistant-brackenfell-r8-000-+-r9-000-pm/1008334081620911146640309&quot;    
+#&gt; [4] &quot;/a-accounting-finance-jobs/lanseria/accountant-+-ad-posted-by-schullpak/1008328269890910406385609&quot;       
+#&gt; [5] &quot;/a-logistics-jobs/eastern-pretoria/junior-warehouse-controller-+-pta-non+ee/1008328733720911316948209&quot;   
+#&gt; [6] &quot;/a-customer-service-jobs/parklands/call-centre-agents-needed-in-bloubergstrand/1008322782770910070226009&quot;</code></pre>
+<p>Great now I have all the links on page 1.</p>
+<p>I want to look at the first one, and extract some information:</p>
+<pre class="r"><code>jobs_1 &lt;- read_html(paste0(&quot;https://www.gumtree.co.za&quot;, links[1]))
+
+title &lt;- jobs_1 %&gt;%
+  html_nodes(&quot;h1&quot;) %&gt;%
+  html_text() %&gt;%
+  str_squish()
+
+title</code></pre>
+<pre><code>#&gt; [1] &quot;Sales consultant needed - Travel&quot;</code></pre>
+<p>I will need to do this for a bunch of things — title, description, &amp;c. So I’m going to make a small function to make that easier:</p>
+<pre class="r"><code>## function for cleaning single elements
+cleanup &lt;- function(site, tag) {
+  output &lt;- site %&gt;%
+    html_nodes(tag) %&gt;%
+    html_text() %&gt;%
+    str_squish()
+  output &lt;- ifelse(length(output) == 0, NA, output) ## in case an element is missing
+  return(output)
+}
+
+## let&#39;s try it out
+description &lt;- cleanup(jobs_1, &quot;.description-website-container&quot;)
+jobtype &lt;- cleanup(jobs_1, &quot;.attribute:nth-child(4) .value&quot;)
+employer &lt;- cleanup(jobs_1, &quot;.attribute:nth-child(3) .value&quot;)
+time &lt;- Sys.time()
+
+## and put it into a tibble
+dat &lt;-
+  tibble(
+    title,
+    description,
+    jobtype,
+    time
+  )
+
+dat ## looks good</code></pre>
+<pre><code>#&gt; # A tibble: 1 x 4
+#&gt;   title           description                       jobtype  time               
+#&gt;   &lt;chr&gt;           &lt;chr&gt;                             &lt;chr&gt;    &lt;dttm&gt;             
+#&gt; 1 Sales consulta… DescriptionWe are growing Travel… Commiss… 2020-11-14 16:32:12</code></pre>
+<p>What if I wanted to do this for all ads on this page?</p>
+</div>
+<div id="iteration" class="section level3">
+<h3>Iteration</h3>
+<p>I have the links from the first page. I want to extract all the information I specified above for each one. I think I’ll write another function, which will create a tibble for every link, and then I’ll put this into a list of tibbles using a for loop:</p>
+<pre class="r"><code>## function for cleaning all elements I want on a page
+cleanup2 &lt;- function(x) {
+  page &lt;- read_html(x)
+  title &lt;- cleanup(page, &quot;h1&quot;)
+  description &lt;- cleanup(page, &quot;.description-website-container&quot;)
+  jobtype &lt;- cleanup(page, &quot;.attribute:nth-child(4) .value&quot;)
+  employer &lt;- cleanup(page, &quot;.attribute:nth-child(3) .value&quot;)
+  time &lt;- Sys.time()
+  dat &lt;-
+    tibble(
+      title,
+      description,
+      jobtype,
+      time
+    )
+  return(dat)
+}
+
+## fixing the link
+links &lt;- paste0(&quot;https://www.gumtree.co.za&quot;, links)
+links &lt;- sample(links, 5)
+
+## a list, and a for loop
+output &lt;- list()
+for (i in 1:length(links)) {
+  deets &lt;- cleanup2(links[i])
+  deets$title
+  output[[i]] &lt;- deets # add to list
+  Sys.sleep(1)
+}
+
+all &lt;- bind_rows(output)</code></pre>
+<p>OK, let’s see what this looks like (I’m truncating job descriptions for display):</p>
+<pre class="r"><code>## truncate
+all$description &lt;- str_trunc(all$description, 100, &quot;right&quot;)
+
+## using kable to make an html table for the site
+all %&gt;%
+  kable() %&gt;%
+  kable_paper(bootstrap_options = &quot;striped&quot;, full_width = F)</code></pre>
+<table class=" lightable-paper" style="font-family: &quot;Arial Narrow&quot;, arial, helvetica, sans-serif; width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+title
+</th>
+<th style="text-align:left;">
+description
+</th>
+<th style="text-align:left;">
+jobtype
+</th>
+<th style="text-align:left;">
+time
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+5 x Accountants / Bookkeepers required for busy accounting firm
+</td>
+<td style="text-align:left;">
+DescriptionWe are a Durban Based Company Looking to employ 5 Bookkeepers preferably Indian Female…
+</td>
+<td style="text-align:left;">
+Full-Time
+</td>
+<td style="text-align:left;">
+2020-11-14 16:32:13
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Entry level technician/installer
+</td>
+<td style="text-align:left;">
+DescriptionWe are looking to expand our service delivery team. Please read through below and if y…
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+2020-11-14 16:32:14
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Junior Accountant &amp; Accounts Payable/ Buyer (Non-EE) PTA-East
+</td>
+<td style="text-align:left;">
+DescriptionA national transport company seeks to employ a Junior Accountant to mainly occupy a Bu…
+</td>
+<td style="text-align:left;">
+Non EE/AA
+</td>
+<td style="text-align:left;">
+2020-11-14 16:32:16
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Sales and Marketing
+</td>
+<td style="text-align:left;">
+DescriptionTD marketing company is a marketing company specializing in customer acquisition and s…
+</td>
+<td style="text-align:left;">
+Commission
+</td>
+<td style="text-align:left;">
+2020-11-14 16:32:17
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Accountant - Ad posted by schullpak
+</td>
+<td style="text-align:left;">
+DescriptionAccountant. Mechanical and Electrical Engineering Company based in Lanseria, Johannesb…
+</td>
+<td style="text-align:left;">
+Full-Time
+</td>
+<td style="text-align:left;">
+2020-11-14 16:32:19
+</td>
+</tr>
+</tbody>
+</table>
+<p>I just did the first page. How would one do other pages? One approach if to use the url and another for loop.</p>
+<pre class="r"><code>pages &lt;- 3 ## let&#39;s just do 3
+job_list &lt;- list()
+link &lt;- &quot;https://www.gumtree.co.za/s-jobs/page-&quot;
+
+for (i in 1:pages) {
+  jobs &lt;-
+    read_html(paste0(link, i, &quot;/v1c8p2?q=entry+level&quot;))
+  links &lt;-
+    jobs %&gt;%
+    html_nodes(&quot;.related-ad-title&quot;) %&gt;%
+    html_attr(&quot;href&quot;) # get links
+  job_list[[i]] &lt;- links # add to list
+  Sys.sleep(1)
+}
+
+links &lt;- unlist(job_list)
+head(links, 10) ## looks good!</code></pre>
+<pre><code>#&gt;  [1] &quot;/a-sales-representatives-jobs/other/sales-consultant-needed-+-travel/1008343366270910016930309&quot;                                    
+#&gt;  [2] &quot;/a-it-technician-jobs/port-elizabeth/entry-level-technician-installer/1008341037700912098673809&quot;                                   
+#&gt;  [3] &quot;/a-office-jobs/brackenfell/office-assistant-brackenfell-r8-000-+-r9-000-pm/1008334081620911146640309&quot;                              
+#&gt;  [4] &quot;/a-accounting-finance-jobs/lanseria/accountant-+-ad-posted-by-schullpak/1008328269890910406385609&quot;                                 
+#&gt;  [5] &quot;/a-logistics-jobs/eastern-pretoria/junior-warehouse-controller-+-pta-non+ee/1008328733720911316948209&quot;                             
+#&gt;  [6] &quot;/a-customer-service-jobs/parklands/call-centre-agents-needed-in-bloubergstrand/1008322782770910070226009&quot;                          
+#&gt;  [7] &quot;/a-customer-service-jobs/tableview/call-centre-agents-needed-in-bloubergstrand/1008322780790910070226009&quot;                          
+#&gt;  [8] &quot;/a-accounting-finance-jobs/pinetown/5-x-accountants-bookkeepers-required-for-busy-accounting-firm/1008320950160910865995909&quot;       
+#&gt;  [9] &quot;/a-accounting-finance-jobs/eastern-pretoria/junior-accountant-amp-accounts-payable-buyer-non+ee-pta+east/1008317895770911316948209&quot;
+#&gt; [10] &quot;/a-sales-representatives-jobs/de-waterkant/telkom-sales-and-marketing/1008313388250910325151109&quot;</code></pre>
+</div>
+<div id="things-to-think-about" class="section level3">
+<h3>Things to think about</h3>
+<p>Make sure your script can handle errors.<a href="#fn13" class="footnote-ref" id="fnref13"><sup>13</sup></a></p>
+<ul>
+<li>css-selectors change</li>
+<li>links stop working</li>
+<li>not all pages are necessarily the same (some elements may be missing from some site) — see the “job type” variable above, for instance</li>
+<li>sites time out (that can break your script if you don’t account for it)</li>
+<li>&amp;c.</li>
+</ul>
+<hr />
+</div>
+</div>
+<div id="resources" class="section level2">
+<h2>Resources</h2>
+<ul>
+<li><p>Mine Dogucu &amp; Mine Çetinkaya-Rundel (2020): “<a href="https://github.com/mdogucu/web-scrape">Web Scraping in the Statistics and Data Science Curriculum: Challenges and Opportunities</a>”, Journal of Statistics Education</p></li>
+<li><p><a href="https://www.nature.com/articles/d41586-020-02558-0">How we learnt to stop worrying and love web scraping | Nature Career Column</a> by Nicholas J. DeVito, Georgia C. Richards &amp; Peter Inglesby</p></li>
+<li><p><a href="https://automatetheboringstuff.com/2e/chapter12/">Chapter 12: “Web scraping”</a> in “Automate the Boring Stuff with Python” by Al Sweigart</p></li>
+<li><p><a href="https://simonwillison.net/2020/Oct/9/git-scraping/">Git scraping: track changes over time by scraping to a Git repository</a></p></li>
+<li><p>Headless browsers</p>
+<ul>
+<li><a href="https://docs.ropensci.org/RSelenium/">R Bindings for Selenium WebDriver • rOpenSci: RSelenium</a></li>
+<li><a href="https://www.raynergobran.com/2017/01/rselenium-mac-update/">RSelenium For Mac | Rayner Gobran</a></li>
+<li><a href="https://callumgwtaylor.github.io/blog/2018/02/01/using-rselenium-and-docker-to-webscrape-in-r-using-the-who-snake-database/">Using RSelenium and Docker To Webscrape In R - Using The WHO Snake Database | Callum Taylor</a></li>
+<li>Ethics/best practice</li>
+<li><a href="https://www.promptcloud.com/blog/data-crawling-and-extraction-ethics/">Data Crawling: Ethics &amp; Good Practices - PromptCloud</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Robots_exclusion_standard">Robots exclusion standard - Wikipedia</a></li>
+<li><a href="https://support.google.com/webmasters/answer/6062608?hl=en">Introduction to robots.txt - Search Console Help</a></li>
+<li><a href="https://github.com/dmi3kno/polite">GitHub - dmi3kno/polite: Be nice on the web</a></li>
+<li><a href="https://docs.ropensci.org/robotstxt/">A robots.txt Parser and Webbot/Spider/Crawler Permissions Checker • rOpenSci: robotstxt</a></li>
+</ul></li>
+<li><p>More implementation</p>
+<ul>
+<li><a href="https://colinfay.me/purrr-web-mining/">A Crazy Little Thing Called {purrr} - Part 1 : Web Mining - Colin Fay</a></li>
+</ul></li>
+<li><p>String manipulation</p>
+<ul>
+<li><a href="https://regexr.com/">RegExr: Learn, Build, &amp; Test RegEx</a></li>
+<li><a href="https://www.regextester.com/">Regex Tester and Debugger Online - Javascript, PCRE, PHP</a></li>
+<li>R cheatsheets: <a href="https://rstudio.com/resources/cheatsheets/">RStudio Cheatsheets - RStudio</a></li>
+<li><a href="https://github.com/kevinushey/rex">GitHub - kevinushey/rex: Friendly regular expressions for R.</a></li>
+<li><a href="https://rdrr.io/cran/rebus/f/README.md">rebus: README.md</a></li>
+<li><a href="https://github.com/VerbalExpressions/RVerbalExpressions">GitHub - VerbalExpressions/RVerbalExpressions: Create regular expressions easily</a></li>
+</ul></li>
+<li><p>See also</p>
+<ul>
+<li><a href="https://www.google.com/url?q=https%3A%2F%2Fgithub.com%2Fuo-ec607%2Flectures&amp;sa=D&amp;sntz=1&amp;usg=AFQjCNHFFTznBoeUT4oCXc_ILvRmBa1gnQ">Data science for economists | Grant McDermott</a></li>
+<li><a href="https://www.crummy.com/software/BeautifulSoup/bs4/doc/">Beautiful Soup Documentation — Beautiful Soup 4.9.0 documentation</a></li>
+<li><a href="https://robobrowser.readthedocs.io/en/latest/readme.html">RoboBrowser: Your friendly neighborhood web scraper — robobrowser 0.1 documentation</a></li>
+<li><a href="https://github.com/r-lib/httr">GitHub - r-lib/httr: httr: a friendly http package for R</a></li>
 </ul></li>
 </ul>
+</div>
+<div class="footnotes">
+<hr />
+<ol>
+<li id="fn1"><p>In practice, this aggregation process involved both webscraping, and a fair amount of manual searching!<a href="#fnref1" class="footnote-back">↩︎</a></p></li>
+<li id="fn2"><p>Helpful set-up links for R and RStudio <a href="https://wimlouw.netlify.app/2020/09/24/resources/#r">here</a><a href="#fnref2" class="footnote-back">↩︎</a></p></li>
+<li id="fn3"><p>Check out <a href="https://r4ds.had.co.nz/index.html">R for Data Science’s</a> chapters on dates and strings; then: (1) <a href="https://stringr.tidyverse.org/">Simple, Consistent Wrappers for Common String Operations • stringr,</a> (2) <a href="https://github.com/trinker/textclean">GitHub - trinker/textclean: Tools for cleaning and normalizing text data,</a> (3) <a href="https://quanteda.io/">Quantitative Analysis of Textual Data • quanteda</a> (text analysis)<a href="#fnref3" class="footnote-back">↩︎</a></p></li>
+<li id="fn4"><p>See Julia Evans’ “<a href="https://wizardzines.com/comics/how-urls-work/">how URLs work</a>”; also see Oliver Keyes &amp; Jay Jacobs’ “<a href="https://github.com/Ironholds/urltools">urltools</a>” R package — not something I’m getting into, but I think working with URLs programmatically is the way to go!<a href="#fnref4" class="footnote-back">↩︎</a></p></li>
+<li id="fn5"><p>Have a look at <a href="https://www.heroku.com/">Heroku</a> and their “Hobby-dev” PostgreSQL with the fee Heroku scheduler<a href="#fnref5" class="footnote-back">↩︎</a></p></li>
+<li id="fn6"><p>See <a href="https://medium.com/@perrysetgo/what-exactly-is-an-api-69f36968a41f">What exactly IS an API? - by Perry Eising on Medium</a><a href="#fnref6" class="footnote-back">↩︎</a></p></li>
+<li id="fn7"><p>See Miles McBain’s “<a href="https://github.com/MilesMcBain/datapasta">datapasta</a>” package<a href="#fnref7" class="footnote-back">↩︎</a></p></li>
+<li id="fn8"><p>See, for instance, <a href="https://www.octoparse.com/">Octoparse</a> or <a href="https://webscraper.io/">webscraper.io</a>. Also see, Google Sheets’ <code>importHTML</code> function (see the documentation <a href="https://support.google.com/docs/answer/3093339?hl=en">here</a> or see this Martin Hawksey’s tutorial <a href="https://mashe.hawksey.info/2012/10/feeding-google-spreadsheets-exercises-in-import/">here</a> (looks good)<a href="#fnref8" class="footnote-back">↩︎</a></p></li>
+<li id="fn9"><p>See <a href="https://en.wikipedia.org/wiki/Robots_exclusion_standard" class="uri">https://en.wikipedia.org/wiki/Robots_exclusion_standard</a> then, there’s helpful information in Peter Meissner’s <code>robotstxt</code> R package <a href="https://cran.r-project.org/web/packages/robotstxt/vignettes/using_robotstxt.html">documentation</a><a href="#fnref9" class="footnote-back">↩︎</a></p></li>
+<li id="fn10"><p>See <a href="https://www.internetingishard.com/html-and-css/introduction/">here</a> and <a href="https://www.w3schools.com/html/html_intro.asp">here</a><a href="#fnref10" class="footnote-back">↩︎</a></p></li>
+<li id="fn11"><p>See <a href="https://developers.google.com/web/tools/chrome-devtools/open" class="uri">https://developers.google.com/web/tools/chrome-devtools/open</a><a href="#fnref11" class="footnote-back">↩︎</a></p></li>
+<li id="fn12"><p>Pretty complete examples on how to use rvest here: <a href="http://rvest.tidyverse.org/" class="uri">http://rvest.tidyverse.org/</a><a href="#fnref12" class="footnote-back">↩︎</a></p></li>
+<li id="fn13"><p>See “safely” and “possibly” from the purrr package<a href="#fnref13" class="footnote-back">↩︎</a></p></li>
+</ol>
 </div>
