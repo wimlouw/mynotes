@@ -23,7 +23,7 @@ A couple of years ago, I had the opportunity to work as a Research Associate on 
 
 [^2]: I have some R and RStudio set-up and other resources [here](https://wimlouw.netlify.app/2020/09/24/resources/#r)
 
-What is webscraping about? Well it's mostly about getting the things you're seeing on a webpage into a form you can work with on your computer: a dataset, a list, or whatever. This might be a single table or multiple tables across many pages; or it might be a combination of elements, like job ads with associated information.
+What is webscraping about? Well, it's mostly about getting the things you're seeing on a webpage into a form you can work with on your computer: a dataset, a list, or whatever. This might be a single table or multiple tables across many pages; or it might be a combination of elements, like job ads with associated information.
 
 In essence, this is a data extraction and cleaning exercise! And in the examples below, it's about getting the content you want from the HTML (i.e. parsing HTML).
 
@@ -140,7 +140,7 @@ I tried using SelectorGadget...and the Chrome inspection tool. Hmmm, OK, this is
 
 ```{r}
 
-table <- html_nodes(website, "table") ## all tables
+table <- website %>% html_nodes("table") ## all tables
 length(table) ## how many tables?
 
 ## I want the one that contains "ANC" and has ~55 rows
@@ -177,7 +177,7 @@ head(links)
 
 Great now I have all the links on page 1!
 
-I want to look at the first one, and extract some information. For the example I'm extracting the job title, description, job type, employer, and also including a time-stamp. I use the inspect tool I identify each element's css-selector. There's much more information on these pages than the few I chose for this example. The approach is the same!
+I want to look at the first one, and extract some information. For the example I'm extracting the job title, description, job type, employer, and also including a time-stamp. I use the inspect tool to identify each element's css-selector. There's much more information on these pages than the few I chose for this example. The approach is the same!
 
 ```{r}
 
@@ -187,7 +187,7 @@ jobs_1 <- read_html(paste0("https://www.gumtree.co.za", links[1]))
 title <- jobs_1 %>%
   html_nodes("h1") %>%
   html_text() %>%
-  str_squish()
+  str_squish() ##get rid of leading and trailing whitespace
 
 title
 
@@ -262,6 +262,8 @@ links <- sample(links, 7) ## sampling 7 random links for the example
 
 ## a list (for storing tibbles), and a for loop to iterate through links
 output <- list()
+
+## iterating through links
 for (i in 1:length(links)) {
   deets <- cleanup2(links[i])
   deets$title

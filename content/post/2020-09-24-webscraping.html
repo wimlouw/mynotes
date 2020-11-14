@@ -15,7 +15,7 @@ tags: []
 <div id="intro" class="section level2">
 <h2>Intro</h2>
 <p>A couple of years ago, I had the opportunity to work as a Research Associate on a labour market study. Part of this study involved looking for suitable job vacancies and applying for jobs on behalf of participants. It involved aggregating job postings across a few sites, selecting an appropriate subset of jobs (by location, experience, and other employer requirements), and careful curation. The process was greatly helped by webscraping scripts we developed.<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a> I was able to learn a bit about how to programmatically extract information from websites using <a href="https://www.r-project.org/about.html">R</a>, <a href="https://github.com/tidyverse/rvest">rvest</a>, and <a href="https://docs.ropensci.org/RSelenium/">R Selenium</a>.<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a></p>
-<p>What is webscraping about? Well it’s mostly about getting the things you’re seeing on a webpage into a form you can work with on your computer: a dataset, a list, or whatever. This might be a single table or multiple tables across many pages; or it might be a combination of elements, like job ads with associated information.</p>
+<p>What is webscraping about? Well, it’s mostly about getting the things you’re seeing on a webpage into a form you can work with on your computer: a dataset, a list, or whatever. This might be a single table or multiple tables across many pages; or it might be a combination of elements, like job ads with associated information.</p>
 <p>In essence, this is a data extraction and cleaning exercise! And in the examples below, it’s about getting the content you want from the HTML (i.e. parsing HTML).</p>
 <p>Once you have the content in a form you can work with, it’s standard data cleaning stuff (manipulating strings, dates, &amp;c.<a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a>).</p>
 <p>A lot of the work involves figuring out how the website works: where the information you want is, choosing the right <a href="https://www.w3schools.com/cssref/css_selectors.asp">css-selectors</a>, working with URLs<a href="#fn4" class="footnote-ref" id="fnref4"><sup>4</sup></a> , and figuring out how to iterate (or “crawl”) between pages.</p>
@@ -91,7 +91,7 @@ website &lt;- read_html(&quot;https://en.wikipedia.org/wiki/Elections_in_South_A
 <p>👀…👀…👀</p>
 <p>I tried using SelectorGadget…and the Chrome inspection tool. Hmmm, OK, this is actually tricky on Wikipedia, I can’t find the specific css-selector on this page.</p>
 <p><strong>But</strong> something you an do (after some Googling) is to get <strong>all tables</strong> on the page; then you can identify which one is the right one using string matching (the <code>grep</code> function, below):</p>
-<pre class="r"><code>table &lt;- html_nodes(website, &quot;table&quot;) ## all tables
+<pre class="r"><code>table &lt;- website %&gt;% html_nodes(&quot;table&quot;) ## all tables
 length(table) ## how many tables?</code></pre>
 <pre><code>&gt; [1] 19</code></pre>
 <pre class="r"><code>## I want the one that contains &quot;ANC&quot; and has ~55 rows
@@ -139,14 +139,14 @@ head(links)</code></pre>
 &gt; [5] &quot;/a-logistics-jobs/eastern-pretoria/junior-warehouse-controller-+-pta-non+ee/1008328733720911316948209&quot;   
 &gt; [6] &quot;/a-customer-service-jobs/parklands/call-centre-agents-needed-in-bloubergstrand/1008322782770910070226009&quot;</code></pre>
 <p>Great now I have all the links on page 1!</p>
-<p>I want to look at the first one, and extract some information. For the example I’m extracting the job title, description, job type, employer, and also including a time-stamp. I use the inspect tool I identify each element’s css-selector. There’s much more information on these pages than the few I chose for this example. The approach is the same!</p>
+<p>I want to look at the first one, and extract some information. For the example I’m extracting the job title, description, job type, employer, and also including a time-stamp. I use the inspect tool to identify each element’s css-selector. There’s much more information on these pages than the few I chose for this example. The approach is the same!</p>
 <pre class="r"><code>## first link
 jobs_1 &lt;- read_html(paste0(&quot;https://www.gumtree.co.za&quot;, links[1]))
 
 title &lt;- jobs_1 %&gt;%
   html_nodes(&quot;h1&quot;) %&gt;%
   html_text() %&gt;%
-  str_squish()
+  str_squish() ##get rid of leading and trailing whitespace
 
 title</code></pre>
 <pre><code>&gt; [1] &quot;Sales consultant needed - Travel&quot;</code></pre>
@@ -180,7 +180,7 @@ dat ## looks good!</code></pre>
 <pre><code>&gt; # A tibble: 1 x 4
 &gt;   title           description                       jobtype  time               
 &gt;   &lt;chr&gt;           &lt;chr&gt;                             &lt;chr&gt;    &lt;dttm&gt;             
-&gt; 1 Sales consulta… DescriptionWe are growing Travel… Commiss… 2020-11-14 21:22:59</code></pre>
+&gt; 1 Sales consulta… DescriptionWe are growing Travel… Commiss… 2020-11-14 22:12:50</code></pre>
 <p>What if I wanted to do this for all ads on the page?</p>
 </div>
 <div id="iteration" class="section level3">
@@ -211,6 +211,8 @@ links &lt;- sample(links, 7) ## sampling 7 random links for the example
 
 ## a list (for storing tibbles), and a for loop to iterate through links
 output &lt;- list()
+
+## iterating through links
 for (i in 1:length(links)) {
   deets &lt;- cleanup2(links[i])
   deets$title
@@ -248,30 +250,44 @@ time
 <tbody>
 <tr>
 <td style="text-align:left;">
-Sales consultant needed - Travel
+Call Centre Agents Needed in Bloubergstrand
 </td>
 <td style="text-align:left;">
-DescriptionWe are growing Travel Agency looking to employ an sale agent.This is an entry level po…
+DescriptionOutbound Call Centre Agents (Debt Collection) • We are looking for energetic and motiv…
 </td>
 <td style="text-align:left;">
-Commission
+Full-Time
 </td>
 <td style="text-align:left;">
-2020-11-14 21:22:59
+2020-11-14 22:12:50
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-Optic Fibre Sales Management Program
+Entry level technician/installer
 </td>
 <td style="text-align:left;">
-Description Real Promotions is recruiting for Vodacom representatives within the Cape Town area. …
+DescriptionWe are looking to expand our service delivery team. Please read through below and if y…
 </td>
 <td style="text-align:left;">
 NA
 </td>
 <td style="text-align:left;">
-2020-11-14 21:23:01
+2020-11-14 22:12:52
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Telkom Sales and Marketing
+</td>
+<td style="text-align:left;">
+Description Real Promotions is a dynamic, fast growing sales and marketing company based in Cape …
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+2020-11-14 22:12:53
 </td>
 </tr>
 <tr>
@@ -285,49 +301,21 @@ DescriptionYoung camera man video editor, amateur skilled talented We are lookin
 Temporary
 </td>
 <td style="text-align:left;">
-2020-11-14 21:23:02
+2020-11-14 22:12:55
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-Junior Accountant &amp; Accounts Payable/ Buyer (Non-EE) PTA-East
+Sales consultant needed - Travel
 </td>
 <td style="text-align:left;">
-DescriptionA national transport company seeks to employ a Junior Accountant to mainly occupy a Bu…
+DescriptionWe are growing Travel Agency looking to employ an sale agent.This is an entry level po…
 </td>
 <td style="text-align:left;">
-Non EE/AA
+Commission
 </td>
 <td style="text-align:left;">
-2020-11-14 21:23:04
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Sales executive
-</td>
-<td style="text-align:left;">
-DescriptionSales Assistant Entry LevelHlumelo Direct Marketing is seeking a full time Sales Execu…
-</td>
-<td style="text-align:left;">
-Full-Time
-</td>
-<td style="text-align:left;">
-2020-11-14 21:23:05
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Call Centre Agents Needed in Bloubergstrand
-</td>
-<td style="text-align:left;">
-DescriptionOutbound Call Centre Agents (Debt Collection) • We are looking for energetic and motiv…
-</td>
-<td style="text-align:left;">
-Full-Time
-</td>
-<td style="text-align:left;">
-2020-11-14 21:23:07
+2020-11-14 22:12:56
 </td>
 </tr>
 <tr>
@@ -341,7 +329,21 @@ DescriptionHiWe are looking for a Grade 1 to 3 teacher to tutor our son. He is 4
 Casual
 </td>
 <td style="text-align:left;">
-2020-11-14 21:23:09
+2020-11-14 22:12:58
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Call Centre Agents needed in Bloubergstrand
+</td>
+<td style="text-align:left;">
+DescriptionOutbound Call Centre Agents (Debt Collection) • We are looking for energetic and motiv…
+</td>
+<td style="text-align:left;">
+Full-Time
+</td>
+<td style="text-align:left;">
+2020-11-14 22:12:59
 </td>
 </tr>
 </tbody>
