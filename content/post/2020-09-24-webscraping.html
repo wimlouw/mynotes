@@ -14,7 +14,7 @@ tags: []
 
 <div id="intro" class="section level2">
 <h2>Intro</h2>
-<p>A couple of years ago, I had the opportunity to work as a Research Associate on a cool labour narket study. Part of this study involved looking for suitable job vacancies online and applying for jobs on behalf of jobseekers in the study. This involved aggregating as many job postings as possible, across a number of sites, selecting an appropriate subset of jobs (by location, experience, and other employer requirements), before, finally, screening and curating the jobs we intended to apply to. This happened across multiple rounds. This, as you can imagine, takes a bit of work! And it did, but, thankfully we managed to automate part of it using webscraping scripts to pull jobs from websites.<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a> In the process, I was able to learn a bit about how to programmatically extract information from websites using R, rvest, and <a href="https://docs.ropensci.org/RSelenium/">R Selenium</a>.<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a></p>
+<p>A couple of years ago, I had the opportunity to work as a Research Associate on a cool labour market study. Part of this study involved looking for suitable job vacancies online and applying for jobs on behalf of jobseekers in the study. This involved aggregating as many job postings as possible, across a number of sites, selecting an appropriate subset of jobs (by location, experience, and other employer requirements), before, finally, screening and curating the jobs we intended to apply to. This happened across multiple rounds. This, as you can imagine, takes a bit of work! And it did, but, thankfully we managed to automate part of it using webscraping scripts to pull jobs from websites.<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a> In the process, I was able to learn a bit about how to programmatically extract information from websites using R, rvest, and <a href="https://docs.ropensci.org/RSelenium/">R Selenium</a>.<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a></p>
 <p>What is webscraping about? Well it’s mostly about getting the things you’re seeing on a web page (or across many pages) into a form you can work with on your computer, i.e. make it a dataset, a list, or whatever. This might be a single table or multiple tables across many pages, or it might be a combination of elements, like job ads with associated information (title, location, area, salary, date, &amp;c.)</p>
 <p>In essence, this is basically a data extraction and cleaning exercise! In the examples below, it’s about getting the content you want from the HTML (<strong>parsing</strong>).</p>
 <p>In more complicated cases, it involves automating interacting with the web page (using a web driver like Selenium), to reveal the content you want. Once you have the content, in a form you can work with, it’s standard data cleaning stuff (manipulating strings, dates, &amp;c.<a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a>).</p>
@@ -182,7 +182,7 @@ dat ## looks good</code></pre>
 <pre><code>#&gt; # A tibble: 1 x 4
 #&gt;   title           description                       jobtype  time               
 #&gt;   &lt;chr&gt;           &lt;chr&gt;                             &lt;chr&gt;    &lt;dttm&gt;             
-#&gt; 1 Sales consulta… DescriptionWe are growing Travel… Commiss… 2020-11-14 16:32:12</code></pre>
+#&gt; 1 Sales consulta… DescriptionWe are growing Travel… Commiss… 2020-11-14 16:35:26</code></pre>
 <p>What if I wanted to do this for all ads on this page?</p>
 </div>
 <div id="iteration" class="section level3">
@@ -257,35 +257,21 @@ DescriptionWe are a Durban Based Company Looking to employ 5 Bookkeepers prefera
 Full-Time
 </td>
 <td style="text-align:left;">
-2020-11-14 16:32:13
+2020-11-14 16:35:26
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-Entry level technician/installer
+Sales executive
 </td>
 <td style="text-align:left;">
-DescriptionWe are looking to expand our service delivery team. Please read through below and if y…
+DescriptionSales Assistant Entry LevelHlumelo Direct Marketing is seeking a full time Sales Execu…
 </td>
 <td style="text-align:left;">
-NA
+Full-Time
 </td>
 <td style="text-align:left;">
-2020-11-14 16:32:14
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Junior Accountant &amp; Accounts Payable/ Buyer (Non-EE) PTA-East
-</td>
-<td style="text-align:left;">
-DescriptionA national transport company seeks to employ a Junior Accountant to mainly occupy a Bu…
-</td>
-<td style="text-align:left;">
-Non EE/AA
-</td>
-<td style="text-align:left;">
-2020-11-14 16:32:16
+2020-11-14 16:35:28
 </td>
 </tr>
 <tr>
@@ -299,21 +285,35 @@ DescriptionTD marketing company is a marketing company specializing in customer 
 Commission
 </td>
 <td style="text-align:left;">
-2020-11-14 16:32:17
+2020-11-14 16:35:30
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-Accountant - Ad posted by schullpak
+Junior Administrator
 </td>
 <td style="text-align:left;">
-DescriptionAccountant. Mechanical and Electrical Engineering Company based in Lanseria, Johannesb…
+DescriptionWe are looking for a junior administration assistant to join our team. The ideal appli…
 </td>
 <td style="text-align:left;">
 Full-Time
 </td>
 <td style="text-align:left;">
-2020-11-14 16:32:19
+2020-11-14 16:35:31
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Call Centre Agents Needed in Bloubergstrand
+</td>
+<td style="text-align:left;">
+DescriptionOutbound Call Centre Agents (Debt Collection) • We are looking for energetic and motiv…
+</td>
+<td style="text-align:left;">
+Full-Time
+</td>
+<td style="text-align:left;">
+2020-11-14 16:35:33
 </td>
 </tr>
 </tbody>
