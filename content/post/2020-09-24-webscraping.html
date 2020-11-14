@@ -182,7 +182,7 @@ dat ## looks good</code></pre>
 <pre><code>#&gt; # A tibble: 1 x 4
 #&gt;   title           description                       jobtype  time               
 #&gt;   &lt;chr&gt;           &lt;chr&gt;                             &lt;chr&gt;    &lt;dttm&gt;             
-#&gt; 1 Sales consulta… DescriptionWe are growing Travel… Commiss… 2020-11-14 16:35:26</code></pre>
+#&gt; 1 Sales consulta… DescriptionWe are growing Travel… Commiss… 2020-11-14 16:38:26</code></pre>
 <p>What if I wanted to do this for all ads on this page?</p>
 </div>
 <div id="iteration" class="section level3">
@@ -248,6 +248,20 @@ time
 <tbody>
 <tr>
 <td style="text-align:left;">
+Accountant - Ad posted by schullpak
+</td>
+<td style="text-align:left;">
+DescriptionAccountant. Mechanical and Electrical Engineering Company based in Lanseria, Johannesb…
+</td>
+<td style="text-align:left;">
+Full-Time
+</td>
+<td style="text-align:left;">
+2020-11-14 16:38:27
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
 5 x Accountants / Bookkeepers required for busy accounting firm
 </td>
 <td style="text-align:left;">
@@ -257,7 +271,7 @@ DescriptionWe are a Durban Based Company Looking to employ 5 Bookkeepers prefera
 Full-Time
 </td>
 <td style="text-align:left;">
-2020-11-14 16:35:26
+2020-11-14 16:38:28
 </td>
 </tr>
 <tr>
@@ -271,54 +285,40 @@ DescriptionSales Assistant Entry LevelHlumelo Direct Marketing is seeking a full
 Full-Time
 </td>
 <td style="text-align:left;">
-2020-11-14 16:35:28
+2020-11-14 16:38:30
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-Sales and Marketing
+5 x Accountants / Bookkeepers Required for Accounting Firm
 </td>
 <td style="text-align:left;">
-DescriptionTD marketing company is a marketing company specializing in customer acquisition and s…
+DescriptionWe are a Durban Based Company Looking to employ 5 Bookkeepers at entry level to mainta…
+</td>
+<td style="text-align:left;">
+Contract
+</td>
+<td style="text-align:left;">
+2020-11-14 16:38:31
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Entry level Sales Reps Required
+</td>
+<td style="text-align:left;">
+DescriptionWe are a private company that is looking for sales reps to assist us with increasing s…
 </td>
 <td style="text-align:left;">
 Commission
 </td>
 <td style="text-align:left;">
-2020-11-14 16:35:30
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Junior Administrator
-</td>
-<td style="text-align:left;">
-DescriptionWe are looking for a junior administration assistant to join our team. The ideal appli…
-</td>
-<td style="text-align:left;">
-Full-Time
-</td>
-<td style="text-align:left;">
-2020-11-14 16:35:31
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Call Centre Agents Needed in Bloubergstrand
-</td>
-<td style="text-align:left;">
-DescriptionOutbound Call Centre Agents (Debt Collection) • We are looking for energetic and motiv…
-</td>
-<td style="text-align:left;">
-Full-Time
-</td>
-<td style="text-align:left;">
-2020-11-14 16:35:33
+2020-11-14 16:38:33
 </td>
 </tr>
 </tbody>
 </table>
-<p>I just did the first page. How would one do other pages? One approach if to use the url and another for loop.</p>
+<p>I just did the first page. How would one do other pages? One approach is to use the URL and another for loop.</p>
 <pre class="r"><code>pages &lt;- 3 ## let&#39;s just do 3
 job_list &lt;- list()
 link &lt;- &quot;https://www.gumtree.co.za/s-jobs/page-&quot;
@@ -371,13 +371,13 @@ head(links, 10) ## looks good!</code></pre>
 <ul>
 <li><a href="https://docs.ropensci.org/RSelenium/">R Bindings for Selenium WebDriver • rOpenSci: RSelenium</a></li>
 <li><a href="https://www.raynergobran.com/2017/01/rselenium-mac-update/">RSelenium For Mac | Rayner Gobran</a></li>
-<li><a href="https://callumgwtaylor.github.io/blog/2018/02/01/using-rselenium-and-docker-to-webscrape-in-r-using-the-who-snake-database/">Using RSelenium and Docker To Webscrape In R - Using The WHO Snake Database | Callum Taylor</a></li>
-<li>Ethics/best practice</li>
+</ul></li>
+<li><p>Ethics/best practice</p>
+<ul>
 <li><a href="https://www.promptcloud.com/blog/data-crawling-and-extraction-ethics/">Data Crawling: Ethics &amp; Good Practices - PromptCloud</a></li>
 <li><a href="https://en.wikipedia.org/wiki/Robots_exclusion_standard">Robots exclusion standard - Wikipedia</a></li>
 <li><a href="https://support.google.com/webmasters/answer/6062608?hl=en">Introduction to robots.txt - Search Console Help</a></li>
 <li><a href="https://github.com/dmi3kno/polite">GitHub - dmi3kno/polite: Be nice on the web</a></li>
-<li><a href="https://docs.ropensci.org/robotstxt/">A robots.txt Parser and Webbot/Spider/Crawler Permissions Checker • rOpenSci: robotstxt</a></li>
 </ul></li>
 <li><p>More implementation</p>
 <ul>

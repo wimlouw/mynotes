@@ -280,7 +280,7 @@ all %>%
 
 ```
 
-I just did the first page. How would one do other pages? One approach if to use the url and another for loop.
+I just did the first page. How would one do other pages? One approach is to use the URL and another for loop.
 
 ```{r}
 
@@ -332,13 +332,13 @@ Make sure your script can handle errors.[^13]
 
     -   [R Bindings for Selenium WebDriver • rOpenSci: RSelenium](https://docs.ropensci.org/RSelenium/)
     -   [RSelenium For Mac \| Rayner Gobran](https://www.raynergobran.com/2017/01/rselenium-mac-update/)
-    -   [Using RSelenium and Docker To Webscrape In R - Using The WHO Snake Database \| Callum Taylor](https://callumgwtaylor.github.io/blog/2018/02/01/using-rselenium-and-docker-to-webscrape-in-r-using-the-who-snake-database/)
-    -   Ethics/best practice
+
+-   Ethics/best practice
+
     -   [Data Crawling: Ethics & Good Practices - PromptCloud](https://www.promptcloud.com/blog/data-crawling-and-extraction-ethics/)
     -   [Robots exclusion standard - Wikipedia](https://en.wikipedia.org/wiki/Robots_exclusion_standard)
     -   [Introduction to robots.txt - Search Console Help](https://support.google.com/webmasters/answer/6062608?hl=en)
     -   [GitHub - dmi3kno/polite: Be nice on the web](https://github.com/dmi3kno/polite)
-    -   [A robots.txt Parser and Webbot/Spider/Crawler Permissions Checker • rOpenSci: robotstxt](https://docs.ropensci.org/robotstxt/)
 
 -   More implementation
 
