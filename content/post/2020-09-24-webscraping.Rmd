@@ -21,6 +21,8 @@ knitr::opts_chunk$set(
 
 ```
 
+(still a bit rough --- still editing this post)
+
 ## Intro
 
 A couple of years ago, I had the opportunity to work as a Research Associate on a labour market study. Part of this study involved looking for suitable job vacancies and applying for jobs on behalf of participants. It involved aggregating job postings across a few sites, selecting an appropriate subset of jobs (by location, experience, and other employer requirements), and careful curation. The process was greatly helped by webscraping scripts we developed.[^1] I was able to learn a bit about how to programmatically extract information from websites using [R](https://www.r-project.org/about.html), [rvest](https://github.com/tidyverse/rvest), and [R Selenium](https://docs.ropensci.org/RSelenium/).[^2]
@@ -206,8 +208,8 @@ This worked. I will need to do this for a bunch of things --- title, description
 ```{r}
 
 ## function for cleaning single elements
-cleanup <- function(site, tag) {
-  output <- site %>%
+cleanup <- function(html, tag) {
+  output <- html %>%
     html_nodes(tag) %>%
     html_text() %>%
     str_squish() ## remove leading and trailing whitespace
@@ -219,7 +221,7 @@ cleanup <- function(site, tag) {
 description <- cleanup(jobs_1, ".description-website-container") ## got these with SelectorGadget
 jobtype <- cleanup(jobs_1, ".attribute:nth-child(4) .value")
 employer <- cleanup(jobs_1, ".attribute:nth-child(3) .value")
-location <- cleanup(jobs_1, ".location")
+location <- cleanup(jobs_1, ".attribute:nth-child(1) .value")
 time <- Sys.time()
 
 ## and put it into a tibble (see "https://r4ds.had.co.nz/tibbles.html")
@@ -255,7 +257,7 @@ cleanup2 <- function(x) {
   description <- cleanup(page, ".description-website-container")
   jobtype <- cleanup(page, ".attribute:nth-child(4) .value")
   employer <- cleanup(page, ".attribute:nth-child(3) .value")
-  location <- cleanup(jobs_1, ".location")
+  location <- cleanup(page, ".attribute:nth-child(1) .value")
   time <- Sys.time()
   dat <-
     tibble(

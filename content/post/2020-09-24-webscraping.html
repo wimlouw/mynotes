@@ -18,6 +18,7 @@ tags:
 <link href="/rmarkdown-libs/lightable/lightable.css" rel="stylesheet" />
 
 
+<p>(still a bit rough — still editing this post)</p>
 <div id="intro" class="section level2">
 <h2>Intro</h2>
 <p>A couple of years ago, I had the opportunity to work as a Research Associate on a labour market study. Part of this study involved looking for suitable job vacancies and applying for jobs on behalf of participants. It involved aggregating job postings across a few sites, selecting an appropriate subset of jobs (by location, experience, and other employer requirements), and careful curation. The process was greatly helped by webscraping scripts we developed.<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a> I was able to learn a bit about how to programmatically extract information from websites using <a href="https://www.r-project.org/about.html">R</a>, <a href="https://github.com/tidyverse/rvest">rvest</a>, and <a href="https://docs.ropensci.org/RSelenium/">R Selenium</a>.<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a></p>
@@ -159,8 +160,8 @@ title</code></pre>
 <pre><code>&gt; [1] &quot;Maths and Physics teacher (SP/FET)&quot;</code></pre>
 <p>This worked. I will need to do this for a bunch of things — title, description, &amp;c. So I’m going to make a small function to make that easier, and to avoid repeating myself too much:</p>
 <pre class="r"><code>## function for cleaning single elements
-cleanup &lt;- function(site, tag) {
-  output &lt;- site %&gt;%
+cleanup &lt;- function(html, tag) {
+  output &lt;- html %&gt;%
     html_nodes(tag) %&gt;%
     html_text() %&gt;%
     str_squish() ## remove leading and trailing whitespace
@@ -172,7 +173,7 @@ cleanup &lt;- function(site, tag) {
 description &lt;- cleanup(jobs_1, &quot;.description-website-container&quot;) ## got these with SelectorGadget
 jobtype &lt;- cleanup(jobs_1, &quot;.attribute:nth-child(4) .value&quot;)
 employer &lt;- cleanup(jobs_1, &quot;.attribute:nth-child(3) .value&quot;)
-location &lt;- cleanup(jobs_1, &quot;.location&quot;)
+location &lt;- cleanup(jobs_1, &quot;.attribute:nth-child(1) .value&quot;)
 time &lt;- Sys.time()
 
 ## and put it into a tibble (see &quot;https://r4ds.had.co.nz/tibbles.html&quot;)
@@ -187,9 +188,9 @@ dat &lt;-
 
 dat ## looks good!</code></pre>
 <pre><code>&gt; # A tibble: 1 x 5
-&gt;   title         description                 jobtype location time               
-&gt;   &lt;chr&gt;         &lt;chr&gt;                       &lt;chr&gt;   &lt;chr&gt;    &lt;dttm&gt;             
-&gt; 1 Maths and Ph… DescriptionLakeside Educat… Full-T… &quot;&quot;       2020-11-15 10:30:31</code></pre>
+&gt;   title       description               jobtype location     time               
+&gt;   &lt;chr&gt;       &lt;chr&gt;                     &lt;chr&gt;   &lt;chr&gt;        &lt;dttm&gt;             
+&gt; 1 Maths and … DescriptionLakeside Educ… Full-T… Lakeside, S… 2020-11-15 10:49:06</code></pre>
 <p>What if I wanted to do this for all ads on the page?</p>
 </div>
 <div id="iteration" class="section level3">
@@ -203,7 +204,7 @@ cleanup2 &lt;- function(x) {
   description &lt;- cleanup(page, &quot;.description-website-container&quot;)
   jobtype &lt;- cleanup(page, &quot;.attribute:nth-child(4) .value&quot;)
   employer &lt;- cleanup(page, &quot;.attribute:nth-child(3) .value&quot;)
-  location &lt;- cleanup(jobs_1, &quot;.location&quot;)
+  location &lt;- cleanup(page, &quot;.attribute:nth-child(1) .value&quot;)
   time &lt;- Sys.time()
   dat &lt;-
     tibble(
@@ -264,22 +265,6 @@ time
 <tbody>
 <tr>
 <td style="text-align:left;">
-Entry level technician/installer
-</td>
-<td style="text-align:left;">
-DescriptionWe are looking to expand our service delivery team. Please read through below and if y…
-</td>
-<td style="text-align:left;">
-NA
-</td>
-<td style="text-align:left;">
-</td>
-<td style="text-align:left;">
-2020-11-15 10:30:31
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
 5 x Accountants / Bookkeepers required for busy accounting firm
 </td>
 <td style="text-align:left;">
@@ -289,73 +274,10 @@ DescriptionWe are a Durban Based Company Looking to employ 5 Bookkeepers prefera
 Full-Time
 </td>
 <td style="text-align:left;">
+Pinetown, West Suburbs
 </td>
 <td style="text-align:left;">
-2020-11-15 10:30:33
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Financial Manager
-</td>
-<td style="text-align:left;">
-DescriptionPurpose of the Job-To support the company in meeting and exceeding the overall objecti…
-</td>
-<td style="text-align:left;">
-EE/AA
-</td>
-<td style="text-align:left;">
-</td>
-<td style="text-align:left;">
-2020-11-15 10:30:34
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Junior Warehouse Controller - PTA (Non-EE)
-</td>
-<td style="text-align:left;">
-DescriptionAn established logistics company in Pretoria East will employ a Junior Warehouse Contr…
-</td>
-<td style="text-align:left;">
-Non EE/AA
-</td>
-<td style="text-align:left;">
-</td>
-<td style="text-align:left;">
-2020-11-15 10:30:36
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Camera man Video editor
-</td>
-<td style="text-align:left;">
-DescriptionYoung camera man video editor, amateur skilled talented We are looking for young perso…
-</td>
-<td style="text-align:left;">
-Temporary
-</td>
-<td style="text-align:left;">
-</td>
-<td style="text-align:left;">
-2020-11-15 10:30:37
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Entry level Sales Reps Required
-</td>
-<td style="text-align:left;">
-DescriptionWe are a private company that is looking for sales reps to assist us with increasing s…
-</td>
-<td style="text-align:left;">
-Commission
-</td>
-<td style="text-align:left;">
-</td>
-<td style="text-align:left;">
-2020-11-15 10:30:39
+2020-11-15 10:49:06
 </td>
 </tr>
 <tr>
@@ -369,9 +291,95 @@ DescriptionYou will be required to perform several tasks related to keeping the 
 NA
 </td>
 <td style="text-align:left;">
+Brackenfell, Northern Suburbs
 </td>
 <td style="text-align:left;">
-2020-11-15 10:30:40
+2020-11-15 10:49:08
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Junior Accountant &amp; Accounts Payable/ Buyer (Non-EE) PTA-East
+</td>
+<td style="text-align:left;">
+DescriptionA national transport company seeks to employ a Junior Accountant to mainly occupy a Bu…
+</td>
+<td style="text-align:left;">
+Non EE/AA
+</td>
+<td style="text-align:left;">
+Eastern Pretoria, Pretoria / Tshwane
+</td>
+<td style="text-align:left;">
+2020-11-15 10:49:09
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Entry level Sales Reps Required
+</td>
+<td style="text-align:left;">
+DescriptionWe are a private company that is looking for sales reps to assist us with increasing s…
+</td>
+<td style="text-align:left;">
+Commission
+</td>
+<td style="text-align:left;">
+Bloemfontein, Free State
+</td>
+<td style="text-align:left;">
+2020-11-15 10:49:11
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Telkom Sales and Marketing
+</td>
+<td style="text-align:left;">
+Description Real Promotions is a dynamic, fast growing sales and marketing company based in Cape …
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+De Waterkant, Cape Town
+</td>
+<td style="text-align:left;">
+2020-11-15 10:49:14
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Financial Manager
+</td>
+<td style="text-align:left;">
+DescriptionPurpose of the Job-To support the company in meeting and exceeding the overall objecti…
+</td>
+<td style="text-align:left;">
+EE/AA
+</td>
+<td style="text-align:left;">
+Kempton Park, East Rand
+</td>
+<td style="text-align:left;">
+2020-11-15 10:49:15
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Camera man Video editor
+</td>
+<td style="text-align:left;">
+DescriptionYoung camera man video editor, amateur skilled talented We are looking for young perso…
+</td>
+<td style="text-align:left;">
+Temporary
+</td>
+<td style="text-align:left;">
+Umhlanga, North Suburbs
+</td>
+<td style="text-align:left;">
+2020-11-15 10:49:17
 </td>
 </tr>
 </tbody>
