@@ -3,8 +3,14 @@ title: 'Notes on webscraping'
 author: Wim Louw
 date: '2020-11-14'
 slug: webscraping
-categories: []
-tags: []
+categories:
+  - code
+  - tutorials
+tags:
+  - webscraping
+  - html
+  - CSS-selectors
+  - rvest
 ---
 
 <script src="/rmarkdown-libs/header-attrs/header-attrs.js"></script>
@@ -15,12 +21,13 @@ tags: []
 <div id="intro" class="section level2">
 <h2>Intro</h2>
 <p>A couple of years ago, I had the opportunity to work as a Research Associate on a labour market study. Part of this study involved looking for suitable job vacancies and applying for jobs on behalf of participants. It involved aggregating job postings across a few sites, selecting an appropriate subset of jobs (by location, experience, and other employer requirements), and careful curation. The process was greatly helped by webscraping scripts we developed.<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a> I was able to learn a bit about how to programmatically extract information from websites using <a href="https://www.r-project.org/about.html">R</a>, <a href="https://github.com/tidyverse/rvest">rvest</a>, and <a href="https://docs.ropensci.org/RSelenium/">R Selenium</a>.<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a></p>
-<p>What is webscraping about? Well, it’s mostly about getting the things you’re seeing on a webpage into a form you can work with on your computer: a dataset, a list, or whatever. This might be a single table or multiple tables across many pages; or it might be a combination of elements, like job ads with associated information.</p>
+<p>What is webscraping about? It’s about getting the things you’re seeing on a webpage into a form you can work with on your computer: a dataset, a list, or whatever. This might be a single table or multiple tables across many pages; or it might be a combination of elements, like job ads with associated information.</p>
 <p>In essence, this is a data extraction and cleaning exercise! And in the examples below, it’s about getting the content you want from the HTML (i.e. parsing HTML).</p>
 <p>Once you have the content in a form you can work with, it’s standard data cleaning stuff (manipulating strings, dates, &amp;c.<a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a>).</p>
-<p>A lot of the work involves figuring out how the website works: where the information you want is, choosing the right <a href="https://www.w3schools.com/cssref/css_selectors.asp">css-selectors</a>, working with URLs<a href="#fn4" class="footnote-ref" id="fnref4"><sup>4</sup></a> , and figuring out how to iterate (or “crawl”) between pages.</p>
+<p>A lot of the work involves figuring out how the website works: where the information you want is, choosing the right <a href="https://www.w3schools.com/cssref/css_selectors.asp">CSS-selectors</a>, working with URLs<a href="#fn4" class="footnote-ref" id="fnref4"><sup>4</sup></a> , and figuring out how to iterate (or “crawl”) between pages.</p>
 <p>In more complicated cases, it involves writing a script that can interact with the webpage (by driving a browser), to reveal the content you want. If you want to build something more sophisticated, it might involve working with a database, a scheduler, and other tools.<a href="#fn5" class="footnote-ref" id="fnref5"><sup>5</sup></a> You might want to build something that extracts information regularly, tracks changes over time and stores it in a database.<a href="#fn6" class="footnote-ref" id="fnref6"><sup>6</sup></a></p>
-<p>The examples below are all quite “basic”: (1) Getting a table on Wikipedia (trickier than I thought!), and (2) getting information about jobs on a site called Gumtree (.co.za) .</p>
+<p>The examples below are all quite “basic”: (1) getting a table on Wikipedia (trickier than I thought!), and (2) getting information about jobs on a site called Gumtree (.co.za).</p>
+<p><strong>Steps in the process are:</strong> (a) go to the site you want to scrape, (b) figure out what the things are called you want to extract (finding the right CSS-selectors using an inspect tool), (c) use the <code>read_html</code>,<code>html_nodes</code>, and other functions in the <code>rvest</code> package to extract those elements, (d) store the results in the format you want to work with (a list, a tibble, &amp;c.), (e) figure out how to iterate (if needed), (d) troubleshoot (handling errors, dealing with broken links, missing selectors, &amp;c.)</p>
 </div>
 <div id="considerations" class="section level2">
 <h2>Considerations</h2>
@@ -89,7 +96,7 @@ replace_html(str_trunc(rtxt_wikipedia$text, 500, &quot;right&quot;))</code></pre
 website &lt;- read_html(&quot;https://en.wikipedia.org/wiki/Elections_in_South_Africa&quot;) </code></pre>
 <p>Now I want to identify the table I’m seeing so I can parse it from the HTML using rvests’s <code>html_table</code> function.</p>
 <p>👀…👀…👀</p>
-<p>I tried using SelectorGadget…and the Chrome inspection tool. Hmmm, OK, this is actually tricky on Wikipedia, I can’t find the specific css-selector on this page.</p>
+<p>I tried using SelectorGadget…and the Chrome inspection tool. Hmmm, OK, this is actually tricky on Wikipedia, I can’t find the specific CSS-selector on this page.</p>
 <p><strong>But</strong> something you an do (after some Googling) is to get <strong>all tables</strong> on the page; then you can identify which one is the right one using string matching (the <code>grep</code> function, below):</p>
 <pre class="r"><code>table &lt;- website %&gt;% html_nodes(&quot;table&quot;) ## all tables
 length(table) ## how many tables?</code></pre>
@@ -132,14 +139,14 @@ links &lt;-
   html_attr(&quot;href&quot;)
 
 head(links)</code></pre>
-<pre><code>&gt; [1] &quot;/a-sales-representatives-jobs/other/sales-consultant-needed-+-travel/1008343366270910016930309&quot;          
-&gt; [2] &quot;/a-it-technician-jobs/port-elizabeth/entry-level-technician-installer/1008341037700912098673809&quot;         
-&gt; [3] &quot;/a-office-jobs/brackenfell/office-assistant-brackenfell-r8-000-+-r9-000-pm/1008334081620911146640309&quot;    
-&gt; [4] &quot;/a-accounting-finance-jobs/lanseria/accountant-+-ad-posted-by-schullpak/1008328269890910406385609&quot;       
-&gt; [5] &quot;/a-logistics-jobs/eastern-pretoria/junior-warehouse-controller-+-pta-non+ee/1008328733720911316948209&quot;   
-&gt; [6] &quot;/a-customer-service-jobs/parklands/call-centre-agents-needed-in-bloubergstrand/1008322782770910070226009&quot;</code></pre>
+<pre><code>&gt; [1] &quot;/a-tutors-teaching-jobs/lakeside/maths-and-physics-teacher-sp-fet/1008353544800912460072609&quot;          
+&gt; [2] &quot;/a-sales-representatives-jobs/other/sales-consultant-needed-+-travel/1008343366270910016930309&quot;       
+&gt; [3] &quot;/a-it-technician-jobs/port-elizabeth/entry-level-technician-installer/1008341037700912098673809&quot;      
+&gt; [4] &quot;/a-office-jobs/brackenfell/office-assistant-brackenfell-r8-000-+-r9-000-pm/1008334081620911146640309&quot; 
+&gt; [5] &quot;/a-accounting-finance-jobs/lanseria/accountant-+-ad-posted-by-schullpak/1008328269890910406385609&quot;    
+&gt; [6] &quot;/a-logistics-jobs/eastern-pretoria/junior-warehouse-controller-+-pta-non+ee/1008328733720911316948209&quot;</code></pre>
 <p>Great now I have all the links on page 1!</p>
-<p>I want to look at the first one, and extract some information. For the example I’m extracting the job title, description, job type, employer, and also including a time-stamp. I use the inspect tool to identify each element’s css-selector. There’s much more information on these pages than the few I chose for this example. The approach is the same!</p>
+<p>I want to look at the first one, and extract some information. For the example I’m extracting the job title, description, job type, employer, location, and also including a time-stamp. I use the inspect tool to identify each element’s CSS-selector. There’s much more information on these pages than the few I chose for this example. The approach is the same!</p>
 <pre class="r"><code>## first link
 jobs_1 &lt;- read_html(paste0(&quot;https://www.gumtree.co.za&quot;, links[1]))
 
@@ -149,7 +156,7 @@ title &lt;- jobs_1 %&gt;%
   str_squish() ##get rid of leading and trailing whitespace
 
 title</code></pre>
-<pre><code>&gt; [1] &quot;Sales consultant needed - Travel&quot;</code></pre>
+<pre><code>&gt; [1] &quot;Maths and Physics teacher (SP/FET)&quot;</code></pre>
 <p>This worked. I will need to do this for a bunch of things — title, description, &amp;c. So I’m going to make a small function to make that easier, and to avoid repeating myself too much:</p>
 <pre class="r"><code>## function for cleaning single elements
 cleanup &lt;- function(site, tag) {
@@ -165,6 +172,7 @@ cleanup &lt;- function(site, tag) {
 description &lt;- cleanup(jobs_1, &quot;.description-website-container&quot;) ## got these with SelectorGadget
 jobtype &lt;- cleanup(jobs_1, &quot;.attribute:nth-child(4) .value&quot;)
 employer &lt;- cleanup(jobs_1, &quot;.attribute:nth-child(3) .value&quot;)
+location &lt;- cleanup(jobs_1, &quot;.location&quot;)
 time &lt;- Sys.time()
 
 ## and put it into a tibble (see &quot;https://r4ds.had.co.nz/tibbles.html&quot;)
@@ -173,14 +181,15 @@ dat &lt;-
     title,
     description,
     jobtype,
+    location,
     time
   )
 
 dat ## looks good!</code></pre>
-<pre><code>&gt; # A tibble: 1 x 4
-&gt;   title           description                       jobtype  time               
-&gt;   &lt;chr&gt;           &lt;chr&gt;                             &lt;chr&gt;    &lt;dttm&gt;             
-&gt; 1 Sales consulta… DescriptionWe are growing Travel… Commiss… 2020-11-14 22:12:50</code></pre>
+<pre><code>&gt; # A tibble: 1 x 5
+&gt;   title         description                 jobtype location time               
+&gt;   &lt;chr&gt;         &lt;chr&gt;                       &lt;chr&gt;   &lt;chr&gt;    &lt;dttm&gt;             
+&gt; 1 Maths and Ph… DescriptionLakeside Educat… Full-T… &quot;&quot;       2020-11-15 10:30:31</code></pre>
 <p>What if I wanted to do this for all ads on the page?</p>
 </div>
 <div id="iteration" class="section level3">
@@ -194,12 +203,14 @@ cleanup2 &lt;- function(x) {
   description &lt;- cleanup(page, &quot;.description-website-container&quot;)
   jobtype &lt;- cleanup(page, &quot;.attribute:nth-child(4) .value&quot;)
   employer &lt;- cleanup(page, &quot;.attribute:nth-child(3) .value&quot;)
+  location &lt;- cleanup(jobs_1, &quot;.location&quot;)
   time &lt;- Sys.time()
   dat &lt;-
     tibble(
       title,
       description,
       jobtype,
+      location,
       time
     )
   return(dat)
@@ -243,25 +254,14 @@ description
 jobtype
 </th>
 <th style="text-align:left;">
+location
+</th>
+<th style="text-align:left;">
 time
 </th>
 </tr>
 </thead>
 <tbody>
-<tr>
-<td style="text-align:left;">
-Call Centre Agents Needed in Bloubergstrand
-</td>
-<td style="text-align:left;">
-DescriptionOutbound Call Centre Agents (Debt Collection) • We are looking for energetic and motiv…
-</td>
-<td style="text-align:left;">
-Full-Time
-</td>
-<td style="text-align:left;">
-2020-11-14 22:12:50
-</td>
-</tr>
 <tr>
 <td style="text-align:left;">
 Entry level technician/installer
@@ -273,21 +273,57 @@ DescriptionWe are looking to expand our service delivery team. Please read throu
 NA
 </td>
 <td style="text-align:left;">
-2020-11-14 22:12:52
+</td>
+<td style="text-align:left;">
+2020-11-15 10:30:31
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-Telkom Sales and Marketing
+5 x Accountants / Bookkeepers required for busy accounting firm
 </td>
 <td style="text-align:left;">
-Description Real Promotions is a dynamic, fast growing sales and marketing company based in Cape …
+DescriptionWe are a Durban Based Company Looking to employ 5 Bookkeepers preferably Indian Female…
 </td>
 <td style="text-align:left;">
-NA
+Full-Time
 </td>
 <td style="text-align:left;">
-2020-11-14 22:12:53
+</td>
+<td style="text-align:left;">
+2020-11-15 10:30:33
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Financial Manager
+</td>
+<td style="text-align:left;">
+DescriptionPurpose of the Job-To support the company in meeting and exceeding the overall objecti…
+</td>
+<td style="text-align:left;">
+EE/AA
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+2020-11-15 10:30:34
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Junior Warehouse Controller - PTA (Non-EE)
+</td>
+<td style="text-align:left;">
+DescriptionAn established logistics company in Pretoria East will employ a Junior Warehouse Contr…
+</td>
+<td style="text-align:left;">
+Non EE/AA
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+2020-11-15 10:30:36
 </td>
 </tr>
 <tr>
@@ -301,49 +337,41 @@ DescriptionYoung camera man video editor, amateur skilled talented We are lookin
 Temporary
 </td>
 <td style="text-align:left;">
-2020-11-14 22:12:55
+</td>
+<td style="text-align:left;">
+2020-11-15 10:30:37
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-Sales consultant needed - Travel
+Entry level Sales Reps Required
 </td>
 <td style="text-align:left;">
-DescriptionWe are growing Travel Agency looking to employ an sale agent.This is an entry level po…
+DescriptionWe are a private company that is looking for sales reps to assist us with increasing s…
 </td>
 <td style="text-align:left;">
 Commission
 </td>
 <td style="text-align:left;">
-2020-11-14 22:12:56
+</td>
+<td style="text-align:left;">
+2020-11-15 10:30:39
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-Grade 1-3 Teacher as afternoon tutor
+OFFICE ASSISTANT (Brackenfell) R8,000 - R9,000 PM
 </td>
 <td style="text-align:left;">
-DescriptionHiWe are looking for a Grade 1 to 3 teacher to tutor our son. He is 4 however his math…
+DescriptionYou will be required to perform several tasks related to keeping the office efficientl…
 </td>
 <td style="text-align:left;">
-Casual
+NA
 </td>
 <td style="text-align:left;">
-2020-11-14 22:12:58
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Call Centre Agents needed in Bloubergstrand
 </td>
 <td style="text-align:left;">
-DescriptionOutbound Call Centre Agents (Debt Collection) • We are looking for energetic and motiv…
-</td>
-<td style="text-align:left;">
-Full-Time
-</td>
-<td style="text-align:left;">
-2020-11-14 22:12:59
+2020-11-15 10:30:40
 </td>
 </tr>
 </tbody>
@@ -368,23 +396,23 @@ for (i in 1:pages) {
 
 links &lt;- unlist(job_list)
 head(links, 10) ## looks good!</code></pre>
-<pre><code>&gt;  [1] &quot;/a-sales-representatives-jobs/other/sales-consultant-needed-+-travel/1008343366270910016930309&quot;                                    
-&gt;  [2] &quot;/a-it-technician-jobs/port-elizabeth/entry-level-technician-installer/1008341037700912098673809&quot;                                   
-&gt;  [3] &quot;/a-office-jobs/brackenfell/office-assistant-brackenfell-r8-000-+-r9-000-pm/1008334081620911146640309&quot;                              
-&gt;  [4] &quot;/a-accounting-finance-jobs/lanseria/accountant-+-ad-posted-by-schullpak/1008328269890910406385609&quot;                                 
-&gt;  [5] &quot;/a-logistics-jobs/eastern-pretoria/junior-warehouse-controller-+-pta-non+ee/1008328733720911316948209&quot;                             
-&gt;  [6] &quot;/a-customer-service-jobs/parklands/call-centre-agents-needed-in-bloubergstrand/1008322782770910070226009&quot;                          
-&gt;  [7] &quot;/a-customer-service-jobs/tableview/call-centre-agents-needed-in-bloubergstrand/1008322780790910070226009&quot;                          
-&gt;  [8] &quot;/a-accounting-finance-jobs/pinetown/5-x-accountants-bookkeepers-required-for-busy-accounting-firm/1008320950160910865995909&quot;       
-&gt;  [9] &quot;/a-accounting-finance-jobs/eastern-pretoria/junior-accountant-amp-accounts-payable-buyer-non+ee-pta+east/1008317895770911316948209&quot;
-&gt; [10] &quot;/a-sales-representatives-jobs/de-waterkant/telkom-sales-and-marketing/1008313388250910325151109&quot;</code></pre>
+<pre><code>&gt;  [1] &quot;/a-tutors-teaching-jobs/lakeside/maths-and-physics-teacher-sp-fet/1008353544800912460072609&quot;                                       
+&gt;  [2] &quot;/a-sales-representatives-jobs/other/sales-consultant-needed-+-travel/1008343366270910016930309&quot;                                    
+&gt;  [3] &quot;/a-it-technician-jobs/port-elizabeth/entry-level-technician-installer/1008341037700912098673809&quot;                                   
+&gt;  [4] &quot;/a-office-jobs/brackenfell/office-assistant-brackenfell-r8-000-+-r9-000-pm/1008334081620911146640309&quot;                              
+&gt;  [5] &quot;/a-accounting-finance-jobs/lanseria/accountant-+-ad-posted-by-schullpak/1008328269890910406385609&quot;                                 
+&gt;  [6] &quot;/a-logistics-jobs/eastern-pretoria/junior-warehouse-controller-+-pta-non+ee/1008328733720911316948209&quot;                             
+&gt;  [7] &quot;/a-accounting-finance-jobs/pinetown/5-x-accountants-bookkeepers-required-for-busy-accounting-firm/1008320950160910865995909&quot;       
+&gt;  [8] &quot;/a-accounting-finance-jobs/eastern-pretoria/junior-accountant-amp-accounts-payable-buyer-non+ee-pta+east/1008317895770911316948209&quot;
+&gt;  [9] &quot;/a-sales-representatives-jobs/de-waterkant/telkom-sales-and-marketing/1008313388250910325151109&quot;                                   
+&gt; [10] &quot;/a-sales-representatives-jobs/de-waterkant/optic-fibre-sales-management-program/1008313371250910325151109&quot;</code></pre>
 <p>I could then use the same approach to cycle through this much longer list of links.</p>
 </div>
 <div id="things-to-think-about" class="section level3">
 <h3>Things to think about</h3>
 <p>Make sure your script can handle errors.<a href="#fn16" class="footnote-ref" id="fnref16"><sup>16</sup></a></p>
 <ul>
-<li>css-selectors change</li>
+<li>CSS-selectors change</li>
 <li>links stop working (page names change, or they stop existing)</li>
 <li>not all pages are necessarily the same (some elements may be missing from some site) — see the “job type” variable above, for instance</li>
 <li>sites time out (that can break your script if you don’t account for it)</li>

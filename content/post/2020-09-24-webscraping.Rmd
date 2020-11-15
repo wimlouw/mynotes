@@ -3,8 +3,14 @@ title: 'Notes on webscraping'
 author: Wim Louw
 date: '2020-11-14'
 slug: webscraping
-categories: []
-tags: []
+categories:
+  - code
+  - tutorials
+tags:
+  - webscraping
+  - html
+  - CSS-selectors
+  - rvest
 ---
 
 ```{r, include=FALSE}
@@ -23,7 +29,7 @@ A couple of years ago, I had the opportunity to work as a Research Associate on 
 
 [^2]: I have some R and RStudio set-up and other resources [here](https://wimlouw.netlify.app/2020/09/24/resources/#r)
 
-What is webscraping about? Well, it's mostly about getting the things you're seeing on a webpage into a form you can work with on your computer: a dataset, a list, or whatever. This might be a single table or multiple tables across many pages; or it might be a combination of elements, like job ads with associated information.
+What is webscraping about? It's about getting the things you're seeing on a webpage into a form you can work with on your computer: a dataset, a list, or whatever. This might be a single table or multiple tables across many pages; or it might be a combination of elements, like job ads with associated information.
 
 In essence, this is a data extraction and cleaning exercise! And in the examples below, it's about getting the content you want from the HTML (i.e. parsing HTML).
 
@@ -31,7 +37,7 @@ Once you have the content in a form you can work with, it's standard data cleani
 
 [^3]: Check out [R for Data Science's](https://r4ds.had.co.nz/index.html) chapters on dates and strings; then: (1) [Simple, Consistent Wrappers for Common String Operations • stringr,](https://stringr.tidyverse.org/) (2) [GitHub - trinker/textclean: Tools for cleaning and normalizing text data,](https://github.com/trinker/textclean) (3) [Quantitative Analysis of Textual Data • quanteda](https://quanteda.io/) (text analysis)
 
-A lot of the work involves figuring out how the website works: where the information you want is, choosing the right [css-selectors](https://www.w3schools.com/cssref/css_selectors.asp), working with URLs[^4] , and figuring out how to iterate (or "crawl") between pages.
+A lot of the work involves figuring out how the website works: where the information you want is, choosing the right [CSS-selectors](https://www.w3schools.com/cssref/css_selectors.asp), working with URLs[^4] , and figuring out how to iterate (or "crawl") between pages.
 
 [^4]: See Julia Evans' "[how URLs work](https://wizardzines.com/comics/how-urls-work/)"; also see Oliver Keyes & Jay Jacobs' "[urltools](https://github.com/Ironholds/urltools)" R package --- not something I'm getting into, but I think working with URLs programmatically is the way to go!
 
@@ -41,7 +47,9 @@ In more complicated cases, it involves writing a script that can interact with t
 
 [^6]: [This](https://simonwillison.net/2020/Oct/9/git-scraping/) is interesting: Simon Willison's "Git scraping: track changes over time by scraping to a Git repository"
 
-The examples below are all quite "basic": (1) Getting a table on Wikipedia (trickier than I thought!), and (2) getting information about jobs on a site called Gumtree (.co.za) .
+The examples below are all quite "basic": (1) getting a table on Wikipedia (trickier than I thought!), and (2) getting information about jobs on a site called Gumtree (.co.za). 
+
+**Steps in the process are:** (a) go to the site you want to scrape, (b) figure out what the things are called you want to extract (finding the right CSS-selectors using an inspect tool), (c) use the `read_html`,`html_nodes`, and other functions in the `rvest` package to extract those elements, (d) store the results in the format you want to work with (a list, a tibble, &c.), (e) figure out how to iterate (if needed), (d) troubleshoot (handling errors, dealing with broken links, missing selectors, &c.)
 
 ## Considerations
 
@@ -134,7 +142,7 @@ Now I want to identify the table I'm seeing so I can parse it from the HTML usin
 
 👀...👀...👀
 
-I tried using SelectorGadget...and the Chrome inspection tool. Hmmm, OK, this is actually tricky on Wikipedia, I can't find the specific css-selector on this page.
+I tried using SelectorGadget...and the Chrome inspection tool. Hmmm, OK, this is actually tricky on Wikipedia, I can't find the specific CSS-selector on this page.
 
 **But** something you an do (after some Googling) is to get **all tables** on the page; then you can identify which one is the right one using string matching (the `grep` function, below):
 
@@ -177,7 +185,7 @@ head(links)
 
 Great now I have all the links on page 1!
 
-I want to look at the first one, and extract some information. For the example I'm extracting the job title, description, job type, employer, and also including a time-stamp. I use the inspect tool to identify each element's css-selector. There's much more information on these pages than the few I chose for this example. The approach is the same!
+I want to look at the first one, and extract some information. For the example I'm extracting the job title, description, job type, employer, location, and also including a time-stamp. I use the inspect tool to identify each element's CSS-selector. There's much more information on these pages than the few I chose for this example. The approach is the same!
 
 ```{r}
 
@@ -211,6 +219,7 @@ cleanup <- function(site, tag) {
 description <- cleanup(jobs_1, ".description-website-container") ## got these with SelectorGadget
 jobtype <- cleanup(jobs_1, ".attribute:nth-child(4) .value")
 employer <- cleanup(jobs_1, ".attribute:nth-child(3) .value")
+location <- cleanup(jobs_1, ".location")
 time <- Sys.time()
 
 ## and put it into a tibble (see "https://r4ds.had.co.nz/tibbles.html")
@@ -219,6 +228,7 @@ dat <-
     title,
     description,
     jobtype,
+    location,
     time
   )
 
@@ -245,12 +255,14 @@ cleanup2 <- function(x) {
   description <- cleanup(page, ".description-website-container")
   jobtype <- cleanup(page, ".attribute:nth-child(4) .value")
   employer <- cleanup(page, ".attribute:nth-child(3) .value")
+  location <- cleanup(jobs_1, ".location")
   time <- Sys.time()
   dat <-
     tibble(
       title,
       description,
       jobtype,
+      location,
       time
     )
   return(dat)
@@ -329,7 +341,7 @@ Make sure your script can handle errors.[^16]
 
 [^16]: See "safely" and "possibly" from the [purrr](https://purrr.tidyverse.org/) package (or "trycatch")
 
--   css-selectors change
+-   CSS-selectors change
 -   links stop working (page names change, or they stop existing)
 -   not all pages are necessarily the same (some elements may be missing from some site) --- see the "job type" variable above, for instance
 -   sites time out (that can break your script if you don't account for it)
