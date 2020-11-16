@@ -52,7 +52,7 @@ output:
 <div id="approach" class="section level2">
 <h2>Approach</h2>
 <p>The examples below are all quite “basic”: (1) getting a table on Wikipedia.org (trickier than I thought!), and (2) getting information about jobs on a site called Gumtree (.co.za).</p>
-<p>For the most part, the steps are: (a) go to the site you want to scrape, (b) figure out what the things are called you want to extract (finding the right CSS-selectors using an inspect tool), (c) use the <code>read_html</code>,<code>html_nodes</code>, and other functions in the <code>rvest</code> package to extract those elements, (d) store the results in the format you want to work with (a list, a tibble, &amp;c.), (e) figure out how to iterate (if needed), (d) troubleshoot (handling errors, dealing with broken links, missing selectors, &amp;c.)</p>
+<p>For the most part, the steps are: (a) go to the site you want to scrape, (b) figure out what the things are called you want to extract (finding the right CSS-selectors using an inspect tool), (c) use the <code>read_html</code>, <code>html_nodes</code>, and other functions in the <code>rvest</code> package to extract those elements, (d) store the results in the format you want to work with (a list, a tibble, &amp;c.), (e) figure out how to iterate (if needed), (d) troubleshoot (handling errors, dealing with broken links, missing selectors, &amp;c.)</p>
 <hr />
 </div>
 <div id="considerations" class="section level2">
@@ -82,21 +82,20 @@ output:
 </div>
 <div id="tools" class="section level2">
 <h2>Tools</h2>
-<p>I use a combination of the inspect tool and <a href="http://selectorgadget.com/">SelectorGadget</a> (“point and click CSS selectors”) to identify what the stuff (the “elements”) I want to extract are called. I will use the <a href="https://github.com/tidyverse/rvest">rvest</a> R package (“rvest helps you scrape information from webpages”). And a number of <a href="https://www.tidyverse.org/">tidyverse tools</a> (for data manipulation).</p>
+<p>I used a combination of the inspect tool and <a href="http://selectorgadget.com/">SelectorGadget</a> (“point and click CSS selectors”) to identify what the elements I want to extract are called.</p>
+<p>I used the <a href="https://github.com/tidyverse/rvest">rvest</a> R package (“rvest helps you scrape information from webpages”), and a number of <a href="https://www.tidyverse.org/">tidyverse tools</a> for data manipulation. Code is heavily commented.</p>
 <hr />
 </div>
 <div id="examples" class="section level2">
 <h2>Examples</h2>
 <div id="set-up" class="section level3">
 <h3>Set up</h3>
-<p>I’ll be using the following packages:</p>
 <pre class="r"><code>## Load libraries ####
 library(tidyverse) ##for data manipulation (various packages)
 library(rvest) ##for scraping
 library(textclean) ##some cleaning functions
 library(robotstxt) ##to get robotstxt protocols
 library(kableExtra) ##for printing out an html table in this post</code></pre>
-<p>I’m going to be scraping some information from Wikipedia.org and Gumtree.co.za. I want to check if it’s OK to do that 🤔</p>
 <p>Wikipedia has a robots.txt, and it seems OK to scrape if you’re going to be polite about it:</p>
 <pre class="r"><code>## Look at robots.txt (if any) ####
 rtxt_wikipedia &lt;- robotstxt(domain=&quot;wikipedia.org&quot;)
@@ -120,21 +119,20 @@ replace_html(str_trunc(rtxt_wikipedia$text, 500, &quot;right&quot;))</code></pre
 </div>
 <div id="table-example" class="section level3">
 <h3>Table example</h3>
-<p>In the first example, I want to extract a table from Wikipedia:</p>
+<p>In the first example, I extract a table from Wikipedia, using <code>rvest</code>’s <code>html_table()</code> command.</p>
+<p>I tried using SelectorGadget and the Chrome inspection tool, but was struggling to figure out the correct selector.</p>
+<p>Something you can do (I learned, after some Googling) is to get <strong>all tables</strong> on the page; then you can identify which one is the right one using string matching (e.g. the <code>grep</code> function).</p>
 <p><a href="https://en.wikipedia.org/wiki/Elections_in_South_Africa"><img src="/img/Screenshot%202020-11-14%20at%2020.34.27.png" title="A screenshot of the 2019 South African general election results on Wikipedia" alt="A screenshot of the 2019 South African general election results on Wikipedia" /></a></p>
-<p>I tried using SelectorGadget…and the Chrome inspection tool, but was struggling to figure out what identifies the table I want. <strong>But</strong> something you an do (I learned, after some Googling) is to get <strong>all tables</strong> on the page; then you can identify which one is the right one using string matching (e.g. the <code>grep</code> function). I know the table I want has “ANC” in it, for instance:</p>
 <pre class="r"><code>## Get Table element from Wikipedia ####
-##get the website HTML
-website &lt;- read_html(&quot;https://en.wikipedia.org/wiki/Elections_in_South_Africa&quot;) 
+
+website &lt;- read_html(&quot;https://en.wikipedia.org/wiki/Elections_in_South_Africa&quot;) ##get the website HTML
 
 table &lt;- website %&gt;% html_nodes(&quot;table&quot;) ##all tables
 length(table) ##how many tables?</code></pre>
 <pre><code>&gt; [1] 19</code></pre>
-<pre class="r"><code>##I want the one that contains &quot;ANC&quot; and has ~55 rows
-data &lt;- html_table(table[grep(&quot;ANC&quot;, table)], fill = T)[[1]]
+<pre class="r"><code>data &lt;- html_table(table[grep(&quot;ANC&quot;, table)], fill = T)[[1]]
 
-##let&#39;s see
-glimpse(data)</code></pre>
+glimpse(data) ##let&#39;s see</code></pre>
 <pre><code>&gt; Rows: 55
 &gt; Columns: 8
 &gt; $ Party &lt;chr&gt; &quot;list&quot;, &quot;list&quot;, &quot;list&quot;, &quot;list&quot;, &quot;list&quot;, &quot;list&quot;, &quot;list&quot;, &quot;list&quot;,…
@@ -156,10 +154,12 @@ glimpse(data)</code></pre>
 </div>
 <div id="job-posts" class="section level3">
 <h3>Job posts</h3>
-<p>This is my main example :P I will be getting some minimal job information from a site called Gumtree.co.za.</p>
+<p>This is my main example :P</p>
+<p>I will be getting some minimal job information from a site called Gumtree.co.za.</p>
 <p><a href="https://www.gumtree.co.za/s-jobs/v1c8p1"><img src="/img/Screenshot%202020-11-14%20at%2020.47.23.png" title="Screenshot of job postings on gumtree.co.za" alt="Screenshot of job postings on gumtree.co.za (example)" /></a></p>
 <p><strong>Things to note here, after inspecting the page:</strong> descriptions are truncated, and contact information is hidden. To reveal them, you need to click on these elements. For the purposes of these examples, we’re not going to get into headless browsers, and how to get your script to interact with page elements.</p>
-<p>There are multiple postings on each page, and each one links to a full ad. I want to get the links on the first page:</p>
+<p>There are multiple postings on each page, and each one links to a full ad.</p>
+<p>I want to get the links on the first page:</p>
 <pre class="r"><code>## Job site example ####
 ##reading in the HTML from this page on entry-level jobs
 jobs &lt;- read_html(&quot;https://www.gumtree.co.za/s-jobs/page-1/v1c8p2?q=entry+level&quot;)
@@ -177,14 +177,16 @@ head(links) ##great!</code></pre>
 &gt; [4] &quot;/a-it-technician-jobs/port-elizabeth/entry-level-technician-installer/1008341037700912098673809&quot;     
 &gt; [5] &quot;/a-office-jobs/brackenfell/office-assistant-brackenfell-r8-000-+-r9-000-pm/1008334081620911146640309&quot;
 &gt; [6] &quot;/a-accounting-finance-jobs/lanseria/accountant-+-ad-posted-by-schullpak/1008328269890910406385609&quot;</code></pre>
-<p>Then, I want to zoom in to one ad and see what’s in there. I’ll extract the job title, description, job type, employer, location, and also include a time-stamp. I use the inspect tool to identify each element’s CSS-selector. (There’s much more information on this page than the few elements I chose for this example, but the approach will be the same if I wanted to include more.)</p>
+<p>Then, I want to zoom in to one ad and see what’s in there.</p>
+<p>I decided to extract the job title, description, job type, employer, location, and also include a time-stamp. I used the inspect tool to identify each element’s CSS-selector.</p>
+<p>(There’s much more information on this page than the few elements I chose for this example, but the approach will be the same if I wanted to include more.)</p>
 <pre class="r"><code>##first link
 jobs_1 &lt;- read_html(paste0(&quot;https://www.gumtree.co.za&quot;, links[1]))
 
 jobs_1</code></pre>
 <pre><code>&gt; {xml_document}
 &gt; &lt;html data-locale=&quot;en_ZA&quot; lang=&quot;en&quot; xmlns=&quot;http://www.w3.org/1999/html&quot; class=&quot;VIP&quot;&gt;
-&gt; [1] &lt;head&gt;\n&lt;meta name=&quot;csrf-token&quot; content=&quot;b66a0160248334ffa3a1b2dc25496bc6 ...
+&gt; [1] &lt;head&gt;\n&lt;meta name=&quot;csrf-token&quot; content=&quot;341b198bf9d62ad719b5d44597e05366 ...
 &gt; [2] &lt;body class=&quot;VIP&quot;&gt;\n&lt;noscript&gt;&lt;iframe src=&quot;//www.googletagmanager.com/ns. ...</code></pre>
 <pre class="r"><code>##get the job title
 title &lt;- jobs_1 %&gt;%
@@ -196,7 +198,7 @@ title &lt;- jobs_1 %&gt;%
 title</code></pre>
 <pre><code>&gt; [1] &quot;call centre&quot;</code></pre>
 <p>This worked.</p>
-<p>Since I want to do this for a few more things — title, description, &amp;c., I’m going to make a small function to make that easier, and to avoid repeating myself too much:</p>
+<p>Since I wanted to do this for a few more things — title, description, &amp;c., I made a small function to make that easier, and to avoid repeating myself too much:</p>
 <pre class="r"><code>## function for cleaning single elements ####
 clean_element &lt;- function(page_html, selector) {
   output &lt;- page_html %&gt;%
@@ -229,13 +231,11 @@ dat ##looks good!</code></pre>
 <pre><code>&gt; # A tibble: 1 x 5
 &gt;   title   description                    jobtype location    time               
 &gt;   &lt;chr&gt;   &lt;chr&gt;                          &lt;lgl&gt;   &lt;chr&gt;       &lt;dttm&gt;             
-&gt; 1 call c… DescriptionEntry level positi… NA      Salt River… 2020-11-16 14:00:39</code></pre>
-<p>OK this worked fine. What if I wanted to do this for all job posts on a page?</p>
+&gt; 1 call c… DescriptionEntry level positi… NA      Salt River… 2020-11-16 14:30:17</code></pre>
+<p>OK this worked fine. But what if I wanted to do this for all job posts on a page?</p>
 <div id="iteration" class="section level4">
-<h4>Iteration</h4>
-<p>I already have the job links from the first page.</p>
-<p>Now I want to extract all the information I specified above (title, description, location, &amp;c.) from each one of these posts.</p>
-<p>I write another function, which will create a tibble<a href="#fn13" class="footnote-ref" id="fnref13"><sup>13</sup></a> for every job post, with the information I want, and then I’ll put this into a list of tibbles using a for loop. After I have a list of tibbles, with the information I want from each post, I can combine them into a single dataset.</p>
+<h4>Iteration!</h4>
+<p>I wrote another function, which will create a tibble<a href="#fn13" class="footnote-ref" id="fnref13"><sup>13</sup></a> for every job post, with the information I want. I can put this into a list of tibbles using a for loop. After I have a list of tibbles, I can combine them into a single dataset.</p>
 <pre class="r"><code>## function for cleaning all elements I want on a page ####
 clean_ad &lt;- function(link) {
   page_html &lt;- read_html(link) ##get HTML
@@ -279,12 +279,11 @@ all &lt;- bind_rows(output) ##fab!
 glimpse(all)</code></pre>
 <pre><code>&gt; Rows: 10
 &gt; Columns: 5
-&gt; $ title       &lt;chr&gt; &quot;Entry level Sales Reps Required&quot;, &quot;Junior Warehouse Cont…
-&gt; $ description &lt;chr&gt; &quot;DescriptionWe are a private company that is looking for …
-&gt; $ jobtype     &lt;chr&gt; &quot;Commission&quot;, &quot;Non EE/AA&quot;, &quot;EE/AA&quot;, &quot;Full-Time&quot;, &quot;Full-Ti…
-&gt; $ location    &lt;chr&gt; &quot;Bloemfontein, Free State&quot;, &quot;Eastern Pretoria, Pretoria /…
-&gt; $ time        &lt;dttm&gt; 2020-11-16 14:00:41, 2020-11-16 14:00:44, 2020-11-16 14:…</code></pre>
-<p>Let’s see what this looks like (I’m truncating job descriptions for display):</p>
+&gt; $ title       &lt;chr&gt; &quot;Automotive Machinist – Fabricator – Welder&quot;, &quot;5 x Accoun…
+&gt; $ description &lt;chr&gt; &quot;DescriptionAutomotive Machinist – Fabricator – Welder re…
+&gt; $ jobtype     &lt;chr&gt; &quot;Full-Time&quot;, &quot;Full-Time&quot;, NA, &quot;EE/AA&quot;, &quot;Contract&quot;, &quot;Tempo…
+&gt; $ location    &lt;chr&gt; &quot;Vanderbijlpark, Sedibeng&quot;, &quot;Pinetown, West Suburbs&quot;, &quot;Br…
+&gt; $ time        &lt;dttm&gt; 2020-11-16 14:30:18, 2020-11-16 14:30:21, 2020-11-16 14:…</code></pre>
 <pre class="r"><code>all$description &lt;- str_trunc(all$description, 100, &quot;right&quot;) ##truncate
 
 ##I&#39;m using kable to make an html table for the site
@@ -314,36 +313,53 @@ time
 <tbody>
 <tr>
 <td style="text-align:left;">
-Entry level Sales Reps Required
+Automotive Machinist – Fabricator – Welder
 </td>
 <td style="text-align:left;">
-DescriptionWe are a private company that is looking for sales reps to assist us with increasing s…
+DescriptionAutomotive Machinist – Fabricator – Welder required at a Vanderbijlpark based Harley-D…
 </td>
 <td style="text-align:left;">
-Commission
+Full-Time
 </td>
 <td style="text-align:left;">
-Bloemfontein, Free State
+Vanderbijlpark, Sedibeng
 </td>
 <td style="text-align:left;">
-2020-11-16 14:00:41
+2020-11-16 14:30:18
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-Junior Warehouse Controller - PTA (Non-EE)
+5 x Accountants / Bookkeepers required for busy accounting firm
 </td>
 <td style="text-align:left;">
-DescriptionAn established logistics company in Pretoria East will employ a Junior Warehouse Contr…
+DescriptionWe are a Durban Based Company Looking to employ 5 Bookkeepers preferably Indian Female…
 </td>
 <td style="text-align:left;">
-Non EE/AA
+Full-Time
 </td>
 <td style="text-align:left;">
-Eastern Pretoria, Pretoria / Tshwane
+Pinetown, West Suburbs
 </td>
 <td style="text-align:left;">
-2020-11-16 14:00:44
+2020-11-16 14:30:21
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+OFFICE ASSISTANT (Brackenfell) R8,000 - R9,000 PM
+</td>
+<td style="text-align:left;">
+DescriptionYou will be required to perform several tasks related to keeping the office efficientl…
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+Brackenfell, Northern Suburbs
+</td>
+<td style="text-align:left;">
+2020-11-16 14:30:24
 </td>
 </tr>
 <tr>
@@ -360,92 +376,24 @@ EE/AA
 Kempton Park, East Rand
 </td>
 <td style="text-align:left;">
-2020-11-16 14:00:47
+2020-11-16 14:30:28
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-Accountant - Ad posted by schullpak
+5 x Accountants / Bookkeepers Required for Accounting Firm
 </td>
 <td style="text-align:left;">
-DescriptionAccountant. Mechanical and Electrical Engineering Company based in Lanseria, Johannesb…
+DescriptionWe are a Durban Based Company Looking to employ 5 Bookkeepers at entry level to mainta…
 </td>
 <td style="text-align:left;">
-Full-Time
+Contract
 </td>
 <td style="text-align:left;">
-Lanseria, Johannesburg
+Pinetown, West Suburbs
 </td>
 <td style="text-align:left;">
-2020-11-16 14:00:50
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Automotive Machinist – Fabricator – Welder
-</td>
-<td style="text-align:left;">
-DescriptionAutomotive Machinist – Fabricator – Welder required at a Vanderbijlpark based Harley-D…
-</td>
-<td style="text-align:left;">
-Full-Time
-</td>
-<td style="text-align:left;">
-Vanderbijlpark, Sedibeng
-</td>
-<td style="text-align:left;">
-2020-11-16 14:00:54
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Optic Fibre Sales Management Program
-</td>
-<td style="text-align:left;">
-Description Real Promotions is recruiting for Vodacom representatives within the Cape Town area. …
-</td>
-<td style="text-align:left;">
-NA
-</td>
-<td style="text-align:left;">
-De Waterkant, Cape Town
-</td>
-<td style="text-align:left;">
-2020-11-16 14:00:57
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Junior Administrator
-</td>
-<td style="text-align:left;">
-DescriptionWe are looking for a junior administration assistant to join our team. The ideal appli…
-</td>
-<td style="text-align:left;">
-Full-Time
-</td>
-<td style="text-align:left;">
-De Waterkant, Cape Town
-</td>
-<td style="text-align:left;">
-2020-11-16 14:01:01
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Junior Accountant &amp; Accounts Payable/ Buyer (Non-EE) PTA-East
-</td>
-<td style="text-align:left;">
-DescriptionA national transport company seeks to employ a Junior Accountant to mainly occupy a Bu…
-</td>
-<td style="text-align:left;">
-Non EE/AA
-</td>
-<td style="text-align:left;">
-Eastern Pretoria, Pretoria / Tshwane
-</td>
-<td style="text-align:left;">
-2020-11-16 14:01:04
+2020-11-16 14:30:31
 </td>
 </tr>
 <tr>
@@ -462,24 +410,75 @@ Temporary
 Umhlanga, North Suburbs
 </td>
 <td style="text-align:left;">
-2020-11-16 14:01:07
+2020-11-16 14:30:34
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-call centre
+Grade 1-3 Teacher as afternoon tutor
 </td>
 <td style="text-align:left;">
-DescriptionEntry level positionMerchants iinet is looking for you.Vibrant, energetic personality …
+DescriptionHiWe are looking for a Grade 1 to 3 teacher to tutor our son. He is 4 however his math…
+</td>
+<td style="text-align:left;">
+Casual
+</td>
+<td style="text-align:left;">
+Claremont &amp; Newlands, Southern Suburbs
+</td>
+<td style="text-align:left;">
+2020-11-16 14:30:38
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Entry level technician/installer
+</td>
+<td style="text-align:left;">
+DescriptionWe are looking to expand our service delivery team. Please read through below and if y…
 </td>
 <td style="text-align:left;">
 NA
 </td>
 <td style="text-align:left;">
-Salt River, Cape Town
+Port Elizabeth, Eastern Cape
 </td>
 <td style="text-align:left;">
-2020-11-16 14:01:10
+2020-11-16 14:30:41
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Entry level Sales Reps Required
+</td>
+<td style="text-align:left;">
+DescriptionWe are a private company that is looking for sales reps to assist us with increasing s…
+</td>
+<td style="text-align:left;">
+Commission
+</td>
+<td style="text-align:left;">
+Bloemfontein, Free State
+</td>
+<td style="text-align:left;">
+2020-11-16 14:30:45
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Junior Accountant &amp; Accounts Payable/ Buyer (Non-EE) PTA-East
+</td>
+<td style="text-align:left;">
+DescriptionA national transport company seeks to employ a Junior Accountant to mainly occupy a Bu…
+</td>
+<td style="text-align:left;">
+Non EE/AA
+</td>
+<td style="text-align:left;">
+Eastern Pretoria, Pretoria / Tshwane
+</td>
+<td style="text-align:left;">
+2020-11-16 14:30:48
 </td>
 </tr>
 </tbody>
@@ -487,7 +486,7 @@ Salt River, Cape Town
 <p>Nice!</p>
 <p>How would one do other pages?</p>
 <p>One (hacky) approach is to use the URL and another for loop.<a href="#fn14" class="footnote-ref" id="fnref14"><sup>14</sup></a></p>
-<p>In the example below, I’ll extract the job links for the first 3 pages:</p>
+<p>In the example below, I extracted the job links for the first 3 pages:</p>
 <pre class="r"><code>## set-up ####
 pages &lt;- 3 ##let&#39;s just do 3
 job_list &lt;- list()
@@ -518,7 +517,6 @@ head(links, 10) ##looks good!</code></pre>
 &gt;  [8] &quot;https://www.gumtree.co.za/a-accounting-finance-jobs/pinetown/5-x-accountants-bookkeepers-required-for-busy-accounting-firm/1008320950160910865995909&quot;       
 &gt;  [9] &quot;https://www.gumtree.co.za/a-accounting-finance-jobs/eastern-pretoria/junior-accountant-amp-accounts-payable-buyer-non+ee-pta+east/1008317895770911316948209&quot;
 &gt; [10] &quot;https://www.gumtree.co.za/a-sales-representatives-jobs/de-waterkant/telkom-sales-and-marketing/1008313388250910325151109&quot;</code></pre>
-<p>Now I can use the same approach to cycle through this much longer list of links.</p>
 </div>
 <div id="things-to-think-about" class="section level4">
 <h4>Things to think about</h4>

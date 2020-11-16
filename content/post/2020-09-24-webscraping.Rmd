@@ -61,7 +61,7 @@ If you want to build something more sophisticated, it might involve working with
 
 The examples below are all quite "basic": (1) getting a table on Wikipedia.org (trickier than I thought!), and (2) getting information about jobs on a site called Gumtree (.co.za).
 
-For the most part, the steps are: (a) go to the site you want to scrape, (b) figure out what the things are called you want to extract (finding the right CSS-selectors using an inspect tool), (c) use the `read_html`,`html_nodes`, and other functions in the `rvest` package to extract those elements, (d) store the results in the format you want to work with (a list, a tibble, &c.), (e) figure out how to iterate (if needed), (d) troubleshoot (handling errors, dealing with broken links, missing selectors, &c.)
+For the most part, the steps are: (a) go to the site you want to scrape, (b) figure out what the things are called you want to extract (finding the right CSS-selectors using an inspect tool), (c) use the `read_html`, `html_nodes`, and other functions in the `rvest` package to extract those elements, (d) store the results in the format you want to work with (a list, a tibble, &c.), (e) figure out how to iterate (if needed), (d) troubleshoot (handling errors, dealing with broken links, missing selectors, &c.)
 
 ---
 
@@ -109,15 +109,15 @@ Here's what it looks like:
 
 ## Tools
 
-I use a combination of the inspect tool and [SelectorGadget](http://selectorgadget.com/) ("point and click CSS selectors") to identify what the stuff (the "elements") I want to extract are called. I will use the [rvest](https://github.com/tidyverse/rvest) R package ("rvest helps you scrape information from webpages"). And a number of [tidyverse tools](https://www.tidyverse.org/) (for data manipulation).
+I used a combination of the inspect tool and [SelectorGadget](http://selectorgadget.com/) ("point and click CSS selectors") to identify what the elements I want to extract are called. 
+
+I used the [rvest](https://github.com/tidyverse/rvest) R package ("rvest helps you scrape information from webpages"), and a number of [tidyverse tools](https://www.tidyverse.org/) for data manipulation. Code is heavily commented. 
 
 ---
 
 ## Examples
 
 ### Set up
-
-I'll be using the following packages:
 
 ```{r libraries}
 ## Load libraries ####
@@ -128,8 +128,6 @@ library(robotstxt) ##to get robotstxt protocols
 library(kableExtra) ##for printing out an html table in this post
 
 ```
-
-I'm going to be scraping some information from Wikipedia.org and Gumtree.co.za. I want to check if it's OK to do that 🤔
 
 Wikipedia has a robots.txt, and it seems OK to scrape if you're going to be polite about it:
 
@@ -144,25 +142,26 @@ As for Gumtree.co.za --- it has one, but I'm finding it hard to interpret the ex
 
 ### Table example
 
-In the first example, I want to extract a table from Wikipedia:
+In the first example, I extract a table from Wikipedia, using `rvest`'s `html_table()` command. 
+
+I tried using SelectorGadget and the Chrome inspection tool, but was struggling to figure out the correct selector.
+
+Something you can do (I learned, after some Googling) is to get **all tables** on the page; then you can identify which one is the right one using string matching (e.g. the `grep` function). 
 
 [![A screenshot of the 2019 South African general election results on Wikipedia](/img/Screenshot 2020-11-14 at 20.34.27.png "A screenshot of the 2019 South African general election results on Wikipedia")](https://en.wikipedia.org/wiki/Elections_in_South_Africa)
 
-I tried using SelectorGadget...and the Chrome inspection tool, but was struggling to figure out what identifies the table I want. **But** something you an do (I learned, after some Googling) is to get **all tables** on the page; then you can identify which one is the right one using string matching (e.g. the `grep` function). I know the table I want has "ANC" in it, for instance:
-
 ```{r table-example}
+
 ## Get Table element from Wikipedia ####
-##get the website HTML
-website <- read_html("https://en.wikipedia.org/wiki/Elections_in_South_Africa") 
+
+website <- read_html("https://en.wikipedia.org/wiki/Elections_in_South_Africa") ##get the website HTML
 
 table <- website %>% html_nodes("table") ##all tables
 length(table) ##how many tables?
 
-##I want the one that contains "ANC" and has ~55 rows
 data <- html_table(table[grep("ANC", table)], fill = T)[[1]]
 
-##let's see
-glimpse(data)
+glimpse(data) ##let's see
 head(data) ##great!
 
 ```
@@ -170,15 +169,20 @@ head(data) ##great!
 
 ### Job posts
 
-This is my main example :P I will be getting some minimal job information from a site called Gumtree.co.za.
+This is my main example :P 
+
+I will be getting some minimal job information from a site called Gumtree.co.za.
 
 [![Screenshot of job postings on gumtree.co.za (example)](/img/Screenshot 2020-11-14 at 20.47.23.png "Screenshot of job postings on gumtree.co.za")](https://www.gumtree.co.za/s-jobs/v1c8p1)
 
 **Things to note here, after inspecting the page:** descriptions are truncated, and contact information is hidden. To reveal them, you need to click on these elements. For the purposes of these examples, we're not going to get into headless browsers, and how to get your script to interact with page elements.
 
-There are multiple postings on each page, and each one links to a full ad. I want to get the links on the first page:
+There are multiple postings on each page, and each one links to a full ad. 
+
+I want to get the links on the first page:
 
 ```{r joblinks_example1}
+
 ## Job site example ####
 ##reading in the HTML from this page on entry-level jobs
 jobs <- read_html("https://www.gumtree.co.za/s-jobs/page-1/v1c8p2?q=entry+level")
@@ -193,7 +197,11 @@ head(links) ##great!
 
 ```
 
-Then, I want to zoom in to one ad and see what's in there. I'll extract the job title, description, job type, employer, location, and also include a time-stamp. I use the inspect tool to identify each element's CSS-selector. (There's much more information on this page than the few elements I chose for this example, but the approach will be the same if I wanted to include more.)
+Then, I want to zoom in to one ad and see what's in there. 
+
+I decided to extract the job title, description, job type, employer, location, and also include a time-stamp. I used the inspect tool to identify each element's CSS-selector. 
+
+(There's much more information on this page than the few elements I chose for this example, but the approach will be the same if I wanted to include more.)
 
 ```{r jobpost-example_title}
 
@@ -215,7 +223,7 @@ title
 
 This worked. 
 
-Since I want to do this for a few more things --- title, description, &c., I'm going to make a small function to make that easier, and to avoid repeating myself too much:
+Since I wanted to do this for a few more things --- title, description, &c., I made a small function to make that easier, and to avoid repeating myself too much:
 
 ```{r function_clean-element}
 
@@ -256,15 +264,11 @@ dat ##looks good!
 
 ```
 
-OK this worked fine. What if I wanted to do this for all job posts on a page?
+OK this worked fine. But what if I wanted to do this for all job posts on a page?
 
-#### Iteration
+#### Iteration!
 
-I already have the job links from the first page. 
-
-Now I want to extract all the information I specified above (title, description, location, &c.) from each one of these posts.
-
-I write another function, which will create a tibble[^14] for every job post, with the information I want, and then I'll put this into a list of tibbles using a for loop. After I have a list of tibbles, with the information I want from each post, I can combine them into a single dataset.
+I wrote another function, which will create a tibble[^14] for every job post, with the information I want. I can put this into a list of tibbles using a for loop. After I have a list of tibbles, I can combine them into a single dataset.
 
 [^14]: <https://r4ds.had.co.nz/tibbles.html>
 
@@ -320,7 +324,6 @@ glimpse(all)
 
 ```
 
-Let's see what this looks like (I'm truncating job descriptions for display):
 
 ```{r html-table_iteration1}
 
@@ -339,7 +342,7 @@ How would one do other pages?
 
 One (hacky) approach is to use the URL and another for loop.[^15] 
 
-In the example below, I'll extract the job links for the first 3 pages:
+In the example below, I extracted the job links for the first 3 pages:
 
 [^15]: There are better ways of working with URLs: <https://github.com/Ironholds/urltools>
 
@@ -367,8 +370,6 @@ links <- paste0("https://www.gumtree.co.za", links)
 head(links, 10) ##looks good!
 
 ```
-
-Now I can use the same approach to cycle through this much longer list of links.
 
 #### Things to think about
 
