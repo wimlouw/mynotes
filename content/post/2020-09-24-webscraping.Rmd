@@ -11,56 +11,68 @@ tags:
   - html
   - CSS-selectors
   - rvest
+output:
+  blogdown::html_page:
+    toc: yes
 ---
 
-```{r, include=FALSE}
-
+```{r set-up, include=FALSE}
+## Global chunk options ####
 knitr::opts_chunk$set(
   comment = ">", message = FALSE, warning = FALSE
 )
 
 ```
 
-(still a bit rough --- still editing this post)
+(still editing this post)
 
 ## Intro
 
-A couple of years ago, I had the opportunity to work as a Research Associate on a labour market study. Part of this study involved looking for suitable job vacancies and applying for jobs on behalf of participants. It involved aggregating job postings across a few sites, selecting an appropriate subset of jobs (by location, experience, and other employer requirements), and careful curation. The process was greatly helped by webscraping scripts we developed.[^1] I was able to learn a bit about how to programmatically extract information from websites using [R](https://www.r-project.org/about.html), [rvest](https://github.com/tidyverse/rvest), and [R Selenium](https://docs.ropensci.org/RSelenium/).[^2]
+A couple of years ago, I had the opportunity to work as a Research Associate on a labour market study in South Africa. Part of this study involved looking for suitable online job vacancies and applying for jobs on behalf of participants. 
 
-[^1]: In practice, this aggregation process involved both webscraping, and a fair amount of manual searching!
+The process was greatly helped by webscraping scripts we developed.[^1] And I learned a bit about how to programmatically extract information from websites using [R](https://www.r-project.org/about.html), [rvest](https://github.com/tidyverse/rvest), and [R Selenium](https://docs.ropensci.org/RSelenium/).[^2]
 
-[^2]: I have some R and RStudio set-up and other resources [here](https://wimlouw.netlify.app/2020/09/24/resources/#r)
+
+[^1]: The process involved both webscraping, and a fair amount of manual searching!
+
+[^2]: R and RStudio set-up and other resources [here](https://wimlouw.netlify.app/2020/09/24/resources/#r)
 
 What is webscraping about? It's about getting the things you're seeing on a webpage into a form you can work with on your computer: a dataset, a list, or whatever. This might be a single table or multiple tables across many pages; or it might be a combination of elements, like job ads with associated information.
 
-In essence, this is a data extraction and cleaning exercise! And in the examples below, it's about getting the content you want from the HTML (i.e. parsing HTML).
+This is a data extraction and cleaning exercise! And in the examples below, it's about getting the content you want from the HTML. Once you have the content in a form you can work with, it's standard data cleaning stuff (manipulating strings, dates, &c.[^3]).
 
-Once you have the content in a form you can work with, it's standard data cleaning stuff (manipulating strings, dates, &c.[^3]).
+[^3]: See [R for Data Science's](https://r4ds.had.co.nz/index.html) chapters on dates and strings; then: (1) [Simple, Consistent Wrappers for Common String Operations • stringr,](https://stringr.tidyverse.org/) (2) [GitHub - trinker/textclean: Tools for cleaning and normalizing text data,](https://github.com/trinker/textclean) (3) [Quantitative Analysis of Textual Data • quanteda](https://quanteda.io/) (text analysis)
 
-[^3]: Check out [R for Data Science's](https://r4ds.had.co.nz/index.html) chapters on dates and strings; then: (1) [Simple, Consistent Wrappers for Common String Operations • stringr,](https://stringr.tidyverse.org/) (2) [GitHub - trinker/textclean: Tools for cleaning and normalizing text data,](https://github.com/trinker/textclean) (3) [Quantitative Analysis of Textual Data • quanteda](https://quanteda.io/) (text analysis)
-
-A lot of the work involves figuring out how the website works: where the information you want is, choosing the right [CSS-selectors](https://www.w3schools.com/cssref/css_selectors.asp), working with URLs[^4] , and figuring out how to iterate (or "crawl") between pages.
+A lot of the work involves figuring out how the website works: where the information you want is, choosing the right [CSS-selectors](https://www.w3schools.com/cssref/css_selectors.asp), working with URLs[^4] , and figuring out how to iterate (or "crawl") pages.
 
 [^4]: See Julia Evans' "[how URLs work](https://wizardzines.com/comics/how-urls-work/)"; also see Oliver Keyes & Jay Jacobs' "[urltools](https://github.com/Ironholds/urltools)" R package --- not something I'm getting into, but I think working with URLs programmatically is the way to go!
 
-In more complicated cases, it involves writing a script that can interact with the webpage (by driving a browser), to reveal the content you want. If you want to build something more sophisticated, it might involve working with a database, a scheduler, and other tools.[^5] You might want to build something that extracts information regularly, tracks changes over time and stores it in a database.[^6]
+In more complicated cases, it involves writing a script that can interact with the webpage (by driving a browser), to reveal the content you want. 
+
+If you want to build something more sophisticated, it might involve working with a database, a scheduler, and other tools.[^5] You might want to build something that extracts information regularly, tracks changes over time and stores it in a database.[^6]
 
 [^5]: Have a look at [Heroku](https://www.heroku.com/) and their "Hobby-dev" PostgreSQL with the fee Heroku scheduler
 
-[^6]: [This](https://simonwillison.net/2020/Oct/9/git-scraping/) is interesting: Simon Willison's "Git scraping: track changes over time by scraping to a Git repository"
+[^6]: A bit different, but ["Simon Willison's "Git scraping: track changes over time by scraping to a Git repository"](https://simonwillison.net/2020/Oct/9/git-scraping/) looks very interesting
 
-The examples below are all quite "basic": (1) getting a table on Wikipedia (trickier than I thought!), and (2) getting information about jobs on a site called Gumtree (.co.za). 
+---
 
-**Steps in the process are:** (a) go to the site you want to scrape, (b) figure out what the things are called you want to extract (finding the right CSS-selectors using an inspect tool), (c) use the `read_html`,`html_nodes`, and other functions in the `rvest` package to extract those elements, (d) store the results in the format you want to work with (a list, a tibble, &c.), (e) figure out how to iterate (if needed), (d) troubleshoot (handling errors, dealing with broken links, missing selectors, &c.)
+## Approach
+
+The examples below are all quite "basic": (1) getting a table on Wikipedia.org (trickier than I thought!), and (2) getting information about jobs on a site called Gumtree (.co.za).
+
+For the most part, the steps are: (a) go to the site you want to scrape, (b) figure out what the things are called you want to extract (finding the right CSS-selectors using an inspect tool), (c) use the `read_html`,`html_nodes`, and other functions in the `rvest` package to extract those elements, (d) store the results in the format you want to work with (a list, a tibble, &c.), (e) figure out how to iterate (if needed), (d) troubleshoot (handling errors, dealing with broken links, missing selectors, &c.)
+
+---
 
 ## Considerations
 
 There are a few things to consider before investing time in writing a script to extract information from a webpage (or pages):
 
 -   **Is this already available?** Perhaps it can be downloaded from the site as a spreadsheet already (have a look around), or perhaps the site has an API[^7] you can access to download data.
--   **Is there a low effort way of doing this?** For instance, maybe you can just copy-paste what you need into a spreadsheet or directly into R[^8]? Or maybe there's a product or function you can use straight-away.[^9]
+-   **Is there a low effort way of doing this?** For instance, maybe you can just copy-paste what you need into a spreadsheet or directly into R[^8]? Or maybe there's a tool you can use straight-away.[^9]
 -   **How much copy-paste/ "low-effort" work are we talking here?** I think writing a simple script can, in many cases, be the lowest effort (and cheapest) of all, but one might hesitate because it feels too daunting. If you'll need to copy-paste multiple things across multiple pages, rather write a script! And if it's something you plan to do regularly --- automate with a script.
--   **Is it OK for me to do this?** This is a trickier question. It depends. And sometimes it's hard to tell! Things you can do: check if the site has a `robots.txt` file[^10] (which, if a site has one, includes do's and don't for scrapers/crawlers); ask yourself "would I feel OK about this information being pulled if this was my website?". If you decide to scrape --- be "polite" about it: don't overwhelm the site. Don't bother the site more than you need to, i.e. don't send too many requests to a website per second. You can avoid this by trying to be efficient (don't repeatedly query the website); include some "rests" in your code, to slow things down, to emulate regular browsing.
+-   **Is it OK for me to do this?** This is a trickier question. It depends. And sometimes it's hard to tell! Things you can do: check if the site has a `robots.txt` file[^10] (which, if a site has one, includes do's and don't for scrapers/crawlers); perhaps ask yourself "would I feel OK about this information being pulled if this was my website?". If you decide to scrape --- be "polite" about it: don't overwhelm the site. Don't bother the site more than you need to, i.e. don't send too many requests to a website per second. You can avoid this by trying to be efficient (don't repeatedly query the website); include some "rests" in your code, to slow things down.
 
 [^7]: See [What exactly IS an API? - by Perry Eising on Medium](https://medium.com/@perrysetgo/what-exactly-is-an-api-69f36968a41f)
 
@@ -70,9 +82,9 @@ There are a few things to consider before investing time in writing a script to 
 
 [^10]: See <https://en.wikipedia.org/wiki/Robots_exclusion_standard> then, there's helpful information in Peter Meissner's `robotstxt` R package [documentation](https://cran.r-project.org/web/packages/robotstxt/vignettes/using_robotstxt.html)
 
-## The front-end of the web[^11]
+---
 
-[^11]: See <https://www.internetingishard.com/html-and-css/introduction/> and <https://www.w3schools.com/html/html_intro.asp>
+## The front-end of the web
 
 What you see when you open a webpage is brought to you by:
 
@@ -80,7 +92,10 @@ What you see when you open a webpage is brought to you by:
 -   **CSS** -- adding styles (formatting, colours, sizes of things, sometimes where things are placed, &c.)
 -   **JavaScript** - making things interactive (behaviour of things on the page)
 
-[Here](https://codepen.io/rcyou/pen/QEObEk/) is an example on [CodePen](https://codepen.io/) bringing these together.
+**[Here](https://codepen.io/rcyou/pen/QEObEk/)** is an example on [CodePen](https://codepen.io/) bringing these together.[^11]
+
+
+[^11]: See <https://www.internetingishard.com/html-and-css/introduction/> and <https://www.w3schools.com/html/html_intro.asp>
 
 You can also see how these come together by using your browser's inspect tool. On Chrome you can right click and select "inspect" or go to More Tools/ Developer Tools[^12].
 
@@ -90,141 +105,144 @@ Here's what it looks like:
 
 [![A screenshot of the J-PAL Africa Research webpage viewed with the Chrome inspection tool](/img/Screenshot 2020-11-12 at 10.38.08.png "A screenshot of the J-PAL Africa Research webpage viewed with the Chrome inspection tool"){#inspection-example}](https://www.povertyactionlab.org/page/research-south-africa)
 
+---
+
 ## Tools
 
-I used a combination of the inspect tool and [SelectorGadget](http://selectorgadget.com/) ("point and click CSS selectors") to identify what the stuff (the "elements") I wanted to extract are called. I will use the [rvest](https://github.com/tidyverse/rvest) R package ("rvest helps you scrape information from webpages").[^13] And a number of [tidyverse tools](https://www.tidyverse.org/) (for data manipulation).
+I use a combination of the inspect tool and [SelectorGadget](http://selectorgadget.com/) ("point and click CSS selectors") to identify what the stuff (the "elements") I want to extract are called. I will use the [rvest](https://github.com/tidyverse/rvest) R package ("rvest helps you scrape information from webpages"). And a number of [tidyverse tools](https://www.tidyverse.org/) (for data manipulation).
 
-[^13]: Pretty complete examples on how to use rvest here: <http://rvest.tidyverse.org/>
+---
 
 ## Examples
 
-### Set up, due diligence
+### Set up
 
 I'll be using the following packages:
 
-```{r}
-
-library(tidyverse) ## for data manipulation (various packages)
-library(rvest) ## for scraping
-library(textclean) ## some cleaning functions
-library(robotstxt) ## to get robotstxt protocols
-library(kableExtra) ## for printing out an html table in this post
+```{r libraries}
+## Load libraries ####
+library(tidyverse) ##for data manipulation (various packages)
+library(rvest) ##for scraping
+library(textclean) ##some cleaning functions
+library(robotstxt) ##to get robotstxt protocols
+library(kableExtra) ##for printing out an html table in this post
 
 ```
 
-I'm going to be scraping from Wikipedia.org and Gumtree.co.za. I want to check if it's OK to do that 🤔
+I'm going to be scraping some information from Wikipedia.org and Gumtree.co.za. I want to check if it's OK to do that 🤔
 
 Wikipedia has a robots.txt, and it seems OK to scrape if you're going to be polite about it:
 
-```{r}
-
+```{r robotstxt}
+## Look at robots.txt (if any) ####
 rtxt_wikipedia <- robotstxt(domain="wikipedia.org")
 replace_html(str_trunc(rtxt_wikipedia$text, 500, "right"))
 
 ```
 
-As for Gumtree.co.za --- it has one, but I'm finding it hard to interpret the exclusions criteria...I think I'll just be very polite ¯\\\_(ツ)\_/¯
+As for Gumtree.co.za --- it has one, but I'm finding it hard to interpret the exclusions criteria...I think I will just be very polite ¯\\\_(ツ)\_/¯
 
-### Tables
+### Table example
 
 In the first example, I want to extract a table from Wikipedia:
 
 [![A screenshot of the 2019 South African general election results on Wikipedia](/img/Screenshot 2020-11-14 at 20.34.27.png "A screenshot of the 2019 South African general election results on Wikipedia")](https://en.wikipedia.org/wiki/Elections_in_South_Africa)
 
-The first step is to use rvest's `read_html` function:
+I tried using SelectorGadget...and the Chrome inspection tool, but was struggling to figure out what identifies the table I want. **But** something you an do (I learned, after some Googling) is to get **all tables** on the page; then you can identify which one is the right one using string matching (e.g. the `grep` function). I know the table I want has "ANC" in it, for instance:
 
-```{r}
-
-## get the website HTML
+```{r table-example}
+## Get Table element from Wikipedia ####
+##get the website HTML
 website <- read_html("https://en.wikipedia.org/wiki/Elections_in_South_Africa") 
 
-```
+table <- website %>% html_nodes("table") ##all tables
+length(table) ##how many tables?
 
-Now I want to identify the table I'm seeing so I can parse it from the HTML using rvests's `html_table` function.
-
-👀...👀...👀
-
-I tried using SelectorGadget...and the Chrome inspection tool. Hmmm, OK, this is actually tricky on Wikipedia, I can't find the specific CSS-selector on this page.
-
-**But** something you an do (after some Googling) is to get **all tables** on the page; then you can identify which one is the right one using string matching (the `grep` function, below):
-
-```{r}
-
-table <- website %>% html_nodes("table") ## all tables
-length(table) ## how many tables?
-
-## I want the one that contains "ANC" and has ~55 rows
+##I want the one that contains "ANC" and has ~55 rows
 data <- html_table(table[grep("ANC", table)], fill = T)[[1]]
 
-## let's see
+##let's see
 glimpse(data)
-head(data) ## great!
+head(data) ##great!
 
 ```
 
-### Other elements
 
-Let's try something else. Getting job information on Gumtree.co.za
+### Job posts
+
+This is my main example :P I will be getting some minimal job information from a site called Gumtree.co.za.
 
 [![Screenshot of job postings on gumtree.co.za (example)](/img/Screenshot 2020-11-14 at 20.47.23.png "Screenshot of job postings on gumtree.co.za")](https://www.gumtree.co.za/s-jobs/v1c8p1)
 
-**Things to note here:** descriptions are truncated, and contact information is hidden. To reveal them, you need to click on these elements. For the purposes of these examples, we're not going to get into headless browsers, and how to get your script to interact with page elements (but this is possible!).
+**Things to note here, after inspecting the page:** descriptions are truncated, and contact information is hidden. To reveal them, you need to click on these elements. For the purposes of these examples, we're not going to get into headless browsers, and how to get your script to interact with page elements.
 
-Let's try getting information about a single job. I looked for "entry level" jobs, and will read the HTML on the first page. Using the inspect tool, I see the the job title elements are named `.related-ad-title` :
+There are multiple postings on each page, and each one links to a full ad. I want to get the links on the first page:
 
-```{r}
-
+```{r joblinks_example1}
+## Job site example ####
+##reading in the HTML from this page on entry-level jobs
 jobs <- read_html("https://www.gumtree.co.za/s-jobs/page-1/v1c8p2?q=entry+level")
 
+##extract links on first page
 links <-
   jobs %>%
   html_nodes(".related-ad-title") %>%
   html_attr("href")
 
-head(links)
+head(links) ##great!
 
 ```
 
-Great now I have all the links on page 1!
+Then, I want to zoom in to one ad and see what's in there. I'll extract the job title, description, job type, employer, location, and also include a time-stamp. I use the inspect tool to identify each element's CSS-selector. (There's much more information on this page than the few elements I chose for this example, but the approach will be the same if I wanted to include more.)
 
-I want to look at the first one, and extract some information. For the example I'm extracting the job title, description, job type, employer, location, and also including a time-stamp. I use the inspect tool to identify each element's CSS-selector. There's much more information on these pages than the few I chose for this example. The approach is the same!
+```{r jobpost-example_title}
 
-```{r}
-
-## first link
+##first link
 jobs_1 <- read_html(paste0("https://www.gumtree.co.za", links[1]))
 
+jobs_1
+
+##get the job title
 title <- jobs_1 %>%
   html_nodes("h1") %>%
   html_text() %>%
+  replace_html() %>% ##strip html markup (if any)
   str_squish() ##get rid of leading and trailing whitespace
 
 title
 
 ```
 
-This worked. I will need to do this for a bunch of things --- title, description, &c. So I'm going to make a small function to make that easier, and to avoid repeating myself too much:
+This worked. 
 
-```{r}
+Since I want to do this for a few more things --- title, description, &c., I'm going to make a small function to make that easier, and to avoid repeating myself too much:
 
-## function for cleaning single elements
-cleanup <- function(html, tag) {
-  output <- html %>%
-    html_nodes(tag) %>%
+```{r function_clean-element}
+
+## function for cleaning single elements ####
+clean_element <- function(page_html, selector) {
+  output <- page_html %>%
+    html_nodes(selector) %>%
     html_text() %>%
-    str_squish() ## remove leading and trailing whitespace
-  output <- ifelse(length(output) == 0, NA, output) ## in case an element is missing
+    replace_html() %>% ##strip html markup (if any)
+    str_squish() ##remove leading and trailing whitespace
+  output <- ifelse(length(output) == 0, NA, output) ##in case an element is missing
   return(output)
 }
 
-## let's try it out!
-description <- cleanup(jobs_1, ".description-website-container") ## got these with SelectorGadget
-jobtype <- cleanup(jobs_1, ".attribute:nth-child(4) .value")
-employer <- cleanup(jobs_1, ".attribute:nth-child(3) .value")
-location <- cleanup(jobs_1, ".attribute:nth-child(1) .value")
+```
+
+```{r jobpost-example_others}
+
+##let's try out the function!
+##I got the CSS-selectors with SelectorGadget
+description <- clean_element(jobs_1, ".description-website-container") 
+jobtype <- clean_element(jobs_1, ".attribute:nth-child(4) .value")
+employer <- clean_element(jobs_1, ".attribute:nth-child(3) .value")
+location <- clean_element(jobs_1, ".attribute:nth-child(1) .value")
 time <- Sys.time()
 
-## and put it into a tibble (see "https://r4ds.had.co.nz/tibbles.html")
+##putting my results into a tibble (see "https://r4ds.had.co.nz/tibbles.html")
 dat <-
   tibble(
     title,
@@ -234,31 +252,36 @@ dat <-
     time
   )
 
-dat ## looks good!
+dat ##looks good!
 
 ```
 
-What if I wanted to do this for all ads on the page?
+OK this worked fine. What if I wanted to do this for all job posts on a page?
 
-### Iteration
+#### Iteration
 
-I have the links from the first page. I want to extract all the information I specified above for each one.
+I already have the job links from the first page. 
 
-I think I'll write another function, which will create a tibble[^14] for every link, and then I'll put this into a list of tibbles using a for loop:
+Now I want to extract all the information I specified above (title, description, location, &c.) from each one of these posts.
+
+I write another function, which will create a tibble[^14] for every job post, with the information I want, and then I'll put this into a list of tibbles using a for loop. After I have a list of tibbles, with the information I want from each post, I can combine them into a single dataset.
 
 [^14]: <https://r4ds.had.co.nz/tibbles.html>
 
-```{r}
+```{r function_clean-ad}
 
-## function for cleaning all elements I want on a page
-cleanup2 <- function(x) {
-  page <- read_html(x)
-  title <- cleanup(page, "h1") ## "cleanup" for cleaning individual elements (from before)
-  description <- cleanup(page, ".description-website-container")
-  jobtype <- cleanup(page, ".attribute:nth-child(4) .value")
-  employer <- cleanup(page, ".attribute:nth-child(3) .value")
-  location <- cleanup(page, ".attribute:nth-child(1) .value")
-  time <- Sys.time()
+## function for cleaning all elements I want on a page ####
+clean_ad <- function(link) {
+  page_html <- read_html(link) ##get HTML
+  ##the list of items I want in each post
+  title <- clean_element(page_html, "h1") ##parse HTML
+  description <- clean_element(page_html, ".description-website-container")
+  jobtype <- clean_element(page_html, ".attribute:nth-child(4) .value")
+  employer <- clean_element(page_html, ".attribute:nth-child(3) .value")
+  location <- clean_element(page_html, ".attribute:nth-child(1) .value")
+  time <- Sys.time() ##current time
+
+  ##I put the selected post info in a tibble
   dat <-
     tibble(
       title,
@@ -270,86 +293,197 @@ cleanup2 <- function(x) {
   return(dat)
 }
 
-## fixing the link
-links <- paste0("https://www.gumtree.co.za", links)
-links <- sample(links, 7) ## sampling 7 random links for the example
+```
 
-## a list (for storing tibbles), and a for loop to iterate through links
+
+```{r iteration_example1}
+
+## set up ####
+##fixing" link addresses
+links <- paste0("https://www.gumtree.co.za", links)
+links <- sample(links, 10) ##sampling 10 random links for the example
+
+##I create a list (for storing tibbles), and a for loop to iterate through links
 output <- list()
 
-## iterating through links
+## iterating through links with a for loop ####
 for (i in 1:length(links)) {
-  deets <- cleanup2(links[i])
-  deets$title
-  output[[i]] <- deets # add to list
-  Sys.sleep(1) ## resting
+  deets <- clean_ad(links[i]) ##my function for extracting selected content from a post
+  output[[i]] <- deets ##add to list
+  Sys.sleep(2) ##rest
 }
 
-## combining all tibbles in the list into a single big tibble
-all <- bind_rows(output) ## Fab!
+##combining all tibbles in the list into a single big tibble
+all <- bind_rows(output) ##fab!
 
+glimpse(all)
 
 ```
 
-OK, let's see what this looks like (I'm truncating job descriptions for display):
+Let's see what this looks like (I'm truncating job descriptions for display):
 
-```{r}
+```{r html-table_iteration1}
 
-## truncate
-all$description <- str_trunc(all$description, 100, "right")
+all$description <- str_trunc(all$description, 100, "right") ##truncate
 
-## I'm using kable to make an html table for the site
+##I'm using kable to make an html table for the site
 all %>%
   kable() %>%
-  kable_paper(bootstrap_options = "striped", full_width = F)
+  kable_paper(bootstrap_options = c("striped", "responsive"))
 
 ```
 
-Nice! I just did the first page.
+Nice!
 
 How would one do other pages?
 
-One (hacky) approach is to use the URL and another for loop.[^15] In the example below, I'll extract the job links for the first 3 pages:
+One (hacky) approach is to use the URL and another for loop.[^15] 
+
+In the example below, I'll extract the job links for the first 3 pages:
 
 [^15]: There are better ways of working with URLs: <https://github.com/Ironholds/urltools>
 
-```{r}
+```{r joblinks_example2}
 
-pages <- 3 ## let's just do 3
+## set-up ####
+pages <- 3 ##let's just do 3
 job_list <- list()
-link <- "https://www.gumtree.co.za/s-jobs/page-" ## url fragment
+link <- "https://www.gumtree.co.za/s-jobs/page-" ##url fragment
 
+## iterate over pages ####
 for (i in 1:pages) {
   jobs <-
-    read_html(paste0(link, i, "/v1c8p2?q=entry+level")) ## using paste
+    read_html(paste0(link, i, "/v1c8p2?q=entry+level")) ##using paste0
   links <-
     jobs %>%
     html_nodes(".related-ad-title") %>%
-    html_attr("href") # get links
-  job_list[[i]] <- links # add to list
-  Sys.sleep(1)
+    html_attr("href") ##get links
+  job_list[[i]] <- links ##add to list
+  Sys.sleep(2) ##rest
 }
 
-links <- unlist(job_list)
-head(links, 10) ## looks good!
+links <- unlist(job_list) ##make a single list
+links <- paste0("https://www.gumtree.co.za", links)
+head(links, 10) ##looks good!
 
 ```
 
-I could then use the same approach to cycle through this much longer list of links.
+Now I can use the same approach to cycle through this much longer list of links.
 
-### Things to think about
+#### Things to think about
 
 Make sure your script can handle errors.[^16]
 
 [^16]: See "safely" and "possibly" from the [purrr](https://purrr.tidyverse.org/) package (or "trycatch")
 
--   CSS-selectors change
+-   CSS-selectors change over time (if you're planning to run again in future, you should check)
 -   links stop working (page names change, or they stop existing)
 -   not all pages are necessarily the same (some elements may be missing from some site) --- see the "job type" variable above, for instance
 -   sites time out (that can break your script if you don't account for it)
--   &c.
+- What other things might break yoyr script?
 
-------------------------------------------------------------------------
+#### Putting it all together
+
+
+```{r all-together, eval=FALSE}
+
+## libraries ####
+
+library(tidyverse) ##for data manipulation (various packages)
+library(rvest) ##for scraping
+library(textclean) ##some cleaning functions
+library(kableExtra) ##for printing out an html table in this post
+library(progress) ##for tracking progress in console
+
+## Function 1: Clean an element ####
+
+clean_element <- function(page_html, selector) {
+  output <- page_html %>%
+    html_nodes(selector) %>%
+    html_text() %>%
+    replace_html() %>% ##strip html markup (if any)
+    str_squish() ##remove leading and trailing whitespace
+  output <- ifelse(length(output) == 0, NA, output) ##in case an element is missing
+  return(output)
+}
+
+## Function 2: Clean an ad ####
+
+clean_ad <- function(link) {
+  page_html <- read_html(link) ##get HTML
+  ##the list of items I want in each post
+  title <- clean_element(page_html, "h1") ##parse HTML
+  description <- clean_element(page_html, ".description-website-container")
+  jobtype <- clean_element(page_html, ".attribute:nth-child(4) .value")
+  employer <- clean_element(page_html, ".attribute:nth-child(3) .value")
+  location <- clean_element(page_html, ".attribute:nth-child(1) .value")
+  time <- Sys.time() ##current time
+
+  ##I put the selected post info in a tibble
+  dat <-
+    tibble(
+      title,
+      description,
+      jobtype,
+      location,
+      time
+    )
+  return(dat)
+}
+
+## Loop 1: Get my links ####
+
+pages <- 5 ##let's just do 5
+job_list <- list()
+link <- "https://www.gumtree.co.za/s-jobs/page-" ##url fragment
+
+for (i in 1:pages) {
+  jobs <-
+    read_html(paste0(link, i, "/v1c8p2?q=entry+level")) ##using paste0
+  links <-
+    jobs %>%
+    html_nodes(".related-ad-title") %>%
+    html_attr("href") ##get links
+  job_list[[i]] <- links ##add to list
+  Sys.sleep(2) ##rest
+}
+
+links <- unlist(job_list) ##make a single list
+links <- paste0("https://www.gumtree.co.za", links)
+links <- sample(links, 20) ##sampling 20
+
+head(links)
+
+## Let's go! ####
+
+##track progress
+total <- length(links)
+pb <- progress_bar$new(format = "[:bar] :current/:total (:percent)", total = total)
+
+##error handling
+safe_clean_ad <- possibly(clean_ad, NA)
+
+##list
+output <- list()
+
+##loop
+for (i in 1:total) {
+  pb$tick()
+  deets <- safe_clean_ad(links[i])
+  output[[i]] <- deets #add to list
+  Sys.sleep(1) ##resting
+}
+
+##combining all tibbles in the list into a single big tibble
+all <- bind_rows(output) ##Fab!
+glimpse(all)
+
+
+```
+
+
+
+---
 
 ## Resources
 
