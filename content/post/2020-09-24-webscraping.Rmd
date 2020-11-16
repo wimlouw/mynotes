@@ -24,7 +24,7 @@ knitr::opts_chunk$set(
 
 ```
 
-(still editing this post)
+(still editing this post for language)
 
 ## Intro
 
@@ -169,9 +169,7 @@ head(data) ##great!
 
 ### Job posts
 
-This is my main example :P 
-
-I will be getting some minimal job information from a site called Gumtree.co.za.
+This is my main example: getting some minimal job information from a site called Gumtree.co.za.
 
 [![Screenshot of job postings on gumtree.co.za (example)](/img/Screenshot 2020-11-14 at 20.47.23.png "Screenshot of job postings on gumtree.co.za")](https://www.gumtree.co.za/s-jobs/v1c8p1)
 
@@ -179,7 +177,7 @@ I will be getting some minimal job information from a site called Gumtree.co.za.
 
 There are multiple postings on each page, and each one links to a full ad. 
 
-I want to get the links on the first page:
+I extract the links on the first page (each title links to a full post):
 
 ```{r joblinks_example1}
 
@@ -197,11 +195,9 @@ head(links) ##great!
 
 ```
 
-Then, I want to zoom in to one ad and see what's in there. 
+I decided to extract the job title, description, job type, employer, location, and to include a time-stamp. I used the inspect tool to identify each element's CSS-selector. 
 
-I decided to extract the job title, description, job type, employer, location, and also include a time-stamp. I used the inspect tool to identify each element's CSS-selector. 
-
-(There's much more information on this page than the few elements I chose for this example, but the approach will be the same if I wanted to include more.)
+(There's much more information on this page than the few elements I chose; the approach would be the same.)
 
 ```{r jobpost-example_title}
 
@@ -223,7 +219,7 @@ title
 
 This worked. 
 
-Since I wanted to do this for a few more things --- title, description, &c., I made a small function to make that easier, and to avoid repeating myself too much:
+Since I want to do this for a few more things --- title, description, &c., I code a function to make this easier, and to avoid repeating myself too much:
 
 ```{r function_clean-element}
 
@@ -239,6 +235,8 @@ clean_element <- function(page_html, selector) {
 }
 
 ```
+
+This works (and I can always add a few more things in the function if I wanted to).
 
 ```{r jobpost-example_others}
 
@@ -264,11 +262,13 @@ dat ##looks good!
 
 ```
 
-OK this worked fine. But what if I wanted to do this for all job posts on a page?
+What if I wanted to do this for all job posts on a page?
 
 #### Iteration!
 
-I wrote another function, which will create a tibble[^14] for every job post, with the information I want. I can put this into a list of tibbles using a for loop. After I have a list of tibbles, I can combine them into a single dataset.
+I code another function, which will create a tibble[^14] for every job post, with the information I want. I can then put this into a list of tibbles using a for loop. 
+
+After I have a list of tibbles, I can combine them into a single dataset using `dplyr`'s `bind_rows()`.
 
 [^14]: <https://r4ds.had.co.nz/tibbles.html>
 
@@ -338,7 +338,7 @@ all %>%
 
 Nice!
 
-How would one do other pages?
+**How would one do other pages?**
 
 One (hacky) approach is to use the URL and another for loop.[^15] 
 
@@ -375,13 +375,13 @@ head(links, 10) ##looks good!
 
 Make sure your script can handle errors.[^16]
 
-[^16]: See "safely" and "possibly" from the [purrr](https://purrr.tidyverse.org/) package (or "trycatch")
+[^16]: See "safely" and "possibly" from the [purrr](https://purrr.tidyverse.org/) package (or "trycatch" from base R)
 
 -   CSS-selectors change over time (if you're planning to run again in future, you should check)
 -   links stop working (page names change, or they stop existing)
 -   not all pages are necessarily the same (some elements may be missing from some site) --- see the "job type" variable above, for instance
 -   sites time out (that can break your script if you don't account for it)
-- What other things might break yoyr script?
+- What other things might break your script?
 
 #### Putting it all together
 
@@ -454,6 +454,7 @@ links <- paste0("https://www.gumtree.co.za", links)
 links <- sample(links, 20) ##sampling 20
 
 head(links)
+links <- c(links, "ww.brokenlink.co.bb") ##append faulty link to test error handling
 
 ## Let's go! ####
 
@@ -462,7 +463,7 @@ total <- length(links)
 pb <- progress_bar$new(format = "[:bar] :current/:total (:percent)", total = total)
 
 ##error handling
-safe_clean_ad <- possibly(clean_ad, NA)
+safe_clean_ad <- possibly(clean_ad, NA) ##see purrr package
 
 ##list
 output <- list()
@@ -476,9 +477,10 @@ for (i in 1:total) {
 }
 
 ##combining all tibbles in the list into a single big tibble
-all <- bind_rows(output) ##Fab!
-glimpse(all)
 
+all <- all[!is.na(all)] ##remove empty lists, if any
+all <- bind_rows(output) %>% ##Fab!
+glimpse(all)
 
 ```
 

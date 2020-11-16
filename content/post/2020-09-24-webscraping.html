@@ -37,7 +37,7 @@ output:
 </ul>
 </div>
 
-<p>(still editing this post)</p>
+<p>(still editing this post for language)</p>
 <div id="intro" class="section level2">
 <h2>Intro</h2>
 <p>A couple of years ago, I had the opportunity to work as a Research Associate on a labour market study in South Africa. Part of this study involved looking for suitable online job vacancies and applying for jobs on behalf of participants.</p>
@@ -154,12 +154,11 @@ glimpse(data) ##let&#39;s see</code></pre>
 </div>
 <div id="job-posts" class="section level3">
 <h3>Job posts</h3>
-<p>This is my main example :P</p>
-<p>I will be getting some minimal job information from a site called Gumtree.co.za.</p>
+<p>This is my main example: getting some minimal job information from a site called Gumtree.co.za.</p>
 <p><a href="https://www.gumtree.co.za/s-jobs/v1c8p1"><img src="/img/Screenshot%202020-11-14%20at%2020.47.23.png" title="Screenshot of job postings on gumtree.co.za" alt="Screenshot of job postings on gumtree.co.za (example)" /></a></p>
 <p><strong>Things to note here, after inspecting the page:</strong> descriptions are truncated, and contact information is hidden. To reveal them, you need to click on these elements. For the purposes of these examples, we’re not going to get into headless browsers, and how to get your script to interact with page elements.</p>
 <p>There are multiple postings on each page, and each one links to a full ad.</p>
-<p>I want to get the links on the first page:</p>
+<p>I extract the links on the first page (each title links to a full post):</p>
 <pre class="r"><code>## Job site example ####
 ##reading in the HTML from this page on entry-level jobs
 jobs &lt;- read_html(&quot;https://www.gumtree.co.za/s-jobs/page-1/v1c8p2?q=entry+level&quot;)
@@ -177,16 +176,15 @@ head(links) ##great!</code></pre>
 &gt; [4] &quot;/a-it-technician-jobs/port-elizabeth/entry-level-technician-installer/1008341037700912098673809&quot;     
 &gt; [5] &quot;/a-office-jobs/brackenfell/office-assistant-brackenfell-r8-000-+-r9-000-pm/1008334081620911146640309&quot;
 &gt; [6] &quot;/a-accounting-finance-jobs/lanseria/accountant-+-ad-posted-by-schullpak/1008328269890910406385609&quot;</code></pre>
-<p>Then, I want to zoom in to one ad and see what’s in there.</p>
-<p>I decided to extract the job title, description, job type, employer, location, and also include a time-stamp. I used the inspect tool to identify each element’s CSS-selector.</p>
-<p>(There’s much more information on this page than the few elements I chose for this example, but the approach will be the same if I wanted to include more.)</p>
+<p>I decided to extract the job title, description, job type, employer, location, and to include a time-stamp. I used the inspect tool to identify each element’s CSS-selector.</p>
+<p>(There’s much more information on this page than the few elements I chose; the approach would be the same.)</p>
 <pre class="r"><code>##first link
 jobs_1 &lt;- read_html(paste0(&quot;https://www.gumtree.co.za&quot;, links[1]))
 
 jobs_1</code></pre>
 <pre><code>&gt; {xml_document}
 &gt; &lt;html data-locale=&quot;en_ZA&quot; lang=&quot;en&quot; xmlns=&quot;http://www.w3.org/1999/html&quot; class=&quot;VIP&quot;&gt;
-&gt; [1] &lt;head&gt;\n&lt;meta name=&quot;csrf-token&quot; content=&quot;341b198bf9d62ad719b5d44597e05366 ...
+&gt; [1] &lt;head&gt;\n&lt;meta name=&quot;csrf-token&quot; content=&quot;46600b4d2fd14c4f80fc91bd25e7bee3 ...
 &gt; [2] &lt;body class=&quot;VIP&quot;&gt;\n&lt;noscript&gt;&lt;iframe src=&quot;//www.googletagmanager.com/ns. ...</code></pre>
 <pre class="r"><code>##get the job title
 title &lt;- jobs_1 %&gt;%
@@ -198,7 +196,7 @@ title &lt;- jobs_1 %&gt;%
 title</code></pre>
 <pre><code>&gt; [1] &quot;call centre&quot;</code></pre>
 <p>This worked.</p>
-<p>Since I wanted to do this for a few more things — title, description, &amp;c., I made a small function to make that easier, and to avoid repeating myself too much:</p>
+<p>Since I want to do this for a few more things — title, description, &amp;c., I code a function to make this easier, and to avoid repeating myself too much:</p>
 <pre class="r"><code>## function for cleaning single elements ####
 clean_element &lt;- function(page_html, selector) {
   output &lt;- page_html %&gt;%
@@ -209,6 +207,7 @@ clean_element &lt;- function(page_html, selector) {
   output &lt;- ifelse(length(output) == 0, NA, output) ##in case an element is missing
   return(output)
 }</code></pre>
+<p>This works (and I can always add a few more things in the function if I wanted to).</p>
 <pre class="r"><code>##let&#39;s try out the function!
 ##I got the CSS-selectors with SelectorGadget
 description &lt;- clean_element(jobs_1, &quot;.description-website-container&quot;) 
@@ -231,11 +230,12 @@ dat ##looks good!</code></pre>
 <pre><code>&gt; # A tibble: 1 x 5
 &gt;   title   description                    jobtype location    time               
 &gt;   &lt;chr&gt;   &lt;chr&gt;                          &lt;lgl&gt;   &lt;chr&gt;       &lt;dttm&gt;             
-&gt; 1 call c… DescriptionEntry level positi… NA      Salt River… 2020-11-16 14:30:17</code></pre>
-<p>OK this worked fine. But what if I wanted to do this for all job posts on a page?</p>
+&gt; 1 call c… DescriptionEntry level positi… NA      Salt River… 2020-11-16 15:02:33</code></pre>
+<p>What if I wanted to do this for all job posts on a page?</p>
 <div id="iteration" class="section level4">
 <h4>Iteration!</h4>
-<p>I wrote another function, which will create a tibble<a href="#fn13" class="footnote-ref" id="fnref13"><sup>13</sup></a> for every job post, with the information I want. I can put this into a list of tibbles using a for loop. After I have a list of tibbles, I can combine them into a single dataset.</p>
+<p>I code another function, which will create a tibble<a href="#fn13" class="footnote-ref" id="fnref13"><sup>13</sup></a> for every job post, with the information I want. I can then put this into a list of tibbles using a for loop.</p>
+<p>After I have a list of tibbles, I can combine them into a single dataset using <code>dplyr</code>’s <code>bind_rows()</code>.</p>
 <pre class="r"><code>## function for cleaning all elements I want on a page ####
 clean_ad &lt;- function(link) {
   page_html &lt;- read_html(link) ##get HTML
@@ -279,11 +279,11 @@ all &lt;- bind_rows(output) ##fab!
 glimpse(all)</code></pre>
 <pre><code>&gt; Rows: 10
 &gt; Columns: 5
-&gt; $ title       &lt;chr&gt; &quot;Automotive Machinist – Fabricator – Welder&quot;, &quot;5 x Accoun…
-&gt; $ description &lt;chr&gt; &quot;DescriptionAutomotive Machinist – Fabricator – Welder re…
-&gt; $ jobtype     &lt;chr&gt; &quot;Full-Time&quot;, &quot;Full-Time&quot;, NA, &quot;EE/AA&quot;, &quot;Contract&quot;, &quot;Tempo…
-&gt; $ location    &lt;chr&gt; &quot;Vanderbijlpark, Sedibeng&quot;, &quot;Pinetown, West Suburbs&quot;, &quot;Br…
-&gt; $ time        &lt;dttm&gt; 2020-11-16 14:30:18, 2020-11-16 14:30:21, 2020-11-16 14:…</code></pre>
+&gt; $ title       &lt;chr&gt; &quot;Sales executive&quot;, &quot;Maths and Physics teacher (SP/FET)&quot;, …
+&gt; $ description &lt;chr&gt; &quot;DescriptionSales Assistant Entry LevelHlumelo Direct Mar…
+&gt; $ jobtype     &lt;chr&gt; &quot;Full-Time&quot;, &quot;Full-Time&quot;, &quot;Commission&quot;, &quot;Temporary&quot;, &quot;EE/…
+&gt; $ location    &lt;chr&gt; &quot;Klerksdorp, North West&quot;, &quot;Lakeside, Southern Peninsula&quot;,…
+&gt; $ time        &lt;dttm&gt; 2020-11-16 15:02:34, 2020-11-16 15:02:37, 2020-11-16 15:…</code></pre>
 <pre class="r"><code>all$description &lt;- str_trunc(all$description, 100, &quot;right&quot;) ##truncate
 
 ##I&#39;m using kable to make an html table for the site
@@ -313,87 +313,53 @@ time
 <tbody>
 <tr>
 <td style="text-align:left;">
-Automotive Machinist – Fabricator – Welder
+Sales executive
 </td>
 <td style="text-align:left;">
-DescriptionAutomotive Machinist – Fabricator – Welder required at a Vanderbijlpark based Harley-D…
-</td>
-<td style="text-align:left;">
-Full-Time
-</td>
-<td style="text-align:left;">
-Vanderbijlpark, Sedibeng
-</td>
-<td style="text-align:left;">
-2020-11-16 14:30:18
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-5 x Accountants / Bookkeepers required for busy accounting firm
-</td>
-<td style="text-align:left;">
-DescriptionWe are a Durban Based Company Looking to employ 5 Bookkeepers preferably Indian Female…
+DescriptionSales Assistant Entry LevelHlumelo Direct Marketing is seeking a full time Sales Execu…
 </td>
 <td style="text-align:left;">
 Full-Time
 </td>
 <td style="text-align:left;">
-Pinetown, West Suburbs
+Klerksdorp, North West
 </td>
 <td style="text-align:left;">
-2020-11-16 14:30:21
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-OFFICE ASSISTANT (Brackenfell) R8,000 - R9,000 PM
-</td>
-<td style="text-align:left;">
-DescriptionYou will be required to perform several tasks related to keeping the office efficientl…
-</td>
-<td style="text-align:left;">
-NA
-</td>
-<td style="text-align:left;">
-Brackenfell, Northern Suburbs
-</td>
-<td style="text-align:left;">
-2020-11-16 14:30:24
+2020-11-16 15:02:34
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-Financial Manager
+Maths and Physics teacher (SP/FET)
 </td>
 <td style="text-align:left;">
-DescriptionPurpose of the Job-To support the company in meeting and exceeding the overall objecti…
+DescriptionLakeside Education Academy in Lakeside, Cape Town, is looking to appoint a full-time P…
 </td>
 <td style="text-align:left;">
-EE/AA
+Full-Time
 </td>
 <td style="text-align:left;">
-Kempton Park, East Rand
+Lakeside, Southern Peninsula
 </td>
 <td style="text-align:left;">
-2020-11-16 14:30:28
+2020-11-16 15:02:37
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-5 x Accountants / Bookkeepers Required for Accounting Firm
+Sales and Marketing
 </td>
 <td style="text-align:left;">
-DescriptionWe are a Durban Based Company Looking to employ 5 Bookkeepers at entry level to mainta…
+DescriptionTD marketing company is a marketing company specializing in customer acquisition and s…
 </td>
 <td style="text-align:left;">
-Contract
+Commission
 </td>
 <td style="text-align:left;">
-Pinetown, West Suburbs
+Other, East Rand
 </td>
 <td style="text-align:left;">
-2020-11-16 14:30:31
+2020-11-16 15:02:40
 </td>
 </tr>
 <tr>
@@ -410,58 +376,24 @@ Temporary
 Umhlanga, North Suburbs
 </td>
 <td style="text-align:left;">
-2020-11-16 14:30:34
+2020-11-16 15:02:44
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-Grade 1-3 Teacher as afternoon tutor
+Financial Manager
 </td>
 <td style="text-align:left;">
-DescriptionHiWe are looking for a Grade 1 to 3 teacher to tutor our son. He is 4 however his math…
+DescriptionPurpose of the Job-To support the company in meeting and exceeding the overall objecti…
 </td>
 <td style="text-align:left;">
-Casual
+EE/AA
 </td>
 <td style="text-align:left;">
-Claremont &amp; Newlands, Southern Suburbs
+Kempton Park, East Rand
 </td>
 <td style="text-align:left;">
-2020-11-16 14:30:38
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Entry level technician/installer
-</td>
-<td style="text-align:left;">
-DescriptionWe are looking to expand our service delivery team. Please read through below and if y…
-</td>
-<td style="text-align:left;">
-NA
-</td>
-<td style="text-align:left;">
-Port Elizabeth, Eastern Cape
-</td>
-<td style="text-align:left;">
-2020-11-16 14:30:41
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Entry level Sales Reps Required
-</td>
-<td style="text-align:left;">
-DescriptionWe are a private company that is looking for sales reps to assist us with increasing s…
-</td>
-<td style="text-align:left;">
-Commission
-</td>
-<td style="text-align:left;">
-Bloemfontein, Free State
-</td>
-<td style="text-align:left;">
-2020-11-16 14:30:45
+2020-11-16 15:02:47
 </td>
 </tr>
 <tr>
@@ -478,13 +410,81 @@ Non EE/AA
 Eastern Pretoria, Pretoria / Tshwane
 </td>
 <td style="text-align:left;">
-2020-11-16 14:30:48
+2020-11-16 15:02:50
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Entry level Sales Reps Required
+</td>
+<td style="text-align:left;">
+DescriptionWe are a private company that is looking for sales reps to assist us with increasing s…
+</td>
+<td style="text-align:left;">
+Commission
+</td>
+<td style="text-align:left;">
+Bloemfontein, Free State
+</td>
+<td style="text-align:left;">
+2020-11-16 15:02:53
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Accountant - Ad posted by schullpak
+</td>
+<td style="text-align:left;">
+DescriptionAccountant. Mechanical and Electrical Engineering Company based in Lanseria, Johannesb…
+</td>
+<td style="text-align:left;">
+Full-Time
+</td>
+<td style="text-align:left;">
+Lanseria, Johannesburg
+</td>
+<td style="text-align:left;">
+2020-11-16 15:02:56
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Automotive Machinist – Fabricator – Welder
+</td>
+<td style="text-align:left;">
+DescriptionAutomotive Machinist – Fabricator – Welder required at a Vanderbijlpark based Harley-D…
+</td>
+<td style="text-align:left;">
+Full-Time
+</td>
+<td style="text-align:left;">
+Vanderbijlpark, Sedibeng
+</td>
+<td style="text-align:left;">
+2020-11-16 15:02:59
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Optic Fibre Sales Management Program
+</td>
+<td style="text-align:left;">
+Description Real Promotions is recruiting for Vodacom representatives within the Cape Town area. …
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+De Waterkant, Cape Town
+</td>
+<td style="text-align:left;">
+2020-11-16 15:03:04
 </td>
 </tr>
 </tbody>
 </table>
 <p>Nice!</p>
-<p>How would one do other pages?</p>
+<p><strong>How would one do other pages?</strong></p>
 <p>One (hacky) approach is to use the URL and another for loop.<a href="#fn14" class="footnote-ref" id="fnref14"><sup>14</sup></a></p>
 <p>In the example below, I extracted the job links for the first 3 pages:</p>
 <pre class="r"><code>## set-up ####
@@ -526,7 +526,7 @@ head(links, 10) ##looks good!</code></pre>
 <li>links stop working (page names change, or they stop existing)</li>
 <li>not all pages are necessarily the same (some elements may be missing from some site) — see the “job type” variable above, for instance</li>
 <li>sites time out (that can break your script if you don’t account for it)</li>
-<li>What other things might break yoyr script?</li>
+<li>What other things might break your script?</li>
 </ul>
 </div>
 <div id="putting-it-all-together" class="section level4">
@@ -597,6 +597,7 @@ links &lt;- paste0(&quot;https://www.gumtree.co.za&quot;, links)
 links &lt;- sample(links, 20) ##sampling 20
 
 head(links)
+links &lt;- c(links, &quot;ww.brokenlink.co.bb&quot;) ##append faulty link to test error handling
 
 ## Let&#39;s go! ####
 
@@ -605,7 +606,7 @@ total &lt;- length(links)
 pb &lt;- progress_bar$new(format = &quot;[:bar] :current/:total (:percent)&quot;, total = total)
 
 ##error handling
-safe_clean_ad &lt;- possibly(clean_ad, NA)
+safe_clean_ad &lt;- possibly(clean_ad, NA) ##see purrr package
 
 ##list
 output &lt;- list()
@@ -619,7 +620,9 @@ for (i in 1:total) {
 }
 
 ##combining all tibbles in the list into a single big tibble
-all &lt;- bind_rows(output) ##Fab!
+
+all &lt;- all[!is.na(all)] ##remove empty lists, if any
+all &lt;- bind_rows(output) %&gt;% ##Fab!
 glimpse(all)</code></pre>
 <hr />
 </div>
@@ -678,6 +681,6 @@ glimpse(all)</code></pre>
 <li id="fn12"><p><a href="https://developers.google.com/web/tools/chrome-devtools/open" class="uri">https://developers.google.com/web/tools/chrome-devtools/open</a><a href="#fnref12" class="footnote-back">↩︎</a></p></li>
 <li id="fn13"><p><a href="https://r4ds.had.co.nz/tibbles.html" class="uri">https://r4ds.had.co.nz/tibbles.html</a><a href="#fnref13" class="footnote-back">↩︎</a></p></li>
 <li id="fn14"><p>There are better ways of working with URLs: <a href="https://github.com/Ironholds/urltools" class="uri">https://github.com/Ironholds/urltools</a><a href="#fnref14" class="footnote-back">↩︎</a></p></li>
-<li id="fn15"><p>See “safely” and “possibly” from the <a href="https://purrr.tidyverse.org/">purrr</a> package (or “trycatch”)<a href="#fnref15" class="footnote-back">↩︎</a></p></li>
+<li id="fn15"><p>See “safely” and “possibly” from the <a href="https://purrr.tidyverse.org/">purrr</a> package (or “trycatch” from base R)<a href="#fnref15" class="footnote-back">↩︎</a></p></li>
 </ol>
 </div>
