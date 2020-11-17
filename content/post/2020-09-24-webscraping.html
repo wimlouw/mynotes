@@ -183,7 +183,7 @@ jobs_1 &lt;- read_html(paste0(&quot;https://www.gumtree.co.za&quot;, links[1]))
 jobs_1</code></pre>
 <pre><code>&gt; {xml_document}
 &gt; &lt;html data-locale=&quot;en_ZA&quot; lang=&quot;en&quot; xmlns=&quot;http://www.w3.org/1999/html&quot; class=&quot;VIP&quot;&gt;
-&gt; [1] &lt;head&gt;\n&lt;meta name=&quot;csrf-token&quot; content=&quot;b7b2f12201c480e42bdf6cee0c760e2e ...
+&gt; [1] &lt;head&gt;\n&lt;meta name=&quot;csrf-token&quot; content=&quot;ed32f55f9b2a13efcb2e3bfb43d91195 ...
 &gt; [2] &lt;body class=&quot;VIP&quot;&gt;\n&lt;noscript&gt;&lt;iframe src=&quot;//www.googletagmanager.com/ns. ...</code></pre>
 <pre class="r"><code>##get the job title
 title &lt;- jobs_1 %&gt;%
@@ -229,11 +229,11 @@ dat ##looks good!</code></pre>
 <pre><code>&gt; # A tibble: 1 x 5
 &gt;   title          description              jobtype location   time               
 &gt;   &lt;chr&gt;          &lt;chr&gt;                    &lt;chr&gt;   &lt;chr&gt;      &lt;dttm&gt;             
-&gt; 1 Building and … DescriptionWe have a po… EE/AA   Umbilo, D… 2020-11-17 06:40:39</code></pre>
+&gt; 1 Building and … DescriptionWe have a po… EE/AA   Umbilo, D… 2020-11-17 08:27:11</code></pre>
 <p>What if I wanted to do this for all job posts on a page?</p>
 <div id="iteration" class="section level4">
 <h4>Iteration</h4>
-<p>I write another function, which will create a tibble<a href="#fn13" class="footnote-ref" id="fnref13"><sup>13</sup></a> for every job post, with the information I want. I can then put this into a list of tibbles using a for loop.</p>
+<p>I write another function, which will create a tibble<a href="#fn13" class="footnote-ref" id="fnref13"><sup>13</sup></a> for a job post, with the information I want. I can then use a for loop to apply the function to each job post and to put the result into a list of tibbles.</p>
 <p>After I have a list of tibbles, I can combine them into a single dataset using <code>dplyr</code>’s <code>bind_rows()</code>.</p>
 <pre class="r"><code>## function for cleaning all elements I want on a page ####
 clean_ad &lt;- function(link) {
@@ -278,11 +278,11 @@ all &lt;- bind_rows(output) ##fab!
 glimpse(all)</code></pre>
 <pre><code>&gt; Rows: 10
 &gt; Columns: 5
-&gt; $ title       &lt;chr&gt; &quot;Automotive Machinist – Fabricator – Welder&quot;, &quot;Sales exec…
-&gt; $ description &lt;chr&gt; &quot;DescriptionAutomotive Machinist – Fabricator – Welder re…
-&gt; $ jobtype     &lt;chr&gt; &quot;Full-Time&quot;, &quot;Full-Time&quot;, NA, &quot;EE/AA&quot;, NA, &quot;Full-Time&quot;, &quot;…
-&gt; $ location    &lt;chr&gt; &quot;Vanderbijlpark, Sedibeng&quot;, &quot;Klerksdorp, North West&quot;, &quot;Sa…
-&gt; $ time        &lt;dttm&gt; 2020-11-17 06:40:40, 2020-11-17 06:40:42, 2020-11-17 06:…</code></pre>
+&gt; $ title       &lt;chr&gt; &quot;Entry level Sales Reps Required&quot;, &quot;Camera man Video edit…
+&gt; $ description &lt;chr&gt; &quot;DescriptionWe are a private company that is looking for …
+&gt; $ jobtype     &lt;chr&gt; &quot;Commission&quot;, &quot;Temporary&quot;, &quot;Full-Time&quot;, NA, &quot;Full-Time&quot;, …
+&gt; $ location    &lt;chr&gt; &quot;Bloemfontein, Free State&quot;, &quot;Umhlanga, North Suburbs&quot;, &quot;D…
+&gt; $ time        &lt;dttm&gt; 2020-11-17 08:27:11, 2020-11-17 08:27:14, 2020-11-17 08:…</code></pre>
 <pre class="r"><code>all$description &lt;- str_trunc(all$description, 100, &quot;right&quot;) ##truncate
 
 ##I&#39;m using kable to make an html table for the site
@@ -312,121 +312,19 @@ time
 <tbody>
 <tr>
 <td style="text-align:left;">
-Automotive Machinist – Fabricator – Welder
+Entry level Sales Reps Required
 </td>
 <td style="text-align:left;">
-DescriptionAutomotive Machinist – Fabricator – Welder required at a Vanderbijlpark based Harley-D…
+DescriptionWe are a private company that is looking for sales reps to assist us with increasing s…
 </td>
 <td style="text-align:left;">
-Full-Time
+Commission
 </td>
 <td style="text-align:left;">
-Vanderbijlpark, Sedibeng
+Bloemfontein, Free State
 </td>
 <td style="text-align:left;">
-2020-11-17 06:40:40
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Sales executive
-</td>
-<td style="text-align:left;">
-DescriptionSales Assistant Entry LevelHlumelo Direct Marketing is seeking a full time Sales Execu…
-</td>
-<td style="text-align:left;">
-Full-Time
-</td>
-<td style="text-align:left;">
-Klerksdorp, North West
-</td>
-<td style="text-align:left;">
-2020-11-17 06:40:42
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-call centre
-</td>
-<td style="text-align:left;">
-DescriptionEntry level positionMerchants iinet is looking for you.Vibrant, energetic personality …
-</td>
-<td style="text-align:left;">
-NA
-</td>
-<td style="text-align:left;">
-Salt River, Cape Town
-</td>
-<td style="text-align:left;">
-2020-11-17 06:40:45
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Financial Manager
-</td>
-<td style="text-align:left;">
-DescriptionPurpose of the Job-To support the company in meeting and exceeding the overall objecti…
-</td>
-<td style="text-align:left;">
-EE/AA
-</td>
-<td style="text-align:left;">
-Kempton Park, East Rand
-</td>
-<td style="text-align:left;">
-2020-11-17 06:40:47
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Optic Fibre Sales Management Program
-</td>
-<td style="text-align:left;">
-Description Real Promotions is recruiting for Vodacom representatives within the Cape Town area. …
-</td>
-<td style="text-align:left;">
-NA
-</td>
-<td style="text-align:left;">
-De Waterkant, Cape Town
-</td>
-<td style="text-align:left;">
-2020-11-17 06:40:50
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Sales Assistant
-</td>
-<td style="text-align:left;">
-DescriptionLooking for a Sales Assistant. Note: This is an entry level position. You will be requ…
-</td>
-<td style="text-align:left;">
-Full-Time
-</td>
-<td style="text-align:left;">
-Kempton Park, East Rand
-</td>
-<td style="text-align:left;">
-2020-11-17 06:40:52
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-5 x Accountants / Bookkeepers Required for Accounting Firm
-</td>
-<td style="text-align:left;">
-DescriptionWe are a Durban Based Company Looking to employ 5 Bookkeepers at entry level to mainta…
-</td>
-<td style="text-align:left;">
-Contract
-</td>
-<td style="text-align:left;">
-Pinetown, West Suburbs
-</td>
-<td style="text-align:left;">
-2020-11-17 06:40:55
+2020-11-17 08:27:11
 </td>
 </tr>
 <tr>
@@ -443,7 +341,7 @@ Temporary
 Umhlanga, North Suburbs
 </td>
 <td style="text-align:left;">
-2020-11-17 06:40:57
+2020-11-17 08:27:14
 </td>
 </tr>
 <tr>
@@ -460,24 +358,126 @@ Full-Time
 De Waterkant, Cape Town
 </td>
 <td style="text-align:left;">
-2020-11-17 06:41:00
+2020-11-17 08:27:17
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-Sales consultant needed - Travel
+call centre
 </td>
 <td style="text-align:left;">
-DescriptionWe are growing Travel Agency looking to employ an sale agent.This is an entry level po…
+DescriptionEntry level positionMerchants iinet is looking for you.Vibrant, energetic personality …
 </td>
 <td style="text-align:left;">
-Commission
+NA
 </td>
 <td style="text-align:left;">
-Other, Durban City
+Salt River, Cape Town
 </td>
 <td style="text-align:left;">
-2020-11-17 06:41:03
+2020-11-17 08:27:19
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Automotive Machinist – Fabricator – Welder
+</td>
+<td style="text-align:left;">
+DescriptionAutomotive Machinist – Fabricator – Welder required at a Vanderbijlpark based Harley-D…
+</td>
+<td style="text-align:left;">
+Full-Time
+</td>
+<td style="text-align:left;">
+Vanderbijlpark, Sedibeng
+</td>
+<td style="text-align:left;">
+2020-11-17 08:27:22
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Optic Fibre Sales Management Program
+</td>
+<td style="text-align:left;">
+Description Real Promotions is recruiting for Vodacom representatives within the Cape Town area. …
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+De Waterkant, Cape Town
+</td>
+<td style="text-align:left;">
+2020-11-17 08:27:24
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Entry level technician/installer
+</td>
+<td style="text-align:left;">
+DescriptionWe are looking to expand our service delivery team. Please read through below and if y…
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+Port Elizabeth, Eastern Cape
+</td>
+<td style="text-align:left;">
+2020-11-17 08:27:27
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Telkom Sales and Marketing
+</td>
+<td style="text-align:left;">
+Description Real Promotions is a dynamic, fast growing sales and marketing company based in Cape …
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+De Waterkant, Cape Town
+</td>
+<td style="text-align:left;">
+2020-11-17 08:27:29
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Maths and Physics teacher (SP/FET)
+</td>
+<td style="text-align:left;">
+DescriptionLakeside Education Academy in Lakeside, Cape Town, is looking to appoint a full-time P…
+</td>
+<td style="text-align:left;">
+Full-Time
+</td>
+<td style="text-align:left;">
+Lakeside, Southern Peninsula
+</td>
+<td style="text-align:left;">
+2020-11-17 08:27:32
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Grade 1-3 Teacher as afternoon tutor
+</td>
+<td style="text-align:left;">
+DescriptionHiWe are looking for a Grade 1 to 3 teacher to tutor our son. He is 4 however his math…
+</td>
+<td style="text-align:left;">
+Casual
+</td>
+<td style="text-align:left;">
+Claremont &amp; Newlands, Southern Suburbs
+</td>
+<td style="text-align:left;">
+2020-11-17 08:27:34
 </td>
 </tr>
 </tbody>
@@ -521,9 +521,9 @@ head(links, 10) ##looks good!</code></pre>
 <h4>Things to think about</h4>
 <p>Make sure your script can handle errors.<a href="#fn15" class="footnote-ref" id="fnref15"><sup>15</sup></a></p>
 <ul>
-<li>CSS-selectors change over time (if you’re planning to run again in future, you should check)</li>
+<li>CSS-selectors change over time (if you’re planning to run your script again in future, you should check)</li>
 <li>links stop working (page names change, or they stop existing)</li>
-<li>not all pages are necessarily the same (some elements may be missing from some site) — see the “job type” variable above, for instance</li>
+<li>not all pages are necessarily the same (some elements may be missing from some pages) — see the “job type” variable above, for instance</li>
 <li>sites time out (that can break your script if you don’t account for it)</li>
 <li>what other things might break your script?</li>
 </ul>

@@ -264,7 +264,7 @@ What if I wanted to do this for all job posts on a page?
 
 #### Iteration
 
-I write another function, which will create a tibble[^14] for every job post, with the information I want. I can then put this into a list of tibbles using a for loop. 
+I write another function, which will create a tibble[^14] for a job post, with the information I want. I can then use a for loop to apply the function to each job post and to put the result into a list of tibbles.
 
 After I have a list of tibbles, I can combine them into a single dataset using `dplyr`'s `bind_rows()`.
 
@@ -375,9 +375,9 @@ Make sure your script can handle errors.[^16]
 
 [^16]: See "safely" and "possibly" from the [purrr](https://purrr.tidyverse.org/) package (or "trycatch" from base R)
 
--   CSS-selectors change over time (if you're planning to run again in future, you should check)
+-   CSS-selectors change over time (if you're planning to run your script again in future, you should check)
 -   links stop working (page names change, or they stop existing)
--   not all pages are necessarily the same (some elements may be missing from some site) --- see the "job type" variable above, for instance
+-   not all pages are necessarily the same (some elements may be missing from some pages) --- see the "job type" variable above, for instance
 -   sites time out (that can break your script if you don't account for it)
 - what other things might break your script?
 
