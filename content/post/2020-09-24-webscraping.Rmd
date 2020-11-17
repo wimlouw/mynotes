@@ -37,19 +37,17 @@ The process was greatly helped by webscraping scripts we developed.[^1] And I le
 
 [^2]: R and RStudio set-up and other resources [here](https://wimlouw.netlify.app/2020/09/24/resources/#r)
 
-What is webscraping about? It's about getting the things you're seeing on a webpage into a form you can work with on your computer: a dataset, a list, or whatever. This might be a single table or multiple tables across many pages; or it might be a combination of elements, like job ads with associated information.
+Webscraping is about getting the thing you're seeing on a webpage into a form you can work with on your computer: a dataset, a list, or whatever. It might be single table or multiple tables across many pages; or a combination of elements, like job ads with associated information.
 
-This is a data extraction and cleaning exercise! And in the examples below, it's about getting the content you want from the HTML. Once you have the content in a form you can work with, it's standard data cleaning stuff (manipulating strings, dates, &c.[^3]).
+This is a data extraction and cleaning exercise: getting the content you want from the page HTML. Once you have the content in a form you can work with, it's standard data cleaning stuff (manipulating strings, dates, &c.[^3]).
 
 [^3]: See [R for Data Science's](https://r4ds.had.co.nz/index.html) chapters on dates and strings; then: (1) [Simple, Consistent Wrappers for Common String Operations • stringr,](https://stringr.tidyverse.org/) (2) [GitHub - trinker/textclean: Tools for cleaning and normalizing text data,](https://github.com/trinker/textclean) (3) [Quantitative Analysis of Textual Data • quanteda](https://quanteda.io/) (text analysis)
 
-A lot of the work involves figuring out how the website works: where the information you want is, choosing the right [CSS-selectors](https://www.w3schools.com/cssref/css_selectors.asp), working with URLs[^4] , and figuring out how to iterate (or "crawl") pages.
+In doing this, you'll be familiarising yourself with the specific website you're interested in and figuring out where the information you want is, choosing the right [CSS-selectors](https://www.w3schools.com/cssref/css_selectors.asp), working with URLs[^4] and figuring out how to iterate (or "crawl") pages.
 
 [^4]: See Julia Evans' "[how URLs work](https://wizardzines.com/comics/how-urls-work/)"; also see Oliver Keyes & Jay Jacobs' "[urltools](https://github.com/Ironholds/urltools)" R package --- not something I'm getting into, but I think working with URLs programmatically is the way to go!
 
-In more complicated cases, it involves writing a script that can interact with the webpage (by driving a browser), to reveal the content you want. 
-
-If you want to build something more sophisticated, it might involve working with a database, a scheduler, and other tools.[^5] You might want to build something that extracts information regularly, tracks changes over time and stores it in a database.[^6]
+In more complicated cases, it involves writing a script that can interact with the webpage (by driving a browser), to reveal the content you want. And if you want to build something more sophisticated, it might involve working with a database, a scheduler, and other tools.[^5] For instance, you might want to build something that extracts information regularly, tracks changes over time and stores it in a database.[^6]
 
 [^5]: Have a look at [Heroku](https://www.heroku.com/) and their "Hobby-dev" PostgreSQL with the fee Heroku scheduler
 
@@ -59,19 +57,19 @@ If you want to build something more sophisticated, it might involve working with
 
 ## Approach
 
-The examples below are all quite "basic": (1) getting a table on Wikipedia.org (trickier than I thought!), and (2) getting information about jobs on a site called Gumtree (.co.za).
+In the examples below, I extract a table from a Wikipedia.org page (trickier than I thought!), and --- more elaborately --- extract information about jobs from a site called Gumtree (.co.za).
 
-For the most part, the steps are: (a) go to the site you want to scrape, (b) figure out what the things are called you want to extract (finding the right CSS-selectors using an inspect tool), (c) use the `read_html`, `html_nodes`, and other functions in the `rvest` package to extract those elements, (d) store the results in the format you want to work with (a list, a tibble, &c.), (e) figure out how to iterate (if needed), (d) troubleshoot (handling errors, dealing with broken links, missing selectors, &c.)
+For the most part, the approach is something like: (a) go to the site you want to scrape, (b) figure out what the things you want to extract are called (find the right CSS-selectors using an inspect tool), (c) use the `read_html`, `html_nodes`, and other functions in the `rvest` package to extract those elements, (d) store the results in the format you want to work with (a list, a tibble, &c.), (e) figure out how to iterate (if needed), (f) troubleshoot (handling errors, dealing with broken links, missing selectors, &c.), (g) throughout: lots of Googling.
 
 ---
 
 ## Considerations
 
-There are a few things to consider before investing time in writing a script to extract information from a webpage (or pages):
+There are a few things to consider before investing time in writing a webscraping script:
 
 -   **Is this already available?** Perhaps it can be downloaded from the site as a spreadsheet already (have a look around), or perhaps the site has an API[^7] you can access to download data.
 -   **Is there a low effort way of doing this?** For instance, maybe you can just copy-paste what you need into a spreadsheet or directly into R[^8]? Or maybe there's a tool you can use straight-away.[^9]
--   **How much copy-paste/ "low-effort" work are we talking here?** I think writing a simple script can, in many cases, be the lowest effort (and cheapest) of all, but one might hesitate because it feels too daunting. If you'll need to copy-paste multiple things across multiple pages, rather write a script! And if it's something you plan to do regularly --- automate with a script.
+-   **How much copy-paste/ "low-effort" work are we talking here?** I think writing a simple script can, in many cases, be the lowest effort (and cheapest) of all, but one might hesitate because it feels daunting. If you'll need to copy-paste multiple things across multiple pages, rather write a script. And if it's something you plan to do regularly --- automate with a script.
 -   **Is it OK for me to do this?** This is a trickier question. It depends. And sometimes it's hard to tell! Things you can do: check if the site has a `robots.txt` file[^10] (which, if a site has one, includes do's and don't for scrapers/crawlers); perhaps ask yourself "would I feel OK about this information being pulled if this was my website?". If you decide to scrape --- be "polite" about it: don't overwhelm the site. Don't bother the site more than you need to, i.e. don't send too many requests to a website per second. You can avoid this by trying to be efficient (don't repeatedly query the website); include some "rests" in your code, to slow things down.
 
 [^7]: See [What exactly IS an API? - by Perry Eising on Medium](https://medium.com/@perrysetgo/what-exactly-is-an-api-69f36968a41f)
@@ -109,9 +107,9 @@ Here's what it looks like:
 
 ## Tools
 
-I used a combination of the inspect tool and [SelectorGadget](http://selectorgadget.com/) ("point and click CSS selectors") to identify what the elements I want to extract are called. 
+I use a combination of the inspect tool and [SelectorGadget](http://selectorgadget.com/) ("point and click CSS selectors") to identify what the elements I want to extract are called. 
 
-I used the [rvest](https://github.com/tidyverse/rvest) R package ("rvest helps you scrape information from webpages"), and a number of [tidyverse tools](https://www.tidyverse.org/) for data manipulation. Code is heavily commented. 
+I use the [rvest](https://github.com/tidyverse/rvest) R package ("rvest helps you scrape information from webpages"), and a number of [tidyverse tools](https://www.tidyverse.org/) for data manipulation. Code is heavily commented. 
 
 ---
 
@@ -138,11 +136,11 @@ replace_html(str_trunc(rtxt_wikipedia$text, 500, "right"))
 
 ```
 
-As for Gumtree.co.za --- it has one, but I'm finding it hard to interpret the exclusions criteria...I think I will just be very polite ¯\\\_(ツ)\_/¯
+As for Gumtree.co.za --- it has one, but I found it hard to interpret. I decided to just be very polite about it ¯\\\_(ツ)\_/¯
 
 ### Table example
 
-In the first example, I extract a table from Wikipedia, using `rvest`'s `html_table()` command. 
+In the first example, I extract a table from Wikipedia.
 
 I tried using SelectorGadget and the Chrome inspection tool, but was struggling to figure out the correct selector.
 
@@ -169,11 +167,11 @@ head(data) ##great!
 
 ### Job posts
 
-This is my main example: getting some minimal job information from a site called Gumtree.co.za.
+This is my main example: getting job information from a site called Gumtree.co.za.
 
 [![Screenshot of job postings on gumtree.co.za (example)](/img/Screenshot 2020-11-14 at 20.47.23.png "Screenshot of job postings on gumtree.co.za")](https://www.gumtree.co.za/s-jobs/v1c8p1)
 
-**Things to note here, after inspecting the page:** descriptions are truncated, and contact information is hidden. To reveal them, you need to click on these elements. For the purposes of these examples, we're not going to get into headless browsers, and how to get your script to interact with page elements.
+**Things to note here, after inspecting the page:** descriptions are truncated, and contact information is hidden. To reveal them, you need to click on these elements. We're not going to get into headless browsers, and how to get your script to interact with page elements, but keep in mind that this is possible.
 
 There are multiple postings on each page, and each one links to a full ad. 
 
@@ -264,9 +262,9 @@ dat ##looks good!
 
 What if I wanted to do this for all job posts on a page?
 
-#### Iteration!
+#### Iteration
 
-I code another function, which will create a tibble[^14] for every job post, with the information I want. I can then put this into a list of tibbles using a for loop. 
+I write another function, which will create a tibble[^14] for every job post, with the information I want. I can then put this into a list of tibbles using a for loop. 
 
 After I have a list of tibbles, I can combine them into a single dataset using `dplyr`'s `bind_rows()`.
 
@@ -342,7 +340,7 @@ Nice!
 
 One (hacky) approach is to use the URL and another for loop.[^15] 
 
-In the example below, I extracted the job links for the first 3 pages:
+In the example below, I extract the job links for the first 3 pages:
 
 [^15]: There are better ways of working with URLs: <https://github.com/Ironholds/urltools>
 
@@ -381,7 +379,7 @@ Make sure your script can handle errors.[^16]
 -   links stop working (page names change, or they stop existing)
 -   not all pages are necessarily the same (some elements may be missing from some site) --- see the "job type" variable above, for instance
 -   sites time out (that can break your script if you don't account for it)
-- What other things might break your script?
+- what other things might break your script?
 
 #### Putting it all together
 
@@ -473,7 +471,7 @@ for (i in 1:total) {
   pb$tick()
   deets <- safe_clean_ad(links[i])
   output[[i]] <- deets #add to list
-  Sys.sleep(1) ##resting
+  Sys.sleep(2) ##resting
 }
 
 ##combining all tibbles in the list into a single big tibble
