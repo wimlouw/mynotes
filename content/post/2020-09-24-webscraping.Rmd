@@ -51,7 +51,7 @@ In more complicated cases, it involves writing a script that can interact with t
 
 [^5]: Have a look at [Heroku](https://www.heroku.com/) and their "Hobby-dev" PostgreSQL with the fee Heroku scheduler
 
-[^6]: A bit different, but ["Simon Willison's "Git scraping: track changes over time by scraping to a Git repository"](https://simonwillison.net/2020/Oct/9/git-scraping/) looks very interesting
+[^6]: A bit different, but [Simon Willison's Git scraping: track changes over time by scraping to a Git repository](https://simonwillison.net/2020/Oct/9/git-scraping/) looks very interesting
 
 ---
 

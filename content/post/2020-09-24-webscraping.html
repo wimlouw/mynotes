@@ -169,12 +169,12 @@ links &lt;-
   html_attr(&quot;href&quot;)
 
 head(links) ##great!</code></pre>
-<pre><code>&gt; [1] &quot;/a-engineering-architecture-jobs/umbilo/building-and-civil-internship-entry-level-position/1008022960150910172878709&quot;
-&gt; [2] &quot;/a-other-sales-jobs/kempton-park/sales-assistant/1008356622970910009548109&quot;                                          
-&gt; [3] &quot;/a-customer-service-jobs/salt-river/call-centre/1008356745720911125725209&quot;                                           
-&gt; [4] &quot;/a-tutors-teaching-jobs/lakeside/maths-and-physics-teacher-sp-fet/1008353544800912460072609&quot;                         
-&gt; [5] &quot;/a-sales-representatives-jobs/other/sales-consultant-needed-+-travel/1008343366270910016930309&quot;                      
-&gt; [6] &quot;/a-it-technician-jobs/port-elizabeth/entry-level-technician-installer/1008341037700912098673809&quot;</code></pre>
+<pre><code>&gt; [1] &quot;/a-other-sales-jobs/kempton-park/sales-assistant/1008356622970910009548109&quot;                          
+&gt; [2] &quot;/a-customer-service-jobs/salt-river/call-centre/1008356745720911125725209&quot;                           
+&gt; [3] &quot;/a-tutors-teaching-jobs/lakeside/maths-and-physics-teacher-sp-fet/1008353544800912460072609&quot;         
+&gt; [4] &quot;/a-sales-representatives-jobs/other/sales-consultant-needed-+-travel/1008343366270910016930309&quot;      
+&gt; [5] &quot;/a-it-technician-jobs/port-elizabeth/entry-level-technician-installer/1008341037700912098673809&quot;     
+&gt; [6] &quot;/a-office-jobs/brackenfell/office-assistant-brackenfell-r8-000-+-r9-000-pm/1008334081620911146640309&quot;</code></pre>
 <p>I decided to extract the job title, description, job type, employer, location, and to include a time-stamp. I used the inspect tool to identify each element’s CSS-selector.</p>
 <p>(There’s much more information on this page than the few elements I chose; the approach would be the same.)</p>
 <pre class="r"><code>##first link
@@ -183,7 +183,7 @@ jobs_1 &lt;- read_html(paste0(&quot;https://www.gumtree.co.za&quot;, links[1]))
 jobs_1</code></pre>
 <pre><code>&gt; {xml_document}
 &gt; &lt;html data-locale=&quot;en_ZA&quot; lang=&quot;en&quot; xmlns=&quot;http://www.w3.org/1999/html&quot; class=&quot;VIP&quot;&gt;
-&gt; [1] &lt;head&gt;\n&lt;meta name=&quot;csrf-token&quot; content=&quot;ed32f55f9b2a13efcb2e3bfb43d91195 ...
+&gt; [1] &lt;head&gt;\n&lt;meta name=&quot;csrf-token&quot; content=&quot;9e3844fc801fd7674e140aae4209d8e2 ...
 &gt; [2] &lt;body class=&quot;VIP&quot;&gt;\n&lt;noscript&gt;&lt;iframe src=&quot;//www.googletagmanager.com/ns. ...</code></pre>
 <pre class="r"><code>##get the job title
 title &lt;- jobs_1 %&gt;%
@@ -193,7 +193,7 @@ title &lt;- jobs_1 %&gt;%
   str_squish() ##get rid of leading and trailing whitespace
 
 title</code></pre>
-<pre><code>&gt; [1] &quot;Building and civil Internship entry level position&quot;</code></pre>
+<pre><code>&gt; [1] &quot;Sales Assistant&quot;</code></pre>
 <p>This worked.</p>
 <p>Since I want to do this for a few more things — title, description, &amp;c., I code a function to make this easier, and to avoid repeating myself too much:</p>
 <pre class="r"><code>## function for cleaning single elements ####
@@ -227,9 +227,9 @@ dat &lt;-
 
 dat ##looks good!</code></pre>
 <pre><code>&gt; # A tibble: 1 x 5
-&gt;   title          description              jobtype location   time               
-&gt;   &lt;chr&gt;          &lt;chr&gt;                    &lt;chr&gt;   &lt;chr&gt;      &lt;dttm&gt;             
-&gt; 1 Building and … DescriptionWe have a po… EE/AA   Umbilo, D… 2020-11-17 08:27:11</code></pre>
+&gt;   title    description                   jobtype location    time               
+&gt;   &lt;chr&gt;    &lt;chr&gt;                         &lt;chr&gt;   &lt;chr&gt;       &lt;dttm&gt;             
+&gt; 1 Sales A… DescriptionLooking for a Sal… Full-T… Kempton Pa… 2020-11-17 09:34:33</code></pre>
 <p>What if I wanted to do this for all job posts on a page?</p>
 <div id="iteration" class="section level4">
 <h4>Iteration</h4>
@@ -278,11 +278,11 @@ all &lt;- bind_rows(output) ##fab!
 glimpse(all)</code></pre>
 <pre><code>&gt; Rows: 10
 &gt; Columns: 5
-&gt; $ title       &lt;chr&gt; &quot;Entry level Sales Reps Required&quot;, &quot;Camera man Video edit…
-&gt; $ description &lt;chr&gt; &quot;DescriptionWe are a private company that is looking for …
-&gt; $ jobtype     &lt;chr&gt; &quot;Commission&quot;, &quot;Temporary&quot;, &quot;Full-Time&quot;, NA, &quot;Full-Time&quot;, …
-&gt; $ location    &lt;chr&gt; &quot;Bloemfontein, Free State&quot;, &quot;Umhlanga, North Suburbs&quot;, &quot;D…
-&gt; $ time        &lt;dttm&gt; 2020-11-17 08:27:11, 2020-11-17 08:27:14, 2020-11-17 08:…</code></pre>
+&gt; $ title       &lt;chr&gt; &quot;Junior Administrator&quot;, &quot;Sales and Marketing&quot;, &quot;Entry lev…
+&gt; $ description &lt;chr&gt; &quot;DescriptionWe are looking for a junior administration as…
+&gt; $ jobtype     &lt;chr&gt; &quot;Full-Time&quot;, &quot;Commission&quot;, &quot;Commission&quot;, &quot;Full-Time&quot;, &quot;No…
+&gt; $ location    &lt;chr&gt; &quot;De Waterkant, Cape Town&quot;, &quot;Other, East Rand&quot;, &quot;Bloemfont…
+&gt; $ time        &lt;dttm&gt; 2020-11-17 09:34:33, 2020-11-17 09:34:36, 2020-11-17 09:…</code></pre>
 <pre class="r"><code>all$description &lt;- str_trunc(all$description, 100, &quot;right&quot;) ##truncate
 
 ##I&#39;m using kable to make an html table for the site
@@ -312,40 +312,6 @@ time
 <tbody>
 <tr>
 <td style="text-align:left;">
-Entry level Sales Reps Required
-</td>
-<td style="text-align:left;">
-DescriptionWe are a private company that is looking for sales reps to assist us with increasing s…
-</td>
-<td style="text-align:left;">
-Commission
-</td>
-<td style="text-align:left;">
-Bloemfontein, Free State
-</td>
-<td style="text-align:left;">
-2020-11-17 08:27:11
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Camera man Video editor
-</td>
-<td style="text-align:left;">
-DescriptionYoung camera man video editor, amateur skilled talented We are looking for young perso…
-</td>
-<td style="text-align:left;">
-Temporary
-</td>
-<td style="text-align:left;">
-Umhlanga, North Suburbs
-</td>
-<td style="text-align:left;">
-2020-11-17 08:27:14
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
 Junior Administrator
 </td>
 <td style="text-align:left;">
@@ -358,92 +324,75 @@ Full-Time
 De Waterkant, Cape Town
 </td>
 <td style="text-align:left;">
-2020-11-17 08:27:17
+2020-11-17 09:34:33
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-call centre
+Sales and Marketing
 </td>
 <td style="text-align:left;">
-DescriptionEntry level positionMerchants iinet is looking for you.Vibrant, energetic personality …
+DescriptionTD marketing company is a marketing company specializing in customer acquisition and s…
 </td>
 <td style="text-align:left;">
-NA
+Commission
 </td>
 <td style="text-align:left;">
-Salt River, Cape Town
+Other, East Rand
 </td>
 <td style="text-align:left;">
-2020-11-17 08:27:19
+2020-11-17 09:34:36
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-Automotive Machinist – Fabricator – Welder
+Entry level Sales Reps Required
 </td>
 <td style="text-align:left;">
-DescriptionAutomotive Machinist – Fabricator – Welder required at a Vanderbijlpark based Harley-D…
+DescriptionWe are a private company that is looking for sales reps to assist us with increasing s…
+</td>
+<td style="text-align:left;">
+Commission
+</td>
+<td style="text-align:left;">
+Bloemfontein, Free State
+</td>
+<td style="text-align:left;">
+2020-11-17 09:34:38
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+5 x Accountants / Bookkeepers required for busy accounting firm
+</td>
+<td style="text-align:left;">
+DescriptionWe are a Durban Based Company Looking to employ 5 Bookkeepers preferably Indian Female…
 </td>
 <td style="text-align:left;">
 Full-Time
 </td>
 <td style="text-align:left;">
-Vanderbijlpark, Sedibeng
+Pinetown, West Suburbs
 </td>
 <td style="text-align:left;">
-2020-11-17 08:27:22
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Optic Fibre Sales Management Program
-</td>
-<td style="text-align:left;">
-Description Real Promotions is recruiting for Vodacom representatives within the Cape Town area. …
-</td>
-<td style="text-align:left;">
-NA
-</td>
-<td style="text-align:left;">
-De Waterkant, Cape Town
-</td>
-<td style="text-align:left;">
-2020-11-17 08:27:24
+2020-11-17 09:34:41
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-Entry level technician/installer
+Junior Warehouse Controller - PTA (Non-EE)
 </td>
 <td style="text-align:left;">
-DescriptionWe are looking to expand our service delivery team. Please read through below and if y…
+DescriptionAn established logistics company in Pretoria East will employ a Junior Warehouse Contr…
 </td>
 <td style="text-align:left;">
-NA
+Non EE/AA
 </td>
 <td style="text-align:left;">
-Port Elizabeth, Eastern Cape
+Eastern Pretoria, Pretoria / Tshwane
 </td>
 <td style="text-align:left;">
-2020-11-17 08:27:27
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Telkom Sales and Marketing
-</td>
-<td style="text-align:left;">
-Description Real Promotions is a dynamic, fast growing sales and marketing company based in Cape …
-</td>
-<td style="text-align:left;">
-NA
-</td>
-<td style="text-align:left;">
-De Waterkant, Cape Town
-</td>
-<td style="text-align:left;">
-2020-11-17 08:27:29
+2020-11-17 09:34:43
 </td>
 </tr>
 <tr>
@@ -460,24 +409,75 @@ Full-Time
 Lakeside, Southern Peninsula
 </td>
 <td style="text-align:left;">
-2020-11-17 08:27:32
+2020-11-17 09:34:46
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-Grade 1-3 Teacher as afternoon tutor
+Accountant - Ad posted by schullpak
 </td>
 <td style="text-align:left;">
-DescriptionHiWe are looking for a Grade 1 to 3 teacher to tutor our son. He is 4 however his math…
+DescriptionAccountant. Mechanical and Electrical Engineering Company based in Lanseria, Johannesb…
 </td>
 <td style="text-align:left;">
-Casual
+Full-Time
 </td>
 <td style="text-align:left;">
-Claremont &amp; Newlands, Southern Suburbs
+Lanseria, Johannesburg
 </td>
 <td style="text-align:left;">
-2020-11-17 08:27:34
+2020-11-17 09:34:49
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Sales executive
+</td>
+<td style="text-align:left;">
+DescriptionSales Assistant Entry LevelHlumelo Direct Marketing is seeking a full time Sales Execu…
+</td>
+<td style="text-align:left;">
+Full-Time
+</td>
+<td style="text-align:left;">
+Klerksdorp, North West
+</td>
+<td style="text-align:left;">
+2020-11-17 09:34:52
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Sales Assistant
+</td>
+<td style="text-align:left;">
+DescriptionLooking for a Sales Assistant. Note: This is an entry level position. You will be requ…
+</td>
+<td style="text-align:left;">
+Full-Time
+</td>
+<td style="text-align:left;">
+Kempton Park, East Rand
+</td>
+<td style="text-align:left;">
+2020-11-17 09:34:55
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+OFFICE ASSISTANT (Brackenfell) R8,000 - R9,000 PM
+</td>
+<td style="text-align:left;">
+DescriptionYou will be required to perform several tasks related to keeping the office efficientl…
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+Brackenfell, Northern Suburbs
+</td>
+<td style="text-align:left;">
+2020-11-17 09:34:58
 </td>
 </tr>
 </tbody>
@@ -506,16 +506,16 @@ for (i in 1:pages) {
 links &lt;- unlist(job_list) ##make a single list
 links &lt;- paste0(&quot;https://www.gumtree.co.za&quot;, links)
 head(links, 10) ##looks good!</code></pre>
-<pre><code>&gt;  [1] &quot;https://www.gumtree.co.za/a-engineering-architecture-jobs/umbilo/building-and-civil-internship-entry-level-position/1008022960150910172878709&quot;       
-&gt;  [2] &quot;https://www.gumtree.co.za/a-other-sales-jobs/kempton-park/sales-assistant/1008356622970910009548109&quot;                                                 
-&gt;  [3] &quot;https://www.gumtree.co.za/a-customer-service-jobs/salt-river/call-centre/1008356745720911125725209&quot;                                                  
-&gt;  [4] &quot;https://www.gumtree.co.za/a-tutors-teaching-jobs/lakeside/maths-and-physics-teacher-sp-fet/1008353544800912460072609&quot;                                
-&gt;  [5] &quot;https://www.gumtree.co.za/a-sales-representatives-jobs/other/sales-consultant-needed-+-travel/1008343366270910016930309&quot;                             
-&gt;  [6] &quot;https://www.gumtree.co.za/a-it-technician-jobs/port-elizabeth/entry-level-technician-installer/1008341037700912098673809&quot;                            
-&gt;  [7] &quot;https://www.gumtree.co.za/a-office-jobs/brackenfell/office-assistant-brackenfell-r8-000-+-r9-000-pm/1008334081620911146640309&quot;                       
-&gt;  [8] &quot;https://www.gumtree.co.za/a-accounting-finance-jobs/lanseria/accountant-+-ad-posted-by-schullpak/1008328269890910406385609&quot;                          
-&gt;  [9] &quot;https://www.gumtree.co.za/a-logistics-jobs/eastern-pretoria/junior-warehouse-controller-+-pta-non+ee/1008328733720911316948209&quot;                      
-&gt; [10] &quot;https://www.gumtree.co.za/a-accounting-finance-jobs/pinetown/5-x-accountants-bookkeepers-required-for-busy-accounting-firm/1008320950160910865995909&quot;</code></pre>
+<pre><code>&gt;  [1] &quot;https://www.gumtree.co.za/a-other-sales-jobs/kempton-park/sales-assistant/1008356622970910009548109&quot;                                                 
+&gt;  [2] &quot;https://www.gumtree.co.za/a-customer-service-jobs/salt-river/call-centre/1008356745720911125725209&quot;                                                  
+&gt;  [3] &quot;https://www.gumtree.co.za/a-tutors-teaching-jobs/lakeside/maths-and-physics-teacher-sp-fet/1008353544800912460072609&quot;                                
+&gt;  [4] &quot;https://www.gumtree.co.za/a-sales-representatives-jobs/other/sales-consultant-needed-+-travel/1008343366270910016930309&quot;                             
+&gt;  [5] &quot;https://www.gumtree.co.za/a-it-technician-jobs/port-elizabeth/entry-level-technician-installer/1008341037700912098673809&quot;                            
+&gt;  [6] &quot;https://www.gumtree.co.za/a-office-jobs/brackenfell/office-assistant-brackenfell-r8-000-+-r9-000-pm/1008334081620911146640309&quot;                       
+&gt;  [7] &quot;https://www.gumtree.co.za/a-accounting-finance-jobs/lanseria/accountant-+-ad-posted-by-schullpak/1008328269890910406385609&quot;                          
+&gt;  [8] &quot;https://www.gumtree.co.za/a-logistics-jobs/eastern-pretoria/junior-warehouse-controller-+-pta-non+ee/1008328733720911316948209&quot;                      
+&gt;  [9] &quot;https://www.gumtree.co.za/a-accounting-finance-jobs/pinetown/5-x-accountants-bookkeepers-required-for-busy-accounting-firm/1008320950160910865995909&quot;
+&gt; [10] &quot;https://www.gumtree.co.za/a-sales-representatives-jobs/de-waterkant/telkom-sales-and-marketing/1008313388250910325151109&quot;</code></pre>
 </div>
 <div id="things-to-think-about" class="section level4">
 <h4>Things to think about</h4>
@@ -671,7 +671,7 @@ glimpse(all)</code></pre>
 <li id="fn3"><p>See <a href="https://r4ds.had.co.nz/index.html">R for Data Science’s</a> chapters on dates and strings; then: (1) <a href="https://stringr.tidyverse.org/">Simple, Consistent Wrappers for Common String Operations • stringr,</a> (2) <a href="https://github.com/trinker/textclean">GitHub - trinker/textclean: Tools for cleaning and normalizing text data,</a> (3) <a href="https://quanteda.io/">Quantitative Analysis of Textual Data • quanteda</a> (text analysis)<a href="#fnref3" class="footnote-back">↩︎</a></p></li>
 <li id="fn4"><p>See Julia Evans’ “<a href="https://wizardzines.com/comics/how-urls-work/">how URLs work</a>”; also see Oliver Keyes &amp; Jay Jacobs’ “<a href="https://github.com/Ironholds/urltools">urltools</a>” R package — not something I’m getting into, but I think working with URLs programmatically is the way to go!<a href="#fnref4" class="footnote-back">↩︎</a></p></li>
 <li id="fn5"><p>Have a look at <a href="https://www.heroku.com/">Heroku</a> and their “Hobby-dev” PostgreSQL with the fee Heroku scheduler<a href="#fnref5" class="footnote-back">↩︎</a></p></li>
-<li id="fn6"><p>A bit different, but <a href="https://simonwillison.net/2020/Oct/9/git-scraping/">“Simon Willison’s”Git scraping: track changes over time by scraping to a Git repository"</a> looks very interesting<a href="#fnref6" class="footnote-back">↩︎</a></p></li>
+<li id="fn6"><p>A bit different, but <a href="https://simonwillison.net/2020/Oct/9/git-scraping/">Simon Willison’s Git scraping: track changes over time by scraping to a Git repository</a> looks very interesting<a href="#fnref6" class="footnote-back">↩︎</a></p></li>
 <li id="fn7"><p>See <a href="https://medium.com/@perrysetgo/what-exactly-is-an-api-69f36968a41f">What exactly IS an API? - by Perry Eising on Medium</a><a href="#fnref7" class="footnote-back">↩︎</a></p></li>
 <li id="fn8"><p>See Miles McBain’s “<a href="https://github.com/MilesMcBain/datapasta">datapasta</a>” package<a href="#fnref8" class="footnote-back">↩︎</a></p></li>
 <li id="fn9"><p>See, for instance, <a href="https://www.octoparse.com/">Octoparse</a> or <a href="https://webscraper.io/">webscraper.io</a>. Also see, Google Sheets’ <code>importHTML</code> function (see the documentation <a href="https://support.google.com/docs/answer/3093339?hl=en">here</a> or see this Martin Hawksey’s tutorial <a href="https://mashe.hawksey.info/2012/10/feeding-google-spreadsheets-exercises-in-import/">here</a> (looks good)<a href="#fnref9" class="footnote-back">↩︎</a></p></li>
