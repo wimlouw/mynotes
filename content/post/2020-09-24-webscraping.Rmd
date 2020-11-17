@@ -24,7 +24,6 @@ knitr::opts_chunk$set(
 
 ```
 
-(still editing this post for language)
 
 ## Intro
 
@@ -476,8 +475,8 @@ for (i in 1:total) {
 
 ##combining all tibbles in the list into a single big tibble
 
-all <- all[!is.na(all)] ##remove empty lists, if any
-all <- bind_rows(output) %>% ##Fab!
+all <- output[!is.na(output)] ##remove empty tibbles, if any
+all <- bind_rows(output) ##Fab!
 glimpse(all)
 
 ```
