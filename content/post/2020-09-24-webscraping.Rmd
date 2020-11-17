@@ -24,13 +24,11 @@ knitr::opts_chunk$set(
 
 ```
 
-
 ## Intro
 
-A couple of years ago, I had the opportunity to work as a Research Associate on a labour market study in South Africa. Part of this study involved looking for suitable online job vacancies and applying for jobs on behalf of participants. 
+A couple of years ago, I had the opportunity to work as a Research Associate on a labour market study in South Africa. Part of this study involved looking for suitable online job vacancies and applying for jobs on behalf of participants.
 
 The process was greatly helped by webscraping scripts we developed.[^1] And I learned a bit about how to programmatically extract information from websites using [R](https://www.r-project.org/about.html), [rvest](https://github.com/tidyverse/rvest), and [R Selenium](https://docs.ropensci.org/RSelenium/).[^2]
-
 
 [^1]: The process involved both webscraping, and a fair amount of manual searching!
 
@@ -52,7 +50,7 @@ In more complicated cases, it involves writing a script that can interact with t
 
 [^6]: A bit different, but [Simon Willison's Git scraping: track changes over time by scraping to a Git repository](https://simonwillison.net/2020/Oct/9/git-scraping/) looks very interesting
 
----
+------------------------------------------------------------------------
 
 ## Approach
 
@@ -60,7 +58,7 @@ In the examples below, I extract a table from a Wikipedia.org page (trickier tha
 
 For the most part, the approach is something like: (a) go to the site you want to scrape, (b) figure out what the things you want to extract are called (find the right CSS-selectors using an inspect tool), (c) use the `read_html`, `html_nodes`, and other functions in the `rvest` package to extract those elements, (d) store the results in the format you want to work with (a list, a tibble, &c.), (e) figure out how to iterate (if needed), (f) troubleshoot (handling errors, dealing with broken links, missing selectors, &c.), (g) throughout: lots of Googling.
 
----
+------------------------------------------------------------------------
 
 ## Considerations
 
@@ -79,7 +77,7 @@ There are a few things to consider before investing time in writing a webscrapin
 
 [^10]: See <https://en.wikipedia.org/wiki/Robots_exclusion_standard> then, there's helpful information in Peter Meissner's `robotstxt` R package [documentation](https://cran.r-project.org/web/packages/robotstxt/vignettes/using_robotstxt.html)
 
----
+------------------------------------------------------------------------
 
 ## The front-end of the web
 
@@ -89,8 +87,7 @@ What you see when you open a webpage is brought to you by:
 -   **CSS** -- adding styles (formatting, colours, sizes of things, sometimes where things are placed, &c.)
 -   **JavaScript** - making things interactive (behaviour of things on the page)
 
-**[Here](https://codepen.io/rcyou/pen/QEObEk/)** is an example on [CodePen](https://codepen.io/) bringing these together.[^11]
-
+[**Here**](https://codepen.io/rcyou/pen/QEObEk/) is an example on [CodePen](https://codepen.io/) bringing these together.[^11]
 
 [^11]: See <https://www.internetingishard.com/html-and-css/introduction/> and <https://www.w3schools.com/html/html_intro.asp>
 
@@ -102,15 +99,15 @@ Here's what it looks like:
 
 [![A screenshot of the J-PAL Africa Research webpage viewed with the Chrome inspection tool](/img/Screenshot 2020-11-12 at 10.38.08.png "A screenshot of the J-PAL Africa Research webpage viewed with the Chrome inspection tool"){#inspection-example}](https://www.povertyactionlab.org/page/research-south-africa)
 
----
+------------------------------------------------------------------------
 
 ## Tools
 
-I use a combination of the inspect tool and [SelectorGadget](http://selectorgadget.com/) ("point and click CSS selectors") to identify what the elements I want to extract are called. 
+I use a combination of the inspect tool and [SelectorGadget](http://selectorgadget.com/) ("point and click CSS selectors") to identify what the elements I want to extract are called.
 
-I use the [rvest](https://github.com/tidyverse/rvest) R package ("rvest helps you scrape information from webpages"), and a number of [tidyverse tools](https://www.tidyverse.org/) for data manipulation. Code is heavily commented. 
+I use the [rvest](https://github.com/tidyverse/rvest) R package ("rvest helps you scrape information from webpages"), and a number of [tidyverse tools](https://www.tidyverse.org/) for data manipulation. Code is heavily commented.
 
----
+------------------------------------------------------------------------
 
 ## Examples
 
@@ -143,7 +140,7 @@ In the first example, I extract a table from Wikipedia.
 
 I tried using SelectorGadget and the Chrome inspection tool, but was struggling to figure out the correct selector.
 
-Something you can do (I learned, after some Googling) is to get **all tables** on the page; then you can identify which one is the right one using string matching (e.g. the `grep` function). 
+Something you can do (I learned, after some Googling) is to get **all tables** on the page; then you can identify which one is the right one using string matching (e.g. the `grep` function).
 
 [![A screenshot of the 2019 South African general election results on Wikipedia](/img/Screenshot 2020-11-14 at 20.34.27.png "A screenshot of the 2019 South African general election results on Wikipedia")](https://en.wikipedia.org/wiki/Elections_in_South_Africa)
 
@@ -163,7 +160,6 @@ head(data) ##great!
 
 ```
 
-
 ### Job posts
 
 This is my main example: getting job information from a site called Gumtree.co.za.
@@ -172,7 +168,7 @@ This is my main example: getting job information from a site called Gumtree.co.z
 
 **Things to note here, after inspecting the page:** descriptions are truncated, and contact information is hidden. To reveal them, you need to click on these elements. We're not going to get into headless browsers, and how to get your script to interact with page elements, but keep in mind that this is possible.
 
-There are multiple postings on each page, and each one links to a full ad. 
+There are multiple postings on each page, and each one links to a full ad.
 
 I extract the links on the first page (each title links to a full post):
 
@@ -192,7 +188,7 @@ head(links) ##great!
 
 ```
 
-I decided to extract the job title, description, job type, employer, location, and to include a time-stamp. I used the inspect tool to identify each element's CSS-selector. 
+I decided to extract the job title, description, job type, employer, location, and to include a time-stamp. I used the inspect tool to identify each element's CSS-selector.
 
 (There's much more information on this page than the few elements I chose; the approach would be the same.)
 
@@ -214,7 +210,7 @@ title
 
 ```
 
-This worked. 
+This worked.
 
 Since I want to do this for a few more things --- title, description, &c., I code a function to make this easier, and to avoid repeating myself too much:
 
@@ -263,11 +259,11 @@ What if I wanted to do this for all job posts on a page?
 
 #### Iteration
 
-I write another function, which will create a tibble[^14] for a job post, with the information I want. I can then use a for loop to apply the function to each job post and to put the result into a list of tibbles.
+I write another function, which will create a tibble[^13] for a job post, with the information I want. I can then use a for loop to apply the function to each job post and to put the result into a list of tibbles.
+
+[^13]: <https://r4ds.had.co.nz/tibbles.html>
 
 After I have a list of tibbles, I can combine them into a single dataset using `dplyr`'s `bind_rows()`.
-
-[^14]: <https://r4ds.had.co.nz/tibbles.html>
 
 ```{r function_clean-ad}
 
@@ -296,7 +292,6 @@ clean_ad <- function(link) {
 
 ```
 
-
 ```{r iteration_example1}
 
 ## set up ####
@@ -321,7 +316,6 @@ glimpse(all)
 
 ```
 
-
 ```{r html-table_iteration1}
 
 all$description <- str_trunc(all$description, 100, "right") ##truncate
@@ -337,11 +331,11 @@ Nice!
 
 **How would one do other pages?**
 
-One (hacky) approach is to use the URL and another for loop.[^15] 
+One (hacky) approach is to use the URL and another for loop.[^14]
+
+[^14]: There are better ways of working with URLs: <https://github.com/Ironholds/urltools>
 
 In the example below, I extract the job links for the first 3 pages:
-
-[^15]: There are better ways of working with URLs: <https://github.com/Ironholds/urltools>
 
 ```{r joblinks_example2}
 
@@ -370,18 +364,17 @@ head(links, 10) ##looks good!
 
 #### Things to think about
 
-Make sure your script can handle errors.[^16]
+Make sure your script can handle errors.[^15]
 
-[^16]: See "safely" and "possibly" from the [purrr](https://purrr.tidyverse.org/) package (or "trycatch" from base R)
+[^15]: See "safely" and "possibly" from the [purrr](https://purrr.tidyverse.org/) package (or "trycatch" from base R)
 
 -   CSS-selectors change over time (if you're planning to run your script again in future, you should check)
 -   links stop working (page names change, or they stop existing)
 -   not all pages are necessarily the same (some elements may be missing from some pages) --- see the "job type" variable above, for instance
 -   sites time out (that can break your script if you don't account for it)
-- what other things might break your script?
+-   what other things might break your script?
 
 #### Putting it all together
-
 
 ```{r all-together, eval=FALSE}
 
@@ -476,14 +469,12 @@ for (i in 1:total) {
 ##combining all tibbles in the list into a single big tibble
 
 all <- output[!is.na(output)] ##remove empty tibbles, if any
-all <- bind_rows(output) ##Fab!
+all <- bind_rows(all) ##Fab!
 glimpse(all)
 
 ```
 
-
-
----
+------------------------------------------------------------------------
 
 ## Resources
 
