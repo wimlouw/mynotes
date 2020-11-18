@@ -34,7 +34,9 @@ The process was greatly helped by webscraping scripts we developed.[^1] And I le
 
 [^2]: R and RStudio set-up and other resources [here](https://wimlouw.netlify.app/2020/09/24/resources/#r)
 
-Webscraping is about getting the thing you're seeing on a webpage into a form you can work with on your computer: a dataset, a list, or whatever. It might be single table or multiple tables across many pages; or a combination of elements, like job ads with associated information.
+Webscraping is about getting the thing you're seeing on a webpage into a form you can work with on your computer: a dataset, a list, or whatever. It might be single table or multiple tables across many pages; or a combination of elements, like job ads with associated information. 
+
+The kind of scraping I'll discuss below is called "screen scraping" (or HTML parsing).
 
 This is a data extraction and cleaning exercise: getting the content you want from the page HTML. Once you have the content in a form you can work with, it's standard data cleaning stuff (manipulating strings, dates, &c.[^3]).
 
@@ -67,7 +69,7 @@ There are a few things to consider before investing time in writing a webscrapin
 -   **Is this already available?** Perhaps it can be downloaded from the site as a spreadsheet already (have a look around), or perhaps the site has an API[^7] you can access to download data.
 -   **Is there a low effort way of doing this?** For instance, maybe you can just copy-paste what you need into a spreadsheet or directly into R[^8]? Or maybe there's a tool you can use straight-away.[^9]
 -   **How much copy-paste/ "low-effort" work are we talking here?** I think writing a simple script can, in many cases, be the lowest effort (and cheapest) of all, but one might hesitate because it feels daunting. If you'll need to copy-paste multiple things across multiple pages, rather write a script. And if it's something you plan to do regularly --- automate with a script.
--   **Is it OK for me to do this?** This is a trickier question. It depends. And sometimes it's hard to tell! Things you can do: check if the site has a `robots.txt` file[^10] (which, if a site has one, includes do's and don't for scrapers/crawlers); perhaps ask yourself "would I feel OK about this information being pulled if this was my website?". If you decide to scrape --- be "polite" about it: don't overwhelm the site. Don't bother the site more than you need to, i.e. don't send too many requests to a website per second. You can avoid this by trying to be efficient (don't repeatedly query the website); include some "rests" in your code, to slow things down.
+-   **Is it OK for me to do this?** This is a trickier question. It depends. And sometimes it's hard to tell! Things you can do: check if the site has a `robots.txt` file[^10] (which, if a site has one, includes do's and don't for scrapers/crawlers); perhaps ask yourself "would I feel OK about this information being pulled if this was my website?"; consider what you plan to do with the information you aggregate, and ask yourself if that seems OK. If you decide to scrape --- be "polite" about it: don't overwhelm the site. Don't bother the site more than you need to, i.e. don't send too many requests to a website per second. You can avoid this by trying to be efficient (don't repeatedly query the website); include some "rests" in your code, to slow things down.
 
 [^7]: See [What exactly IS an API? - by Perry Eising on Medium](https://medium.com/@perrysetgo/what-exactly-is-an-api-69f36968a41f)
 
@@ -114,6 +116,7 @@ I use the [rvest](https://github.com/tidyverse/rvest) R package ("rvest helps yo
 ### Set up
 
 ```{r libraries}
+
 ## Load libraries ####
 library(tidyverse) ##for data manipulation (various packages)
 library(rvest) ##for scraping
@@ -123,16 +126,17 @@ library(kableExtra) ##for printing out an html table in this post
 
 ```
 
-Wikipedia has a robots.txt, and it seems OK to scrape if you're going to be polite about it:
 
-```{r robotstxt}
-## Look at robots.txt (if any) ####
-rtxt_wikipedia <- robotstxt(domain="wikipedia.org")
-replace_html(str_trunc(rtxt_wikipedia$text, 500, "right"))
+```{r}
+
+## use the robotstxt package to check if a bot has permissions to access page(s)
+
+robotstxt::paths_allowed("https://www.wikipedia.org/") ##should be TRUE
+robotstxt::paths_allowed("https://www.gumtree.co.za/") ##should be TRUE
 
 ```
 
-As for Gumtree.co.za --- it has one, but I found it hard to interpret. I decided to just be very polite about it ¯\\\_(ツ)\_/¯
+**Note:** these protocols are not easy to interpret. I think the rule of thumb is: be polite.
 
 ### Table example
 
@@ -383,7 +387,6 @@ Make sure your script can handle errors.[^15]
 library(tidyverse) ##for data manipulation (various packages)
 library(rvest) ##for scraping
 library(textclean) ##some cleaning functions
-library(kableExtra) ##for printing out an html table in this post
 library(progress) ##for tracking progress in console
 
 ## Function 1: Clean an element ####
@@ -458,7 +461,8 @@ safe_clean_ad <- possibly(clean_ad, NA) ##see purrr package
 ##list
 output <- list()
 
-##loop
+##the loop
+
 for (i in 1:total) {
   pb$tick()
   deets <- safe_clean_ad(links[i])
@@ -478,7 +482,7 @@ glimpse(all)
 
 ## Resources
 
--   Mine Dogucu & Mine Çetinkaya-Rundel (2020): "[Web Scraping in the Statistics and Data Science Curriculum: Challenges and Opportunities](https://github.com/mdogucu/web-scrape)", Journal of Statistics Education
+-   Mine Dogucu & Mine Çetinkaya-Rundel (2020): "[Web Scraping in the Statistics and Data Science Curriculum: Challenges and Opportunities](https://github.com/mdogucu/web-scrape)", Journal of Statistics Education (fyi, see their use of `purrr`'s `map_dfr` function!)
 -   [How we learnt to stop worrying and love web scraping \| Nature Career Column](https://www.nature.com/articles/d41586-020-02558-0) by Nicholas J. DeVito, Georgia C. Richards & Peter Inglesby
 -   [Chapter 12: "Web scraping"](https://automatetheboringstuff.com/2e/chapter12/) in "Automate the Boring Stuff with Python" by Al Sweigart
 -   [Git scraping: track changes over time by scraping to a Git repository](https://simonwillison.net/2020/Oct/9/git-scraping/)

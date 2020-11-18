@@ -42,6 +42,7 @@ output:
 <p>A couple of years ago, I had the opportunity to work as a Research Associate on a labour market study in South Africa. Part of this study involved looking for suitable online job vacancies and applying for jobs on behalf of participants.</p>
 <p>The process was greatly helped by webscraping scripts we developed.<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a> And I learned a bit about how to programmatically extract information from websites using <a href="https://www.r-project.org/about.html">R</a>, <a href="https://github.com/tidyverse/rvest">rvest</a>, and <a href="https://docs.ropensci.org/RSelenium/">R Selenium</a>.<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a></p>
 <p>Webscraping is about getting the thing you’re seeing on a webpage into a form you can work with on your computer: a dataset, a list, or whatever. It might be single table or multiple tables across many pages; or a combination of elements, like job ads with associated information.</p>
+<p>The kind of scraping I’ll discuss below is called “screen scraping” (or HTML parsing).</p>
 <p>This is a data extraction and cleaning exercise: getting the content you want from the page HTML. Once you have the content in a form you can work with, it’s standard data cleaning stuff (manipulating strings, dates, &amp;c.<a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a>).</p>
 <p>In doing this, you’ll be familiarising yourself with the specific website you’re interested in and figuring out where the information you want is, choosing the right <a href="https://www.w3schools.com/cssref/css_selectors.asp">CSS-selectors</a>, working with URLs<a href="#fn4" class="footnote-ref" id="fnref4"><sup>4</sup></a> and figuring out how to iterate (or “crawl”) pages.</p>
 <p>In more complicated cases, it involves writing a script that can interact with the webpage (by driving a browser), to reveal the content you want. And if you want to build something more sophisticated, it might involve working with a database, a scheduler, and other tools.<a href="#fn5" class="footnote-ref" id="fnref5"><sup>5</sup></a> For instance, you might want to build something that extracts information regularly, tracks changes over time and stores it in a database.<a href="#fn6" class="footnote-ref" id="fnref6"><sup>6</sup></a></p>
@@ -60,7 +61,7 @@ output:
 <li><strong>Is this already available?</strong> Perhaps it can be downloaded from the site as a spreadsheet already (have a look around), or perhaps the site has an API<a href="#fn7" class="footnote-ref" id="fnref7"><sup>7</sup></a> you can access to download data.</li>
 <li><strong>Is there a low effort way of doing this?</strong> For instance, maybe you can just copy-paste what you need into a spreadsheet or directly into R<a href="#fn8" class="footnote-ref" id="fnref8"><sup>8</sup></a>? Or maybe there’s a tool you can use straight-away.<a href="#fn9" class="footnote-ref" id="fnref9"><sup>9</sup></a></li>
 <li><strong>How much copy-paste/ “low-effort” work are we talking here?</strong> I think writing a simple script can, in many cases, be the lowest effort (and cheapest) of all, but one might hesitate because it feels daunting. If you’ll need to copy-paste multiple things across multiple pages, rather write a script. And if it’s something you plan to do regularly — automate with a script.</li>
-<li><strong>Is it OK for me to do this?</strong> This is a trickier question. It depends. And sometimes it’s hard to tell! Things you can do: check if the site has a <code>robots.txt</code> file<a href="#fn10" class="footnote-ref" id="fnref10"><sup>10</sup></a> (which, if a site has one, includes do’s and don’t for scrapers/crawlers); perhaps ask yourself “would I feel OK about this information being pulled if this was my website?”. If you decide to scrape — be “polite” about it: don’t overwhelm the site. Don’t bother the site more than you need to, i.e. don’t send too many requests to a website per second. You can avoid this by trying to be efficient (don’t repeatedly query the website); include some “rests” in your code, to slow things down.</li>
+<li><strong>Is it OK for me to do this?</strong> This is a trickier question. It depends. And sometimes it’s hard to tell! Things you can do: check if the site has a <code>robots.txt</code> file<a href="#fn10" class="footnote-ref" id="fnref10"><sup>10</sup></a> (which, if a site has one, includes do’s and don’t for scrapers/crawlers); perhaps ask yourself “would I feel OK about this information being pulled if this was my website?”; consider what you plan to do with the information you aggregate, and ask yourself if that seems OK. If you decide to scrape — be “polite” about it: don’t overwhelm the site. Don’t bother the site more than you need to, i.e. don’t send too many requests to a website per second. You can avoid this by trying to be efficient (don’t repeatedly query the website); include some “rests” in your code, to slow things down.</li>
 </ul>
 <hr />
 </div>
@@ -94,26 +95,13 @@ library(rvest) ##for scraping
 library(textclean) ##some cleaning functions
 library(robotstxt) ##to get robotstxt protocols
 library(kableExtra) ##for printing out an html table in this post</code></pre>
-<p>Wikipedia has a robots.txt, and it seems OK to scrape if you’re going to be polite about it:</p>
-<pre class="r"><code>## Look at robots.txt (if any) ####
-rtxt_wikipedia &lt;- robotstxt(domain=&quot;wikipedia.org&quot;)
-replace_html(str_trunc(rtxt_wikipedia$text, 500, &quot;right&quot;))</code></pre>
-<pre><code>&gt; # robots.txt for http://www.wikipedia.org/ and friends
-&gt; #
-&gt; # Please note: There are a lot of pages on this site, and there are
-&gt; # some misbehaved spiders out there that go _way_ too fast. If you&#39;re
-&gt; # irresponsible, your access to the site may be blocked.
-&gt; #
-&gt; 
-&gt; # Observed spamming large amounts of https://en.wikipedia.org/?curid=NNNNNN
-&gt; # and ignoring 429 ratelimit responses, claims to respect robots:
-&gt; # http://mj12bot.com/
-&gt; User-agent: MJ12bot
-&gt; Disallow: /
-&gt; 
-&gt; # advertising-related bots:
-&gt; User-agent: Media...</code></pre>
-<p>As for Gumtree.co.za — it has one, but I found it hard to interpret. I decided to just be very polite about it ¯\_(ツ)_/¯</p>
+<pre class="r"><code>## use the robotstxt package to check if a bot has permissions to access page(s)
+
+robotstxt::paths_allowed(&quot;https://www.wikipedia.org/&quot;) ##should be TRUE</code></pre>
+<pre><code>&gt; [1] TRUE</code></pre>
+<pre class="r"><code>robotstxt::paths_allowed(&quot;https://www.gumtree.co.za/&quot;) ##should be TRUE</code></pre>
+<pre><code>&gt; [1] TRUE</code></pre>
+<p><strong>Note:</strong> these protocols are not easy to interpret. I think the rule of thumb is: be polite.</p>
 </div>
 <div id="table-example" class="section level3">
 <h3>Table example</h3>
@@ -168,12 +156,12 @@ links &lt;-
   html_attr(&quot;href&quot;)
 
 head(links) ##great!</code></pre>
-<pre><code>&gt; [1] &quot;/a-engineering-architecture-jobs/umbilo/building-and-civil-internship-entry-level-position/1008022960150910172878709&quot;
-&gt; [2] &quot;/a-other-sales-jobs/kempton-park/sales-assistant/1008356622970910009548109&quot;                                          
-&gt; [3] &quot;/a-customer-service-jobs/salt-river/call-centre/1008356745720911125725209&quot;                                           
-&gt; [4] &quot;/a-tutors-teaching-jobs/lakeside/maths-and-physics-teacher-sp-fet/1008353544800912460072609&quot;                         
-&gt; [5] &quot;/a-sales-representatives-jobs/other/sales-consultant-needed-+-travel/1008343366270910016930309&quot;                      
-&gt; [6] &quot;/a-it-technician-jobs/port-elizabeth/entry-level-technician-installer/1008341037700912098673809&quot;</code></pre>
+<pre><code>&gt; [1] &quot;/a-other-sales-jobs/kempton-park/sales-assistant/1008356622970910009548109&quot;                          
+&gt; [2] &quot;/a-customer-service-jobs/salt-river/call-centre/1008356745720911125725209&quot;                           
+&gt; [3] &quot;/a-tutors-teaching-jobs/lakeside/maths-and-physics-teacher-sp-fet/1008353544800912460072609&quot;         
+&gt; [4] &quot;/a-sales-representatives-jobs/other/sales-consultant-needed-+-travel/1008343366270910016930309&quot;      
+&gt; [5] &quot;/a-it-technician-jobs/port-elizabeth/entry-level-technician-installer/1008341037700912098673809&quot;     
+&gt; [6] &quot;/a-office-jobs/brackenfell/office-assistant-brackenfell-r8-000-+-r9-000-pm/1008334081620911146640309&quot;</code></pre>
 <p>I decided to extract the job title, description, job type, employer, location, and to include a time-stamp. I used the inspect tool to identify each element’s CSS-selector.</p>
 <p>(There’s much more information on this page than the few elements I chose; the approach would be the same.)</p>
 <pre class="r"><code>##first link
@@ -182,7 +170,7 @@ jobs_1 &lt;- read_html(paste0(&quot;https://www.gumtree.co.za&quot;, links[1]))
 jobs_1</code></pre>
 <pre><code>&gt; {xml_document}
 &gt; &lt;html data-locale=&quot;en_ZA&quot; lang=&quot;en&quot; xmlns=&quot;http://www.w3.org/1999/html&quot; class=&quot;VIP&quot;&gt;
-&gt; [1] &lt;head&gt;\n&lt;meta name=&quot;csrf-token&quot; content=&quot;7c3265c31708305143e451f9a2ab30ca ...
+&gt; [1] &lt;head&gt;\n&lt;meta name=&quot;csrf-token&quot; content=&quot;906513f227b88b27285e3f46323d0dc7 ...
 &gt; [2] &lt;body class=&quot;VIP&quot;&gt;\n&lt;noscript&gt;&lt;iframe src=&quot;//www.googletagmanager.com/ns. ...</code></pre>
 <pre class="r"><code>##get the job title
 title &lt;- jobs_1 %&gt;%
@@ -192,7 +180,7 @@ title &lt;- jobs_1 %&gt;%
   str_squish() ##get rid of leading and trailing whitespace
 
 title</code></pre>
-<pre><code>&gt; [1] &quot;Building and civil Internship entry level position&quot;</code></pre>
+<pre><code>&gt; [1] &quot;Sales Assistant&quot;</code></pre>
 <p>This worked.</p>
 <p>Since I want to do this for a few more things — title, description, &amp;c., I code a function to make this easier, and to avoid repeating myself too much:</p>
 <pre class="r"><code>## function for cleaning single elements ####
@@ -226,9 +214,9 @@ dat &lt;-
 
 dat ##looks good!</code></pre>
 <pre><code>&gt; # A tibble: 1 x 5
-&gt;   title          description              jobtype location   time               
-&gt;   &lt;chr&gt;          &lt;chr&gt;                    &lt;chr&gt;   &lt;chr&gt;      &lt;dttm&gt;             
-&gt; 1 Building and … DescriptionWe have a po… EE/AA   Umbilo, D… 2020-11-17 16:34:23</code></pre>
+&gt;   title    description                   jobtype location    time               
+&gt;   &lt;chr&gt;    &lt;chr&gt;                         &lt;chr&gt;   &lt;chr&gt;       &lt;dttm&gt;             
+&gt; 1 Sales A… DescriptionLooking for a Sal… Full-T… Kempton Pa… 2020-11-18 10:26:10</code></pre>
 <p>What if I wanted to do this for all job posts on a page?</p>
 <div id="iteration" class="section level4">
 <h4>Iteration</h4>
@@ -277,11 +265,11 @@ all &lt;- bind_rows(output) ##fab!
 glimpse(all)</code></pre>
 <pre><code>&gt; Rows: 10
 &gt; Columns: 5
-&gt; $ title       &lt;chr&gt; &quot;Accountant - Ad posted by schullpak&quot;, &quot;Building and civi…
-&gt; $ description &lt;chr&gt; &quot;DescriptionAccountant. Mechanical and Electrical Enginee…
-&gt; $ jobtype     &lt;chr&gt; &quot;Full-Time&quot;, &quot;EE/AA&quot;, NA, NA, &quot;Full-Time&quot;, &quot;Temporary&quot;, &quot;…
-&gt; $ location    &lt;chr&gt; &quot;Lanseria, Johannesburg&quot;, &quot;Umbilo, Durban City&quot;, &quot;Port El…
-&gt; $ time        &lt;dttm&gt; 2020-11-17 16:34:25, 2020-11-17 16:34:28, 2020-11-17 16:…</code></pre>
+&gt; $ title       &lt;chr&gt; &quot;Sales executive&quot;, &quot;Optic Fibre Sales Management Program&quot;…
+&gt; $ description &lt;chr&gt; &quot;DescriptionSales Assistant Entry LevelHlumelo Direct Mar…
+&gt; $ jobtype     &lt;chr&gt; &quot;Full-Time&quot;, NA, NA, NA, &quot;Commission&quot;, &quot;Commission&quot;, &quot;Ful…
+&gt; $ location    &lt;chr&gt; &quot;Klerksdorp, North West&quot;, &quot;De Waterkant, Cape Town&quot;, &quot;Bra…
+&gt; $ time        &lt;dttm&gt; 2020-11-18 10:26:11, 2020-11-18 10:26:15, 2020-11-18 10:…</code></pre>
 <pre class="r"><code>all$description &lt;- str_trunc(all$description, 100, &quot;right&quot;) ##truncate
 
 ##I&#39;m using kable to make an html table for the site
@@ -311,53 +299,36 @@ time
 <tbody>
 <tr>
 <td style="text-align:left;">
-Accountant - Ad posted by schullpak
+Sales executive
 </td>
 <td style="text-align:left;">
-DescriptionAccountant. Mechanical and Electrical Engineering Company based in Lanseria, Johannesb…
+DescriptionSales Assistant Entry LevelHlumelo Direct Marketing is seeking a full time Sales Execu…
 </td>
 <td style="text-align:left;">
 Full-Time
 </td>
 <td style="text-align:left;">
-Lanseria, Johannesburg
+Klerksdorp, North West
 </td>
 <td style="text-align:left;">
-2020-11-17 16:34:25
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Building and civil Internship entry level position
-</td>
-<td style="text-align:left;">
-DescriptionWe have a position for a building/civil internship You should have a reasonable amount…
-</td>
-<td style="text-align:left;">
-EE/AA
-</td>
-<td style="text-align:left;">
-Umbilo, Durban City
-</td>
-<td style="text-align:left;">
-2020-11-17 16:34:28
+2020-11-18 10:26:11
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-Entry level technician/installer
+Optic Fibre Sales Management Program
 </td>
 <td style="text-align:left;">
-DescriptionWe are looking to expand our service delivery team. Please read through below and if y…
+Description Real Promotions is recruiting for Vodacom representatives within the Cape Town area. …
 </td>
 <td style="text-align:left;">
 NA
 </td>
 <td style="text-align:left;">
-Port Elizabeth, Eastern Cape
+De Waterkant, Cape Town
 </td>
 <td style="text-align:left;">
-2020-11-17 16:34:31
+2020-11-18 10:26:15
 </td>
 </tr>
 <tr>
@@ -374,58 +345,24 @@ NA
 Brackenfell, Northern Suburbs
 </td>
 <td style="text-align:left;">
-2020-11-17 16:34:35
+2020-11-18 10:26:18
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-Sales Assistant
+Telkom Sales and Marketing
 </td>
 <td style="text-align:left;">
-DescriptionLooking for a Sales Assistant. Note: This is an entry level position. You will be requ…
+Description Real Promotions is a dynamic, fast growing sales and marketing company based in Cape …
 </td>
 <td style="text-align:left;">
-Full-Time
+NA
 </td>
 <td style="text-align:left;">
-Kempton Park, East Rand
+De Waterkant, Cape Town
 </td>
 <td style="text-align:left;">
-2020-11-17 16:34:38
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Camera man Video editor
-</td>
-<td style="text-align:left;">
-DescriptionYoung camera man video editor, amateur skilled talented We are looking for young perso…
-</td>
-<td style="text-align:left;">
-Temporary
-</td>
-<td style="text-align:left;">
-Umhlanga, North Suburbs
-</td>
-<td style="text-align:left;">
-2020-11-17 16:34:42
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Sales consultant needed - Travel
-</td>
-<td style="text-align:left;">
-DescriptionWe are growing Travel Agency looking to employ an sale agent.This is an entry level po…
-</td>
-<td style="text-align:left;">
-Commission
-</td>
-<td style="text-align:left;">
-Other, Durban City
-</td>
-<td style="text-align:left;">
-2020-11-17 16:34:46
+2020-11-18 10:26:21
 </td>
 </tr>
 <tr>
@@ -442,41 +379,92 @@ Commission
 Bloemfontein, Free State
 </td>
 <td style="text-align:left;">
-2020-11-17 16:34:49
+2020-11-18 10:26:24
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-call centre
+Sales and Marketing
 </td>
 <td style="text-align:left;">
-DescriptionEntry level positionMerchants iinet is looking for you.Vibrant, energetic personality …
+DescriptionTD marketing company is a marketing company specializing in customer acquisition and s…
 </td>
 <td style="text-align:left;">
-NA
+Commission
 </td>
 <td style="text-align:left;">
-Salt River, Cape Town
+Other, East Rand
 </td>
 <td style="text-align:left;">
-2020-11-17 16:34:52
+2020-11-18 10:26:27
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-Grade 1-3 Teacher as afternoon tutor
+Accountant - Ad posted by schullpak
 </td>
 <td style="text-align:left;">
-DescriptionHiWe are looking for a Grade 1 to 3 teacher to tutor our son. He is 4 however his math…
+DescriptionAccountant. Mechanical and Electrical Engineering Company based in Lanseria, Johannesb…
 </td>
 <td style="text-align:left;">
-Casual
+Full-Time
 </td>
 <td style="text-align:left;">
-Claremont &amp; Newlands, Southern Suburbs
+Lanseria, Johannesburg
 </td>
 <td style="text-align:left;">
-2020-11-17 16:34:55
+2020-11-18 10:26:31
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Camera man Video editor
+</td>
+<td style="text-align:left;">
+DescriptionYoung camera man video editor, amateur skilled talented We are looking for young perso…
+</td>
+<td style="text-align:left;">
+Temporary
+</td>
+<td style="text-align:left;">
+Umhlanga, North Suburbs
+</td>
+<td style="text-align:left;">
+2020-11-18 10:26:34
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Financial Manager
+</td>
+<td style="text-align:left;">
+DescriptionPurpose of the Job-To support the company in meeting and exceeding the overall objecti…
+</td>
+<td style="text-align:left;">
+EE/AA
+</td>
+<td style="text-align:left;">
+Kempton Park, East Rand
+</td>
+<td style="text-align:left;">
+2020-11-18 10:26:38
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Junior Warehouse Controller - PTA (Non-EE)
+</td>
+<td style="text-align:left;">
+DescriptionAn established logistics company in Pretoria East will employ a Junior Warehouse Contr…
+</td>
+<td style="text-align:left;">
+Non EE/AA
+</td>
+<td style="text-align:left;">
+Eastern Pretoria, Pretoria / Tshwane
+</td>
+<td style="text-align:left;">
+2020-11-18 10:26:44
 </td>
 </tr>
 </tbody>
@@ -505,16 +493,16 @@ for (i in 1:pages) {
 links &lt;- unlist(job_list) ##make a single list
 links &lt;- paste0(&quot;https://www.gumtree.co.za&quot;, links)
 head(links, 10) ##looks good!</code></pre>
-<pre><code>&gt;  [1] &quot;https://www.gumtree.co.za/a-engineering-architecture-jobs/umbilo/building-and-civil-internship-entry-level-position/1008022960150910172878709&quot;       
-&gt;  [2] &quot;https://www.gumtree.co.za/a-other-sales-jobs/kempton-park/sales-assistant/1008356622970910009548109&quot;                                                 
-&gt;  [3] &quot;https://www.gumtree.co.za/a-customer-service-jobs/salt-river/call-centre/1008356745720911125725209&quot;                                                  
-&gt;  [4] &quot;https://www.gumtree.co.za/a-tutors-teaching-jobs/lakeside/maths-and-physics-teacher-sp-fet/1008353544800912460072609&quot;                                
-&gt;  [5] &quot;https://www.gumtree.co.za/a-sales-representatives-jobs/other/sales-consultant-needed-+-travel/1008343366270910016930309&quot;                             
-&gt;  [6] &quot;https://www.gumtree.co.za/a-it-technician-jobs/port-elizabeth/entry-level-technician-installer/1008341037700912098673809&quot;                            
-&gt;  [7] &quot;https://www.gumtree.co.za/a-office-jobs/brackenfell/office-assistant-brackenfell-r8-000-+-r9-000-pm/1008334081620911146640309&quot;                       
-&gt;  [8] &quot;https://www.gumtree.co.za/a-accounting-finance-jobs/lanseria/accountant-+-ad-posted-by-schullpak/1008328269890910406385609&quot;                          
-&gt;  [9] &quot;https://www.gumtree.co.za/a-logistics-jobs/eastern-pretoria/junior-warehouse-controller-+-pta-non+ee/1008328733720911316948209&quot;                      
-&gt; [10] &quot;https://www.gumtree.co.za/a-accounting-finance-jobs/pinetown/5-x-accountants-bookkeepers-required-for-busy-accounting-firm/1008320950160910865995909&quot;</code></pre>
+<pre><code>&gt;  [1] &quot;https://www.gumtree.co.za/a-other-sales-jobs/kempton-park/sales-assistant/1008356622970910009548109&quot;                                                 
+&gt;  [2] &quot;https://www.gumtree.co.za/a-customer-service-jobs/salt-river/call-centre/1008356745720911125725209&quot;                                                  
+&gt;  [3] &quot;https://www.gumtree.co.za/a-tutors-teaching-jobs/lakeside/maths-and-physics-teacher-sp-fet/1008353544800912460072609&quot;                                
+&gt;  [4] &quot;https://www.gumtree.co.za/a-sales-representatives-jobs/other/sales-consultant-needed-+-travel/1008343366270910016930309&quot;                             
+&gt;  [5] &quot;https://www.gumtree.co.za/a-it-technician-jobs/port-elizabeth/entry-level-technician-installer/1008341037700912098673809&quot;                            
+&gt;  [6] &quot;https://www.gumtree.co.za/a-office-jobs/brackenfell/office-assistant-brackenfell-r8-000-+-r9-000-pm/1008334081620911146640309&quot;                       
+&gt;  [7] &quot;https://www.gumtree.co.za/a-accounting-finance-jobs/lanseria/accountant-+-ad-posted-by-schullpak/1008328269890910406385609&quot;                          
+&gt;  [8] &quot;https://www.gumtree.co.za/a-logistics-jobs/eastern-pretoria/junior-warehouse-controller-+-pta-non+ee/1008328733720911316948209&quot;                      
+&gt;  [9] &quot;https://www.gumtree.co.za/a-accounting-finance-jobs/pinetown/5-x-accountants-bookkeepers-required-for-busy-accounting-firm/1008320950160910865995909&quot;
+&gt; [10] &quot;https://www.gumtree.co.za/a-sales-representatives-jobs/de-waterkant/telkom-sales-and-marketing/1008313388250910325151109&quot;</code></pre>
 </div>
 <div id="things-to-think-about" class="section level4">
 <h4>Things to think about</h4>
@@ -534,7 +522,6 @@ head(links, 10) ##looks good!</code></pre>
 library(tidyverse) ##for data manipulation (various packages)
 library(rvest) ##for scraping
 library(textclean) ##some cleaning functions
-library(kableExtra) ##for printing out an html table in this post
 library(progress) ##for tracking progress in console
 
 ## Function 1: Clean an element ####
@@ -609,7 +596,8 @@ safe_clean_ad &lt;- possibly(clean_ad, NA) ##see purrr package
 ##list
 output &lt;- list()
 
-##loop
+##the loop
+
 for (i in 1:total) {
   pb$tick()
   deets &lt;- safe_clean_ad(links[i])
@@ -629,7 +617,7 @@ glimpse(all)</code></pre>
 <div id="resources" class="section level2">
 <h2>Resources</h2>
 <ul>
-<li>Mine Dogucu &amp; Mine Çetinkaya-Rundel (2020): “<a href="https://github.com/mdogucu/web-scrape">Web Scraping in the Statistics and Data Science Curriculum: Challenges and Opportunities</a>”, Journal of Statistics Education</li>
+<li>Mine Dogucu &amp; Mine Çetinkaya-Rundel (2020): “<a href="https://github.com/mdogucu/web-scrape">Web Scraping in the Statistics and Data Science Curriculum: Challenges and Opportunities</a>”, Journal of Statistics Education (fyi, see their use of <code>purrr</code>’s <code>map_dfr</code> function!)</li>
 <li><a href="https://www.nature.com/articles/d41586-020-02558-0">How we learnt to stop worrying and love web scraping | Nature Career Column</a> by Nicholas J. DeVito, Georgia C. Richards &amp; Peter Inglesby</li>
 <li><a href="https://automatetheboringstuff.com/2e/chapter12/">Chapter 12: “Web scraping”</a> in “Automate the Boring Stuff with Python” by Al Sweigart</li>
 <li><a href="https://simonwillison.net/2020/Oct/9/git-scraping/">Git scraping: track changes over time by scraping to a Git repository</a></li>
