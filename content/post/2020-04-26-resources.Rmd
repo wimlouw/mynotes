@@ -282,7 +282,8 @@ output:
 > `¯\_(ツ)_/¯`
 
 -   Articles
-    -   [Why Remote Work Is So Hard---and How It Can Be Fixed \| The New Yorker \| Cal Newport](https://www.newyorker.com/culture/annals-of-inquiry/can-remote-work-be-fixed)
+    - [The Rise and Fall of Getting Things Done | The New Yorker \| Cal Newport](https://www.newyorker.com/tech/annals-of-technology/the-rise-and-fall-of-getting-things-done)
+    - [Why Remote Work Is So Hard---and How It Can Be Fixed \| The New Yorker \| Cal Newport](https://www.newyorker.com/culture/annals-of-inquiry/can-remote-work-be-fixed)
     -   [Jenny Odell on why we need to learn to do nothing](https://www.theguardian.com/lifeandstyle/2019/sep/27/jenny-odell-on-why-we-need-to-learn-to-do-nothing-its-a-reminder-that-youre-alive)
     -   [Mindful productivity: a sustainable way to work and think - Ness Labs](https://nesslabs.com/mindful-productivity-2)
     -   See various in HBR's ["Time management"](https://hbr.org/topic/time-management) section
