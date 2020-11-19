@@ -1,0 +1,1 @@
+https://wimlouw.netlify.app/*    https://wimlouw.com/:splat  301!
