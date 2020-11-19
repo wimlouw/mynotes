@@ -1,14 +1,14 @@
 ---
-date: "2020-09-24"
+date: "2020-11-19"
 title: About
 ---
+
+I am currently a Research Manager at [J-PAL Africa](https://www.povertyactionlab.org/africa). I work on projects in youth employment, and education. Before joining J-PAL Africa, I worked as a researcher in the South African non-profit sector. 
+
+This site is a personal project.
 
 I was curious about creating websites with R Markdown! 
 
 I followed Yihui Xie, Amber Thomas, and Alison Presmanes Hill's book "[blogdown: Creating Websites with R Markdown"](https://bookdown.org/yihui/blogdown/) for set-up.
 
-This was wonderfully easy.
-
-For now I'm just updating a "resources" list that includes tools and articles I find interesting, and plan to add a few tutorials.
-
-(Other things that were useful: I made some tweaks to the ["lithium"](https://themes.gohugo.io/hugo-lithium-theme/) theme in the layouts folder including: getting external links to open in a new tab (see [this post](https://yihui.org/en/2018/09/target-blank/)) in the "footer.html" file, and added Google Tag Manager in the "head_custom.html" file.)
+This was wonderfully easy :)
