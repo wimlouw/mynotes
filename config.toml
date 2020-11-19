@@ -1,6 +1,6 @@
 baseurl = "/"
 languageCode = "en-uk"
-title = "Notes"
+title = "wimlouw"
 theme = "hugo-lithium"
 googleAnalytics = "UA-178880539-1"
 disqusShortname = ""
