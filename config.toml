@@ -20,7 +20,7 @@ ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_files$", "_cache$", "\\.bib$", "\\.
     url = "https://twitter.com/wimlouw"
 
 [params]
-    description = "A place for notes"
+    description = "Occasional posts: tech resources, coding, &c."
 
     # options for highlight.js (version, additional languages, and theme)
     highlightjsVersion = "9.12.0"
