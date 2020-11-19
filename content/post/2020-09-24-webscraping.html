@@ -44,14 +44,14 @@ output:
 <p>Webscraping is about getting the thing you’re seeing on a webpage into a form you can work with on your computer: a dataset, a list, or whatever. It might be single table or multiple tables across many pages; or a combination of elements, like job ads with associated information.</p>
 <p>The kind of scraping I’ll discuss below is called “screen scraping” (or HTML parsing).</p>
 <p>This is a data extraction and cleaning exercise: getting the content you want from the page HTML. Once you have the content in a form you can work with, it’s standard data cleaning stuff (manipulating strings, dates, &amp;c.<a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a>).</p>
-<p>In doing this, you’ll be familiarising yourself with the specific website you’re interested in and figuring out where the information you want is, choosing the right <a href="https://www.w3schools.com/cssref/css_selectors.asp">CSS-selectors</a>, working with URLs<a href="#fn4" class="footnote-ref" id="fnref4"><sup>4</sup></a> and figuring out how to iterate (or “crawl”) pages.</p>
+<p>In doing this, you’ll be familiarising yourself with the specific website you’re interested in and figuring out where the information you want is, choosing the right <a href="https://www.w3schools.com/cssref/css_selectors.asp">CSS-selectors</a>, working with URLs<a href="#fn4" class="footnote-ref" id="fnref4"><sup>4</sup></a> and figuring out how to iterate over (or “crawl”) pages.</p>
 <p>In more complicated cases, it involves writing a script that can interact with the webpage (by driving a browser), to reveal the content you want. And if you want to build something more sophisticated, it might involve working with a database, a scheduler, and other tools.<a href="#fn5" class="footnote-ref" id="fnref5"><sup>5</sup></a> For instance, you might want to build something that extracts information regularly, tracks changes over time and stores it in a database.<a href="#fn6" class="footnote-ref" id="fnref6"><sup>6</sup></a></p>
 <hr />
 </div>
 <div id="approach" class="section level2">
 <h2>Approach</h2>
 <p>In the examples below, I extract a table from a Wikipedia.org page (trickier than I thought!), and — more elaborately — extract information about jobs from a site called Gumtree (.co.za).</p>
-<p>For the most part, the approach is something like: (a) go to the site you want to scrape, (b) figure out what the things you want to extract are called (find the right CSS-selectors using an inspect tool), (c) use the <code>read_html</code>, <code>html_nodes</code>, and other functions in the <code>rvest</code> package to extract those elements, (d) store the results in the format you want to work with (a list, a tibble, &amp;c.), (e) figure out how to iterate (if needed), (f) troubleshoot (handling errors, dealing with broken links, missing selectors, &amp;c.), (g) throughout: lots of Googling.</p>
+<p>For the most part, the approach is something like: (a) go to the site you want to scrape, (b) figure out what the things you want to extract are called (find the right CSS-selectors using an inspect tool), (c) use the <code>read_html()</code>, <code>html_nodes()</code>, and other functions in the <code>rvest</code> package to extract those elements, (d) store the results in the format you want to work with (a list, a tibble, &amp;c.), (e) figure out how to iterate (if needed), (f) troubleshoot (handling errors, dealing with broken links, missing selectors, &amp;c.), (g) throughout: lots of Googling.</p>
 <hr />
 </div>
 <div id="considerations" class="section level2">
@@ -90,16 +90,16 @@ output:
 <div id="set-up" class="section level3">
 <h3>Set up</h3>
 <pre class="r"><code>## Load libraries ####
-library(tidyverse) ##for data manipulation (various packages)
-library(rvest) ##for scraping
-library(textclean) ##some cleaning functions
-library(robotstxt) ##to get robotstxt protocols
-library(kableExtra) ##for printing out an html table in this post</code></pre>
+library(tidyverse) ## for data manipulation (various packages)
+library(rvest) ## for scraping
+library(textclean) ## some cleaning functions
+library(robotstxt) ## to get robotstxt protocols
+library(kableExtra) ## for printing out an html table in this post</code></pre>
 <pre class="r"><code>## use the robotstxt package to check if a bot has permissions to access page(s)
 
-robotstxt::paths_allowed(&quot;https://www.wikipedia.org/&quot;) ##should be TRUE</code></pre>
+robotstxt::paths_allowed(&quot;https://www.wikipedia.org/&quot;) ## should be TRUE</code></pre>
 <pre><code>&gt; [1] TRUE</code></pre>
-<pre class="r"><code>robotstxt::paths_allowed(&quot;https://www.gumtree.co.za/&quot;) ##should be TRUE</code></pre>
+<pre class="r"><code>robotstxt::paths_allowed(&quot;https://www.gumtree.co.za/&quot;) ## should be TRUE</code></pre>
 <pre><code>&gt; [1] TRUE</code></pre>
 <p><strong>Note:</strong> these protocols are not easy to interpret. I think the rule of thumb is: be polite.</p>
 </div>
@@ -107,18 +107,18 @@ robotstxt::paths_allowed(&quot;https://www.wikipedia.org/&quot;) ##should be TRU
 <h3>Table example</h3>
 <p>In the first example, I extract a table from Wikipedia.</p>
 <p>I tried using SelectorGadget and the Chrome inspection tool, but was struggling to figure out the correct selector.</p>
-<p>Something you can do (I learned, after some Googling) is to get <strong>all tables</strong> on the page; then you can identify which one is the right one using string matching (e.g. the <code>grep</code> function).</p>
+<p>Something you can do (I learned, after some Googling) is to get <strong>all tables</strong> on the page; then you can identify which one is the right one using string matching (e.g. the <code>grep()</code> function).</p>
 <p><a href="https://en.wikipedia.org/wiki/Elections_in_South_Africa"><img src="/img/Screenshot%202020-11-14%20at%2020.34.27.png" title="A screenshot of the 2019 South African general election results on Wikipedia" alt="A screenshot of the 2019 South African general election results on Wikipedia" /></a></p>
 <pre class="r"><code>## Get Table element from Wikipedia ####
 
-website &lt;- read_html(&quot;https://en.wikipedia.org/wiki/Elections_in_South_Africa&quot;) ##get the website HTML
+website &lt;- read_html(&quot;https://en.wikipedia.org/wiki/Elections_in_South_Africa&quot;) ## get the website HTML
 
-table &lt;- website %&gt;% html_nodes(&quot;table&quot;) ##all tables
-length(table) ##how many tables?</code></pre>
+table &lt;- website %&gt;% html_nodes(&quot;table&quot;) ## all tables
+length(table) ## how many tables?</code></pre>
 <pre><code>&gt; [1] 19</code></pre>
 <pre class="r"><code>data &lt;- html_table(table[grep(&quot;ANC&quot;, table)], fill = T)[[1]]
 
-glimpse(data) ##let&#39;s see</code></pre>
+glimpse(data) ## let&#39;s see</code></pre>
 <pre><code>&gt; Rows: 55
 &gt; Columns: 8
 &gt; $ Party &lt;chr&gt; &quot;list&quot;, &quot;list&quot;, &quot;list&quot;, &quot;list&quot;, &quot;list&quot;, &quot;list&quot;, &quot;list&quot;, &quot;list&quot;,…
@@ -129,7 +129,7 @@ glimpse(data) ##let&#39;s see</code></pre>
 &gt; $ `+/−` &lt;chr&gt; &quot;4.65&quot;, &quot;1.36&quot;, &quot;4.44&quot;, &quot;0.98&quot;, &quot;1.48&quot;, &quot;0.27&quot;, &quot;0.55&quot;, &quot;New&quot;, …
 &gt; $ Seats &lt;chr&gt; &quot;230&quot;, &quot;84&quot;, &quot;44&quot;, &quot;14&quot;, &quot;10&quot;, &quot;4&quot;, &quot;2&quot;, &quot;2&quot;, &quot;2&quot;, &quot;2&quot;, &quot;2&quot;, &quot;2…
 &gt; $ `+/−` &lt;chr&gt; &quot;19&quot;, &quot;5&quot;, &quot;19&quot;, &quot;4&quot;, &quot;6&quot;, &quot;1&quot;, &quot;2&quot;, &quot;New&quot;, &quot;New&quot;, &quot;4&quot;, &quot;1&quot;, &quot;1…</code></pre>
-<pre class="r"><code>head(data) ##great!</code></pre>
+<pre class="r"><code>head(data) ## great!</code></pre>
 <pre><code>&gt;   Party Party                     Party      Votes     %  +/− Seats +/−
 &gt; 1  list                             ANC 10,026,475 57.50 4.65   230  19
 &gt; 2  list             Democratic Alliance  3,621,188 20.77 1.36    84   5
@@ -144,18 +144,18 @@ glimpse(data) ##let&#39;s see</code></pre>
 <p><a href="https://www.gumtree.co.za/s-jobs/v1c8p1"><img src="/img/Screenshot%202020-11-14%20at%2020.47.23.png" title="Screenshot of job postings on gumtree.co.za" alt="Screenshot of job postings on gumtree.co.za (example)" /></a></p>
 <p><strong>Things to note here, after inspecting the page:</strong> descriptions are truncated, and contact information is hidden. To reveal them, you need to click on these elements. We’re not going to get into headless browsers, and how to get your script to interact with page elements, but keep in mind that this is possible.</p>
 <p>There are multiple postings on each page, and each one links to a full ad.</p>
-<p>I extract the links on the first page (each title links to a full post):</p>
+<p>I extract the links on the first page (each title links to a full ad):</p>
 <pre class="r"><code>## Job site example ####
-##reading in the HTML from this page on entry-level jobs
+## reading in the HTML from this page on entry-level jobs
 jobs &lt;- read_html(&quot;https://www.gumtree.co.za/s-jobs/page-1/v1c8p2?q=entry+level&quot;)
 
-##extract links on first page
+## extract links on first page
 links &lt;-
   jobs %&gt;%
-  html_nodes(&quot;.related-ad-title&quot;) %&gt;%
-  html_attr(&quot;href&quot;)
+  html_nodes(&quot;.related-ad-title&quot;) %&gt;% ## identify the &quot;title&quot; element
+  html_attr(&quot;href&quot;) ## get the post link
 
-head(links) ##great!</code></pre>
+head(links) ## great!</code></pre>
 <pre><code>&gt; [1] &quot;/a-other-sales-jobs/kempton-park/sales-assistant/1008356622970910009548109&quot;                          
 &gt; [2] &quot;/a-customer-service-jobs/salt-river/call-centre/1008356745720911125725209&quot;                           
 &gt; [3] &quot;/a-tutors-teaching-jobs/lakeside/maths-and-physics-teacher-sp-fet/1008353544800912460072609&quot;         
@@ -164,20 +164,20 @@ head(links) ##great!</code></pre>
 &gt; [6] &quot;/a-office-jobs/brackenfell/office-assistant-brackenfell-r8-000-+-r9-000-pm/1008334081620911146640309&quot;</code></pre>
 <p>I decided to extract the job title, description, job type, employer, location, and to include a time-stamp. I used the inspect tool to identify each element’s CSS-selector.</p>
 <p>(There’s much more information on this page than the few elements I chose; the approach would be the same.)</p>
-<pre class="r"><code>##first link
+<pre class="r"><code>## first link
 jobs_1 &lt;- read_html(paste0(&quot;https://www.gumtree.co.za&quot;, links[1]))
 
 jobs_1</code></pre>
 <pre><code>&gt; {xml_document}
 &gt; &lt;html data-locale=&quot;en_ZA&quot; lang=&quot;en&quot; xmlns=&quot;http://www.w3.org/1999/html&quot; class=&quot;VIP&quot;&gt;
-&gt; [1] &lt;head&gt;\n&lt;meta name=&quot;csrf-token&quot; content=&quot;906513f227b88b27285e3f46323d0dc7 ...
+&gt; [1] &lt;head&gt;\n&lt;meta name=&quot;csrf-token&quot; content=&quot;30a861bbd02df32ff27794d4a231d90d ...
 &gt; [2] &lt;body class=&quot;VIP&quot;&gt;\n&lt;noscript&gt;&lt;iframe src=&quot;//www.googletagmanager.com/ns. ...</code></pre>
-<pre class="r"><code>##get the job title
+<pre class="r"><code>## get the job title
 title &lt;- jobs_1 %&gt;%
   html_nodes(&quot;h1&quot;) %&gt;%
   html_text() %&gt;%
-  replace_html() %&gt;% ##strip html markup (if any)
-  str_squish() ##get rid of leading and trailing whitespace
+  replace_html() %&gt;% ## strip html markup (if any)
+  str_squish() ## get rid of leading and trailing whitespace
 
 title</code></pre>
 <pre><code>&gt; [1] &quot;Sales Assistant&quot;</code></pre>
@@ -188,21 +188,21 @@ clean_element &lt;- function(page_html, selector) {
   output &lt;- page_html %&gt;%
     html_nodes(selector) %&gt;%
     html_text() %&gt;%
-    replace_html() %&gt;% ##strip html markup (if any)
-    str_squish() ##remove leading and trailing whitespace
-  output &lt;- ifelse(length(output) == 0, NA, output) ##in case an element is missing
+    replace_html() %&gt;% ## strip html markup (if any)
+    str_squish() ## remove leading and trailing whitespace
+  output &lt;- ifelse(length(output) == 0, NA, output) ## in case an element is missing
   return(output)
 }</code></pre>
 <p>This works (and I can always add a few more things in the function if I wanted to).</p>
-<pre class="r"><code>##let&#39;s try out the function!
-##I got the CSS-selectors with SelectorGadget
-description &lt;- clean_element(jobs_1, &quot;.description-website-container&quot;) 
+<pre class="r"><code>## let&#39;s try out the function!
+## I got the CSS-selectors with SelectorGadget
+description &lt;- clean_element(jobs_1, &quot;.description-website-container&quot;)
 jobtype &lt;- clean_element(jobs_1, &quot;.attribute:nth-child(4) .value&quot;)
 employer &lt;- clean_element(jobs_1, &quot;.attribute:nth-child(3) .value&quot;)
 location &lt;- clean_element(jobs_1, &quot;.attribute:nth-child(1) .value&quot;)
 time &lt;- Sys.time()
 
-##putting my results into a tibble (see &quot;https://r4ds.had.co.nz/tibbles.html&quot;)
+## putting my results into a tibble (see &quot;https://r4ds.had.co.nz/tibbles.html&quot;)
 dat &lt;-
   tibble(
     title,
@@ -212,11 +212,11 @@ dat &lt;-
     time
   )
 
-dat ##looks good!</code></pre>
+dat ## looks good!</code></pre>
 <pre><code>&gt; # A tibble: 1 x 5
 &gt;   title    description                   jobtype location    time               
 &gt;   &lt;chr&gt;    &lt;chr&gt;                         &lt;chr&gt;   &lt;chr&gt;       &lt;dttm&gt;             
-&gt; 1 Sales A… DescriptionLooking for a Sal… Full-T… Kempton Pa… 2020-11-18 10:26:10</code></pre>
+&gt; 1 Sales A… DescriptionLooking for a Sal… Full-T… Kempton Pa… 2020-11-19 06:20:00</code></pre>
 <p>What if I wanted to do this for all job posts on a page?</p>
 <div id="iteration" class="section level4">
 <h4>Iteration</h4>
@@ -224,16 +224,16 @@ dat ##looks good!</code></pre>
 <p>After I have a list of tibbles, I can combine them into a single dataset using <code>dplyr</code>’s <code>bind_rows()</code>.</p>
 <pre class="r"><code>## function for cleaning all elements I want on a page ####
 clean_ad &lt;- function(link) {
-  page_html &lt;- read_html(link) ##get HTML
-  ##the list of items I want in each post
-  title &lt;- clean_element(page_html, &quot;h1&quot;) ##parse HTML
+  page_html &lt;- read_html(link) ## get HTML
+  ## the list of items I want in each post
+  title &lt;- clean_element(page_html, &quot;h1&quot;) ## parse HTML
   description &lt;- clean_element(page_html, &quot;.description-website-container&quot;)
   jobtype &lt;- clean_element(page_html, &quot;.attribute:nth-child(4) .value&quot;)
   employer &lt;- clean_element(page_html, &quot;.attribute:nth-child(3) .value&quot;)
   location &lt;- clean_element(page_html, &quot;.attribute:nth-child(1) .value&quot;)
-  time &lt;- Sys.time() ##current time
+  time &lt;- Sys.time() ## current time
 
-  ##I put the selected post info in a tibble
+  ## I put the selected post info in a tibble
   dat &lt;-
     tibble(
       title,
@@ -245,34 +245,34 @@ clean_ad &lt;- function(link) {
   return(dat)
 }</code></pre>
 <pre class="r"><code>## set up ####
-##fixing&quot; link addresses
+## fixing&quot; link addresses
 links &lt;- paste0(&quot;https://www.gumtree.co.za&quot;, links)
-links &lt;- sample(links, 10) ##sampling 10 random links for the example
+links &lt;- sample(links, 10) ## sampling 10 random links for the example
 
-##I create a list (for storing tibbles), and a for loop to iterate through links
+## I create a list (for storing tibbles), and a for loop to iterate through links
 output &lt;- list()
 
 ## iterating through links with a for loop ####
 for (i in 1:length(links)) {
-  deets &lt;- clean_ad(links[i]) ##my function for extracting selected content from a post
-  output[[i]] &lt;- deets ##add to list
-  Sys.sleep(2) ##rest
+  deets &lt;- clean_ad(links[i]) ## my function for extracting selected content from a post
+  output[[i]] &lt;- deets ## add to list
+  Sys.sleep(2) ## rest
 }
 
-##combining all tibbles in the list into a single big tibble
-all &lt;- bind_rows(output) ##fab!
+## combining all tibbles in the list into a single big tibble
+all &lt;- bind_rows(output) ## fab!
 
 glimpse(all)</code></pre>
 <pre><code>&gt; Rows: 10
 &gt; Columns: 5
-&gt; $ title       &lt;chr&gt; &quot;Sales executive&quot;, &quot;Optic Fibre Sales Management Program&quot;…
-&gt; $ description &lt;chr&gt; &quot;DescriptionSales Assistant Entry LevelHlumelo Direct Mar…
-&gt; $ jobtype     &lt;chr&gt; &quot;Full-Time&quot;, NA, NA, NA, &quot;Commission&quot;, &quot;Commission&quot;, &quot;Ful…
-&gt; $ location    &lt;chr&gt; &quot;Klerksdorp, North West&quot;, &quot;De Waterkant, Cape Town&quot;, &quot;Bra…
-&gt; $ time        &lt;dttm&gt; 2020-11-18 10:26:11, 2020-11-18 10:26:15, 2020-11-18 10:…</code></pre>
-<pre class="r"><code>all$description &lt;- str_trunc(all$description, 100, &quot;right&quot;) ##truncate
+&gt; $ title       &lt;chr&gt; &quot;WEBSITES GRAPHIC DESIGER URGENTLY NEEDED&quot;, &quot;Junior Wareh…
+&gt; $ description &lt;chr&gt; &quot;Description Urgently looking for a full time graphic des…
+&gt; $ jobtype     &lt;chr&gt; NA, &quot;Non EE/AA&quot;, &quot;Full-Time&quot;, &quot;Commission&quot;, NA, &quot;Casual&quot;,…
+&gt; $ location    &lt;chr&gt; &quot;Benoni, East Rand&quot;, &quot;Eastern Pretoria, Pretoria / Tshwan…
+&gt; $ time        &lt;dttm&gt; 2020-11-19 06:20:00, 2020-11-19 06:20:03, 2020-11-19 06:…</code></pre>
+<pre class="r"><code>all$description &lt;- str_trunc(all$description, 100, &quot;right&quot;) ## truncate
 
-##I&#39;m using kable to make an html table for the site
+## I&#39;m using kable to make an html table for the site
 all %&gt;%
   kable() %&gt;%
   kable_paper(bootstrap_options = c(&quot;striped&quot;, &quot;responsive&quot;))</code></pre>
@@ -299,155 +299,19 @@ time
 <tbody>
 <tr>
 <td style="text-align:left;">
-Sales executive
+WEBSITES GRAPHIC DESIGER URGENTLY NEEDED
 </td>
 <td style="text-align:left;">
-DescriptionSales Assistant Entry LevelHlumelo Direct Marketing is seeking a full time Sales Execu…
-</td>
-<td style="text-align:left;">
-Full-Time
-</td>
-<td style="text-align:left;">
-Klerksdorp, North West
-</td>
-<td style="text-align:left;">
-2020-11-18 10:26:11
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Optic Fibre Sales Management Program
-</td>
-<td style="text-align:left;">
-Description Real Promotions is recruiting for Vodacom representatives within the Cape Town area. …
+Description Urgently looking for a full time graphic designer, Entry level position, with basic a…
 </td>
 <td style="text-align:left;">
 NA
 </td>
 <td style="text-align:left;">
-De Waterkant, Cape Town
+Benoni, East Rand
 </td>
 <td style="text-align:left;">
-2020-11-18 10:26:15
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-OFFICE ASSISTANT (Brackenfell) R8,000 - R9,000 PM
-</td>
-<td style="text-align:left;">
-DescriptionYou will be required to perform several tasks related to keeping the office efficientl…
-</td>
-<td style="text-align:left;">
-NA
-</td>
-<td style="text-align:left;">
-Brackenfell, Northern Suburbs
-</td>
-<td style="text-align:left;">
-2020-11-18 10:26:18
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Telkom Sales and Marketing
-</td>
-<td style="text-align:left;">
-Description Real Promotions is a dynamic, fast growing sales and marketing company based in Cape …
-</td>
-<td style="text-align:left;">
-NA
-</td>
-<td style="text-align:left;">
-De Waterkant, Cape Town
-</td>
-<td style="text-align:left;">
-2020-11-18 10:26:21
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Entry level Sales Reps Required
-</td>
-<td style="text-align:left;">
-DescriptionWe are a private company that is looking for sales reps to assist us with increasing s…
-</td>
-<td style="text-align:left;">
-Commission
-</td>
-<td style="text-align:left;">
-Bloemfontein, Free State
-</td>
-<td style="text-align:left;">
-2020-11-18 10:26:24
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Sales and Marketing
-</td>
-<td style="text-align:left;">
-DescriptionTD marketing company is a marketing company specializing in customer acquisition and s…
-</td>
-<td style="text-align:left;">
-Commission
-</td>
-<td style="text-align:left;">
-Other, East Rand
-</td>
-<td style="text-align:left;">
-2020-11-18 10:26:27
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Accountant - Ad posted by schullpak
-</td>
-<td style="text-align:left;">
-DescriptionAccountant. Mechanical and Electrical Engineering Company based in Lanseria, Johannesb…
-</td>
-<td style="text-align:left;">
-Full-Time
-</td>
-<td style="text-align:left;">
-Lanseria, Johannesburg
-</td>
-<td style="text-align:left;">
-2020-11-18 10:26:31
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Camera man Video editor
-</td>
-<td style="text-align:left;">
-DescriptionYoung camera man video editor, amateur skilled talented We are looking for young perso…
-</td>
-<td style="text-align:left;">
-Temporary
-</td>
-<td style="text-align:left;">
-Umhlanga, North Suburbs
-</td>
-<td style="text-align:left;">
-2020-11-18 10:26:34
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Financial Manager
-</td>
-<td style="text-align:left;">
-DescriptionPurpose of the Job-To support the company in meeting and exceeding the overall objecti…
-</td>
-<td style="text-align:left;">
-EE/AA
-</td>
-<td style="text-align:left;">
-Kempton Park, East Rand
-</td>
-<td style="text-align:left;">
-2020-11-18 10:26:38
+2020-11-19 06:20:00
 </td>
 </tr>
 <tr>
@@ -464,35 +328,171 @@ Non EE/AA
 Eastern Pretoria, Pretoria / Tshwane
 </td>
 <td style="text-align:left;">
-2020-11-18 10:26:44
+2020-11-19 06:20:03
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Maths and Physics teacher (SP/FET)
+</td>
+<td style="text-align:left;">
+DescriptionLakeside Education Academy in Lakeside, Cape Town, is looking to appoint a full-time P…
+</td>
+<td style="text-align:left;">
+Full-Time
+</td>
+<td style="text-align:left;">
+Lakeside, Southern Peninsula
+</td>
+<td style="text-align:left;">
+2020-11-19 06:20:07
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Sales consultant needed - Travel
+</td>
+<td style="text-align:left;">
+DescriptionWe are growing Travel Agency looking to employ an sale agent.This is an entry level po…
+</td>
+<td style="text-align:left;">
+Commission
+</td>
+<td style="text-align:left;">
+Other, Durban City
+</td>
+<td style="text-align:left;">
+2020-11-19 06:20:09
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+call centre
+</td>
+<td style="text-align:left;">
+DescriptionEntry level positionMerchants iinet is looking for you.Vibrant, energetic personality …
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+Salt River, Cape Town
+</td>
+<td style="text-align:left;">
+2020-11-19 06:20:11
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Grade 1-3 Teacher as afternoon tutor
+</td>
+<td style="text-align:left;">
+DescriptionHiWe are looking for a Grade 1 to 3 teacher to tutor our son. He is 4 however his math…
+</td>
+<td style="text-align:left;">
+Casual
+</td>
+<td style="text-align:left;">
+Claremont &amp; Newlands, Southern Suburbs
+</td>
+<td style="text-align:left;">
+2020-11-19 06:20:14
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Entry level Sales Reps Required
+</td>
+<td style="text-align:left;">
+DescriptionWe are a private company that is looking for sales reps to assist us with increasing s…
+</td>
+<td style="text-align:left;">
+Commission
+</td>
+<td style="text-align:left;">
+Bloemfontein, Free State
+</td>
+<td style="text-align:left;">
+2020-11-19 06:20:16
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Automotive Machinist – Fabricator – Welder
+</td>
+<td style="text-align:left;">
+DescriptionAutomotive Machinist – Fabricator – Welder required at a Vanderbijlpark based Harley-D…
+</td>
+<td style="text-align:left;">
+Full-Time
+</td>
+<td style="text-align:left;">
+Vanderbijlpark, Sedibeng
+</td>
+<td style="text-align:left;">
+2020-11-19 06:20:19
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Financial Manager
+</td>
+<td style="text-align:left;">
+DescriptionPurpose of the Job-To support the company in meeting and exceeding the overall objecti…
+</td>
+<td style="text-align:left;">
+EE/AA
+</td>
+<td style="text-align:left;">
+Kempton Park, East Rand
+</td>
+<td style="text-align:left;">
+2020-11-19 06:20:23
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+5 x Accountants / Bookkeepers required for busy accounting firm
+</td>
+<td style="text-align:left;">
+DescriptionWe are a Durban Based Company Looking to employ 5 Bookkeepers preferably Indian Female…
+</td>
+<td style="text-align:left;">
+Full-Time
+</td>
+<td style="text-align:left;">
+Pinetown, West Suburbs
+</td>
+<td style="text-align:left;">
+2020-11-19 06:20:25
 </td>
 </tr>
 </tbody>
 </table>
 <p>Nice!</p>
-<p><strong>How would one do other pages?</strong></p>
+<p>How would one approach multiple pages?</p>
 <p>One (hacky) approach is to use the URL and another for loop.<a href="#fn14" class="footnote-ref" id="fnref14"><sup>14</sup></a></p>
 <p>In the example below, I extract the job links for the first 3 pages:</p>
 <pre class="r"><code>## set-up ####
-pages &lt;- 3 ##let&#39;s just do 3
+pages &lt;- 3 ## let&#39;s just do 3
 job_list &lt;- list()
-link &lt;- &quot;https://www.gumtree.co.za/s-jobs/page-&quot; ##url fragment
+link &lt;- &quot;https://www.gumtree.co.za/s-jobs/page-&quot; ## url fragment
 
 ## iterate over pages ####
 for (i in 1:pages) {
   jobs &lt;-
-    read_html(paste0(link, i, &quot;/v1c8p2?q=entry+level&quot;)) ##using paste0
+    read_html(paste0(link, i, &quot;/v1c8p2?q=entry+level&quot;)) ## using paste0
   links &lt;-
     jobs %&gt;%
     html_nodes(&quot;.related-ad-title&quot;) %&gt;%
-    html_attr(&quot;href&quot;) ##get links
-  job_list[[i]] &lt;- links ##add to list
-  Sys.sleep(2) ##rest
+    html_attr(&quot;href&quot;) ## get links
+  job_list[[i]] &lt;- links ## add to list
+  Sys.sleep(2) ## rest
 }
 
-links &lt;- unlist(job_list) ##make a single list
+links &lt;- unlist(job_list) ## make a single list
 links &lt;- paste0(&quot;https://www.gumtree.co.za&quot;, links)
-head(links, 10) ##looks good!</code></pre>
+head(links, 10) ## looks good!</code></pre>
 <pre><code>&gt;  [1] &quot;https://www.gumtree.co.za/a-other-sales-jobs/kempton-park/sales-assistant/1008356622970910009548109&quot;                                                 
 &gt;  [2] &quot;https://www.gumtree.co.za/a-customer-service-jobs/salt-river/call-centre/1008356745720911125725209&quot;                                                  
 &gt;  [3] &quot;https://www.gumtree.co.za/a-tutors-teaching-jobs/lakeside/maths-and-physics-teacher-sp-fet/1008353544800912460072609&quot;                                
@@ -502,27 +502,30 @@ head(links, 10) ##looks good!</code></pre>
 &gt;  [7] &quot;https://www.gumtree.co.za/a-accounting-finance-jobs/lanseria/accountant-+-ad-posted-by-schullpak/1008328269890910406385609&quot;                          
 &gt;  [8] &quot;https://www.gumtree.co.za/a-logistics-jobs/eastern-pretoria/junior-warehouse-controller-+-pta-non+ee/1008328733720911316948209&quot;                      
 &gt;  [9] &quot;https://www.gumtree.co.za/a-accounting-finance-jobs/pinetown/5-x-accountants-bookkeepers-required-for-busy-accounting-firm/1008320950160910865995909&quot;
-&gt; [10] &quot;https://www.gumtree.co.za/a-sales-representatives-jobs/de-waterkant/telkom-sales-and-marketing/1008313388250910325151109&quot;</code></pre>
+&gt; [10] &quot;https://www.gumtree.co.za/a-accounting-finance-jobs/pinetown/5-x-accountants-bookkeepers-required-for-accounting-firm/1008298218320910865995909&quot;</code></pre>
 </div>
 <div id="things-to-think-about" class="section level4">
 <h4>Things to think about</h4>
-<p>Make sure your script can handle errors.<a href="#fn15" class="footnote-ref" id="fnref15"><sup>15</sup></a></p>
+<p>Make sure your script can handle errors<a href="#fn15" class="footnote-ref" id="fnref15"><sup>15</sup></a>:</p>
 <ul>
 <li>CSS-selectors change over time (if you’re planning to run your script again in future, you should check)</li>
 <li>links stop working (page names change, or they stop existing)</li>
 <li>not all pages are necessarily the same (some elements may be missing from some pages) — see the “job type” variable above, for instance</li>
 <li>sites time out (that can break your script if you don’t account for it)</li>
+<li>the script might take a long time to run; how can you track progress?</li>
 <li>what other things might break your script?</li>
 </ul>
 </div>
 <div id="putting-it-all-together" class="section level4">
 <h4>Putting it all together</h4>
+<p><strong>Approach:</strong> One function to clean an individual element; One function to clean an individual post (clean multiple elements and store the result as a tibble); One loop to extract links to individual posts over multiple pages and to store these in a list; One loop to iterate over a list of links, to apply the post cleaning function, and to store the result in a list (a list of tibbles); finally, to collapse the list of tibbles into a single data set, and to export to your chosen location.</p>
+<p><strong>Bells and whistles:</strong> I use the <code>purrr</code> package’s <code>possibly()</code> function to deal with errors (so my script doesn’t break when a link is broken); I use the <code>progress</code> package to show me, in my console, how far along the scraping is.</p>
 <pre class="r"><code>## libraries ####
 
-library(tidyverse) ##for data manipulation (various packages)
-library(rvest) ##for scraping
-library(textclean) ##some cleaning functions
-library(progress) ##for tracking progress in console
+library(tidyverse) ## for data manipulation (various packages)
+library(rvest) ## for scraping
+library(textclean) ## some cleaning functions
+library(progress) ## for tracking progress in console
 
 ## Function 1: Clean an element ####
 
@@ -530,25 +533,25 @@ clean_element &lt;- function(page_html, selector) {
   output &lt;- page_html %&gt;%
     html_nodes(selector) %&gt;%
     html_text() %&gt;%
-    replace_html() %&gt;% ##strip html markup (if any)
-    str_squish() ##remove leading and trailing whitespace
-  output &lt;- ifelse(length(output) == 0, NA, output) ##in case an element is missing
+    replace_html() %&gt;% ## strip html markup (if any)
+    str_squish() ## remove leading and trailing whitespace
+  output &lt;- ifelse(length(output) == 0, NA, output) ## in case an element is missing
   return(output)
 }
 
 ## Function 2: Clean an ad ####
 
 clean_ad &lt;- function(link) {
-  page_html &lt;- read_html(link) ##get HTML
-  ##the list of items I want in each post
-  title &lt;- clean_element(page_html, &quot;h1&quot;) ##parse HTML
+  page_html &lt;- read_html(link) ## get HTML
+  ## the list of items I want in each post
+  title &lt;- clean_element(page_html, &quot;h1&quot;) ## parse HTML
   description &lt;- clean_element(page_html, &quot;.description-website-container&quot;)
   jobtype &lt;- clean_element(page_html, &quot;.attribute:nth-child(4) .value&quot;)
   employer &lt;- clean_element(page_html, &quot;.attribute:nth-child(3) .value&quot;)
   location &lt;- clean_element(page_html, &quot;.attribute:nth-child(1) .value&quot;)
-  time &lt;- Sys.time() ##current time
+  time &lt;- Sys.time() ## current time
 
-  ##I put the selected post info in a tibble
+  ## I put the selected post info in a tibble
   dat &lt;-
     tibble(
       title,
@@ -562,54 +565,56 @@ clean_ad &lt;- function(link) {
 
 ## Loop 1: Get my links ####
 
-pages &lt;- 5 ##let&#39;s just do 5
+pages &lt;- 5 ## let&#39;s just do 5
 job_list &lt;- list()
-link &lt;- &quot;https://www.gumtree.co.za/s-jobs/page-&quot; ##url fragment
+link &lt;- &quot;https://www.gumtree.co.za/s-jobs/page-&quot; ## url fragment
 
 for (i in 1:pages) {
   jobs &lt;-
-    read_html(paste0(link, i, &quot;/v1c8p2?q=entry+level&quot;)) ##using paste0
+    read_html(paste0(link, i, &quot;/v1c8p2?q=entry+level&quot;)) ## using paste0
   links &lt;-
     jobs %&gt;%
     html_nodes(&quot;.related-ad-title&quot;) %&gt;%
-    html_attr(&quot;href&quot;) ##get links
-  job_list[[i]] &lt;- links ##add to list
-  Sys.sleep(2) ##rest
+    html_attr(&quot;href&quot;) ## get links
+  job_list[[i]] &lt;- links ## add to list
+  Sys.sleep(2) ## rest
 }
 
-links &lt;- unlist(job_list) ##make a single list
+links &lt;- unlist(job_list) ## make a single list
 links &lt;- paste0(&quot;https://www.gumtree.co.za&quot;, links)
-links &lt;- sample(links, 20) ##sampling 20
+links &lt;- sample(links, 20) ## sampling 20
 
 head(links)
-links &lt;- c(links, &quot;ww.brokenlink.co.bb&quot;) ##append faulty link to test error handling
+links &lt;- c(links, &quot;ww.brokenlink.co.bb&quot;) ## append faulty link to test error handling
 
 ## Let&#39;s go! ####
 
-##track progress
+## track progress
 total &lt;- length(links)
 pb &lt;- progress_bar$new(format = &quot;[:bar] :current/:total (:percent)&quot;, total = total)
 
-##error handling
-safe_clean_ad &lt;- possibly(clean_ad, NA) ##see purrr package
+## error handling
+safe_clean_ad &lt;- possibly(clean_ad, NA) ## see purrr package
 
-##list
+## list
 output &lt;- list()
 
-##the loop
+## the loop
 
 for (i in 1:total) {
   pb$tick()
   deets &lt;- safe_clean_ad(links[i])
-  output[[i]] &lt;- deets #add to list
-  Sys.sleep(2) ##resting
+  output[[i]] &lt;- deets # add to list
+  Sys.sleep(2) ## resting
 }
 
-##combining all tibbles in the list into a single big tibble
+## combining all tibbles in the list into a single big tibble
 
-all &lt;- output[!is.na(output)] ##remove empty tibbles, if any
-all &lt;- bind_rows(all) ##Fab!
-glimpse(all)</code></pre>
+all &lt;- output[!is.na(output)] ## remove empty tibbles, if any
+all &lt;- bind_rows(all) ## Fab!
+glimpse(all)
+
+write_csv(all, &quot;myfile.csv&quot;) ## export</code></pre>
 <hr />
 </div>
 </div>
@@ -617,15 +622,13 @@ glimpse(all)</code></pre>
 <div id="resources" class="section level2">
 <h2>Resources</h2>
 <ul>
-<li>Mine Dogucu &amp; Mine Çetinkaya-Rundel (2020): “<a href="https://github.com/mdogucu/web-scrape">Web Scraping in the Statistics and Data Science Curriculum: Challenges and Opportunities</a>”, Journal of Statistics Education (fyi, see their use of <code>purrr</code>’s <code>map_dfr</code> function!)</li>
+<li>Mine Dogucu &amp; Mine Çetinkaya-Rundel (2020): “<a href="https://github.com/mdogucu/web-scrape">Web Scraping in the Statistics and Data Science Curriculum: Challenges and Opportunities</a>”, Journal of Statistics Education (fyi, see their use of <code>purrr</code>’s <code>map_dfr()</code> function!)</li>
 <li><a href="https://www.nature.com/articles/d41586-020-02558-0">How we learnt to stop worrying and love web scraping | Nature Career Column</a> by Nicholas J. DeVito, Georgia C. Richards &amp; Peter Inglesby</li>
 <li><a href="https://automatetheboringstuff.com/2e/chapter12/">Chapter 12: “Web scraping”</a> in “Automate the Boring Stuff with Python” by Al Sweigart</li>
-<li><a href="https://simonwillison.net/2020/Oct/9/git-scraping/">Git scraping: track changes over time by scraping to a Git repository</a></li>
 <li>Headless browing: <a href="https://docs.ropensci.org/RSelenium/">R Bindings for Selenium WebDriver • rOpenSci: RSelenium</a></li>
 <li>Ethics/best practice
 <ul>
 <li><a href="https://en.wikipedia.org/wiki/Robots_exclusion_standard">Robots exclusion standard - Wikipedia</a></li>
-<li><a href="https://support.google.com/webmasters/answer/6062608?hl=en">Introduction to robots.txt - Search Console Help</a></li>
 <li><a href="https://github.com/dmi3kno/polite">GitHub - dmi3kno/polite: Be nice on the web</a></li>
 </ul></li>
 <li>More implementation
@@ -636,7 +639,6 @@ glimpse(all)</code></pre>
 <ul>
 <li><a href="https://regexr.com/">RegExr: Learn, Build, &amp; Test RegEx</a></li>
 <li><a href="https://www.regextester.com/">Regex Tester and Debugger Online - Javascript, PCRE, PHP</a></li>
-<li>R cheatsheets: <a href="https://rstudio.com/resources/cheatsheets/">RStudio Cheatsheets - RStudio</a></li>
 <li><a href="https://github.com/kevinushey/rex">GitHub - kevinushey/rex: Friendly regular expressions for R.</a></li>
 <li><a href="https://rdrr.io/cran/rebus/f/README.md">rebus: README.md</a></li>
 <li><a href="https://github.com/VerbalExpressions/RVerbalExpressions">GitHub - VerbalExpressions/RVerbalExpressions: Create regular expressions easily</a></li>
@@ -667,6 +669,6 @@ glimpse(all)</code></pre>
 <li id="fn12"><p><a href="https://developers.google.com/web/tools/chrome-devtools/open" class="uri">https://developers.google.com/web/tools/chrome-devtools/open</a><a href="#fnref12" class="footnote-back">↩︎</a></p></li>
 <li id="fn13"><p><a href="https://r4ds.had.co.nz/tibbles.html" class="uri">https://r4ds.had.co.nz/tibbles.html</a><a href="#fnref13" class="footnote-back">↩︎</a></p></li>
 <li id="fn14"><p>There are better ways of working with URLs: <a href="https://github.com/Ironholds/urltools" class="uri">https://github.com/Ironholds/urltools</a><a href="#fnref14" class="footnote-back">↩︎</a></p></li>
-<li id="fn15"><p>See “safely” and “possibly” from the <a href="https://purrr.tidyverse.org/">purrr</a> package (or “trycatch” from base R)<a href="#fnref15" class="footnote-back">↩︎</a></p></li>
+<li id="fn15"><p>See <code>safely()</code> and <code>possibly()</code> from the <a href="https://purrr.tidyverse.org/">purrr</a> package (or “trycatch” from base R)<a href="#fnref15" class="footnote-back">↩︎</a></p></li>
 </ol>
 </div>

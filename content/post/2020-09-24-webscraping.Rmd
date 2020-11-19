@@ -42,7 +42,7 @@ This is a data extraction and cleaning exercise: getting the content you want fr
 
 [^3]: See [R for Data Science's](https://r4ds.had.co.nz/index.html) chapters on dates and strings; then: (1) [Simple, Consistent Wrappers for Common String Operations • stringr,](https://stringr.tidyverse.org/) (2) [GitHub - trinker/textclean: Tools for cleaning and normalizing text data,](https://github.com/trinker/textclean) (3) [Quantitative Analysis of Textual Data • quanteda](https://quanteda.io/) (text analysis)
 
-In doing this, you'll be familiarising yourself with the specific website you're interested in and figuring out where the information you want is, choosing the right [CSS-selectors](https://www.w3schools.com/cssref/css_selectors.asp), working with URLs[^4] and figuring out how to iterate (or "crawl") pages.
+In doing this, you'll be familiarising yourself with the specific website you're interested in and figuring out where the information you want is, choosing the right [CSS-selectors](https://www.w3schools.com/cssref/css_selectors.asp), working with URLs[^4] and figuring out how to iterate over (or "crawl") pages.
 
 [^4]: See Julia Evans' "[how URLs work](https://wizardzines.com/comics/how-urls-work/)"; also see Oliver Keyes & Jay Jacobs' "[urltools](https://github.com/Ironholds/urltools)" R package --- not something I'm getting into, but I think working with URLs programmatically is the way to go!
 
@@ -58,7 +58,7 @@ In more complicated cases, it involves writing a script that can interact with t
 
 In the examples below, I extract a table from a Wikipedia.org page (trickier than I thought!), and --- more elaborately --- extract information about jobs from a site called Gumtree (.co.za).
 
-For the most part, the approach is something like: (a) go to the site you want to scrape, (b) figure out what the things you want to extract are called (find the right CSS-selectors using an inspect tool), (c) use the `read_html`, `html_nodes`, and other functions in the `rvest` package to extract those elements, (d) store the results in the format you want to work with (a list, a tibble, &c.), (e) figure out how to iterate (if needed), (f) troubleshoot (handling errors, dealing with broken links, missing selectors, &c.), (g) throughout: lots of Googling.
+For the most part, the approach is something like: (a) go to the site you want to scrape, (b) figure out what the things you want to extract are called (find the right CSS-selectors using an inspect tool), (c) use the `read_html()`, `html_nodes()`, and other functions in the `rvest` package to extract those elements, (d) store the results in the format you want to work with (a list, a tibble, &c.), (e) figure out how to iterate (if needed), (f) troubleshoot (handling errors, dealing with broken links, missing selectors, &c.), (g) throughout: lots of Googling.
 
 ------------------------------------------------------------------------
 
@@ -118,11 +118,11 @@ I use the [rvest](https://github.com/tidyverse/rvest) R package ("rvest helps yo
 ```{r libraries}
 
 ## Load libraries ####
-library(tidyverse) ##for data manipulation (various packages)
-library(rvest) ##for scraping
-library(textclean) ##some cleaning functions
-library(robotstxt) ##to get robotstxt protocols
-library(kableExtra) ##for printing out an html table in this post
+library(tidyverse) ## for data manipulation (various packages)
+library(rvest) ## for scraping
+library(textclean) ## some cleaning functions
+library(robotstxt) ## to get robotstxt protocols
+library(kableExtra) ## for printing out an html table in this post
 
 ```
 
@@ -131,8 +131,8 @@ library(kableExtra) ##for printing out an html table in this post
 
 ## use the robotstxt package to check if a bot has permissions to access page(s)
 
-robotstxt::paths_allowed("https://www.wikipedia.org/") ##should be TRUE
-robotstxt::paths_allowed("https://www.gumtree.co.za/") ##should be TRUE
+robotstxt::paths_allowed("https://www.wikipedia.org/") ## should be TRUE
+robotstxt::paths_allowed("https://www.gumtree.co.za/") ## should be TRUE
 
 ```
 
@@ -144,7 +144,7 @@ In the first example, I extract a table from Wikipedia.
 
 I tried using SelectorGadget and the Chrome inspection tool, but was struggling to figure out the correct selector.
 
-Something you can do (I learned, after some Googling) is to get **all tables** on the page; then you can identify which one is the right one using string matching (e.g. the `grep` function).
+Something you can do (I learned, after some Googling) is to get **all tables** on the page; then you can identify which one is the right one using string matching (e.g. the `grep()` function).
 
 [![A screenshot of the 2019 South African general election results on Wikipedia](/img/Screenshot 2020-11-14 at 20.34.27.png "A screenshot of the 2019 South African general election results on Wikipedia")](https://en.wikipedia.org/wiki/Elections_in_South_Africa)
 
@@ -152,15 +152,15 @@ Something you can do (I learned, after some Googling) is to get **all tables** o
 
 ## Get Table element from Wikipedia ####
 
-website <- read_html("https://en.wikipedia.org/wiki/Elections_in_South_Africa") ##get the website HTML
+website <- read_html("https://en.wikipedia.org/wiki/Elections_in_South_Africa") ## get the website HTML
 
-table <- website %>% html_nodes("table") ##all tables
-length(table) ##how many tables?
+table <- website %>% html_nodes("table") ## all tables
+length(table) ## how many tables?
 
 data <- html_table(table[grep("ANC", table)], fill = T)[[1]]
 
-glimpse(data) ##let's see
-head(data) ##great!
+glimpse(data) ## let's see
+head(data) ## great!
 
 ```
 
@@ -174,21 +174,21 @@ This is my main example: getting job information from a site called Gumtree.co.z
 
 There are multiple postings on each page, and each one links to a full ad.
 
-I extract the links on the first page (each title links to a full post):
+I extract the links on the first page (each title links to a full ad):
 
 ```{r joblinks_example1}
 
 ## Job site example ####
-##reading in the HTML from this page on entry-level jobs
+## reading in the HTML from this page on entry-level jobs
 jobs <- read_html("https://www.gumtree.co.za/s-jobs/page-1/v1c8p2?q=entry+level")
 
-##extract links on first page
+## extract links on first page
 links <-
   jobs %>%
-  html_nodes(".related-ad-title") %>%
-  html_attr("href")
+  html_nodes(".related-ad-title") %>% ## identify the "title" element
+  html_attr("href") ## get the post link
 
-head(links) ##great!
+head(links) ## great!
 
 ```
 
@@ -198,17 +198,17 @@ I decided to extract the job title, description, job type, employer, location, a
 
 ```{r jobpost-example_title}
 
-##first link
+## first link
 jobs_1 <- read_html(paste0("https://www.gumtree.co.za", links[1]))
 
 jobs_1
 
-##get the job title
+## get the job title
 title <- jobs_1 %>%
   html_nodes("h1") %>%
   html_text() %>%
-  replace_html() %>% ##strip html markup (if any)
-  str_squish() ##get rid of leading and trailing whitespace
+  replace_html() %>% ## strip html markup (if any)
+  str_squish() ## get rid of leading and trailing whitespace
 
 title
 
@@ -225,9 +225,9 @@ clean_element <- function(page_html, selector) {
   output <- page_html %>%
     html_nodes(selector) %>%
     html_text() %>%
-    replace_html() %>% ##strip html markup (if any)
-    str_squish() ##remove leading and trailing whitespace
-  output <- ifelse(length(output) == 0, NA, output) ##in case an element is missing
+    replace_html() %>% ## strip html markup (if any)
+    str_squish() ## remove leading and trailing whitespace
+  output <- ifelse(length(output) == 0, NA, output) ## in case an element is missing
   return(output)
 }
 
@@ -237,15 +237,15 @@ This works (and I can always add a few more things in the function if I wanted t
 
 ```{r jobpost-example_others}
 
-##let's try out the function!
-##I got the CSS-selectors with SelectorGadget
-description <- clean_element(jobs_1, ".description-website-container") 
+## let's try out the function!
+## I got the CSS-selectors with SelectorGadget
+description <- clean_element(jobs_1, ".description-website-container")
 jobtype <- clean_element(jobs_1, ".attribute:nth-child(4) .value")
 employer <- clean_element(jobs_1, ".attribute:nth-child(3) .value")
 location <- clean_element(jobs_1, ".attribute:nth-child(1) .value")
 time <- Sys.time()
 
-##putting my results into a tibble (see "https://r4ds.had.co.nz/tibbles.html")
+## putting my results into a tibble (see "https://r4ds.had.co.nz/tibbles.html")
 dat <-
   tibble(
     title,
@@ -255,7 +255,7 @@ dat <-
     time
   )
 
-dat ##looks good!
+dat ## looks good!
 
 ```
 
@@ -273,16 +273,16 @@ After I have a list of tibbles, I can combine them into a single dataset using `
 
 ## function for cleaning all elements I want on a page ####
 clean_ad <- function(link) {
-  page_html <- read_html(link) ##get HTML
-  ##the list of items I want in each post
-  title <- clean_element(page_html, "h1") ##parse HTML
+  page_html <- read_html(link) ## get HTML
+  ## the list of items I want in each post
+  title <- clean_element(page_html, "h1") ## parse HTML
   description <- clean_element(page_html, ".description-website-container")
   jobtype <- clean_element(page_html, ".attribute:nth-child(4) .value")
   employer <- clean_element(page_html, ".attribute:nth-child(3) .value")
   location <- clean_element(page_html, ".attribute:nth-child(1) .value")
-  time <- Sys.time() ##current time
+  time <- Sys.time() ## current time
 
-  ##I put the selected post info in a tibble
+  ## I put the selected post info in a tibble
   dat <-
     tibble(
       title,
@@ -299,22 +299,22 @@ clean_ad <- function(link) {
 ```{r iteration_example1}
 
 ## set up ####
-##fixing" link addresses
+## fixing" link addresses
 links <- paste0("https://www.gumtree.co.za", links)
-links <- sample(links, 10) ##sampling 10 random links for the example
+links <- sample(links, 10) ## sampling 10 random links for the example
 
-##I create a list (for storing tibbles), and a for loop to iterate through links
+## I create a list (for storing tibbles), and a for loop to iterate through links
 output <- list()
 
 ## iterating through links with a for loop ####
 for (i in 1:length(links)) {
-  deets <- clean_ad(links[i]) ##my function for extracting selected content from a post
-  output[[i]] <- deets ##add to list
-  Sys.sleep(2) ##rest
+  deets <- clean_ad(links[i]) ## my function for extracting selected content from a post
+  output[[i]] <- deets ## add to list
+  Sys.sleep(2) ## rest
 }
 
-##combining all tibbles in the list into a single big tibble
-all <- bind_rows(output) ##fab!
+## combining all tibbles in the list into a single big tibble
+all <- bind_rows(output) ## fab!
 
 glimpse(all)
 
@@ -322,9 +322,9 @@ glimpse(all)
 
 ```{r html-table_iteration1}
 
-all$description <- str_trunc(all$description, 100, "right") ##truncate
+all$description <- str_trunc(all$description, 100, "right") ## truncate
 
-##I'm using kable to make an html table for the site
+## I'm using kable to make an html table for the site
 all %>%
   kable() %>%
   kable_paper(bootstrap_options = c("striped", "responsive"))
@@ -333,7 +333,7 @@ all %>%
 
 Nice!
 
-**How would one do other pages?**
+How would one approach multiple pages?
 
 One (hacky) approach is to use the URL and another for loop.[^14]
 
@@ -344,50 +344,55 @@ In the example below, I extract the job links for the first 3 pages:
 ```{r joblinks_example2}
 
 ## set-up ####
-pages <- 3 ##let's just do 3
+pages <- 3 ## let's just do 3
 job_list <- list()
-link <- "https://www.gumtree.co.za/s-jobs/page-" ##url fragment
+link <- "https://www.gumtree.co.za/s-jobs/page-" ## url fragment
 
 ## iterate over pages ####
 for (i in 1:pages) {
   jobs <-
-    read_html(paste0(link, i, "/v1c8p2?q=entry+level")) ##using paste0
+    read_html(paste0(link, i, "/v1c8p2?q=entry+level")) ## using paste0
   links <-
     jobs %>%
     html_nodes(".related-ad-title") %>%
-    html_attr("href") ##get links
-  job_list[[i]] <- links ##add to list
-  Sys.sleep(2) ##rest
+    html_attr("href") ## get links
+  job_list[[i]] <- links ## add to list
+  Sys.sleep(2) ## rest
 }
 
-links <- unlist(job_list) ##make a single list
+links <- unlist(job_list) ## make a single list
 links <- paste0("https://www.gumtree.co.za", links)
-head(links, 10) ##looks good!
+head(links, 10) ## looks good!
 
 ```
 
 #### Things to think about
 
-Make sure your script can handle errors.[^15]
+Make sure your script can handle errors[^15]:
 
-[^15]: See "safely" and "possibly" from the [purrr](https://purrr.tidyverse.org/) package (or "trycatch" from base R)
+[^15]: See `safely()` and `possibly()` from the [purrr](https://purrr.tidyverse.org/) package (or "trycatch" from base R)
 
 -   CSS-selectors change over time (if you're planning to run your script again in future, you should check)
 -   links stop working (page names change, or they stop existing)
 -   not all pages are necessarily the same (some elements may be missing from some pages) --- see the "job type" variable above, for instance
 -   sites time out (that can break your script if you don't account for it)
+- the script might take a long time to run; how can you track progress?
 -   what other things might break your script?
 
 #### Putting it all together
+
+**Approach:** One function to clean an individual element; One function to clean an individual post (clean multiple elements and store the result as a tibble); One loop to extract links to individual posts over multiple pages and to store these in a list; One loop to iterate over a list of links, to apply the post cleaning function, and to store the result in a list (a list of tibbles); finally, to collapse the list of tibbles into a single data set, and to export to your chosen location. 
+
+**Bells and whistles:** I use the `purrr` package’s `possibly()` function to deal with errors (so my script doesn’t break when a link is broken); I use the `progress` package to show me, in my console, how far along the scraping is. 
 
 ```{r all-together, eval=FALSE}
 
 ## libraries ####
 
-library(tidyverse) ##for data manipulation (various packages)
-library(rvest) ##for scraping
-library(textclean) ##some cleaning functions
-library(progress) ##for tracking progress in console
+library(tidyverse) ## for data manipulation (various packages)
+library(rvest) ## for scraping
+library(textclean) ## some cleaning functions
+library(progress) ## for tracking progress in console
 
 ## Function 1: Clean an element ####
 
@@ -395,25 +400,25 @@ clean_element <- function(page_html, selector) {
   output <- page_html %>%
     html_nodes(selector) %>%
     html_text() %>%
-    replace_html() %>% ##strip html markup (if any)
-    str_squish() ##remove leading and trailing whitespace
-  output <- ifelse(length(output) == 0, NA, output) ##in case an element is missing
+    replace_html() %>% ## strip html markup (if any)
+    str_squish() ## remove leading and trailing whitespace
+  output <- ifelse(length(output) == 0, NA, output) ## in case an element is missing
   return(output)
 }
 
 ## Function 2: Clean an ad ####
 
 clean_ad <- function(link) {
-  page_html <- read_html(link) ##get HTML
-  ##the list of items I want in each post
-  title <- clean_element(page_html, "h1") ##parse HTML
+  page_html <- read_html(link) ## get HTML
+  ## the list of items I want in each post
+  title <- clean_element(page_html, "h1") ## parse HTML
   description <- clean_element(page_html, ".description-website-container")
   jobtype <- clean_element(page_html, ".attribute:nth-child(4) .value")
   employer <- clean_element(page_html, ".attribute:nth-child(3) .value")
   location <- clean_element(page_html, ".attribute:nth-child(1) .value")
-  time <- Sys.time() ##current time
+  time <- Sys.time() ## current time
 
-  ##I put the selected post info in a tibble
+  ## I put the selected post info in a tibble
   dat <-
     tibble(
       title,
@@ -427,76 +432,74 @@ clean_ad <- function(link) {
 
 ## Loop 1: Get my links ####
 
-pages <- 5 ##let's just do 5
+pages <- 5 ## let's just do 5
 job_list <- list()
-link <- "https://www.gumtree.co.za/s-jobs/page-" ##url fragment
+link <- "https://www.gumtree.co.za/s-jobs/page-" ## url fragment
 
 for (i in 1:pages) {
   jobs <-
-    read_html(paste0(link, i, "/v1c8p2?q=entry+level")) ##using paste0
+    read_html(paste0(link, i, "/v1c8p2?q=entry+level")) ## using paste0
   links <-
     jobs %>%
     html_nodes(".related-ad-title") %>%
-    html_attr("href") ##get links
-  job_list[[i]] <- links ##add to list
-  Sys.sleep(2) ##rest
+    html_attr("href") ## get links
+  job_list[[i]] <- links ## add to list
+  Sys.sleep(2) ## rest
 }
 
-links <- unlist(job_list) ##make a single list
+links <- unlist(job_list) ## make a single list
 links <- paste0("https://www.gumtree.co.za", links)
-links <- sample(links, 20) ##sampling 20
+links <- sample(links, 20) ## sampling 20
 
 head(links)
-links <- c(links, "ww.brokenlink.co.bb") ##append faulty link to test error handling
+links <- c(links, "ww.brokenlink.co.bb") ## append faulty link to test error handling
 
 ## Let's go! ####
 
-##track progress
+## track progress
 total <- length(links)
 pb <- progress_bar$new(format = "[:bar] :current/:total (:percent)", total = total)
 
-##error handling
-safe_clean_ad <- possibly(clean_ad, NA) ##see purrr package
+## error handling
+safe_clean_ad <- possibly(clean_ad, NA) ## see purrr package
 
-##list
+## list
 output <- list()
 
-##the loop
+## the loop
 
 for (i in 1:total) {
   pb$tick()
   deets <- safe_clean_ad(links[i])
-  output[[i]] <- deets #add to list
-  Sys.sleep(2) ##resting
+  output[[i]] <- deets # add to list
+  Sys.sleep(2) ## resting
 }
 
-##combining all tibbles in the list into a single big tibble
+## combining all tibbles in the list into a single big tibble
 
-all <- output[!is.na(output)] ##remove empty tibbles, if any
-all <- bind_rows(all) ##Fab!
+all <- output[!is.na(output)] ## remove empty tibbles, if any
+all <- bind_rows(all) ## Fab!
 glimpse(all)
 
+write_csv(all, "myfile.csv") ## export
 ```
 
 ------------------------------------------------------------------------
 
 ## Resources
 
--   Mine Dogucu & Mine Çetinkaya-Rundel (2020): "[Web Scraping in the Statistics and Data Science Curriculum: Challenges and Opportunities](https://github.com/mdogucu/web-scrape)", Journal of Statistics Education (fyi, see their use of `purrr`'s `map_dfr` function!)
+-   Mine Dogucu & Mine Çetinkaya-Rundel (2020): "[Web Scraping in the Statistics and Data Science Curriculum: Challenges and Opportunities](https://github.com/mdogucu/web-scrape)", Journal of Statistics Education (fyi, see their use of `purrr`'s `map_dfr()` function!)
 -   [How we learnt to stop worrying and love web scraping \| Nature Career Column](https://www.nature.com/articles/d41586-020-02558-0) by Nicholas J. DeVito, Georgia C. Richards & Peter Inglesby
 -   [Chapter 12: "Web scraping"](https://automatetheboringstuff.com/2e/chapter12/) in "Automate the Boring Stuff with Python" by Al Sweigart
--   [Git scraping: track changes over time by scraping to a Git repository](https://simonwillison.net/2020/Oct/9/git-scraping/)
 -   Headless browing: [R Bindings for Selenium WebDriver • rOpenSci: RSelenium](https://docs.ropensci.org/RSelenium/)
 -   Ethics/best practice
     -   [Robots exclusion standard - Wikipedia](https://en.wikipedia.org/wiki/Robots_exclusion_standard)
-    -   [Introduction to robots.txt - Search Console Help](https://support.google.com/webmasters/answer/6062608?hl=en)
     -   [GitHub - dmi3kno/polite: Be nice on the web](https://github.com/dmi3kno/polite)
 -   More implementation
     -   [A Crazy Little Thing Called {purrr} - Part 1 : Web Mining - Colin Fay](https://colinfay.me/purrr-web-mining/)
 -   String manipulation
     -   [RegExr: Learn, Build, & Test RegEx](https://regexr.com/)
     -   [Regex Tester and Debugger Online - Javascript, PCRE, PHP](https://www.regextester.com/)
-    -   R cheatsheets: [RStudio Cheatsheets - RStudio](https://rstudio.com/resources/cheatsheets/)
     -   [GitHub - kevinushey/rex: Friendly regular expressions for R.](https://github.com/kevinushey/rex)
     -   [rebus: README.md](https://rdrr.io/cran/rebus/f/README.md)
     -   [GitHub - VerbalExpressions/RVerbalExpressions: Create regular expressions easily](https://github.com/VerbalExpressions/RVerbalExpressions)
