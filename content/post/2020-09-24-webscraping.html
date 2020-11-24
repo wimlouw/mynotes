@@ -95,13 +95,14 @@ library(rvest) ## for scraping
 library(textclean) ## some cleaning functions
 library(robotstxt) ## to get robotstxt protocols
 library(kableExtra) ## for printing out an html table in this post</code></pre>
+<p>First, I check the robots.txt files (see <a href="https://www.gumtree.co.za/robots.txt" class="uri">https://www.gumtree.co.za/robots.txt</a> and <a href="https://en.wikipedia.org/robots.txt" class="uri">https://en.wikipedia.org/robots.txt</a>).</p>
+<p><strong>Note:</strong> these protocols are not easy to interpret. I think the rule of thumb is: be polite.</p>
 <pre class="r"><code>## use the robotstxt package to check if a bot has permissions to access page(s)
 
 robotstxt::paths_allowed(&quot;https://www.wikipedia.org/&quot;) ## should be TRUE</code></pre>
 <pre><code>&gt; [1] TRUE</code></pre>
 <pre class="r"><code>robotstxt::paths_allowed(&quot;https://www.gumtree.co.za/&quot;) ## should be TRUE</code></pre>
 <pre><code>&gt; [1] TRUE</code></pre>
-<p><strong>Note:</strong> these protocols are not easy to interpret. I think the rule of thumb is: be polite.</p>
 </div>
 <div id="table-example" class="section level3">
 <h3>Table example</h3>
@@ -147,7 +148,7 @@ glimpse(data) ## let&#39;s see</code></pre>
 <p>I extract the links on the first page (each title links to a full ad):</p>
 <pre class="r"><code>## Job site example ####
 ## reading in the HTML from this page on entry-level jobs
-jobs &lt;- read_html(&quot;https://www.gumtree.co.za/s-jobs/page-1/v1c8p2?q=entry+level&quot;)
+jobs &lt;- read_html(&quot;https://www.gumtree.co.za/s-jobs/v1c8p1?q=entry+level&quot;)
 
 ## extract links on first page
 links &lt;-
@@ -156,12 +157,12 @@ links &lt;-
   html_attr(&quot;href&quot;) ## get the post link
 
 head(links) ## great!</code></pre>
-<pre><code>&gt; [1] &quot;/a-other-sales-jobs/kempton-park/sales-assistant/1008356622970910009548109&quot;                          
-&gt; [2] &quot;/a-customer-service-jobs/salt-river/call-centre/1008356745720911125725209&quot;                           
-&gt; [3] &quot;/a-tutors-teaching-jobs/lakeside/maths-and-physics-teacher-sp-fet/1008353544800912460072609&quot;         
-&gt; [4] &quot;/a-sales-representatives-jobs/other/sales-consultant-needed-+-travel/1008343366270910016930309&quot;      
-&gt; [5] &quot;/a-it-technician-jobs/port-elizabeth/entry-level-technician-installer/1008341037700912098673809&quot;     
-&gt; [6] &quot;/a-office-jobs/brackenfell/office-assistant-brackenfell-r8-000-+-r9-000-pm/1008334081620911146640309&quot;</code></pre>
+<pre><code>&gt; [1] &quot;/a-logistics-jobs/eastern-pretoria/junior-warehouse-controller-+-pta-non+ee/1008328733720911316948209&quot;          
+&gt; [2] &quot;/a-restaurant-management-jobs/other/fast-food-store-trainer-western-cape/1008444905520910860094009&quot;             
+&gt; [3] &quot;/a-logistics-jobs/somerset-west/permanent-trade-admin-assistant/1008399662160911102256409&quot;                      
+&gt; [4] &quot;/a-accounting-finance-jobs/paarl/permanent-jnr-financial-accountant/1008440238000911102256409&quot;                  
+&gt; [5] &quot;/a-accounting-finance-jobs/somerset-west/permanent-entry-level-accounting-saipa-clerk/1008330437090911102256409&quot;
+&gt; [6] &quot;/a-office-jobs/randburg/admin-assistant/1008434181030910033892209&quot;</code></pre>
 <p>I decided to extract the job title, description, job type, employer, location, and to include a time-stamp. I used the inspect tool to identify each element’s CSS-selector.</p>
 <p>(There’s much more information on this page than the few elements I chose; the approach would be the same.)</p>
 <pre class="r"><code>## first link
@@ -170,7 +171,7 @@ jobs_1 &lt;- read_html(paste0(&quot;https://www.gumtree.co.za&quot;, links[1]))
 jobs_1</code></pre>
 <pre><code>&gt; {xml_document}
 &gt; &lt;html data-locale=&quot;en_ZA&quot; lang=&quot;en&quot; xmlns=&quot;http://www.w3.org/1999/html&quot; class=&quot;VIP&quot;&gt;
-&gt; [1] &lt;head&gt;\n&lt;meta name=&quot;csrf-token&quot; content=&quot;30a861bbd02df32ff27794d4a231d90d ...
+&gt; [1] &lt;head&gt;\n&lt;meta name=&quot;csrf-token&quot; content=&quot;395a0342d6da62ca931bb1d1f493bcb1 ...
 &gt; [2] &lt;body class=&quot;VIP&quot;&gt;\n&lt;noscript&gt;&lt;iframe src=&quot;//www.googletagmanager.com/ns. ...</code></pre>
 <pre class="r"><code>## get the job title
 title &lt;- jobs_1 %&gt;%
@@ -180,7 +181,7 @@ title &lt;- jobs_1 %&gt;%
   str_squish() ## get rid of leading and trailing whitespace
 
 title</code></pre>
-<pre><code>&gt; [1] &quot;Sales Assistant&quot;</code></pre>
+<pre><code>&gt; [1] &quot;Junior Warehouse Controller - PTA (Non-EE)&quot;</code></pre>
 <p>This worked.</p>
 <p>Since I want to do this for a few more things — title, description, &amp;c., I code a function to make this easier, and to avoid repeating myself too much:</p>
 <pre class="r"><code>## function for cleaning single elements ####
@@ -214,9 +215,9 @@ dat &lt;-
 
 dat ## looks good!</code></pre>
 <pre><code>&gt; # A tibble: 1 x 5
-&gt;   title    description                   jobtype location    time               
-&gt;   &lt;chr&gt;    &lt;chr&gt;                         &lt;chr&gt;   &lt;chr&gt;       &lt;dttm&gt;             
-&gt; 1 Sales A… DescriptionLooking for a Sal… Full-T… Kempton Pa… 2020-11-19 06:20:00</code></pre>
+&gt;   title        description             jobtype location      time               
+&gt;   &lt;chr&gt;        &lt;chr&gt;                   &lt;chr&gt;   &lt;chr&gt;         &lt;dttm&gt;             
+&gt; 1 Junior Ware… DescriptionAn establis… Non EE… Eastern Pret… 2020-11-24 20:05:40</code></pre>
 <p>What if I wanted to do this for all job posts on a page?</p>
 <div id="iteration" class="section level4">
 <h4>Iteration</h4>
@@ -265,11 +266,11 @@ all &lt;- bind_rows(output) ## fab!
 glimpse(all)</code></pre>
 <pre><code>&gt; Rows: 10
 &gt; Columns: 5
-&gt; $ title       &lt;chr&gt; &quot;WEBSITES GRAPHIC DESIGER URGENTLY NEEDED&quot;, &quot;Junior Wareh…
-&gt; $ description &lt;chr&gt; &quot;Description Urgently looking for a full time graphic des…
-&gt; $ jobtype     &lt;chr&gt; NA, &quot;Non EE/AA&quot;, &quot;Full-Time&quot;, &quot;Commission&quot;, NA, &quot;Casual&quot;,…
-&gt; $ location    &lt;chr&gt; &quot;Benoni, East Rand&quot;, &quot;Eastern Pretoria, Pretoria / Tshwan…
-&gt; $ time        &lt;dttm&gt; 2020-11-19 06:20:00, 2020-11-19 06:20:03, 2020-11-19 06:…</code></pre>
+&gt; $ title       &lt;chr&gt; &quot;Junior Warehouse Controller - PTA (Non-EE)&quot;, &quot;Are you yo…
+&gt; $ description &lt;chr&gt; &quot;DescriptionAn established logistics company in Pretoria …
+&gt; $ jobtype     &lt;chr&gt; &quot;Non EE/AA&quot;, NA, NA, NA, &quot;Full-Time&quot;, NA, NA, NA, NA, &quot;Ca…
+&gt; $ location    &lt;chr&gt; &quot;Eastern Pretoria, Pretoria / Tshwane&quot;, &quot;Eastern Pretoria…
+&gt; $ time        &lt;dttm&gt; 2020-11-24 20:05:41, 2020-11-24 20:05:44, 2020-11-24 20:…</code></pre>
 <pre class="r"><code>all$description &lt;- str_trunc(all$description, 100, &quot;right&quot;) ## truncate
 
 ## I&#39;m using kable to make an html table for the site
@@ -299,23 +300,6 @@ time
 <tbody>
 <tr>
 <td style="text-align:left;">
-WEBSITES GRAPHIC DESIGER URGENTLY NEEDED
-</td>
-<td style="text-align:left;">
-Description Urgently looking for a full time graphic designer, Entry level position, with basic a…
-</td>
-<td style="text-align:left;">
-NA
-</td>
-<td style="text-align:left;">
-Benoni, East Rand
-</td>
-<td style="text-align:left;">
-2020-11-19 06:20:00
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
 Junior Warehouse Controller - PTA (Non-EE)
 </td>
 <td style="text-align:left;">
@@ -328,143 +312,160 @@ Non EE/AA
 Eastern Pretoria, Pretoria / Tshwane
 </td>
 <td style="text-align:left;">
-2020-11-19 06:20:03
+2020-11-24 20:05:41
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-Maths and Physics teacher (SP/FET)
+Are you young and unemployed. Are you looking for an opportunity.
 </td>
 <td style="text-align:left;">
-DescriptionLakeside Education Academy in Lakeside, Cape Town, is looking to appoint a full-time P…
-</td>
-<td style="text-align:left;">
-Full-Time
-</td>
-<td style="text-align:left;">
-Lakeside, Southern Peninsula
-</td>
-<td style="text-align:left;">
-2020-11-19 06:20:07
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Sales consultant needed - Travel
-</td>
-<td style="text-align:left;">
-DescriptionWe are growing Travel Agency looking to employ an sale agent.This is an entry level po…
-</td>
-<td style="text-align:left;">
-Commission
-</td>
-<td style="text-align:left;">
-Other, Durban City
-</td>
-<td style="text-align:left;">
-2020-11-19 06:20:09
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-call centre
-</td>
-<td style="text-align:left;">
-DescriptionEntry level positionMerchants iinet is looking for you.Vibrant, energetic personality …
+DescriptionHarambee is a 100% free opportunity for young South Africans who are unemployed and me…
 </td>
 <td style="text-align:left;">
 NA
 </td>
 <td style="text-align:left;">
-Salt River, Cape Town
+Eastern Pretoria, Pretoria / Tshwane
 </td>
 <td style="text-align:left;">
-2020-11-19 06:20:11
+2020-11-24 20:05:44
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-Grade 1-3 Teacher as afternoon tutor
+CODE 08 DRIVER/GENERAL ADMIN
 </td>
 <td style="text-align:left;">
-DescriptionHiWe are looking for a Grade 1 to 3 teacher to tutor our son. He is 4 however his math…
+DescriptionVACANCY FOR A CODE 08 DRIVER AS WELL ASGENERAL ADMIN DUTIESENTRY LEVEL POSITION.WORKIN…
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+Phoenix, North Suburbs
+</td>
+<td style="text-align:left;">
+2020-11-24 20:05:47
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Permanent Trade Admin Assistant
+</td>
+<td style="text-align:left;">
+Description My client, an established concern within the agricultural industry is seeking to empl…
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+Somerset West, Helderberg
+</td>
+<td style="text-align:left;">
+2020-11-24 20:05:50
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Call centre Agents needed in BIG BAY
+</td>
+<td style="text-align:left;">
+DescriptionOutbound Call Centre Agents (Debt Collection)• We are looking for energetic and motiva…
+</td>
+<td style="text-align:left;">
+Full-Time
+</td>
+<td style="text-align:left;">
+Parklands, West Coast
+</td>
+<td style="text-align:left;">
+2020-11-24 20:05:54
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Are you young and unemployed. Are you looking for an opportunity.
+</td>
+<td style="text-align:left;">
+DescriptionHarambee is a 100% free opportunity for young South Africans who are unemployed and me…
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+Durbanville, Northern Suburbs
+</td>
+<td style="text-align:left;">
+2020-11-24 20:05:57
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Are you young and unemployed. Are you looking for an opportunity.
+</td>
+<td style="text-align:left;">
+DescriptionHarambee is a 100% free opportunity for young South Africans who are unemployed and me…
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+Durban North, North Suburbs
+</td>
+<td style="text-align:left;">
+2020-11-24 20:06:00
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Are you young and unemployed. Are you looking for an opportunity.
+</td>
+<td style="text-align:left;">
+DescriptionHarambee is a 100% free opportunity for young South Africans who are unemployed and me…
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+Randburg, Johannesburg
+</td>
+<td style="text-align:left;">
+2020-11-24 20:06:03
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Fast Food Store Trainer – Western Cape
+</td>
+<td style="text-align:left;">
+Description A popular Fast-Food company is looking for an experienced Multi Store Fast Food Train…
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+Other, Cape Town
+</td>
+<td style="text-align:left;">
+2020-11-24 20:06:07
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Professional CV Writer
+</td>
+<td style="text-align:left;">
+DescriptionDo you need a professional CV done that still fits into your budget? We’ve helped seve…
 </td>
 <td style="text-align:left;">
 Casual
 </td>
 <td style="text-align:left;">
-Claremont &amp; Newlands, Southern Suburbs
+Chatsworth, Durban City
 </td>
 <td style="text-align:left;">
-2020-11-19 06:20:14
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Entry level Sales Reps Required
-</td>
-<td style="text-align:left;">
-DescriptionWe are a private company that is looking for sales reps to assist us with increasing s…
-</td>
-<td style="text-align:left;">
-Commission
-</td>
-<td style="text-align:left;">
-Bloemfontein, Free State
-</td>
-<td style="text-align:left;">
-2020-11-19 06:20:16
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Automotive Machinist – Fabricator – Welder
-</td>
-<td style="text-align:left;">
-DescriptionAutomotive Machinist – Fabricator – Welder required at a Vanderbijlpark based Harley-D…
-</td>
-<td style="text-align:left;">
-Full-Time
-</td>
-<td style="text-align:left;">
-Vanderbijlpark, Sedibeng
-</td>
-<td style="text-align:left;">
-2020-11-19 06:20:19
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Financial Manager
-</td>
-<td style="text-align:left;">
-DescriptionPurpose of the Job-To support the company in meeting and exceeding the overall objecti…
-</td>
-<td style="text-align:left;">
-EE/AA
-</td>
-<td style="text-align:left;">
-Kempton Park, East Rand
-</td>
-<td style="text-align:left;">
-2020-11-19 06:20:23
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-5 x Accountants / Bookkeepers required for busy accounting firm
-</td>
-<td style="text-align:left;">
-DescriptionWe are a Durban Based Company Looking to employ 5 Bookkeepers preferably Indian Female…
-</td>
-<td style="text-align:left;">
-Full-Time
-</td>
-<td style="text-align:left;">
-Pinetown, West Suburbs
-</td>
-<td style="text-align:left;">
-2020-11-19 06:20:25
+2020-11-24 20:06:10
 </td>
 </tr>
 </tbody>
@@ -481,7 +482,7 @@ link &lt;- &quot;https://www.gumtree.co.za/s-jobs/page-&quot; ## url fragment
 ## iterate over pages ####
 for (i in 1:pages) {
   jobs &lt;-
-    read_html(paste0(link, i, &quot;/v1c8p2?q=entry+level&quot;)) ## using paste0
+    read_html(paste0(link, i, &quot;/v1c8p&quot;, i, &quot;?q=entry+level&quot;)) ## using paste0
   links &lt;-
     jobs %&gt;%
     html_nodes(&quot;.related-ad-title&quot;) %&gt;%
@@ -493,16 +494,16 @@ for (i in 1:pages) {
 links &lt;- unlist(job_list) ## make a single list
 links &lt;- paste0(&quot;https://www.gumtree.co.za&quot;, links)
 head(links, 10) ## looks good!</code></pre>
-<pre><code>&gt;  [1] &quot;https://www.gumtree.co.za/a-other-sales-jobs/kempton-park/sales-assistant/1008356622970910009548109&quot;                                                 
-&gt;  [2] &quot;https://www.gumtree.co.za/a-customer-service-jobs/salt-river/call-centre/1008356745720911125725209&quot;                                                  
-&gt;  [3] &quot;https://www.gumtree.co.za/a-tutors-teaching-jobs/lakeside/maths-and-physics-teacher-sp-fet/1008353544800912460072609&quot;                                
-&gt;  [4] &quot;https://www.gumtree.co.za/a-sales-representatives-jobs/other/sales-consultant-needed-+-travel/1008343366270910016930309&quot;                             
-&gt;  [5] &quot;https://www.gumtree.co.za/a-it-technician-jobs/port-elizabeth/entry-level-technician-installer/1008341037700912098673809&quot;                            
-&gt;  [6] &quot;https://www.gumtree.co.za/a-office-jobs/brackenfell/office-assistant-brackenfell-r8-000-+-r9-000-pm/1008334081620911146640309&quot;                       
-&gt;  [7] &quot;https://www.gumtree.co.za/a-accounting-finance-jobs/lanseria/accountant-+-ad-posted-by-schullpak/1008328269890910406385609&quot;                          
-&gt;  [8] &quot;https://www.gumtree.co.za/a-logistics-jobs/eastern-pretoria/junior-warehouse-controller-+-pta-non+ee/1008328733720911316948209&quot;                      
-&gt;  [9] &quot;https://www.gumtree.co.za/a-accounting-finance-jobs/pinetown/5-x-accountants-bookkeepers-required-for-busy-accounting-firm/1008320950160910865995909&quot;
-&gt; [10] &quot;https://www.gumtree.co.za/a-accounting-finance-jobs/pinetown/5-x-accountants-bookkeepers-required-for-accounting-firm/1008298218320910865995909&quot;</code></pre>
+<pre><code>&gt;  [1] &quot;https://www.gumtree.co.za/a-logistics-jobs/eastern-pretoria/junior-warehouse-controller-+-pta-non+ee/1008328733720911316948209&quot;                    
+&gt;  [2] &quot;https://www.gumtree.co.za/a-restaurant-management-jobs/other/fast-food-store-trainer-western-cape/1008444905520910860094009&quot;                       
+&gt;  [3] &quot;https://www.gumtree.co.za/a-logistics-jobs/somerset-west/permanent-trade-admin-assistant/1008399662160911102256409&quot;                                
+&gt;  [4] &quot;https://www.gumtree.co.za/a-accounting-finance-jobs/paarl/permanent-jnr-financial-accountant/1008440238000911102256409&quot;                            
+&gt;  [5] &quot;https://www.gumtree.co.za/a-accounting-finance-jobs/somerset-west/permanent-entry-level-accounting-saipa-clerk/1008330437090911102256409&quot;          
+&gt;  [6] &quot;https://www.gumtree.co.za/a-office-jobs/randburg/admin-assistant/1008434181030910033892209&quot;                                                        
+&gt;  [7] &quot;https://www.gumtree.co.za/a-accounting-finance-jobs/bellville/property-accountant/1008413079430911263650209&quot;                                       
+&gt;  [8] &quot;https://www.gumtree.co.za/a-internship-jobs/randburg/are-you-young-and-unemployed-are-you-looking-for-an-opportunity/1008345839810912436560209&quot;    
+&gt;  [9] &quot;https://www.gumtree.co.za/a-internship-jobs/durban-north/are-you-young-and-unemployed-are-you-looking-for-an-opportunity/1008386160560912436560209&quot;
+&gt; [10] &quot;https://www.gumtree.co.za/a-internship-jobs/durbanville/are-you-young-and-unemployed-are-you-looking-for-an-opportunity/1008345753930912436560209&quot;</code></pre>
 </div>
 <div id="things-to-think-about" class="section level4">
 <h4>Things to think about</h4>
@@ -571,7 +572,7 @@ link &lt;- &quot;https://www.gumtree.co.za/s-jobs/page-&quot; ## url fragment
 
 for (i in 1:pages) {
   jobs &lt;-
-    read_html(paste0(link, i, &quot;/v1c8p2?q=entry+level&quot;)) ## using paste0
+    read_html(paste0(link, i, &quot;/v1c8p&quot;, i)) ## using paste0
   links &lt;-
     jobs %&gt;%
     html_nodes(&quot;.related-ad-title&quot;) %&gt;%
@@ -664,7 +665,7 @@ write_csv(all, &quot;myfile.csv&quot;) ## export</code></pre>
 <li id="fn7"><p>See <a href="https://medium.com/@perrysetgo/what-exactly-is-an-api-69f36968a41f">What exactly IS an API? - by Perry Eising on Medium</a><a href="#fnref7" class="footnote-back">↩︎</a></p></li>
 <li id="fn8"><p>See Miles McBain’s “<a href="https://github.com/MilesMcBain/datapasta">datapasta</a>” package<a href="#fnref8" class="footnote-back">↩︎</a></p></li>
 <li id="fn9"><p>See, for instance, <a href="https://www.octoparse.com/">Octoparse</a> or <a href="https://webscraper.io/">webscraper.io</a>. Also see, Google Sheets’ <code>importHTML</code> function (see the documentation <a href="https://support.google.com/docs/answer/3093339?hl=en">here</a> or see this Martin Hawksey’s tutorial <a href="https://mashe.hawksey.info/2012/10/feeding-google-spreadsheets-exercises-in-import/">here</a> (looks good)<a href="#fnref9" class="footnote-back">↩︎</a></p></li>
-<li id="fn10"><p>See <a href="https://en.wikipedia.org/wiki/Robots_exclusion_standard" class="uri">https://en.wikipedia.org/wiki/Robots_exclusion_standard</a> then, there’s helpful information in Peter Meissner’s <code>robotstxt</code> R package <a href="https://cran.r-project.org/web/packages/robotstxt/vignettes/using_robotstxt.html">documentation</a><a href="#fnref10" class="footnote-back">↩︎</a></p></li>
+<li id="fn10"><p>See <a href="https://developers.google.com/search/docs/advanced/robots/create-robots-txt">here</a>: “The robots.txt file must be located at the root of the website host to which it applies […] <a href="http://www.example.com/robots.txt" class="uri">http://www.example.com/robots.txt</a>”. See also: <a href="https://en.wikipedia.org/wiki/Robots_exclusion_standard" class="uri">https://en.wikipedia.org/wiki/Robots_exclusion_standard</a> then, there’s helpful information in Peter Meissner’s <code>robotstxt</code> R package <a href="https://cran.r-project.org/web/packages/robotstxt/vignettes/using_robotstxt.html">documentation</a><a href="#fnref10" class="footnote-back">↩︎</a></p></li>
 <li id="fn11"><p>See <a href="https://www.internetingishard.com/html-and-css/introduction/" class="uri">https://www.internetingishard.com/html-and-css/introduction/</a> and <a href="https://www.w3schools.com/html/html_intro.asp" class="uri">https://www.w3schools.com/html/html_intro.asp</a><a href="#fnref11" class="footnote-back">↩︎</a></p></li>
 <li id="fn12"><p><a href="https://developers.google.com/web/tools/chrome-devtools/open" class="uri">https://developers.google.com/web/tools/chrome-devtools/open</a><a href="#fnref12" class="footnote-back">↩︎</a></p></li>
 <li id="fn13"><p><a href="https://r4ds.had.co.nz/tibbles.html" class="uri">https://r4ds.had.co.nz/tibbles.html</a><a href="#fnref13" class="footnote-back">↩︎</a></p></li>

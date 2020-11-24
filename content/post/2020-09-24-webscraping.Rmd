@@ -77,7 +77,7 @@ There are a few things to consider before investing time in writing a webscrapin
 
 [^9]: See, for instance, [Octoparse](https://www.octoparse.com/) or [webscraper.io](https://webscraper.io/). Also see, Google Sheets' `importHTML` function (see the documentation [here](https://support.google.com/docs/answer/3093339?hl=en) or see this Martin Hawksey's tutorial [here](https://mashe.hawksey.info/2012/10/feeding-google-spreadsheets-exercises-in-import/) (looks good)
 
-[^10]: See <https://en.wikipedia.org/wiki/Robots_exclusion_standard> then, there's helpful information in Peter Meissner's `robotstxt` R package [documentation](https://cran.r-project.org/web/packages/robotstxt/vignettes/using_robotstxt.html)
+[^10]: See [here](https://developers.google.com/search/docs/advanced/robots/create-robots-txt): "The robots.txt file must be located at the root of the website host to which it applies [...] http://www.example.com/robots.txt". See also: <https://en.wikipedia.org/wiki/Robots_exclusion_standard> then, there's helpful information in Peter Meissner's `robotstxt` R package [documentation](https://cran.r-project.org/web/packages/robotstxt/vignettes/using_robotstxt.html)
 
 ------------------------------------------------------------------------
 
@@ -126,6 +126,9 @@ library(kableExtra) ## for printing out an html table in this post
 
 ```
 
+First, I check the robots.txt files (see https://www.gumtree.co.za/robots.txt and https://en.wikipedia.org/robots.txt).
+
+**Note:** these protocols are not easy to interpret. I think the rule of thumb is: be polite.
 
 ```{r}
 
@@ -135,8 +138,6 @@ robotstxt::paths_allowed("https://www.wikipedia.org/") ## should be TRUE
 robotstxt::paths_allowed("https://www.gumtree.co.za/") ## should be TRUE
 
 ```
-
-**Note:** these protocols are not easy to interpret. I think the rule of thumb is: be polite.
 
 ### Table example
 
@@ -180,7 +181,7 @@ I extract the links on the first page (each title links to a full ad):
 
 ## Job site example ####
 ## reading in the HTML from this page on entry-level jobs
-jobs <- read_html("https://www.gumtree.co.za/s-jobs/page-1/v1c8p2?q=entry+level")
+jobs <- read_html("https://www.gumtree.co.za/s-jobs/v1c8p1?q=entry+level")
 
 ## extract links on first page
 links <-
@@ -351,7 +352,7 @@ link <- "https://www.gumtree.co.za/s-jobs/page-" ## url fragment
 ## iterate over pages ####
 for (i in 1:pages) {
   jobs <-
-    read_html(paste0(link, i, "/v1c8p2?q=entry+level")) ## using paste0
+    read_html(paste0(link, i, "/v1c8p", i, "?q=entry+level")) ## using paste0
   links <-
     jobs %>%
     html_nodes(".related-ad-title") %>%
@@ -438,7 +439,7 @@ link <- "https://www.gumtree.co.za/s-jobs/page-" ## url fragment
 
 for (i in 1:pages) {
   jobs <-
-    read_html(paste0(link, i, "/v1c8p2?q=entry+level")) ## using paste0
+    read_html(paste0(link, i, "/v1c8p", i)) ## using paste0
   links <-
     jobs %>%
     html_nodes(".related-ad-title") %>%
@@ -482,6 +483,7 @@ all <- bind_rows(all) ## Fab!
 glimpse(all)
 
 write_csv(all, "myfile.csv") ## export
+
 ```
 
 ------------------------------------------------------------------------
