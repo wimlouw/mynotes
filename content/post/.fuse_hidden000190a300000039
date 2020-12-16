@@ -16,15 +16,7 @@ output:
     toc: yes
 ---
 
-```{r set-up, include=FALSE}
 
-## Global chunk options ----
-
-knitr::opts_chunk$set(
-  comment = ">", message = FALSE, warning = FALSE, tidy = "styler", tidy.opts = list(strict = FALSE)
-)
-
-```
 
 ## Intro
 
@@ -119,8 +111,8 @@ I use the [rvest](https://github.com/tidyverse/rvest) R package ("rvest helps yo
 
 ### Set up
 
-```{r libraries}
 
+```r
 ## Load libraries ----
 
 library(tidyverse) ## for data manipulation (various packages)
@@ -128,20 +120,29 @@ library(rvest) ## for scraping
 library(textclean) ## some cleaning functions
 library(robotstxt) ## to get robotstxt protocols
 library(kableExtra) ## for printing out an html table in this post
-
 ```
 
 First, I check the robots.txt files (see <https://www.gumtree.co.za/robots.txt> and <https://en.wikipedia.org/robots.txt>).
 
 **Note:** these protocols are not easy to interpret. I think the rule of thumb is: be polite.
 
-```{r}
 
+```r
 ## Use the robotstxt package to check if a bot has permissions to access page(s)
 
 robotstxt::paths_allowed("https://www.wikipedia.org/") ## should be TRUE
-robotstxt::paths_allowed("https://www.gumtree.co.za/") ## should be TRUE
+```
 
+```
+> [1] TRUE
+```
+
+```r
+robotstxt::paths_allowed("https://www.gumtree.co.za/") ## should be TRUE
+```
+
+```
+> [1] TRUE
 ```
 
 ### Table example
@@ -154,20 +155,51 @@ Something you can do (I learned, after some Googling) is to get **all tables** o
 
 [![A screenshot of the 2019 South African general election results on Wikipedia](/img/Screenshot%202020-11-14%20at%2020.34.27.png "A screenshot of the 2019 South African general election results on Wikipedia")](https://en.wikipedia.org/wiki/Elections_in_South_Africa)
 
-```{r table-example}
 
+```r
 ## Get Table element from Wikipedia ----
 
 website <- read_html("https://en.wikipedia.org/wiki/Elections_in_South_Africa") ## get the website HTML
 
 table <- website %>% html_nodes("table") ## all tables
 length(table) ## how many tables?
+```
 
+```
+> [1] 19
+```
+
+```r
 data <- html_table(table[grep("ANC", table)], fill = T)[[1]]
 
 glimpse(data) ## let's see
-head(data) ## great!
+```
 
+```
+> Rows: 55
+> Columns: 8
+> $ Party <chr> "list", "list", "list", "list", "list", "list", "list", "list",…
+> $ Party <chr> "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "",…
+> $ Party <chr> "ANC", "Democratic Alliance", "Economic Freedom Fighters", "IFP…
+> $ Votes <chr> "10,026,475", "3,621,188", "1,881,521", "588,839", "414,864", "…
+> $ `%`   <chr> "57.50", "20.77", "10.79", "3.38", "2.38", "0.84", "0.45", "0.4…
+> $ `+/−` <chr> "4.65", "1.36", "4.44", "0.98", "1.48", "0.27", "0.55", "New", …
+> $ Seats <chr> "230", "84", "44", "14", "10", "4", "2", "2", "2", "2", "2", "2…
+> $ `+/−` <chr> "19", "5", "19", "4", "6", "1", "2", "New", "New", "4", "1", "1…
+```
+
+```r
+head(data) ## great!
+```
+
+```
+>   Party Party                     Party      Votes     %  +/− Seats +/−
+> 1  list                             ANC 10,026,475 57.50 4.65   230  19
+> 2  list             Democratic Alliance  3,621,188 20.77 1.36    84   5
+> 3  list       Economic Freedom Fighters  1,881,521 10.79 4.44    44  19
+> 4  list                             IFP    588,839  3.38 0.98    14   4
+> 5  list              Freedom Front Plus    414,864  2.38 1.48    10   6
+> 6  list                            ACDP    146,262  0.84 0.27     4   1
 ```
 
 ### Job posts
@@ -184,8 +216,8 @@ There are multiple postings on each page, and each one links to a full ad.
 
 I extract the links on the first page (each title links to a full ad):
 
-```{r joblinks_example1}
- 
+
+```r
 ## reading in the HTML from this page on entry-level jobs
 jobs <- read_html("https://www.gumtree.co.za/s-jobs/v1c8p1?q=entry+level")
 
@@ -196,20 +228,37 @@ links <-
   html_attr("href") ## get the post link
 
 head(links) ## great!
+```
 
+```
+> [1] "/a-logistics-jobs/eastern-pretoria/junior-warehouse-controller-+-pta-non+ee/1008328733720911316948209"                   
+> [2] "/a-internship-jobs/durbanville/are-you-young-and-unemployed-are-you-looking-for-an-opportunity/1008463343470912436560209"
+> [3] "/a-clerical-data-capturing-jobs/somerset-west/permanent-admin-assistant-financial-services/1008560434300912467960009"    
+> [4] "/a-hr-jobs/city-centre/recruitment-officer/1008558338510910255520809"                                                    
+> [5] "/a-hr-jobs/city-centre/human-resources-assistant/1008558343790910255520809"                                              
+> [6] "/a-office-jobs/brackenfell/office-assistant-brackenfell-r8-000-+-r9-000-pm/1008557939220911146640309"
 ```
 
 I decided to extract the job title, description, job type, employer, location, and to include a time-stamp. I used the inspect tool to identify each element's CSS-selector.
 
 (There's much more information on this page than the few elements I chose; the approach would be the same.)
 
-```{r jobpost-example_title}
 
+```r
 ## first link
 jobs_1 <- read_html(paste0("https://www.gumtree.co.za", links[1]))
 
 jobs_1
+```
 
+```
+> {html_document}
+> <html data-locale="en_ZA" lang="en" xmlns="http://www.w3.org/1999/html" class="VIP">
+> [1] <head>\n<meta name="csrf-token" content="466ea01ccbcacd284aa5a9080a1099e1 ...
+> [2] <body class="VIP">\n<noscript><iframe src="//www.googletagmanager.com/ns. ...
+```
+
+```r
 ## get the job title
 title <- jobs_1 %>%
   html_nodes("h1") %>%
@@ -218,15 +267,18 @@ title <- jobs_1 %>%
   str_squish() ## get rid of leading and trailing whitespace
 
 title
+```
 
+```
+> [1] "Junior Warehouse Controller - PTA (Non-EE)"
 ```
 
 This worked.
 
 Since I want to do this for a few more things --- title, description, &c., I code a function to make this easier, and to avoid repeating myself too much:
 
-```{r function_clean-element}
 
+```r
 ## function for cleaning single elements ----
 
 clean_element <- function(page_html, selector) {
@@ -238,13 +290,12 @@ clean_element <- function(page_html, selector) {
   output <- ifelse(length(output) == 0, NA, output) ## in case an element is missing
   return(output)
 }
-
 ```
 
 This works (and I can always add a few more things in the function if I wanted to).
 
-```{r jobpost-example_others}
 
+```r
 ## let's try out the function!
 ## I got the CSS-selectors with SelectorGadget
 
@@ -265,7 +316,13 @@ dat <-
   )
 
 dat ## looks good!
+```
 
+```
+> # A tibble: 1 x 5
+>   title        description             jobtype location      time               
+>   <chr>        <chr>                   <chr>   <chr>         <dttm>             
+> 1 Junior Ware… DescriptionAn establis… Non EE… Eastern Pret… 2020-12-16 14:22:18
 ```
 
 What if I wanted to do this for all job posts on a page?
@@ -278,8 +335,8 @@ I write another function, which will create a tibble[^15] for a job post, with t
 
 After I have a list of tibbles, I can combine them into a single dataset using `dplyr`'s `bind_rows()`.
 
-```{r function_clean-ad}
 
+```r
 ## function for cleaning all elements I want on a page ----
 
 clean_ad <- function(link) {
@@ -303,11 +360,10 @@ clean_ad <- function(link) {
     )
   return(dat)
 }
-
 ```
 
-```{r iteration_example1}
 
+```r
 ## set up ----
 
 ## fixing" link addresses
@@ -329,11 +385,20 @@ for (i in 1:length(links)) {
 all <- bind_rows(output) ## fab!
 
 glimpse(all)
-
 ```
 
-```{r html-table_iteration1}
+```
+> Rows: 10
+> Columns: 5
+> $ title       <chr> "Handyman /driver /farmhand", "Permanent Admin Assistant …
+> $ description <chr> "DescriptionHandyman /driver /farmhand. An entry level jo…
+> $ jobtype     <chr> NA, NA, NA, NA, NA, NA, "Non EE/AA", NA, "EE/AA", NA
+> $ location    <chr> "Howick, Midlands", "Somerset West, Helderberg", "Inner C…
+> $ time        <dttm> 2020-12-16 14:22:19, 2020-12-16 14:22:22, 2020-12-16 14:…
+```
 
+
+```r
 all$description <- str_trunc(all$description, 100, "right") ## truncate
 all$description <- sub("^Description", "", all$description)
 
@@ -341,8 +406,91 @@ all$description <- sub("^Description", "", all$description)
 all %>%
   kable() %>%
   kable_paper(bootstrap_options = c("striped", "responsive"))
-
 ```
+
+<table class=" lightable-paper" style='font-family: "Arial Narrow", arial, helvetica, sans-serif; margin-left: auto; margin-right: auto;'>
+ <thead>
+  <tr>
+   <th style="text-align:left;"> title </th>
+   <th style="text-align:left;"> description </th>
+   <th style="text-align:left;"> jobtype </th>
+   <th style="text-align:left;"> location </th>
+   <th style="text-align:left;"> time </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> Handyman /driver /farmhand </td>
+   <td style="text-align:left;"> Handyman /driver /farmhand. An entry level job live in on farm. Please whatsapp 082453... </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> Howick, Midlands </td>
+   <td style="text-align:left;"> 2020-12-16 14:22:19 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Permanent Admin Assistant (Financial Services) </td>
+   <td style="text-align:left;"> The admin assistant is primarily responsible for performing after sales service offeri... </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> Somerset West, Helderberg </td>
+   <td style="text-align:left;"> 2020-12-16 14:22:22 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Are you young and unemployed. Are you looking for an opportunity. </td>
+   <td style="text-align:left;"> Harambee is a 100% free opportunity for young South Africans who are unemployed and me... </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> Inner City / CBD&amp;Bruma, Johannesburg </td>
+   <td style="text-align:left;"> 2020-12-16 14:22:24 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Vodacom Direct Sales and Marketing </td>
+   <td style="text-align:left;"> Real Promotions is recruiting for Vodacom Sales Representatives within the Cape Town ... </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> De Waterkant, Cape Town </td>
+   <td style="text-align:left;"> 2020-12-16 14:22:27 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Are you young and unemployed. Are you looking for an opportunity. </td>
+   <td style="text-align:left;"> Harambee is a 100% free opportunity for young South Africans who are unemployed and me... </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> Eastern Pretoria, Pretoria / Tshwane </td>
+   <td style="text-align:left;"> 2020-12-16 14:22:30 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Are you young and unemployed. Are you looking for an opportunity. </td>
+   <td style="text-align:left;"> Harambee is a 100% free opportunity for young South Africans who are unemployed and me... </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> Randburg, Johannesburg </td>
+   <td style="text-align:left;"> 2020-12-16 14:22:32 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Junior Warehouse Controller - PTA (Non-EE) </td>
+   <td style="text-align:left;"> An established logistics company in Pretoria East will employ a Junior Warehouse Contr... </td>
+   <td style="text-align:left;"> Non EE/AA </td>
+   <td style="text-align:left;"> Eastern Pretoria, Pretoria / Tshwane </td>
+   <td style="text-align:left;"> 2020-12-16 14:22:35 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Property Accountant </td>
+   <td style="text-align:left;"> Leading Property Development Group, based in the Northern Suburbs of Cape Town, is loo... </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> Bellville, Northern Suburbs </td>
+   <td style="text-align:left;"> 2020-12-16 14:22:38 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Building and civil Internship entry level position </td>
+   <td style="text-align:left;"> We have a position for a building/civil internship You should have a reasonable amount... </td>
+   <td style="text-align:left;"> EE/AA </td>
+   <td style="text-align:left;"> Umbilo, Durban City </td>
+   <td style="text-align:left;"> 2020-12-16 14:22:41 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Human Resources Assistant </td>
+   <td style="text-align:left;"> The HYPERCHECK Group has an exciting opportunity for a Human Resources Assistant at th... </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> City Centre, Durban City </td>
+   <td style="text-align:left;"> 2020-12-16 14:22:43 </td>
+  </tr>
+</tbody>
+</table>
 
 Nice!
 
@@ -354,8 +502,8 @@ One (hacky) approach is to use the URL and another for loop.[^16]
 
 In the example below, I extract the job links for the first 3 pages:
 
-```{r joblinks_example2}
 
+```r
 ## set-up ----
 
 pages <- 3 ## let's just do 3
@@ -378,7 +526,19 @@ for (i in 1:pages) {
 links <- unlist(job_list) ## make a single list
 links <- paste0("https://www.gumtree.co.za", links)
 head(links, 10) ## looks good!
+```
 
+```
+>  [1] "https://www.gumtree.co.za/a-logistics-jobs/eastern-pretoria/junior-warehouse-controller-+-pta-non+ee/1008328733720911316948209"                   
+>  [2] "https://www.gumtree.co.za/a-internship-jobs/durbanville/are-you-young-and-unemployed-are-you-looking-for-an-opportunity/1008463343470912436560209"
+>  [3] "https://www.gumtree.co.za/a-clerical-data-capturing-jobs/somerset-west/permanent-admin-assistant-financial-services/1008560434300912467960009"    
+>  [4] "https://www.gumtree.co.za/a-hr-jobs/city-centre/recruitment-officer/1008558338510910255520809"                                                    
+>  [5] "https://www.gumtree.co.za/a-hr-jobs/city-centre/human-resources-assistant/1008558343790910255520809"                                              
+>  [6] "https://www.gumtree.co.za/a-office-jobs/brackenfell/office-assistant-brackenfell-r8-000-+-r9-000-pm/1008557939220911146640309"                    
+>  [7] "https://www.gumtree.co.za/a-general-worker-jobs/somerset-west/permanent-administration-assistant/1008459525670911102256409"                       
+>  [8] "https://www.gumtree.co.za/a-logistics-jobs/paarl/permanent-jnr-logistics-coordinator/1008548513350911102256409"                                   
+>  [9] "https://www.gumtree.co.za/a-fmcg-jobs/durbanville/storeman-pharmaceutical-fmcg/1008551592230911341410109"                                         
+> [10] "https://www.gumtree.co.za/a-accounting-finance-jobs/paarl/permanent-jnr-financial-accountant/1008548473800911102256409"
 ```
 
 #### Things to think about
@@ -400,8 +560,8 @@ Make sure your script can handle errors[^17]:
 
 **Bells and whistles:** I use the `purrr` package's `possibly()` function to deal with errors (so my script doesn't break when a link is broken); I use the `progress` package to show me, in my console, how far along the scraping is.
 
-```{r all-together, eval=FALSE}
 
+```r
 ## Libraries ----
 
 library(tidyverse) ## for data manipulation (various packages)
@@ -499,7 +659,6 @@ all <- bind_rows(all) ## Fab!
 glimpse(all)
 
 write_csv(all, "myfile.csv") ## export
-
 ```
 
 ------------------------------------------------------------------------

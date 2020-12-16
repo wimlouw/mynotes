@@ -61,7 +61,7 @@ output:
 <li><strong>Is this already available?</strong> Perhaps it can be downloaded from the site as a spreadsheet already (have a look around), or perhaps the site has an API<a href="#fn7" class="footnote-ref" id="fnref7"><sup>7</sup></a> you can access to download data.</li>
 <li><strong>Is there a low effort way of doing this?</strong> For instance, maybe you can just copy-paste what you need into a spreadsheet or directly into R<a href="#fn8" class="footnote-ref" id="fnref8"><sup>8</sup></a>? Or maybe there’s a tool you can use straight-away.<a href="#fn9" class="footnote-ref" id="fnref9"><sup>9</sup></a></li>
 <li><strong>How much copy-paste/ “low-effort” work are we talking here?</strong> I think writing a simple script can, in many cases, be the lowest effort (and cheapest) of all, but one might hesitate because it feels daunting. If you’ll need to copy-paste multiple things across multiple pages, rather write a script. And if it’s something you plan to do regularly — automate with a script.</li>
-<li><strong>Is it OK for me to do this?</strong> This is a trickier question. It depends. And sometimes it’s hard to tell! Things you can do: check if the site has a <code>robots.txt</code> file<a href="#fn10" class="footnote-ref" id="fnref10"><sup>10</sup></a> (which, if a site has one, includes do’s and don’t for scrapers/crawlers); perhaps ask yourself “would I feel OK about this information being pulled if this was my website?”; consider what you plan to do with the information you aggregate, and ask yourself if that seems OK. If you decide to scrape — be “polite” about it: don’t overwhelm the site. Don’t bother the site more than you need to, i.e. don’t send too many requests to a website per second. You can avoid this by trying to be efficient (don’t repeatedly query the website); include some “rests” in your code, to slow things down.</li>
+<li><strong>Is it OK for me to do this?</strong> This is a trickier question. It depends. And sometimes it’s hard to tell! Things you can do: check if the site has a <code>robots.txt</code> file<a href="#fn10" class="footnote-ref" id="fnref10"><sup>10</sup></a> (which, if a site has one, includes do’s and don’ts for scrapers/crawlers); perhaps ask yourself “would I feel OK about this information being pulled if this was my website?”; consider what you plan to do with the information you aggregate, and ask yourself if that seems OK. If you decide to scrape — be “polite” about it: don’t overwhelm the site.<a href="#fn11" class="footnote-ref" id="fnref11"><sup>11</sup></a> Don’t bother the site more than you need to, i.e. don’t send too many requests to a website per second. You can avoid this by trying to be efficient (don’t repeatedly query the website); include some “rests” in your code, to slow things down.</li>
 </ul>
 <hr />
 </div>
@@ -73,8 +73,8 @@ output:
 <li><strong>CSS</strong> – adding styles (formatting, colours, sizes of things, sometimes where things are placed, &amp;c.)</li>
 <li><strong>JavaScript</strong> - making things interactive (behaviour of things on the page)</li>
 </ul>
-<p><a href="https://codepen.io/rcyou/pen/QEObEk/"><strong>Here</strong></a> is an example on <a href="https://codepen.io/">CodePen</a> bringing these together.<a href="#fn11" class="footnote-ref" id="fnref11"><sup>11</sup></a></p>
-<p>You can also see how these come together by using your browser’s inspect tool. On Chrome you can right click and select “inspect” or go to More Tools/ Developer Tools<a href="#fn12" class="footnote-ref" id="fnref12"><sup>12</sup></a>.</p>
+<p><a href="https://codepen.io/rcyou/pen/QEObEk/"><strong>Here</strong></a> is an example on <a href="https://codepen.io/">CodePen</a> bringing these together.<a href="#fn12" class="footnote-ref" id="fnref12"><sup>12</sup></a></p>
+<p>You can also see how these come together by using your browser’s inspect tool. On Chrome you can right click and select “inspect” or go to More Tools/ Developer Tools<a href="#fn13" class="footnote-ref" id="fnref13"><sup>13</sup></a>.</p>
 <p>Here’s what it looks like:</p>
 <p><a href="https://www.povertyactionlab.org/page/research-south-africa"><img src="/img/Screenshot%202020-11-12%20at%2010.38.08.png" title="A screenshot of the J-PAL Africa Research webpage viewed with the Chrome inspection tool" id="inspection-example" alt="A screenshot of the J-PAL Africa Research webpage viewed with the Chrome inspection tool" /></a></p>
 <hr />
@@ -89,7 +89,8 @@ output:
 <h2>Examples</h2>
 <div id="set-up" class="section level3">
 <h3>Set up</h3>
-<pre class="r"><code>## Load libraries ####
+<pre class="r"><code>## Load libraries ----
+
 library(tidyverse) ## for data manipulation (various packages)
 library(rvest) ## for scraping
 library(textclean) ## some cleaning functions
@@ -97,7 +98,7 @@ library(robotstxt) ## to get robotstxt protocols
 library(kableExtra) ## for printing out an html table in this post</code></pre>
 <p>First, I check the robots.txt files (see <a href="https://www.gumtree.co.za/robots.txt" class="uri">https://www.gumtree.co.za/robots.txt</a> and <a href="https://en.wikipedia.org/robots.txt" class="uri">https://en.wikipedia.org/robots.txt</a>).</p>
 <p><strong>Note:</strong> these protocols are not easy to interpret. I think the rule of thumb is: be polite.</p>
-<pre class="r"><code>## use the robotstxt package to check if a bot has permissions to access page(s)
+<pre class="r"><code>## Use the robotstxt package to check if a bot has permissions to access page(s)
 
 robotstxt::paths_allowed(&quot;https://www.wikipedia.org/&quot;) ## should be TRUE</code></pre>
 <pre><code>&gt; [1] TRUE</code></pre>
@@ -110,7 +111,7 @@ robotstxt::paths_allowed(&quot;https://www.wikipedia.org/&quot;) ## should be TR
 <p>I tried using SelectorGadget and the Chrome inspection tool, but was struggling to figure out the correct selector.</p>
 <p>Something you can do (I learned, after some Googling) is to get <strong>all tables</strong> on the page; then you can identify which one is the right one using string matching (e.g. the <code>grep()</code> function).</p>
 <p><a href="https://en.wikipedia.org/wiki/Elections_in_South_Africa"><img src="/img/Screenshot%202020-11-14%20at%2020.34.27.png" title="A screenshot of the 2019 South African general election results on Wikipedia" alt="A screenshot of the 2019 South African general election results on Wikipedia" /></a></p>
-<pre class="r"><code>## Get Table element from Wikipedia ####
+<pre class="r"><code>## Get Table element from Wikipedia ----
 
 website &lt;- read_html(&quot;https://en.wikipedia.org/wiki/Elections_in_South_Africa&quot;) ## get the website HTML
 
@@ -141,13 +142,12 @@ glimpse(data) ## let&#39;s see</code></pre>
 </div>
 <div id="job-posts" class="section level3">
 <h3>Job posts</h3>
-<p>This is my main example: getting job information from a site called Gumtree.co.za.</p>
-<p><a href="https://www.gumtree.co.za/s-jobs/v1c8p1"><img src="/img/Screenshot%202020-11-14%20at%2020.47.23.png" title="Screenshot of job postings on gumtree.co.za" alt="Screenshot of job postings on gumtree.co.za (example)" /></a></p>
+<p>This is my main example: getting job information from a site called Gumtree.co.za.<a href="#fn14" class="footnote-ref" id="fnref14"><sup>14</sup></a></p>
+<p><img src="/img/Screenshot%202020-11-24%20at%2015.13.53.png" title="Screenshot of job postings on gumtree.co.za (example)" /></p>
 <p><strong>Things to note here, after inspecting the page:</strong> descriptions are truncated, and contact information is hidden. To reveal them, you need to click on these elements. We’re not going to get into headless browsers, and how to get your script to interact with page elements, but keep in mind that this is possible.</p>
 <p>There are multiple postings on each page, and each one links to a full ad.</p>
 <p>I extract the links on the first page (each title links to a full ad):</p>
-<pre class="r"><code>## Job site example ####
-## reading in the HTML from this page on entry-level jobs
+<pre class="r"><code>## reading in the HTML from this page on entry-level jobs
 jobs &lt;- read_html(&quot;https://www.gumtree.co.za/s-jobs/v1c8p1?q=entry+level&quot;)
 
 ## extract links on first page
@@ -157,21 +157,21 @@ links &lt;-
   html_attr(&quot;href&quot;) ## get the post link
 
 head(links) ## great!</code></pre>
-<pre><code>&gt; [1] &quot;/a-logistics-jobs/eastern-pretoria/junior-warehouse-controller-+-pta-non+ee/1008328733720911316948209&quot;          
-&gt; [2] &quot;/a-restaurant-management-jobs/other/fast-food-store-trainer-western-cape/1008444905520910860094009&quot;             
-&gt; [3] &quot;/a-logistics-jobs/somerset-west/permanent-trade-admin-assistant/1008399662160911102256409&quot;                      
-&gt; [4] &quot;/a-accounting-finance-jobs/paarl/permanent-jnr-financial-accountant/1008440238000911102256409&quot;                  
-&gt; [5] &quot;/a-accounting-finance-jobs/somerset-west/permanent-entry-level-accounting-saipa-clerk/1008330437090911102256409&quot;
-&gt; [6] &quot;/a-office-jobs/randburg/admin-assistant/1008434181030910033892209&quot;</code></pre>
+<pre><code>&gt; [1] &quot;/a-logistics-jobs/eastern-pretoria/junior-warehouse-controller-+-pta-non+ee/1008328733720911316948209&quot;                   
+&gt; [2] &quot;/a-internship-jobs/durbanville/are-you-young-and-unemployed-are-you-looking-for-an-opportunity/1008463343470912436560209&quot;
+&gt; [3] &quot;/a-clerical-data-capturing-jobs/somerset-west/permanent-admin-assistant-financial-services/1008560434300912467960009&quot;    
+&gt; [4] &quot;/a-hr-jobs/city-centre/recruitment-officer/1008558338510910255520809&quot;                                                    
+&gt; [5] &quot;/a-hr-jobs/city-centre/human-resources-assistant/1008558343790910255520809&quot;                                              
+&gt; [6] &quot;/a-office-jobs/brackenfell/office-assistant-brackenfell-r8-000-+-r9-000-pm/1008557939220911146640309&quot;</code></pre>
 <p>I decided to extract the job title, description, job type, employer, location, and to include a time-stamp. I used the inspect tool to identify each element’s CSS-selector.</p>
 <p>(There’s much more information on this page than the few elements I chose; the approach would be the same.)</p>
 <pre class="r"><code>## first link
 jobs_1 &lt;- read_html(paste0(&quot;https://www.gumtree.co.za&quot;, links[1]))
 
 jobs_1</code></pre>
-<pre><code>&gt; {xml_document}
+<pre><code>&gt; {html_document}
 &gt; &lt;html data-locale=&quot;en_ZA&quot; lang=&quot;en&quot; xmlns=&quot;http://www.w3.org/1999/html&quot; class=&quot;VIP&quot;&gt;
-&gt; [1] &lt;head&gt;\n&lt;meta name=&quot;csrf-token&quot; content=&quot;395a0342d6da62ca931bb1d1f493bcb1 ...
+&gt; [1] &lt;head&gt;\n&lt;meta name=&quot;csrf-token&quot; content=&quot;466ea01ccbcacd284aa5a9080a1099e1 ...
 &gt; [2] &lt;body class=&quot;VIP&quot;&gt;\n&lt;noscript&gt;&lt;iframe src=&quot;//www.googletagmanager.com/ns. ...</code></pre>
 <pre class="r"><code>## get the job title
 title &lt;- jobs_1 %&gt;%
@@ -184,7 +184,8 @@ title</code></pre>
 <pre><code>&gt; [1] &quot;Junior Warehouse Controller - PTA (Non-EE)&quot;</code></pre>
 <p>This worked.</p>
 <p>Since I want to do this for a few more things — title, description, &amp;c., I code a function to make this easier, and to avoid repeating myself too much:</p>
-<pre class="r"><code>## function for cleaning single elements ####
+<pre class="r"><code>## function for cleaning single elements ----
+
 clean_element &lt;- function(page_html, selector) {
   output &lt;- page_html %&gt;%
     html_nodes(selector) %&gt;%
@@ -197,6 +198,7 @@ clean_element &lt;- function(page_html, selector) {
 <p>This works (and I can always add a few more things in the function if I wanted to).</p>
 <pre class="r"><code>## let&#39;s try out the function!
 ## I got the CSS-selectors with SelectorGadget
+
 description &lt;- clean_element(jobs_1, &quot;.description-website-container&quot;)
 jobtype &lt;- clean_element(jobs_1, &quot;.attribute:nth-child(4) .value&quot;)
 employer &lt;- clean_element(jobs_1, &quot;.attribute:nth-child(3) .value&quot;)
@@ -217,13 +219,14 @@ dat ## looks good!</code></pre>
 <pre><code>&gt; # A tibble: 1 x 5
 &gt;   title        description             jobtype location      time               
 &gt;   &lt;chr&gt;        &lt;chr&gt;                   &lt;chr&gt;   &lt;chr&gt;         &lt;dttm&gt;             
-&gt; 1 Junior Ware… DescriptionAn establis… Non EE… Eastern Pret… 2020-11-24 20:05:40</code></pre>
+&gt; 1 Junior Ware… DescriptionAn establis… Non EE… Eastern Pret… 2020-12-16 14:22:18</code></pre>
 <p>What if I wanted to do this for all job posts on a page?</p>
 <div id="iteration" class="section level4">
 <h4>Iteration</h4>
-<p>I write another function, which will create a tibble<a href="#fn13" class="footnote-ref" id="fnref13"><sup>13</sup></a> for a job post, with the information I want. I can then use a for loop to apply the function to each job post and to put the result into a list of tibbles.</p>
+<p>I write another function, which will create a tibble<a href="#fn15" class="footnote-ref" id="fnref15"><sup>15</sup></a> for a job post, with the information I want. I can then use a for loop to apply the function to each job post and to put the result into a list of tibbles.</p>
 <p>After I have a list of tibbles, I can combine them into a single dataset using <code>dplyr</code>’s <code>bind_rows()</code>.</p>
-<pre class="r"><code>## function for cleaning all elements I want on a page ####
+<pre class="r"><code>## function for cleaning all elements I want on a page ----
+
 clean_ad &lt;- function(link) {
   page_html &lt;- read_html(link) ## get HTML
   ## the list of items I want in each post
@@ -245,7 +248,8 @@ clean_ad &lt;- function(link) {
     )
   return(dat)
 }</code></pre>
-<pre class="r"><code>## set up ####
+<pre class="r"><code>## set up ----
+
 ## fixing&quot; link addresses
 links &lt;- paste0(&quot;https://www.gumtree.co.za&quot;, links)
 links &lt;- sample(links, 10) ## sampling 10 random links for the example
@@ -253,7 +257,8 @@ links &lt;- sample(links, 10) ## sampling 10 random links for the example
 ## I create a list (for storing tibbles), and a for loop to iterate through links
 output &lt;- list()
 
-## iterating through links with a for loop ####
+## iterating through links with a for loop ----
+
 for (i in 1:length(links)) {
   deets &lt;- clean_ad(links[i]) ## my function for extracting selected content from a post
   output[[i]] &lt;- deets ## add to list
@@ -266,12 +271,13 @@ all &lt;- bind_rows(output) ## fab!
 glimpse(all)</code></pre>
 <pre><code>&gt; Rows: 10
 &gt; Columns: 5
-&gt; $ title       &lt;chr&gt; &quot;Junior Warehouse Controller - PTA (Non-EE)&quot;, &quot;Are you yo…
-&gt; $ description &lt;chr&gt; &quot;DescriptionAn established logistics company in Pretoria …
-&gt; $ jobtype     &lt;chr&gt; &quot;Non EE/AA&quot;, NA, NA, NA, &quot;Full-Time&quot;, NA, NA, NA, NA, &quot;Ca…
-&gt; $ location    &lt;chr&gt; &quot;Eastern Pretoria, Pretoria / Tshwane&quot;, &quot;Eastern Pretoria…
-&gt; $ time        &lt;dttm&gt; 2020-11-24 20:05:41, 2020-11-24 20:05:44, 2020-11-24 20:…</code></pre>
+&gt; $ title       &lt;chr&gt; &quot;Handyman /driver /farmhand&quot;, &quot;Permanent Admin Assistant …
+&gt; $ description &lt;chr&gt; &quot;DescriptionHandyman /driver /farmhand. An entry level jo…
+&gt; $ jobtype     &lt;chr&gt; NA, NA, NA, NA, NA, NA, &quot;Non EE/AA&quot;, NA, &quot;EE/AA&quot;, NA
+&gt; $ location    &lt;chr&gt; &quot;Howick, Midlands&quot;, &quot;Somerset West, Helderberg&quot;, &quot;Inner C…
+&gt; $ time        &lt;dttm&gt; 2020-12-16 14:22:19, 2020-12-16 14:22:22, 2020-12-16 14:…</code></pre>
 <pre class="r"><code>all$description &lt;- str_trunc(all$description, 100, &quot;right&quot;) ## truncate
+all$description &lt;- sub(&quot;^Description&quot;, &quot;&quot;, all$description)
 
 ## I&#39;m using kable to make an html table for the site
 all %&gt;%
@@ -300,61 +306,27 @@ time
 <tbody>
 <tr>
 <td style="text-align:left;">
-Junior Warehouse Controller - PTA (Non-EE)
+Handyman /driver /farmhand
 </td>
 <td style="text-align:left;">
-DescriptionAn established logistics company in Pretoria East will employ a Junior Warehouse Contr…
-</td>
-<td style="text-align:left;">
-Non EE/AA
-</td>
-<td style="text-align:left;">
-Eastern Pretoria, Pretoria / Tshwane
-</td>
-<td style="text-align:left;">
-2020-11-24 20:05:41
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Are you young and unemployed. Are you looking for an opportunity.
-</td>
-<td style="text-align:left;">
-DescriptionHarambee is a 100% free opportunity for young South Africans who are unemployed and me…
+Handyman /driver /farmhand. An entry level job live in on farm. Please whatsapp 082453…
 </td>
 <td style="text-align:left;">
 NA
 </td>
 <td style="text-align:left;">
-Eastern Pretoria, Pretoria / Tshwane
+Howick, Midlands
 </td>
 <td style="text-align:left;">
-2020-11-24 20:05:44
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-CODE 08 DRIVER/GENERAL ADMIN
-</td>
-<td style="text-align:left;">
-DescriptionVACANCY FOR A CODE 08 DRIVER AS WELL ASGENERAL ADMIN DUTIESENTRY LEVEL POSITION.WORKIN…
-</td>
-<td style="text-align:left;">
-NA
-</td>
-<td style="text-align:left;">
-Phoenix, North Suburbs
-</td>
-<td style="text-align:left;">
-2020-11-24 20:05:47
+2020-12-16 14:22:19
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-Permanent Trade Admin Assistant
+Permanent Admin Assistant (Financial Services)
 </td>
 <td style="text-align:left;">
-Description My client, an established concern within the agricultural industry is seeking to empl…
+The admin assistant is primarily responsible for performing after sales service offeri…
 </td>
 <td style="text-align:left;">
 NA
@@ -363,24 +335,7 @@ NA
 Somerset West, Helderberg
 </td>
 <td style="text-align:left;">
-2020-11-24 20:05:50
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Call centre Agents needed in BIG BAY
-</td>
-<td style="text-align:left;">
-DescriptionOutbound Call Centre Agents (Debt Collection)• We are looking for energetic and motiva…
-</td>
-<td style="text-align:left;">
-Full-Time
-</td>
-<td style="text-align:left;">
-Parklands, West Coast
-</td>
-<td style="text-align:left;">
-2020-11-24 20:05:54
+2020-12-16 14:22:22
 </td>
 </tr>
 <tr>
@@ -388,33 +343,33 @@ Parklands, West Coast
 Are you young and unemployed. Are you looking for an opportunity.
 </td>
 <td style="text-align:left;">
-DescriptionHarambee is a 100% free opportunity for young South Africans who are unemployed and me…
+Harambee is a 100% free opportunity for young South Africans who are unemployed and me…
 </td>
 <td style="text-align:left;">
 NA
 </td>
 <td style="text-align:left;">
-Durbanville, Northern Suburbs
+Inner City / CBD&amp;Bruma, Johannesburg
 </td>
 <td style="text-align:left;">
-2020-11-24 20:05:57
+2020-12-16 14:22:24
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-Are you young and unemployed. Are you looking for an opportunity.
+Vodacom Direct Sales and Marketing
 </td>
 <td style="text-align:left;">
-DescriptionHarambee is a 100% free opportunity for young South Africans who are unemployed and me…
+Real Promotions is recruiting for Vodacom Sales Representatives within the Cape Town …
 </td>
 <td style="text-align:left;">
 NA
 </td>
 <td style="text-align:left;">
-Durban North, North Suburbs
+De Waterkant, Cape Town
 </td>
 <td style="text-align:left;">
-2020-11-24 20:06:00
+2020-12-16 14:22:27
 </td>
 </tr>
 <tr>
@@ -422,7 +377,24 @@ Durban North, North Suburbs
 Are you young and unemployed. Are you looking for an opportunity.
 </td>
 <td style="text-align:left;">
-DescriptionHarambee is a 100% free opportunity for young South Africans who are unemployed and me…
+Harambee is a 100% free opportunity for young South Africans who are unemployed and me…
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+Eastern Pretoria, Pretoria / Tshwane
+</td>
+<td style="text-align:left;">
+2020-12-16 14:22:30
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Are you young and unemployed. Are you looking for an opportunity.
+</td>
+<td style="text-align:left;">
+Harambee is a 100% free opportunity for young South Africans who are unemployed and me…
 </td>
 <td style="text-align:left;">
 NA
@@ -431,55 +403,91 @@ NA
 Randburg, Johannesburg
 </td>
 <td style="text-align:left;">
-2020-11-24 20:06:03
+2020-12-16 14:22:32
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-Fast Food Store Trainer – Western Cape
+Junior Warehouse Controller - PTA (Non-EE)
 </td>
 <td style="text-align:left;">
-Description A popular Fast-Food company is looking for an experienced Multi Store Fast Food Train…
+An established logistics company in Pretoria East will employ a Junior Warehouse Contr…
+</td>
+<td style="text-align:left;">
+Non EE/AA
+</td>
+<td style="text-align:left;">
+Eastern Pretoria, Pretoria / Tshwane
+</td>
+<td style="text-align:left;">
+2020-12-16 14:22:35
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Property Accountant
+</td>
+<td style="text-align:left;">
+Leading Property Development Group, based in the Northern Suburbs of Cape Town, is loo…
 </td>
 <td style="text-align:left;">
 NA
 </td>
 <td style="text-align:left;">
-Other, Cape Town
+Bellville, Northern Suburbs
 </td>
 <td style="text-align:left;">
-2020-11-24 20:06:07
+2020-12-16 14:22:38
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-Professional CV Writer
+Building and civil Internship entry level position
 </td>
 <td style="text-align:left;">
-DescriptionDo you need a professional CV done that still fits into your budget? We’ve helped seve…
+We have a position for a building/civil internship You should have a reasonable amount…
 </td>
 <td style="text-align:left;">
-Casual
+EE/AA
 </td>
 <td style="text-align:left;">
-Chatsworth, Durban City
+Umbilo, Durban City
 </td>
 <td style="text-align:left;">
-2020-11-24 20:06:10
+2020-12-16 14:22:41
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Human Resources Assistant
+</td>
+<td style="text-align:left;">
+The HYPERCHECK Group has an exciting opportunity for a Human Resources Assistant at th…
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+City Centre, Durban City
+</td>
+<td style="text-align:left;">
+2020-12-16 14:22:43
 </td>
 </tr>
 </tbody>
 </table>
 <p>Nice!</p>
 <p>How would one approach multiple pages?</p>
-<p>One (hacky) approach is to use the URL and another for loop.<a href="#fn14" class="footnote-ref" id="fnref14"><sup>14</sup></a></p>
+<p>One (hacky) approach is to use the URL and another for loop.<a href="#fn16" class="footnote-ref" id="fnref16"><sup>16</sup></a></p>
 <p>In the example below, I extract the job links for the first 3 pages:</p>
-<pre class="r"><code>## set-up ####
+<pre class="r"><code>## set-up ----
+
 pages &lt;- 3 ## let&#39;s just do 3
 job_list &lt;- list()
 link &lt;- &quot;https://www.gumtree.co.za/s-jobs/page-&quot; ## url fragment
 
-## iterate over pages ####
+## iterate over pages ----
+
 for (i in 1:pages) {
   jobs &lt;-
     read_html(paste0(link, i, &quot;/v1c8p&quot;, i, &quot;?q=entry+level&quot;)) ## using paste0
@@ -494,20 +502,20 @@ for (i in 1:pages) {
 links &lt;- unlist(job_list) ## make a single list
 links &lt;- paste0(&quot;https://www.gumtree.co.za&quot;, links)
 head(links, 10) ## looks good!</code></pre>
-<pre><code>&gt;  [1] &quot;https://www.gumtree.co.za/a-logistics-jobs/eastern-pretoria/junior-warehouse-controller-+-pta-non+ee/1008328733720911316948209&quot;                    
-&gt;  [2] &quot;https://www.gumtree.co.za/a-restaurant-management-jobs/other/fast-food-store-trainer-western-cape/1008444905520910860094009&quot;                       
-&gt;  [3] &quot;https://www.gumtree.co.za/a-logistics-jobs/somerset-west/permanent-trade-admin-assistant/1008399662160911102256409&quot;                                
-&gt;  [4] &quot;https://www.gumtree.co.za/a-accounting-finance-jobs/paarl/permanent-jnr-financial-accountant/1008440238000911102256409&quot;                            
-&gt;  [5] &quot;https://www.gumtree.co.za/a-accounting-finance-jobs/somerset-west/permanent-entry-level-accounting-saipa-clerk/1008330437090911102256409&quot;          
-&gt;  [6] &quot;https://www.gumtree.co.za/a-office-jobs/randburg/admin-assistant/1008434181030910033892209&quot;                                                        
-&gt;  [7] &quot;https://www.gumtree.co.za/a-accounting-finance-jobs/bellville/property-accountant/1008413079430911263650209&quot;                                       
-&gt;  [8] &quot;https://www.gumtree.co.za/a-internship-jobs/randburg/are-you-young-and-unemployed-are-you-looking-for-an-opportunity/1008345839810912436560209&quot;    
-&gt;  [9] &quot;https://www.gumtree.co.za/a-internship-jobs/durban-north/are-you-young-and-unemployed-are-you-looking-for-an-opportunity/1008386160560912436560209&quot;
-&gt; [10] &quot;https://www.gumtree.co.za/a-internship-jobs/durbanville/are-you-young-and-unemployed-are-you-looking-for-an-opportunity/1008345753930912436560209&quot;</code></pre>
+<pre><code>&gt;  [1] &quot;https://www.gumtree.co.za/a-logistics-jobs/eastern-pretoria/junior-warehouse-controller-+-pta-non+ee/1008328733720911316948209&quot;                   
+&gt;  [2] &quot;https://www.gumtree.co.za/a-internship-jobs/durbanville/are-you-young-and-unemployed-are-you-looking-for-an-opportunity/1008463343470912436560209&quot;
+&gt;  [3] &quot;https://www.gumtree.co.za/a-clerical-data-capturing-jobs/somerset-west/permanent-admin-assistant-financial-services/1008560434300912467960009&quot;    
+&gt;  [4] &quot;https://www.gumtree.co.za/a-hr-jobs/city-centre/recruitment-officer/1008558338510910255520809&quot;                                                    
+&gt;  [5] &quot;https://www.gumtree.co.za/a-hr-jobs/city-centre/human-resources-assistant/1008558343790910255520809&quot;                                              
+&gt;  [6] &quot;https://www.gumtree.co.za/a-office-jobs/brackenfell/office-assistant-brackenfell-r8-000-+-r9-000-pm/1008557939220911146640309&quot;                    
+&gt;  [7] &quot;https://www.gumtree.co.za/a-general-worker-jobs/somerset-west/permanent-administration-assistant/1008459525670911102256409&quot;                       
+&gt;  [8] &quot;https://www.gumtree.co.za/a-logistics-jobs/paarl/permanent-jnr-logistics-coordinator/1008548513350911102256409&quot;                                   
+&gt;  [9] &quot;https://www.gumtree.co.za/a-fmcg-jobs/durbanville/storeman-pharmaceutical-fmcg/1008551592230911341410109&quot;                                         
+&gt; [10] &quot;https://www.gumtree.co.za/a-accounting-finance-jobs/paarl/permanent-jnr-financial-accountant/1008548473800911102256409&quot;</code></pre>
 </div>
 <div id="things-to-think-about" class="section level4">
 <h4>Things to think about</h4>
-<p>Make sure your script can handle errors<a href="#fn15" class="footnote-ref" id="fnref15"><sup>15</sup></a>:</p>
+<p>Make sure your script can handle errors<a href="#fn17" class="footnote-ref" id="fnref17"><sup>17</sup></a>:</p>
 <ul>
 <li>CSS-selectors change over time (if you’re planning to run your script again in future, you should check)</li>
 <li>links stop working (page names change, or they stop existing)</li>
@@ -521,14 +529,14 @@ head(links, 10) ## looks good!</code></pre>
 <h4>Putting it all together</h4>
 <p><strong>Approach:</strong> One function to clean an individual element; One function to clean an individual post (clean multiple elements and store the result as a tibble); One loop to extract links to individual posts over multiple pages and to store these in a list; One loop to iterate over a list of links, to apply the post cleaning function, and to store the result in a list (a list of tibbles); finally, to collapse the list of tibbles into a single data set, and to export to your chosen location.</p>
 <p><strong>Bells and whistles:</strong> I use the <code>purrr</code> package’s <code>possibly()</code> function to deal with errors (so my script doesn’t break when a link is broken); I use the <code>progress</code> package to show me, in my console, how far along the scraping is.</p>
-<pre class="r"><code>## libraries ####
+<pre class="r"><code>## Libraries ----
 
 library(tidyverse) ## for data manipulation (various packages)
 library(rvest) ## for scraping
 library(textclean) ## some cleaning functions
 library(progress) ## for tracking progress in console
 
-## Function 1: Clean an element ####
+## Function 1: Clean an element ----
 
 clean_element &lt;- function(page_html, selector) {
   output &lt;- page_html %&gt;%
@@ -540,7 +548,7 @@ clean_element &lt;- function(page_html, selector) {
   return(output)
 }
 
-## Function 2: Clean an ad ####
+## Function 2: Clean an ad ----
 
 clean_ad &lt;- function(link) {
   page_html &lt;- read_html(link) ## get HTML
@@ -564,7 +572,7 @@ clean_ad &lt;- function(link) {
   return(dat)
 }
 
-## Loop 1: Get my links ####
+## Loop 1: Get my links ----
 
 pages &lt;- 5 ## let&#39;s just do 5
 job_list &lt;- list()
@@ -583,12 +591,14 @@ for (i in 1:pages) {
 
 links &lt;- unlist(job_list) ## make a single list
 links &lt;- paste0(&quot;https://www.gumtree.co.za&quot;, links)
-links &lt;- sample(links, 20) ## sampling 20
 
-head(links)
+## Trouble shooting ----
+
+links &lt;- sample(links, 20) ## sampling 20 (comment this out for more)
+head(links) ## looks good!
 links &lt;- c(links, &quot;ww.brokenlink.co.bb&quot;) ## append faulty link to test error handling
 
-## Let&#39;s go! ####
+## Let&#39;s go! ----
 
 ## track progress
 total &lt;- length(links)
@@ -666,10 +676,12 @@ write_csv(all, &quot;myfile.csv&quot;) ## export</code></pre>
 <li id="fn8"><p>See Miles McBain’s “<a href="https://github.com/MilesMcBain/datapasta">datapasta</a>” package<a href="#fnref8" class="footnote-back">↩︎</a></p></li>
 <li id="fn9"><p>See, for instance, <a href="https://www.octoparse.com/">Octoparse</a> or <a href="https://webscraper.io/">webscraper.io</a>. Also see, Google Sheets’ <code>importHTML</code> function (see the documentation <a href="https://support.google.com/docs/answer/3093339?hl=en">here</a> or see this Martin Hawksey’s tutorial <a href="https://mashe.hawksey.info/2012/10/feeding-google-spreadsheets-exercises-in-import/">here</a> (looks good)<a href="#fnref9" class="footnote-back">↩︎</a></p></li>
 <li id="fn10"><p>See <a href="https://developers.google.com/search/docs/advanced/robots/create-robots-txt">here</a>: “The robots.txt file must be located at the root of the website host to which it applies […] <a href="http://www.example.com/robots.txt" class="uri">http://www.example.com/robots.txt</a>”. See also: <a href="https://en.wikipedia.org/wiki/Robots_exclusion_standard" class="uri">https://en.wikipedia.org/wiki/Robots_exclusion_standard</a> then, there’s helpful information in Peter Meissner’s <code>robotstxt</code> R package <a href="https://cran.r-project.org/web/packages/robotstxt/vignettes/using_robotstxt.html">documentation</a><a href="#fnref10" class="footnote-back">↩︎</a></p></li>
-<li id="fn11"><p>See <a href="https://www.internetingishard.com/html-and-css/introduction/" class="uri">https://www.internetingishard.com/html-and-css/introduction/</a> and <a href="https://www.w3schools.com/html/html_intro.asp" class="uri">https://www.w3schools.com/html/html_intro.asp</a><a href="#fnref11" class="footnote-back">↩︎</a></p></li>
-<li id="fn12"><p><a href="https://developers.google.com/web/tools/chrome-devtools/open" class="uri">https://developers.google.com/web/tools/chrome-devtools/open</a><a href="#fnref12" class="footnote-back">↩︎</a></p></li>
-<li id="fn13"><p><a href="https://r4ds.had.co.nz/tibbles.html" class="uri">https://r4ds.had.co.nz/tibbles.html</a><a href="#fnref13" class="footnote-back">↩︎</a></p></li>
-<li id="fn14"><p>There are better ways of working with URLs: <a href="https://github.com/Ironholds/urltools" class="uri">https://github.com/Ironholds/urltools</a><a href="#fnref14" class="footnote-back">↩︎</a></p></li>
-<li id="fn15"><p>See <code>safely()</code> and <code>possibly()</code> from the <a href="https://purrr.tidyverse.org/">purrr</a> package (or “trycatch” from base R)<a href="#fnref15" class="footnote-back">↩︎</a></p></li>
+<li id="fn11"><p>Check out the “<a href="GitHub%20-%20dmi3kno/polite:%20Be%20nice%20on%20the%20web">polite</a>” package<a href="#fnref11" class="footnote-back">↩︎</a></p></li>
+<li id="fn12"><p>See <a href="https://www.internetingishard.com/html-and-css/introduction/" class="uri">https://www.internetingishard.com/html-and-css/introduction/</a> and <a href="https://www.w3schools.com/html/html_intro.asp" class="uri">https://www.w3schools.com/html/html_intro.asp</a><a href="#fnref12" class="footnote-back">↩︎</a></p></li>
+<li id="fn13"><p><a href="https://developers.google.com/web/tools/chrome-devtools/open" class="uri">https://developers.google.com/web/tools/chrome-devtools/open</a><a href="#fnref13" class="footnote-back">↩︎</a></p></li>
+<li id="fn14"><p>I wrote a short version of this example here: <a href="https://www.csae.ox.ac.uk/coders-corner/coders-corner" class="uri">https://www.csae.ox.ac.uk/coders-corner/coders-corner</a><a href="#fnref14" class="footnote-back">↩︎</a></p></li>
+<li id="fn15"><p><a href="https://r4ds.had.co.nz/tibbles.html" class="uri">https://r4ds.had.co.nz/tibbles.html</a><a href="#fnref15" class="footnote-back">↩︎</a></p></li>
+<li id="fn16"><p>There are better ways of working with URLs: <a href="https://github.com/Ironholds/urltools" class="uri">https://github.com/Ironholds/urltools</a><a href="#fnref16" class="footnote-back">↩︎</a></p></li>
+<li id="fn17"><p>See <code>safely()</code> and <code>possibly()</code> from the <a href="https://purrr.tidyverse.org/">purrr</a> package (or “trycatch” from base R)<a href="#fnref17" class="footnote-back">↩︎</a></p></li>
 </ol>
 </div>
