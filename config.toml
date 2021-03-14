@@ -1,10 +1,10 @@
-baseurl = "/"
+baseurl = "https://wimlouw.com/"
 languageCode = "en-uk"
 title = "wimlouw"
 theme = "hugo-lithium"
 googleAnalytics = "UA-178880539-1"
 disqusShortname = ""
-ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_files$", "_cache$", "\\.bib$", "\\.csv$"]
+ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_cache$", "\\.bib$", "\\.csv$", "\\.knit\\.md$", "\\.utf8\\.md$"]
 
 [permalinks]
     post = "/:year/:month/:day/:slug/"
@@ -40,3 +40,8 @@ ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_files$", "_cache$", "\\.bib$", "\\.
     height = 80
     alt = "logo2"
 
+
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true
