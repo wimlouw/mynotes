@@ -1,9 +1,10 @@
 ---
-date: "2020-11-19"
+date: "2023-08-04"
 title: About
 ---
+I am currently a data scientist at the City of Cape Town in South Africa.
 
-I am currently a Research Manager at [J-PAL Africa](https://www.povertyactionlab.org/africa). I work on projects in youth employment, and education. Before joining J-PAL Africa, I worked as a researcher in the South African non-profit sector. 
+Before this, I was a Research Manager at [J-PAL Africa](https://www.povertyactionlab.org/africa) where I worked on projects in youth employment, and education. 
 
 This site is a personal project.
 
