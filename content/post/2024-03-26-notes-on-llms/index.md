@@ -18,7 +18,7 @@ This has been a lot of fun --- I've learned how to work with text embeddings, to
 
 All very neat, but gosh it has been tough just keeping one's bearings with so much hype. I'm thankful for people like Simon Willison (<https://simonwillison.net/>) who has managed to walk the line between excitement and caution (so you'll see some links to Simon's blog).
 
-I am not an "LLM expert" but I've had to opportunity to struggle with various models and workflows, and have learned some lessons along the way. A lot of these lessons have been conceptual --- what is an LLM, how does it work, what is it doing, and what are going to be good uses for it.
+I am not an "LLM expert" but I've had the opportunity to struggle with various models and workflows, and have learned some lessons along the way. A lot of these lessons have been conceptual --- what is an LLM, how does it work, what is it doing, and what are going to be good uses for it.
 
 So some notes below --- running notes, really --- with practitioners in mind.
 
