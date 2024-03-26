@@ -79,9 +79,9 @@ So some notes below --- running notes, really --- with practitioners in mind.
     -   It is not a database of facts, not in the way that we ordinarily think of it
     -   It is not a "reasoner", not in the way we ordinarily think of reasoners, even if it sounds like one[^6]
 
-[^5]: Term from Charles Duhigg's ["The Inside Story of Microsoft's Partnership with OpenAI"](%5Bhttps://www.newyorker.com/magazine/2023/12/11/the-inside-story-of-microsofts-partnership-with-openai%5D(https://www.newyorker.com/magazine/2023/12/11/the-inside-story-of-microsofts-partnership-with-openai))
+[^5]: Term from Charles Duhigg's "The Inside Story of Microsoft's Partnership with OpenAI" https://www.newyorker.com/magazine/2023/12/11/the-inside-story-of-microsofts-partnership-with-openai
 
-[^6]: ["Talking About Large Language Models"](%5Bhttps://arxiv.org/abs/2212.03551%5D(https://arxiv.org/abs/2212.03551)) by Murray Shanahan \| arxiv
+[^6]: "Talking About Large Language Models" https://arxiv.org/abs/2212.03551 by Murray Shanahan
 
 ## LLMs are vulnerable to attacks
 
