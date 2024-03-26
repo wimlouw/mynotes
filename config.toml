@@ -16,8 +16,8 @@ ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_cache$", "\\.bib$", "\\.csv$", "\\.
     name = "GitHub"
     url = "https://github.com/wimlouw"
 [[menu.main]]
-    name = "Twitter"
-    url = "https://twitter.com/wimlouw"
+    name = "Bluesky"
+    url = "https://bsky.app/profile/wimlouw.bsky.social"
 
 [params]
     description = "Occasional posts: tech resources, coding, &c."
