@@ -12,7 +12,7 @@ output:
 
 ## Having fun with Large Language Models
 
-In 2023, I joined a small multidisciplinary [Data Science team](https://github.com/cityofcapetown/ds_team) at the City of Cape Town. In my new role, I've had the opportunity to take on a few Natural Language Processing (NLP) projects, which has included experimenting with applications of large language models (open-source and proprietary). Yes, working for government can be cutting-edge, and I'd encourage folks with stats, econ, social science and data science skills to consider the civil service.
+In 2023, I joined a small multidisciplinary [Data Science team](https://github.com/cityofcapetown/ds_team) at the City of Cape Town. In my new role, I've had the opportunity to work on a few Natural Language Processing (NLP) projects, which has included experimenting with applications of large language models (open-source and proprietary). Yes, working for government can be cutting-edge, and I'd encourage folks with stats, econ, social science and data science skills to consider the civil service.
 
 This has been a lot of fun --- I've learned how to work with text embeddings, to use various forms of semantic search, to implement retrieval augmented generation (RAG) workflows, and more.
 
@@ -23,14 +23,14 @@ I am not an "LLM expert" but I've had the opportunity to struggle with various m
 So some notes below --- running notes, really --- with practitioners in mind.
 
 
-## "Generative" AI is a sub-field of "Artificial Intelligence" and uses Machine Learning  
+## "Generative" AI is a sub-field of "Artificial Intelligence" and uses Machine Learning
 
 -   **Artificial Intelligence** (AI) is a field that is devoted to building systems that emulate human or animal intelligence[^1]
 -   **Generative AI** (GenAI) is a flavour of AI that leverages techniques developed in the Machine Learning field
 -   GenAI systems use patterns and relations identified in vast amounts of text or image or sound data to **generate** new (synthetic) content in response to a user's instructions[^2]
 -   "Generative" AI models can generate coherent text, image, audio, video, or a combinations of different modalities, and more
 -   Where there is a large collection of example data, the techniques of GenAI can be used to generate more of it --- in interesting and often helpful ways. **This is a very powerful idea, with real-world applications and unique challenges**
--   The basic techniques (from Machine Learning, and Deep Learning) are not brand new, but advances in computing power have enabled researchers and practitioners to scale to an immense degree with hugely impressive, controversial[^3], and lucrative results  
+-   The basic techniques (from Machine Learning, and Deep Learning) are not brand new, but advances in computing power have enabled researchers and practitioners to scale to an immense degree with hugely impressive, controversial[^3], and lucrative results
 
 [^1]: I am paraphrasing <https://plato.stanford.edu/entries/artificial-intelligence/index.html#ref-1>
 
@@ -85,35 +85,26 @@ So some notes below --- running notes, really --- with practitioners in mind.
 
 ## LLMs are vulnerable to attacks
 
--   Do not share sensitive information with commercial GenAI models
+-   **The main challenge in LLM+ systems is to stop bad instructions from entering the environment, which is hard to do because these can be hidden in very clever and non-obvious ways**
 -   There is a difference between "Jailbreak" and "Prompt Injection" attacks[^7]
--   Recall the distinction between LLMs and systems built on-top of LLMs
+-   Recall the distinction between LLMs and systems built on-top of LLMs (LLM+)
     -   **Jailbreak:** People find new ways of "tricking" LLMs to generate "bad" things all the time, despite efforts to train LLMs not to do so, for e.g. telling dirty jokes, giving questionable or harmful advice, or to respond in odd ways or styles. Jailbreaking can happen at the prompt-level (user's come up with clever ways to "trick" the LLM) or at the token-level (users with information about the model's weights can use strings of numbers to manipulate the output)
-    -   **Prompt-injection:** Once an LLM is embedded in a system (LLM+) and has the ability to do things like search the web, run programs and applications, or access internal databases, there is the risk that it could be tricked to **actually do harmful things** if harmful instructions are smuggled into a user's prompt
+    -   **Prompt-injection:** Once an LLM is embedded in a system (LLM+) and has the ability to do things like search the web, run programs and applications, or access internal databases, there is the risk that it could be tricked to actually **do** harmful things if harmful instructions are smuggled into a user's prompt
 -   Users, bad-faith actors, and security researchers find new ways of "tricking" LLMs all the time, for e.g. hiding invisible instructions in media that an LLM+ may ingest: images, files, code, or website data[^8]
 -   This can lead to actions like: going to a specific site to (silently) downloading a virus, or accessing an internal database and sending private information to an external site, or deleting information, or sending embarrassing emails, &c.
+- Figuring out security for LLM+ systems is very far from a solved issue and is an active area of research[^9]
 
 [^7]: See Simon Willison's post <https://simonwillison.net/2024/Mar/5/prompt-injection-jailbreaking/>
 
 [^8]: See for instance: "[researchers]...found a suffix that, when attached to a wide range of queries, significantly increases the likelihood that both open- and closed-source LLMs will produce affirmative responses to queries that they would otherwise refuse" [token-level jailbreak] <https://www.cmu.edu/news/stories/archives/2023/july/researchers-discover-new-vulnerability-in-large-language-models>; Simon Willison coined the term "prompt-injection attack" and has covered in extensively in his blog: <https://simonwillison.net/series/prompt-injection/>
 
-<img src="images/mermaid-diagram-how-llms-are-vulnerable.svg" alt="A mermaid graph showing how bad instructions can be smuggled into an LLM's prompt from an external source like a website" width="321">
-
-
-## You need to be careful about what gets into the prompt, but it's hard!
-
--   **The main challenge in LLM+ systems is to stop bad instructions from entering the environment, which is very hard to do because these can be hidden in very clever and non-obvious ways**
--   Restrictions on inputs (what gets into a prompt), **before** the LLM goes to work
-    -   The user submits a prompt, the prompt is assessed against some rules, if it passes, the LLM uses the prompt to generate a response, else the LLM responds "I'm sorry I cannot answer questions about x"
--   Restrictions on outputs (what gets into the prompt history), **before** additional actions are triggered
-    - The LLM+ produces some output based on a prompt, for e.g. an answer generated from a question + a web-search; the prompt action is assessed against some rules (external calls, for instance), perhaps in a quarantined environment, if it passes, the LLM+ executes the instruction in the user's environment
--   **This is very far from a solved issue and is an active area of research**[^9]
-
 [^9]: See ChatGPT advice for developers on guardrails: <https://cookbook.openai.com/examples/how_to_use_guardrails>, and the UK Government's "Guidance Generative AI Framework for HMG" (<https://www.gov.uk/government/publications/generative-ai-framework-for-hmg/generative-ai-framework-for-hmg-html#understanding-generative-ai>). See also: <https://simonwillison.net/2023/Apr/25/dual-llm-pattern/>
+
+<img src="images/mermaid-diagram-how-llms-are-vulnerable.svg" alt="A mermaid graph showing how bad instructions can be smuggled into an LLM's prompt from an external source like a website" width="321">
 
 ## Conclusion
 
--   LLMs and GenAI tools are amazing new inventions with a lot of potential applications
+-   LLMs and GenAI tools are amazing inventions with a lot of potential applications
 -   They should be used with caution, as they can be counter-intuitive to use, unreliable, and vulnerable to attack from bad-faith actors
 -   Tools built on-top of LLMs should be rolled out with extreme caution
 -   Experimental or low-stakes applications are ideal use-cases
@@ -121,6 +112,7 @@ So some notes below --- running notes, really --- with practitioners in mind.
 
 ## Useful links
 - See this interactive article in the FT “Generative AI exists because of the transformer” (https://ig.ft.com/generative-ai/), and for a deeper dive: Andrej Karpathy’s “LLMs for busy people” (https://www.youtube.com/watch?v=zjkBMFhNj_g) | YouTube︎
+- See “Supervised Machine Learning for Text Analysis in R” Emil Hvitfeldt and Julia Silge (https://smltar.com/)
 -   Metaphors
 
     -   "stochastic parrot" / "statistical parrot" --- Emily Bender, Timnit Gebru et al. "On the Dangers of Stochastic Parrots: Can Language Models Be Too Big? <https://dl.acm.org/doi/10.1145/3442188.3445922>
